@@ -6,32 +6,41 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    @*font-awesome*@
+    <link href="~/Content/FontAwesome/css/all.css" rel="stylesheet"> <!--load all styles -->
+    <script defer src="~/Content/FontAwesome/js/all.js"></script> <!--load all styles -->
+
+    @*Vue*@
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><!-- development version, includes helpful console warnings -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script><!-- production version, optimized for size and speed -->
+
+    @*CSS*@
+    <link href="~/Content/CSS/Layout.css"  rel="stylesheet"/>
+
 </head>
+
+
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Supreme League Managers", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+    <div id="startPage">
+        <div class="row navbar-main">
+            <div class="d-flex d-flex justify-content-between" style="width: 100%; align-self: center;">
+                <div class="p-2"> Supreme League Managers </div>
+                <div class="p-2">
+                    <button class="btn btn-sm btn-outline-light" type="button" data-toggle="tooltip" title="Sign In" v-on:click="SignIn()">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </button>              
+                </div>
             </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Supreme League Managers</p>
         </footer>
     </div>
 
@@ -40,3 +49,19 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    var vueStartPage = new Vue({
+        el: '#startPage',
+
+        data: {
+
+        },
+
+        methods: {
+            SignIn: function () {
+                alert("Hello !");
+            }
+        }
+    })
+</script>
