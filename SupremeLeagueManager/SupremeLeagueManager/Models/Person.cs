@@ -9,7 +9,7 @@ namespace SupremeLeagueManager.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Nationality { get; set; }
+        public PersonNationality Nationality { get; set; }
         public int Age { get; set; }
 
         public Person() { }
@@ -18,5 +18,7 @@ namespace SupremeLeagueManager.Models
         {
             return Name + ' ' + Surname; 
         }
+
+        public enum PersonNationality { Argentina = 1, Belgium, Brazil, Colombia, Croatia, France, Germany, Serbia, Spain, Uruguay, Wales};
     }
 }

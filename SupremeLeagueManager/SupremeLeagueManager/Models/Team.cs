@@ -24,5 +24,17 @@ namespace SupremeLeagueManager.Models
         {
             return Name + " " + City;
         }
+
+        public void SetTeamPower()
+        {
+            double playersSkils = 0;
+
+            foreach (var player in Players)
+            {
+                playersSkils += player.GetAverageSkils();
+            }
+
+            teamPower = playersSkils / 11;
+        }
     }
 }

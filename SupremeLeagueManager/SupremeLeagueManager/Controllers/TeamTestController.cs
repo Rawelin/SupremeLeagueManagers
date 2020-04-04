@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupremeLeagueManager.Models.TeamTest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace SupremeLeagueManager.Controllers
         // GET: TeamTest
         public ActionResult TeamTest()
         {
-            return View();
+            return View(new CreateTeams().GetTeams());
         }
     }
 }
