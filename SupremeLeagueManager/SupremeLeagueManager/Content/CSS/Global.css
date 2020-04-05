@@ -1,0 +1,18 @@
+﻿body {
+
+}
+
+.standard-input{
+    width: 40em;
+    padding: 0.5em;
+    margin-top: 0.5em;
+
+    border: 1px solid black;
+    border-radius: 50px;
+}
+
+.standard-btn{
+    margin-top: 0.5em;
+    border: 1px solid black;
+    border-radius: 50px;
+}
