@@ -7,6 +7,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    @*jQuery*@
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+
     @*font-awesome*@
     <link href="~/Content/FontAwesome/css/all.css" rel="stylesheet"> <!--load all styles -->
     <script defer src="~/Content/FontAwesome/js/all.js"></script> <!--load all styles -->
@@ -34,7 +37,7 @@
         </div>
     </div>
 
-    <div class="container body-content">
+    <div>
         @RenderBody()
         <hr />
         <footer>
@@ -58,7 +61,7 @@
 
         methods: {
             SignIn: function () {
-                alert("Hello !");
+                window.location.href = "SignIn/SignIn";
             }
         }
     })
