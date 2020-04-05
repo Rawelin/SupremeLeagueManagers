@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SLMContextDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,19 +21,25 @@ namespace SupremeLeagueManager.Models.TeamTest
         }
         private void SetTeams()
         {
-            Team realMadrid = new Team();
-            List<Player> players = new List<Player>();
+            try
+            {
+                Team realMadrid = new Team();
+                List<Player> players = new List<Player>();
 
-            players = new MockPlayer().GetPlayers();
+                players = new MockPlayer().GetPlayers();
 
-            realMadrid.Name = "Real";
-            realMadrid.City = "Madrid";
-            realMadrid.Players = players;
+                realMadrid.Name = "Real";
+                realMadrid.City = "Madrid";
+                realMadrid.Players = players;
 
-            realMadrid.SetTeamPower();
+                realMadrid.SetTeamPower();
 
-            TeamTestVM.Teams.Add(realMadrid);
+                TeamTestVM.Teams.Add(realMadrid);
+            }
+            catch (Exception)
+            {
 
+            }
         }
     }
 }
