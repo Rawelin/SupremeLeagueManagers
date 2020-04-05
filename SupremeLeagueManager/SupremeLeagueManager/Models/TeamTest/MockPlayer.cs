@@ -23,7 +23,7 @@ namespace SupremeLeagueManager.Models.TeamTest
         {
             Player courtois = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Thibaut",
                 Surname = "Cortouis",
                 Age = 27,
@@ -46,7 +46,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player marcelo = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Marcelo",
                 Surname = "",
                 Age = 31,
@@ -69,7 +69,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player ramos = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Sergio",
                 Surname = "Ramos",
                 Age = 34,
@@ -92,7 +92,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player varane = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Raphael",
                 Surname = "Varane",
                 Age = 26,
@@ -115,7 +115,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player carvajal = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Daniel",
                 Surname = "Carvajal",
                 Age = 28,
@@ -138,7 +138,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player casemiro = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Casemiro",
                 Surname = "",
                 Age = 28,
@@ -161,7 +161,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player modric = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Luka",
                 Surname = "Modric",
                 Age = 28,
@@ -184,7 +184,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player kroos = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Toni",
                 Surname = "Kroos",
                 Age = 30,
@@ -207,7 +207,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player hazard = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Eden",
                 Surname = "Hazard",
                 Age = 29,
@@ -230,7 +230,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player bale = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Gareth",
                 Surname = "Bale",
                 Age = 30,
@@ -253,7 +253,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player benzema = new Player()
             {
-                TeamId = 1,
+                TeamId = 14,
                 Name = "Karim",
                 Surname = "Benzema",
                 Age = 30,
@@ -297,7 +297,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b1 = new Player()
             {
-                TeamId = 2,
+                TeamId = 3,
                 Name = "Thibaut",
                 Surname = "Cortouis",
                 Age = 27,
@@ -320,7 +320,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b2 = new Player()
             {
-                TeamId = 2,
+                TeamId = 3,
                 Name = "Marcelo",
                 Surname = "",
                 Age = 31,
@@ -343,7 +343,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b3 = new Player()
             {
-                TeamId = 2,
+                TeamId = 3,
                 Name = "Sergio",
                 Surname = "Ramos",
                 Age = 34,
@@ -366,7 +366,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b4 = new Player()
             {
-                TeamId = 2,
+                TeamId = 3,
                 Name = "Raphael",
                 Surname = "Varane",
                 Age = 26,
@@ -389,7 +389,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b5 = new Player()
             {
-                TeamId = 1,
+                TeamId = 3,
                 Name = "Daniel",
                 Surname = "Carvajal",
                 Age = 28,
@@ -412,7 +412,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b6 = new Player()
             {
-                TeamId = 1,
+                TeamId = 3,
                 Name = "Casemiro",
                 Surname = "",
                 Age = 28,
@@ -435,7 +435,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b7 = new Player()
             {
-                TeamId = 1,
+                TeamId = 3,
                 Name = "Luka",
                 Surname = "Modric",
                 Age = 28,
@@ -458,7 +458,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b8 = new Player()
             {
-                TeamId = 1,
+                TeamId = 3,
                 Name = "Toni",
                 Surname = "Kroos",
                 Age = 30,
@@ -481,7 +481,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b9 = new Player()
             {
-                TeamId = 1,
+                TeamId = 3,
                 Name = "Lionel",
                 Surname = "Messi",
                 Age = 32,
@@ -504,7 +504,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b10 = new Player()
             {
-                TeamId = 1,
+                TeamId = 3,
                 Name = "Gareth",
                 Surname = "Bale",
                 Age = 30,
@@ -527,7 +527,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b11 = new Player()
             {
-                TeamId = 1,
+                TeamId = 3,
                 Name = "Karim",
                 Surname = "Benzema",
                 Age = 30,

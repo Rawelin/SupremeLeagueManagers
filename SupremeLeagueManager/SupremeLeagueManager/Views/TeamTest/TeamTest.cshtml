@@ -1,26 +1,24 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
-<div class="row mt-3 justify-content-center">
-    <div class="col-md-1">
-
-    </div>
-    <div class="col-md-10">
-        <div class="container body-container mt-3">
-            <div>
-                @for(int i = 0; i < Model.Teams.Count(); i++)
+    <div class="row mt-3 justify-content-center">
+        <div class="col-md-10">
+            <div class="text-center">
+                @for (int i = 0; i < Model.Teams.Count(); i++)
                 {
-                    <button id="@Model.Teams.ElementAt(i).TeamId" onclick="showTeamSquad(@Model.Teams.ElementAt(i).TeamId)"><img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).Emblems" width="50" height="50" alt="Emblem" /></button>
+                    <button id="@Model.Teams.ElementAt(i).TeamId" onclick="showTeamSquad(@Model.Teams.ElementAt(i).TeamId)" title="@Model.Teams.ElementAt(i).GetFullName()">
+                        <img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).Emblems" width="50" height="50" alt="Emblem" />
+                    </button>
                 }
             </div>
+
         </div>
     </div>
-</div>
 
-<div id="teamSquad" style="display:none">
-    @Html.Partial("_TeamSquad");
-</div>
+    <div id="teamSquad" style="display:none">
+        @Html.Partial("_TeamSquad");
+    </div>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
     var errorMessage =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ErrorMessage, Newtonsoft.Json.Formatting.Indented));
 
@@ -41,7 +39,7 @@
                 contentType: "application/json",
                 data: JSON.stringify({ provider: Provider }),
                 success: function () {
-                   
+
                 },
                 error: function () {
                     alert('Nieoczekiwany błąd');
@@ -50,8 +48,7 @@
             .done(function (partialViewResult) {
                 document.getElementById("teamSquad").style.display = "inline";
                 $("#teamSquad").html(partialViewResult);
-                $('#teamSquad').loadingModal('destroy');
             });
     }
 
-</script>
+    </script>
