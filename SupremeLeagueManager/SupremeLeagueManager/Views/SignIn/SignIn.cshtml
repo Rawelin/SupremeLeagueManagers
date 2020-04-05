@@ -1,0 +1,89 @@
+﻿@model SupremeLeagueManager.Models.SignIn.SignInVM
+
+@{
+    ViewBag.Title = "SignIn";
+}
+
+<div id="signIn">
+    <div class="container body-container">
+        
+        <div class="tab-content" id="tabContents">
+            <div v-bind:class="{show: tabsVisibility.SignIn, active:  tabsVisibility.SignIn}" class="tab-pane fade" id="tabSignIn" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div id="tabSignIn">
+                    <div id="tabRegistration">
+                        @Html.Partial("_SignIn", Model.UsersM)
+                    </div>
+                </div>
+            </div>
+
+            <div v-bind:class="{show: tabsVisibility.Registration, active:  tabsVisibility.Registration}" class="tab-pane fade" id="tabSignIn" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div id="tabRegistration">
+                    @Html.Partial("_Registration", Model.UsersM)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var vueSignIn = new Vue({
+        el: '#signIn',
+
+        components: {
+
+        },
+
+        data: {
+            tabsVisibility: {
+                SignIn: true,
+                Registration: false
+            }
+        },
+
+        methods: {
+            LoadSignInTab: function () {
+                $.ajax({
+                    url: "_SignIn/SignIn",
+                    type: "GET",
+                    contentType: "application/json",
+                })
+                .done(function (partialViewResult) {
+                    $("#tabSignIn").html(partialViewResult);
+                });
+            },
+
+            LoadRegistrationTab: function () {
+
+            }
+        },
+
+        watch: {
+
+        },
+
+         computed: {
+
+        },
+
+        beforeCreate: function () {
+
+        },
+
+        created: function () {
+
+        },
+
+        beforeMount() {
+
+        },
+
+        mounted() {
+            this.LoadSignInTab();
+        },
+
+        update() {
+
+        }       
+    })
+</script>
