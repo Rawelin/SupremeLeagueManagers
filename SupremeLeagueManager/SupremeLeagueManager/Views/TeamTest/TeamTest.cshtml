@@ -1,36 +1,57 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
+<div class="row mt-3 justify-content-center">
+    <div class="col-md-1">
 
-<table class="table table-bordered table-striped table-sm" style="margin-top: 3em;">
-    <tr>
-        <th colspan="5" class="text-center">
-            <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/real.png" width="50" height="50" /></div>
-            <div style="display: inline-block;"><div style="font-size:25px">REAL MADRID</div></div>
-            <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/real.png" width="50" height="50" /></div>
-        </th>
-    </tr>
-    <tr class="text-center">
-        <th style="width: 40%">Name</th>
-        <th style="width: 20%">Position</th>
-        <th style="width: 20%">Nationality</th>
-        <th>Age</th>
-        <th>Skills</th>
+    </div>
+    <div class="col-md-10">
+        <div class="container body-container mt-3">
+            <div>
+                @for(int i = 0; i < Model.Teams.Count(); i++)
+                {
+                    <button id="@Model.Teams.ElementAt(i).TeamId" onclick="showTeamSquad(@Model.Teams.ElementAt(i).TeamId)"><img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).Emblems" width="50" height="50" alt="Emblem" /></button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
+<div id="teamSquad" style="display:none">
+    @Html.Partial("_TeamSquad");
+</div>
 
-    </tr>
-    @for (int i = 0; i < Model.Teams.ElementAt(0).Players.Count; i++)
-    {
-        <tr class="text-center">
-            <td>@Model.Teams.ElementAt(0).Players.ElementAt(i).GetFullName()</td>
-            <td>@Model.Teams.ElementAt(0).Players.ElementAt(i).Position</td>
-            <td>@Model.Teams.ElementAt(0).Players.ElementAt(i).Nationality</td>
-            <td>@Model.Teams.ElementAt(0).Players.ElementAt(i).Age</td>
-            <td>@Model.Teams.ElementAt(0).Players.ElementAt(i).GetAverageSkils()</td>
-        </tr>
+<script type="text/javascript">
+
+    var errorMessage =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ErrorMessage, Newtonsoft.Json.Formatting.Indented));
+
+    if (errorMessage != null) {
+        alert(errorMessage);
     }
-    <tr>
-        <td colspan="4" class="text-right">Average Team Power </td>
-        <td class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Teams.ElementAt(0).GetTeamPower()))</td>
-    </tr>
 
-</table>
+    function showTeamSquad(teamId) {
+
+        var Provider = {};
+
+        Provider.TeamId = teamId;
+
+        $.ajax(
+            {
+                url: "_TeamSquad/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+                   
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                document.getElementById("teamSquad").style.display = "inline";
+                $("#teamSquad").html(partialViewResult);
+                $('#teamSquad').loadingModal('destroy');
+            });
+    }
+
+</script>

@@ -1,30 +1,31 @@
-﻿using SLMContextDB;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace SupremeLeagueManager.Models.TeamTest
 {
-    public class CreateTeams
+    public class CreateTeam
     {
         private TeamTestVM TeamTestVM = new TeamTestVM();
+        public Provider provider;
 
-        public CreateTeams()
+        public CreateTeam(Provider provider)
         {
-            SetTeams();
+            this.provider = provider;
+            SetTeam();
         }
 
-        public TeamTestVM GetTeams()
+        public TeamTestVM GetTeam()
         {
             return TeamTestVM;
         }
-        private void SetTeams()
+
+        private void SetTeam()
         {
             try
             {
-                TeamTestVM.Team = new Team();
-                TeamTestVM.Teams.AddRange(new MockTeam().GetTeams());
+                TeamTestVM.Team = new MockTeam(provider).GetTeam();
             }
             catch (Exception ex)
             {

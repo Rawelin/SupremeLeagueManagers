@@ -1,0 +1,70 @@
+﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
+
+
+<div class="row mt-5 ml-5 justify-content-start">
+    <div class="col-md-6">
+        <table class="table table-bordered table-striped table-sm">
+            <tr>
+                <th colspan="5" class="text-center">
+                    <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.Emblems" width="50" height="50" /></div>
+                    <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
+                    <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.Emblems" width="50" height="50" /></div>
+                </th>
+            </tr>
+            <tr class="text-center">
+                <th style="width: 40%">Name</th>
+                <th style="width: 20%">Position</th>
+                <th style="width: 20%">Nationality</th>
+                <th>Age</th>
+                <th>Skills</th>
+            </tr>
+            @for (int i = 0; i < Model.Team.Players.Count; i++)
+            {
+                <tr class="text-center">
+                    <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
+                    <td>@Model.Team.Players.ElementAt(i).Position</td>
+                    <td>@Model.Team.Players.ElementAt(i).Nationality</td>
+                    <td>@Model.Team.Players.ElementAt(i).Age</td>
+                    <td>@Model.Team.Players.ElementAt(i).GetAverageSkils()</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-xl-1">
+        <table class="table table-bordered table-striped table-sm">
+            <tr>
+                <th>Goalkepper</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Defence</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Midfield</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Attack</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Speed</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Technik</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Overall</th>
+                <th class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.GetTeamPower()))</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+

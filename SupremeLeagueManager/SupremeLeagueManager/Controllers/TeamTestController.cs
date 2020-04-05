@@ -14,5 +14,10 @@ namespace SupremeLeagueManager.Controllers
         {
             return View(new CreateTeams().GetTeams());
         }
+
+        public ActionResult _TeamSquad(Provider provider)
+        {
+            return PartialView(new CreateTeam(provider).GetTeam());
+        }
     }
 }

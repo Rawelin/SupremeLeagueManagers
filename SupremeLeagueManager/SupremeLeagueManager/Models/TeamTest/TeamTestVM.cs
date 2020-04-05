@@ -7,11 +7,8 @@ namespace SupremeLeagueManager.Models.TeamTest
 {
     public class TeamTestVM
     {
-        public List<Team> Teams { get; set; }
-
-        public TeamTestVM()
-        {
-            Teams = new List<Team>();
-        }
+        public List<Team> Teams = new List<Team>();
+        public Team Team = new Team();
+        public string ErrorMessage;
     }
 }

@@ -8,6 +8,7 @@ namespace SupremeLeagueManager.Models
     public class Player : Person
     {
         public PlayerPosition Position { get; set; }
+        public int TeamId { get; set; }
         public int LeftFootPlaysSkill { get; set; }
         public int RightFootPlaysSkill { get; set; }
         public int Speed { get; set; }

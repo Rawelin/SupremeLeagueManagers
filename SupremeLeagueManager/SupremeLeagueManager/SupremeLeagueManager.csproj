@@ -132,8 +132,11 @@
     <Compile Include="Models\SignIn\SignInVM.cs" />
     <Compile Include="Models\SignIn\UsersM.cs" />
     <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\TeamTest\CreateTeam.cs" />
     <Compile Include="Models\TeamTest\MockPlayer.cs" />
     <Compile Include="Models\TeamTest\CreateTeams.cs" />
+    <Compile Include="Models\TeamTest\MockTeam.cs" />
+    <Compile Include="Models\TeamTest\Provider.cs" />
     <Compile Include="Models\TeamTest\TeamTestVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -316,6 +319,7 @@
     <Content Include="Views\SignIn\SignIn.cshtml" />
     <Content Include="Views\SignIn\_SignIn.cshtml" />
     <Content Include="Views\SignIn\_Registration.cshtml" />
+    <Content Include="Views\TeamTest\_TeamSquad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
