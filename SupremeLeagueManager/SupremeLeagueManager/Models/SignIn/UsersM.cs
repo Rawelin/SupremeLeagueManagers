@@ -9,6 +9,16 @@ namespace SupremeLeagueManager.Models.SignIn
 {
     public class UsersM : Users
     {
+        public int UserRegistration()
+        {
+            int result = 0;
 
+            if (CRUD.EmailExist(this.eMail))
+            {
+                CRUD.AddNewUser(this);
+            }
+
+            return result;
+        }
     }
 }

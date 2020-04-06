@@ -127,8 +127,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Global\Email.cs" />
+    <Compile Include="Models\Global\EmailManagement.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\SignIn\CRUD.cs" />
     <Compile Include="Models\SignIn\SignInVM.cs" />
     <Compile Include="Models\SignIn\UsersM.cs" />
     <Compile Include="Models\Team.cs" />
@@ -316,8 +319,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\TeamTest\TeamTest.cshtml" />
     <Content Include="Views\SignIn\SignIn.cshtml" />
-    <Content Include="Views\SignIn\_SignIn.cshtml" />
-    <Content Include="Views\SignIn\_Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,18 +18,11 @@ namespace SupremeLeagueManager.Controllers
             return View(signInVM);
         }
 
-        public ActionResult _SignIn()
+        public ActionResult UserRegistration(UsersM usersM)
         {
-            UsersM users = new UsersM();
+            int i = 1;
 
-            return PartialView(users);
-        }
-
-        public ActionResult _Registration()
-        {
-            UsersM users = new UsersM();
-
-            return PartialView(users);
+            return Json(i, JsonRequestBehavior.AllowGet);
         }
     }
 }
