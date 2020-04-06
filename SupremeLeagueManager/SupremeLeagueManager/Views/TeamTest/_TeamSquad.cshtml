@@ -25,7 +25,7 @@
                     <td>@Model.Team.Players.ElementAt(i).Position</td>
                     <td>@Model.Team.Players.ElementAt(i).Nationality</td>
                     <td>@Model.Team.Players.ElementAt(i).Age</td>
-                    <td>@Model.Team.Players.ElementAt(i).GetAverageSkils()</td>
+                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkils()))</td>
                 </tr>
             }
         </table>
@@ -33,32 +33,35 @@
     <div class="col-xl-1">
         <table class="table table-bordered table-striped table-sm">
             <tr>
+                <th colspan="2" ><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.Emblems" width="50" height="50" /></th>
+            </tr>
+            <tr>
                 <th>Goalkepper</th>
-                <th></th>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</td>
             </tr>
             <tr>
                 <th>Defence</th>
-                <th></th>
+                <td></td>
             </tr>
             <tr>
                 <th>Midfield</th>
-                <th></th>
+                <td></td>
             </tr>
             <tr>
                 <th>Attack</th>
-                <th></th>
+                <td></td>
             </tr>
             <tr>
                 <th>Speed</th>
-                <th></th>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Speed))</td>
             </tr>
             <tr>
-                <th>Technik</th>
-                <th></th>
+                <th>Technikue</th>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Technick))</td>
             </tr>
             <tr>
                 <th>Overall</th>
-                <th class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.GetTeamPower()))</th>
+                <td class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Overall))</td>
             </tr>
         </table>
     </div>

@@ -127,11 +127,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Global Models\Person.cs" />
+    <Compile Include="Models\Global Models\Player.cs" />
+    <Compile Include="Models\Global Models\PlayerSkills.cs" />
+    <Compile Include="Models\Global Models\TeamSkills.cs" />
+    <Compile Include="Models\Global Models\TeamSkillsModel.cs" />
     <Compile Include="Models\SignIn\SignInVM.cs" />
     <Compile Include="Models\SignIn\UsersM.cs" />
-    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\Global Models\Team.cs" />
     <Compile Include="Models\TeamTest\CreateTeam.cs" />
     <Compile Include="Models\TeamTest\MockPlayer.cs" />
     <Compile Include="Models\TeamTest\CreateTeams.cs" />
@@ -171,6 +174,7 @@
     <Content Include="Content\Resources\Emblems\schalke.png" />
     <Content Include="Content\Resources\Emblems\sevilla.png" />
     <Content Include="Content\Resources\Pictures\bernabeu.jpg" />
+    <Content Include="Content\Resources\Stadiums\bernabeu.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
