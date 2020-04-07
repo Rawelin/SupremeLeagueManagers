@@ -5,64 +5,75 @@ using System.Web;
 
 namespace SupremeLeagueManager.Models.Global_Models
 {
-    public static class TeamSkills
+    public class TeamSkills
     {
-        public static double TeamGoalKeeper(List<Player> Players)
-        {
-            double value = PlayerSkills.Compute(Players[0], Player.PlayerPosition.GK);
+        private TeamSkillsModel TeamSkillsModel;
+        List<Player> Players;
 
-            return value;
+        public TeamSkills(TeamSkillsModel TeamSkillsModel, List<Player> Players)
+        {
+            this.TeamSkillsModel = TeamSkillsModel;
+            this.Players = Players;
+
+            TeamGoalKeeper();
+            TeamSpeed();
+            TeamTechnique();
+            TeamOverall();
         }
 
-        public static double TeamDefence(List<Player> Players)
+        public TeamSkillsModel GetTeamSkillsModel()
+        {
+            return TeamSkillsModel;
+        }
+
+        private void TeamGoalKeeper()
+        {
+            TeamSkillsModel.GoalKeeper = PlayerSkills.Compute(Players[0], Player.PlayerPosition.GK);
+        }
+
+        public void TeamDefence()
         {
             // TO DO implement formation class to calculate team defence
-            double value = 0;
 
-            return value;
         }
 
-        public static double TeamMidfield(List<Player> Players)
+        public void TeamMidfield()
         {
             // TO DO implement formation class to calculate team midfield
-            double value = 0;
-
-            return value / 11;
+           
         }
 
-        public static double TeamAttack(List<Player> Players)
+        public void  TeamAttack()
         {
             // TO DO implement formation class to calculate team attack
-            double value = 0;
-
-            return value / 11;
+           
         }
 
-        public static double TeamSpeed(List<Player> Players)
+        public void TeamSpeed()
         {
             double value = Players.Select(p => p.Speed)
                                   .Take(11)
                                   .Sum();
 
-            return value / 11;
+            TeamSkillsModel.Speed = value / 11;
         }
 
-        public static double TeamTechnique(List<Player> Players)
+        public void TeamTechnique()
         {
             double value = Players.Select(p => p.Technique)
                                   .Take(11)
                                   .Sum();
 
-            return value / 11;
+            TeamSkillsModel.Technicque =  value / 11;
         }
 
-        public static double TeamOverall(List<Player> Players)
+        public void TeamOverall()
         {
             double value  = Players.Select(p => p.GetAverageSkils())
                                    .Take(11)
                                    .Sum();
 
-            return value / 11;
+            TeamSkillsModel.Overall = value / 11;
         }
     }
 }

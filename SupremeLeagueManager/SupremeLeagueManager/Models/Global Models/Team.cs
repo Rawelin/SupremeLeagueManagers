@@ -34,13 +34,7 @@ namespace SupremeLeagueManager.Models
 
         public void SetTeamSkills()
         {
-            TeamSkillsModel.GoalKeeper = TeamSkills.TeamGoalKeeper(Players);
-            TeamSkillsModel.Defence = TeamSkills.TeamDefence(Players);
-            TeamSkillsModel.Midfield = TeamSkills.TeamMidfield(Players);
-            TeamSkillsModel.Attack = TeamSkills.TeamAttack(Players);
-            TeamSkillsModel.Speed = TeamSkills.TeamSpeed(Players);
-            TeamSkillsModel.Technick = TeamSkills.TeamTechnique(Players);
-            TeamSkillsModel.Overall = TeamSkills.TeamOverall(Players);
+            TeamSkillsModel =  new TeamSkills(TeamSkillsModel, Players).GetTeamSkillsModel();
         }
     }
 }

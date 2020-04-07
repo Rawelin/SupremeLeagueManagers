@@ -13,7 +13,7 @@ namespace SupremeLeagueManager.Models.Global_Models
         public double Attack;
         public double Header;
         public double Speed;
-        public double Technick;
+        public double Technicque;
         public double Overall;
     }
 }
