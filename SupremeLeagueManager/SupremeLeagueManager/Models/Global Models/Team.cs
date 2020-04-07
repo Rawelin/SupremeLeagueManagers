@@ -13,6 +13,7 @@ namespace SupremeLeagueManager.Models
         public string Name { get; set; }
         public string City { get; set; }
         public string Emblems { get; set; }
+        public int Formation { get; set; }
         public List<Player> Players { get; set; }
         public TeamSkillsModel TeamSkillsModel { get; set; }
 
@@ -27,14 +28,16 @@ namespace SupremeLeagueManager.Models
             return TeamSkillsModel;
         }
 
+        public void SetTeamSkills()
+        {
+            TeamSkillsModel = new TeamSkills(TeamSkillsModel, Players).GetTeamSkillsModel();
+        }
+
         public string GetFullName()
         {
             return Name + " " + City;
         }
 
-        public void SetTeamSkills()
-        {
-            TeamSkillsModel =  new TeamSkills(TeamSkillsModel, Players).GetTeamSkillsModel();
-        }
+      
     }
 }

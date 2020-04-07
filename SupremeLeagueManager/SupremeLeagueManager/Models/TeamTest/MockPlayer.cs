@@ -363,6 +363,68 @@ namespace SupremeLeagueManager.Models.TeamTest
                 Stamina = 100
             };
 
+            Player isco = new Player()
+            {
+                TeamId = 14,
+                Name = "Isco",
+                Surname = "",
+                Age = 28,
+                Nationality = Person.PersonNationality.Spain,
+                Position = Player.PlayerPosition.AM,
+                LeftFootPlaysSkill = 100,
+                RightFootPlaysSkill = 90,
+                GoalKeeper = 55,
+                Defence = 68,
+                Midfield = 88,
+                Attack = 90,
+                Diving = 55,
+                Handling = 52,
+                Tackling = 70,
+                Covering = 67,
+                LongPassAccuracy = 88,
+                ShortPassAccuracy = 92,
+                ShotAccuracy = 85,
+                Speed = 87,
+                Acceleration = 88,
+                Reflex = 85,
+                Heading = 77,
+                ShotPower = 87,
+                Technique = 93,
+                Endurance = 88,
+                Stamina = 100
+            };
+
+            Player assensio = new Player()
+            {
+                TeamId = 14,
+                Name = "Marco",
+                Surname = "Asesensio",
+                Age = 28,
+                Nationality = Person.PersonNationality.Spain,
+                Position = Player.PlayerPosition.AM,
+                LeftFootPlaysSkill = 100,
+                RightFootPlaysSkill = 90,
+                GoalKeeper = 55,
+                Defence = 63,
+                Midfield = 89,
+                Attack = 91,
+                Diving = 55,
+                Handling = 52,
+                Tackling =74,
+                Covering = 63,
+                LongPassAccuracy = 90,
+                ShortPassAccuracy = 88,
+                ShotAccuracy = 88,
+                Speed = 890,
+                Acceleration = 88,
+                Reflex = 85,
+                Heading = 77,
+                ShotPower = 87,
+                Technique = 93,
+                Endurance = 88,
+                Stamina = 100
+            };
+
             List<Player> realMadrid = new List<Player>();
 
             realMadrid.Add(courtois);
@@ -376,6 +438,8 @@ namespace SupremeLeagueManager.Models.TeamTest
             realMadrid.Add(hazard);
             realMadrid.Add(bale);
             realMadrid.Add(benzema);
+            realMadrid.Add(isco);
+            realMadrid.Add(assensio);
 
             foreach (var player in realMadrid)
             {

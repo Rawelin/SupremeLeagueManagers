@@ -1,9 +1,9 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
 
-<div class="row mt-5 ml-5 justify-content-start">
-    <div class="col-md-6">
-        <table class="table table-bordered table-striped table-sm">
+<div class="row ml-5 mt-5 justify-content-start">
+    <div class="col-md-4">
+        <table class="table table-bordered table-striped table-sm" id="squadTable">
             <tr>
                 <th colspan="5" class="text-center">
                     <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.Emblems" width="50" height="50" /></div>
@@ -33,7 +33,7 @@
     <div class="col-xl-1">
         <table class="table table-bordered table-striped table-sm">
             <tr>
-                <th colspan="2" ><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.Emblems" width="50" height="50" /></th>
+                <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.Emblems" width="50" height="50" /></th>
             </tr>
             <tr>
                 <th>Goalkepper</th>
@@ -65,7 +65,113 @@
             </tr>
         </table>
     </div>
+    <div class="col-md-2">
+        <div class="btn-group" role="group" aria-label="Basic example" id="formationButtons">
+            <button class="btn btn-info" id="442">4-4-2</button>
+            <button class="btn btn-info" id="443">4-4-3</button>
+            <button class="btn btn-info" id="451">4-5-1</button>
+            <button class="btn btn-info" id="352">3-5-2</button>
+        </div>
+       
+    </div>
 </div>
+
+<script type="text/javascript">
+
+      var formation = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Team.Formation, Newtonsoft.Json.Formatting.Indented));
+
+        switch (formation) {
+            case 1:
+                formation442();
+                break;
+            case 2:
+                formation443();
+                break;
+            case 3:
+                formation451();
+                break;
+            case 4:
+                formation352();
+                break;
+            default:
+        }
+
+    $(document).ready(function () {
+        $('#442').click(function () {
+            formation442();
+        });
+        $('#443').click(function () {
+            formation443();
+        });
+        $('#451').click(function () {
+            formation451();
+        });
+        $('#352').click(function () {
+            formation352();
+        });
+    });
+
+    function formation442() {
+        $('#squadTable tr:nth-child(3)').css('background', 'rgba(235, 231, 40, 0.7)');
+        for (var i = 4; i < 8; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.7)');
+        }
+        for (var i = 8; i < 12; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.7)');
+        }
+        for (var i = 12; i < 14; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.7)');
+        }
+        $('#formationButtons button').removeClass('active')
+        $('#442').addClass('active');
+    }
+
+    function formation443() {
+        $('#squadTable tr:nth-child(3)').css('background', 'rgba(235, 231, 40, 0.7)');
+        for (var i = 4; i < 8; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.7)');
+        }
+        for (var i = 8; i < 11; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.7)');
+        }
+        for (var i = 11; i < 14; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.7)');
+        }
+        $('#formationButtons button').removeClass('active')
+        $('#443').addClass('active');
+    }
+
+    function formation451() {
+        $('#squadTable tr:nth-child(3)').css('background', 'rgba(235, 231, 40, 0.7)');
+        for (var i = 4; i < 8; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.7)');
+        }
+        for (var i = 8; i < 13; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.7)');
+        }
+        for (var i = 13; i < 14; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.7)');
+        }
+        $('#formationButtons button').removeClass('active')
+        $('#451').addClass('active');
+    }
+
+    function formation352() {
+        $('#squadTable tr:nth-child(3)').css('background', 'rgba(235, 231, 40, 0.7)');
+        for (var i = 4; i < 7; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.7)');
+        }
+        for (var i = 7; i < 12; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.7)');
+        }
+        for (var i = 12; i < 14; i++) {
+            $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.7)');
+        }
+        $('#formationButtons button').removeClass('active')
+        $('#352').addClass('active');
+    }
+
+</script>
 
 
 
