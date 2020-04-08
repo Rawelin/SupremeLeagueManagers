@@ -13,18 +13,18 @@ namespace SupremeLeagueManager.Models.SignIn
     {
         public static bool EmailExist(string email)
         {
-            bool r = true;
+            bool r = false;
             string t = string.Empty;
 
-            using (Entities CtxSLM = new Entities())
+            using (SLMContextDB.SLMEntities Ctx = new SLMContextDB.SLMEntities())
             {
                 try
                 {
-                    t = CtxSLM.Users.Where(a => a.eMail == email).Select(a => a.eMail).FirstOrDefault();
+                    t = Ctx.Users.Where(a => a.eMail == email).Select(a => a.eMail).FirstOrDefault();
 
-                    if(!(t is null) || t.Length > 0)
+                    if (!(t is null) || t.Length > 0)
                     {
-                        r = false;
+                        r = true;
                     }
                 }
                 catch (Exception ex)
@@ -36,29 +36,37 @@ namespace SupremeLeagueManager.Models.SignIn
             return r;
         }
 
-        public static bool AddNewUser(UsersM usersM)
+        public static int AddNewUser(UsersM usersM)
         {
-            bool r = false;
+            int IdUser = 0;
 
-            using (Entities CtxSLM = new Entities())
+            using (SLMEntities CtxSLM = new SLMEntities())
             {
                 try
                 {
-                    Users users = new Users();
-                    users = usersM;
-                    users.Password = users.Password.GetHashCode().ToString();
+                    Users users = new Users()
+                    {
+                        
+                        eMail = usersM.eMail,
+                        Password = usersM.Password.GetHashCode().ToString(),
+                        FirstName = "John",
+                        LastName = "Doe",
+                        AccountActivated = 0,
+                        Active = 0
+                    };
 
                     CtxSLM.Users.Add(users);
                     CtxSLM.SaveChanges();
-                }
-                catch(Exception ex)
+
+                    IdUser = users.IdUser;
+}
+                catch (Exception ex)
                 {
                     Debug.WriteLine(ex.ToString());
                 }
             }
 
-            return r;
+            return IdUser;
         }
     }
-
 }

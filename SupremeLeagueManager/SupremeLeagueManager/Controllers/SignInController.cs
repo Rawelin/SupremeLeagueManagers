@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 using SupremeLeagueManager.Models.SignIn;
 
+using SupremeLeagueManager.Models.Global;
+
 namespace SupremeLeagueManager.Controllers
 {
     public class SignInController : Controller
@@ -18,11 +20,18 @@ namespace SupremeLeagueManager.Controllers
             return View(signInVM);
         }
 
+        public ActionResult Registration(string password, int idUser)
+        {
+            SignInVM signInVM = new SignInVM();
+
+            return View(signInVM);
+        }
+
         public ActionResult UserRegistration(UsersM usersM)
         {
-            int i = 1;
+            int r = usersM.UserRegistration();
 
-            return Json(i, JsonRequestBehavior.AllowGet);
+            return Json(r, JsonRequestBehavior.AllowGet);
         }
     }
 }
