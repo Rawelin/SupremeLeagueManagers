@@ -47,7 +47,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             arsenal.Formation = 2;
             arsenal.Name = "Arsenal";
             arsenal.City = "London";
-            arsenal.Emblems = "arsenal.png";
             arsenal.Players = new MockPlayer().GetPlayers()[0];
             arsenal.SetTeamSkills();
 
@@ -57,7 +56,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             atletico.Formation = 1;
             atletico.Name = "Atletico";
             atletico.City = "Madrid";
-            atletico.Emblems = "atletico.png";
             atletico.Players = new MockPlayer().GetPlayers()[1];
             atletico.SetTeamSkills();
 
@@ -67,7 +65,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             barcelona.Formation = 2;
             barcelona.Name = "FC";
             barcelona.City = "Barcelona";
-            barcelona.Emblems = "barcelona.png";
             barcelona.Players = new MockPlayer().GetPlayers()[1];
             barcelona.SetTeamSkills();
 
@@ -76,8 +73,7 @@ namespace SupremeLeagueManager.Models.TeamTest
             bayern.TeamId = 4;
             bayern.Formation = 2;
             bayern.Name = "Bayern";
-            bayern.City = "Monachium";
-            bayern.Emblems = "bayern.png";
+            bayern.City = "Munich";
             bayern.Players = new MockPlayer().GetPlayers()[0];
             bayern.SetTeamSkills();
 
@@ -86,8 +82,7 @@ namespace SupremeLeagueManager.Models.TeamTest
             benfica.TeamId = 5;
             benfica.Formation = 2;
             benfica.Name = "Benfica";
-            benfica.City = "Lisabona";
-            benfica.Emblems = "benfica.png";
+            benfica.City = "Lisabona";   
             benfica.Players = new MockPlayer().GetPlayers()[1];
             benfica.SetTeamSkills();
 
@@ -97,7 +92,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             borussia.Formation = 2;
             borussia.Name = "Borussia";
             borussia.City = "Dortmund";
-            borussia.Emblems = "borussia.png";
             borussia.Players = new MockPlayer().GetPlayers()[0];
             borussia.SetTeamSkills();
 
@@ -107,7 +101,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             chelsea.Formation = 1;
             chelsea.Name = "Chelsea";
             chelsea.City = "London";
-            chelsea.Emblems = "chelsea.png";
             chelsea.Players = new MockPlayer().GetPlayers()[1];
             chelsea.SetTeamSkills();
 
@@ -117,7 +110,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             juventus.Formation = 3;
             juventus.Name = "Juventus";
             juventus.City = "Torino";
-            juventus.Emblems = "juventus.png";
             juventus.Players = new MockPlayer().GetPlayers()[0];
             juventus.SetTeamSkills();
 
@@ -127,7 +119,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             manchesterCity.Formation = 2;
             manchesterCity.Name = "Manchester";
             manchesterCity.City = "City";
-            manchesterCity.Emblems = "manchester city.png";
             manchesterCity.Players = new MockPlayer().GetPlayers()[1];
             manchesterCity.SetTeamSkills();
 
@@ -137,7 +128,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             manchesterUnited.Formation = 2;
             manchesterUnited.Name = "Manchester";
             manchesterUnited.City = "United";
-            manchesterUnited.Emblems = "manu.png";
             manchesterUnited.Players = new MockPlayer().GetPlayers()[0];
             manchesterUnited.SetTeamSkills();
 
@@ -147,7 +137,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             napoli.Formation = 2;
             napoli.Name = "FC";
             napoli.City = "Napoli";
-            napoli.Emblems = "napoli.png";
             napoli.Players = new MockPlayer().GetPlayers()[1];
             napoli.SetTeamSkills();
 
@@ -157,7 +146,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             porto.Formation = 4;
             porto.Name = "FC";
             porto.City = "Porto";
-            porto.Emblems = "porto.png";
             porto.Players = new MockPlayer().GetPlayers()[1];
             porto.SetTeamSkills();
 
@@ -167,7 +155,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             psg.Formation = 2;
             psg.Name = "PSG";
             psg.City = "Paris";
-            psg.Emblems = "psg.png";
             psg.Players = new MockPlayer().GetPlayers()[1];
             psg.SetTeamSkills();
 
@@ -177,7 +164,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             realMadrid.Formation = 2;
             realMadrid.Name = "Real";
             realMadrid.City = "Madrid";
-            realMadrid.Emblems = "real.png";
             realMadrid.Players = new MockPlayer().GetPlayers()[0];
             realMadrid.SetTeamSkills();
 
@@ -187,7 +173,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             schalke.Formation = 1;
             schalke.Name = "Schalke 04";
             schalke.City = "Gelsenkirchen";
-            schalke.Emblems = "schalke.png";
             schalke.Players = new MockPlayer().GetPlayers()[1];
             schalke.SetTeamSkills();
 
@@ -197,7 +182,6 @@ namespace SupremeLeagueManager.Models.TeamTest
             sevilla.Formation = 4;
             sevilla.Name = "FC";
             sevilla.City = "Sevilla";
-            sevilla.Emblems = "sevilla.png";
             sevilla.Players = new MockPlayer().GetPlayers()[0];
             sevilla.SetTeamSkills();
 

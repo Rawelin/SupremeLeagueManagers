@@ -6,7 +6,7 @@
             @for (int i = 0; i < Model.Teams.Count(); i++)
             {
                 <button id="@Model.Teams.ElementAt(i).TeamId" onclick="showTeamSquad(@Model.Teams.ElementAt(i).TeamId)" title="@Model.Teams.ElementAt(i).GetFullName()">
-                    <img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).Emblems" width="50" height="50" alt="Emblem" />
+                    <img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).GetEmblemsName()" width="50" height="50" alt="Emblem" />
                 </button>
             }
         </div>

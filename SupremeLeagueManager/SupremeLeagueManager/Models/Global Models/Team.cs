@@ -38,6 +38,11 @@ namespace SupremeLeagueManager.Models
             return Name + " " + City;
         }
 
-      
+        public string GetEmblemsName()
+        {
+            string emblemsName = Name + City + ".png";
+            
+            return emblemsName = emblemsName.Replace(" ", ""); 
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace SupremeLeagueManager.Models.TeamTest
         {
             Player courtois = new Player()
             {
+                PlayerId = 1,
                 TeamId = 14,
                 Name = "Thibaut",
                 Surname = "Cortouis",
@@ -55,6 +56,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player marcelo = new Player()
             {
+                PlayerId = 2,
                 TeamId = 14,
                 Name = "Marcelo",
                 Surname = "",
@@ -86,6 +88,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player ramos = new Player()
             {
+                PlayerId = 3,
                 TeamId = 14,
                 Name = "Sergio",
                 Surname = "Ramos",
@@ -117,6 +120,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player varane = new Player()
             {
+                PlayerId = 4,
                 TeamId = 14,
                 Name = "Raphael",
                 Surname = "Varane",
@@ -148,6 +152,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player carvajal = new Player()
             {
+                PlayerId = 5,
                 TeamId = 14,
                 Name = "Daniel",
                 Surname = "Carvajal",
@@ -179,6 +184,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player casemiro = new Player()
             {
+                PlayerId = 6,
                 TeamId = 14,
                 Name = "Casemiro",
                 Surname = "",
@@ -210,6 +216,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player modric = new Player()
             {
+                PlayerId = 7,
                 TeamId = 14,
                 Name = "Luka",
                 Surname = "Modric",
@@ -241,6 +248,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player kroos = new Player()
             {
+                PlayerId = 8,
                 TeamId = 14,
                 Name = "Toni",
                 Surname = "Kroos",
@@ -272,6 +280,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player hazard = new Player()
             {
+                PlayerId = 9,
                 TeamId = 14,
                 Name = "Eden",
                 Surname = "Hazard",
@@ -303,6 +312,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player bale = new Player()
             {
+                PlayerId = 10,
                 TeamId = 14,
                 Name = "Gareth",
                 Surname = "Bale",
@@ -334,6 +344,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player benzema = new Player()
             {
+                PlayerId = 11,
                 TeamId = 14,
                 Name = "Karim",
                 Surname = "Benzema",
@@ -365,6 +376,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player isco = new Player()
             {
+                PlayerId = 12,
                 TeamId = 14,
                 Name = "Isco",
                 Surname = "",
@@ -396,6 +408,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player assensio = new Player()
             {
+                PlayerId = 13,
                 TeamId = 14,
                 Name = "Marco",
                 Surname = "Asesensio",
@@ -450,6 +463,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b1 = new Player()
             {
+                PlayerId = 14,
                 TeamId = 3,
                 Name = "Thibaut",
                 Surname = "Cortouis",
@@ -482,6 +496,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b2 = new Player()
             {
+                PlayerId = 15,
                 TeamId = 3,
                 Name = "Marcelo",
                 Surname = "",
@@ -513,6 +528,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b3 = new Player()
             {
+                PlayerId = 16,
                 TeamId = 3,
                 Name = "Sergio",
                 Surname = "Ramos",
@@ -544,6 +560,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b4 = new Player()
             {
+                PlayerId = 17,
                 TeamId = 3,
                 Name = "Raphael",
                 Surname = "Varane",
@@ -575,6 +592,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b5 = new Player()
             {
+                PlayerId = 18,
                 TeamId = 3,
                 Name = "Daniel",
                 Surname = "Carvajal",
@@ -606,6 +624,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b6 = new Player()
             {
+                PlayerId = 19,
                 TeamId = 3,
                 Name = "Casemiro",
                 Surname = "",
@@ -637,6 +656,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b7 = new Player()
             {
+                PlayerId = 20,
                 TeamId = 3,
                 Name = "Luka",
                 Surname = "Modric",
@@ -668,6 +688,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b8 = new Player()
             {
+                PlayerId = 21,
                 TeamId = 3,
                 Name = "Toni",
                 Surname = "Kroos",
@@ -699,6 +720,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b9 = new Player()
             {
+                PlayerId = 22,
                 TeamId = 3,
                 Name = "Eden",
                 Surname = "Hazard",
@@ -730,11 +752,12 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b10 = new Player()
             {
+                PlayerId = 23,
                 TeamId = 3,
                 Name = "Lionel",
                 Surname = "Messi",
                 Age = 30,
-                Nationality = Person.PersonNationality.Wales,
+                Nationality = Person.PersonNationality.Argentina,
                 Position = Player.PlayerPosition.RW,
                 LeftFootPlaysSkill = 100,
                 RightFootPlaysSkill = 80,
@@ -761,6 +784,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 
             Player b11 = new Player()
             {
+                PlayerId = 24,
                 TeamId = 3,
                 Name = "Karim",
                 Surname = "Benzema",
