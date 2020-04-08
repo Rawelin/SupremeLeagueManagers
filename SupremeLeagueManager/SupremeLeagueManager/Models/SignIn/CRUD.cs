@@ -16,7 +16,7 @@ namespace SupremeLeagueManager.Models.SignIn
             bool r = false;
             string t = string.Empty;
 
-            using (SLMContextDB.SLMEntities Ctx = new SLMContextDB.SLMEntities())
+            using (Entities Ctx = new Entities())
             {
                 try
                 {
@@ -36,22 +36,42 @@ namespace SupremeLeagueManager.Models.SignIn
             return r;
         }
 
+        internal static Users GetUserById(int idUser)
+        {
+            Users users = new Users();
+
+            try
+            {
+                using (Entities Ctx = new Entities())
+                {
+                    users = Ctx.Users.Find(idUser);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
+            return users;
+        }
+
         public static int AddNewUser(UsersM usersM)
         {
             int IdUser = 0;
 
-            using (SLMEntities CtxSLM = new SLMEntities())
+            using (Entities CtxSLM = new Entities())
             {
                 try
                 {
                     Users users = new Users()
                     {
-                        
+
                         eMail = usersM.eMail,
-                        Password = usersM.Password.GetHashCode().ToString(),
+                        Password = usersM.Password,
                         FirstName = "John",
                         LastName = "Doe",
                         AccountActivated = 0,
+                        LastLoginDate = DateTime.Now,
                         Active = 0
                     };
 

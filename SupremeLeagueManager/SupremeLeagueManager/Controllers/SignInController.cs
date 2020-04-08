@@ -20,11 +20,12 @@ namespace SupremeLeagueManager.Controllers
             return View(signInVM);
         }
 
-        public ActionResult Registration(string password, int idUser)
+        public ActionResult Registration(byte[] password, int idUser)
         {
-            SignInVM signInVM = new SignInVM();
+            UsersM users = new UsersM(idUser, password);
+            users.RegistrationConfirmation();
 
-            return View(signInVM);
+            return View(users);
         }
 
         public ActionResult UserRegistration(UsersM usersM)
