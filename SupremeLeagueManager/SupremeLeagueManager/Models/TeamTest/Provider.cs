@@ -7,6 +7,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 {
     public class Provider
     {
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
+        public int? FormationId { get; set; }
     }
 }

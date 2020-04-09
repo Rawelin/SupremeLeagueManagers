@@ -7,33 +7,43 @@ namespace SupremeLeagueManager.Models.Global_Models
 {
     public class TeamSkills
     {
-        private TeamSkillsModel TeamSkillsModel;
-        List<Player> Players;
+        private Team Team;
 
-        public TeamSkills(TeamSkillsModel TeamSkillsModel, List<Player> Players)
+        public TeamSkills(Team Team)
         {
-            this.TeamSkillsModel = TeamSkillsModel;
-            this.Players = Players;
-
+            this.Team = Team;
+           
             TeamGoalKeeper();
             TeamSpeed();
             TeamTechnique();
+            TeamDefence();
             TeamOverall();
         }
 
         public TeamSkillsModel GetTeamSkillsModel()
         {
-            return TeamSkillsModel;
+            return Team.TeamSkillsModel;
         }
 
         private void TeamGoalKeeper()
         {
-            TeamSkillsModel.GoalKeeper = PlayerSkills.Compute(Players[0], Player.PlayerPosition.GK);
+            Team.TeamSkillsModel.GoalKeeper = PlayerSkills.Compute(Team.Players[0], Player.PlayerPosition.GK);
         }
 
         public void TeamDefence()
         {
             // TO DO implement formation class to calculate team defence
+            switch (Team.Formation)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    Team.TeamSkillsModel.Defence = (Team.Players.Select(d => d.Defence).Skip(1).Take(4).Sum()) / 4;
+                    break;
+                case 4:
+                    Team.TeamSkillsModel.Defence = (Team.Players.Select(d => d.Defence).Skip(1).Take(3).Sum()) / 3;
+                    break;
+            }
 
         }
 
@@ -51,29 +61,30 @@ namespace SupremeLeagueManager.Models.Global_Models
 
         public void TeamSpeed()
         {
-            double value = Players.Select(p => p.Speed)
-                                  .Take(11)
-                                  .Sum();
+            double value = Team.Players.Select(p => p.Speed)
+                                       .Take(11)
+                                       .Sum();
 
-            TeamSkillsModel.Speed = value / 11;
+            Team.TeamSkillsModel.Speed = value / 11;
         }
 
         public void TeamTechnique()
         {
-            double value = Players.Select(p => p.Technique)
-                                  .Take(11)
-                                  .Sum();
+            double value = Team.Players.Select(p => p.Technique)
+                                       .Take(11)
+                                       .Sum();
 
-            TeamSkillsModel.Technicque =  value / 11;
+            Team.TeamSkillsModel.Technicque =  value / 11;
         }
 
         public void TeamOverall()
         {
-            double value  = Players.Select(p => p.GetAverageSkils())
-                                   .Take(11)
-                                   .Sum();
+            //double value  = Team.Players.Select(p => p.GetAverageSkils())
+            //                            .Take(11)
+            //                            .Sum();
 
-            TeamSkillsModel.Overall = value / 11;
+            Team.TeamSkillsModel.Overall = (Team.TeamSkillsModel.GoalKeeper + Team.TeamSkillsModel.Defence +
+                                           Team.TeamSkillsModel.Speed + Team.TeamSkillsModel.Technicque) / 4;
         }
     }
 }

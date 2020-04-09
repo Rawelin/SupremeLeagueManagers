@@ -5,12 +5,13 @@ using System.Web;
 
 namespace SupremeLeagueManager.Models.TeamTest
 {
-    public class CreateTeam
+    public class TeamMenagement
     {
         private TeamTestVM TeamTestVM = new TeamTestVM();
-        public Provider provider;
+        private Team Team;
+        private Provider provider;
 
-        public CreateTeam(Provider provider)
+        public TeamMenagement(Provider provider)
         {
             this.provider = provider;
             SetTeam();
@@ -25,12 +26,22 @@ namespace SupremeLeagueManager.Models.TeamTest
         {
             try
             {
-                TeamTestVM.Team = new MockTeam(provider).GetTeam();
+                if (!(provider.FormationId is null))
+                {
+                    Team = new MockTeam(provider).GetTeam();
+                    Team.Formation = (int)provider.FormationId;
+                    Team.SetTeamSkills();
+                }
+                else
+                {
+                    Team = new MockTeam(provider).GetTeam();
+                }
             }
             catch (Exception ex)
             {
                 TeamTestVM.ErrorMessage = ex.ToString();
             }
+            TeamTestVM.Team = Team;
         }
     }
 }

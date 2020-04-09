@@ -30,7 +30,7 @@ namespace SupremeLeagueManager.Models
 
         public void SetTeamSkills()
         {
-            TeamSkillsModel = new TeamSkills(TeamSkillsModel, Players).GetTeamSkillsModel();
+            TeamSkillsModel = new TeamSkills(this).GetTeamSkillsModel();
         }
 
         public string GetFullName()
