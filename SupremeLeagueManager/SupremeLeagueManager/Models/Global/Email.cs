@@ -12,10 +12,13 @@ namespace SupremeLeagueManager.Models.Global
             string eMailBody = string.Empty;
             char[] padding = { '=' };
 
-            uriBuilder.Path = "SignIn/Registration";
+            uriBuilder.Path = "SignIn/Confirmation";
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
 
-            query["password"] = System.Convert.ToBase64String(pass).TrimEnd(padding).Replace('+', '-').Replace('/', '_'); ;
+            //query["password"] = System.Convert.ToBase64String(pass).TrimEnd(padding).Replace('+', '-').Replace('/', '_');
+            query["password"] = System.Convert.ToBase64String(pass);
+            //query["password"] = BitConverter.ToString(pass);
+
             query["idUser"] = idUser.ToString();
             uriBuilder.Query = query.ToString();
 

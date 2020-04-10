@@ -20,19 +20,44 @@ namespace SupremeLeagueManager.Controllers
             return View(signInVM);
         }
 
-        public ActionResult Registration(byte[] password, int idUser)
+        public ActionResult UserSignIn(UsersM usersM)
         {
-            UsersM users = new UsersM(idUser, password);
-            users.RegistrationConfirmation();
+            int result = 0;
 
-            return View(users);
+            UsersM users2  = new UsersM(CRUD.GetUsersByEmail(usersM.eMail));
+
+            PasswordHash passwordHash = new PasswordHash(usersM.Pass);
+            usersM.Password = passwordHash.ToArray();
+
+            if (usersM.Password.SequenceEqual(users2.Password))
+            {
+                result = 1;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult UserRegistration(UsersM usersM)
         {
-            int r = usersM.UserRegistration();
+            SignInManagement sign = new SignInManagement(usersM);
+            sign.UserRegistration();
 
-            return Json(r, JsonRequestBehavior.AllowGet);
+            /*
+             * 0 - OK
+             * 1 - eMail istnieje w bazie danych
+             * 2 - Utworzenie konta nie powiodło się.
+             * 3 - Błąd podczas próby wysłania maila.
+             */
+
+            return Json(sign.GetStatus(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Confirmation(byte[] password, int idUser)
+        {
+            SignInManagement sign = new SignInManagement();
+            sign.Confirmation(password, idUser);
+
+            return View(sign.GetUsersM());
         }
     }
 }

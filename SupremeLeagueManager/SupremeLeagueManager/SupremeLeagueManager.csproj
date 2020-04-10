@@ -139,6 +139,7 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\SignIn\CRUD.cs" />
+    <Compile Include="Models\SignIn\SignInManagement.cs" />
     <Compile Include="Models\SignIn\SignInVM.cs" />
     <Compile Include="Models\SignIn\UsersM.cs" />
     <Compile Include="Models\Team.cs" />
@@ -328,7 +329,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\TeamTest\TeamTest.cshtml" />
     <Content Include="Views\SignIn\SignIn.cshtml" />
-    <Content Include="Views\SignIn\Registration.cshtml" />
+    <Content Include="Views\SignIn\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

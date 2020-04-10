@@ -1,0 +1,79 @@
+﻿@model SupremeLeagueManager.Models.SignIn.UsersM
+
+@{
+    ViewBag.Title = "Registration";
+}
+
+<div class="site-settings" id="confirmation">
+    <div class="container">
+
+        @if (Model.IdUser != 0 && Model.AccountActivated == 1)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="p-4">
+                    <b> Congratulations, your account has been activated. </b>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="p-4">
+                    <button type="button" class="btn btn-outline-success" v-on:click="Back()"> Return to login </button>
+                </div>
+            </div>
+        }
+        else if (Model.IdUser == 0 || Model.AccountActivated == 1)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="p-4">
+                    <b>
+                        Error activating account, please try again later.
+                    </b>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    var vueConfirmation = new Vue({
+        el: '#confirmation',
+
+        components: {
+
+        },
+
+        data: {
+            UserM: {}
+        },
+
+        methods: {
+            Back: function () {
+                window.location.href = "/SignIn/SignIn";
+            }
+        },
+
+        computed: {
+
+        },
+
+        beforeCreate: function () {
+
+        },
+
+        created: function () {
+
+        },
+
+        beforeMount() {
+
+        },
+
+        mounted() {
+
+        },
+
+        update() {
+
+        }
+    });
+</script>
+

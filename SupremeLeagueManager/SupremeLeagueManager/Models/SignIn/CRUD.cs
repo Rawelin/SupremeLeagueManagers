@@ -11,7 +11,7 @@ namespace SupremeLeagueManager.Models.SignIn
 {
     public static class CRUD
     {
-        public static bool EmailExist(string email)
+        internal static bool EmailExist(string email)
         {
             bool r = false;
             string t = string.Empty;
@@ -55,7 +55,26 @@ namespace SupremeLeagueManager.Models.SignIn
             return users;
         }
 
-        public static int AddNewUser(UsersM usersM)
+        internal static Users GetUsersByEmail(string email)
+        {
+            Users users = new Users();
+
+            try
+            {
+                using (Entities Ctx = new Entities())
+                {
+                    users = Ctx.Users.Where(a => a.eMail == email).Select(a => a).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
+            return users;
+        }
+
+        internal static int AddNewUser(UsersM usersM)
         {
             int IdUser = 0;
 
@@ -87,6 +106,27 @@ namespace SupremeLeagueManager.Models.SignIn
             }
 
             return IdUser;
+        }
+
+        internal static void ActivateUsers(Users u)
+        {
+            Users users = new Users();
+
+            try
+            {
+                using (Entities Ctx = new Entities())
+                {
+                    users = Ctx.Users.Find(u.IdUser);
+                    users.AccountActivated = 1;
+                    users.Active = 1;
+
+                    Ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }
