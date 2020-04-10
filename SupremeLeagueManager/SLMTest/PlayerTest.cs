@@ -14,7 +14,7 @@ namespace SLMTest
 
             szczesny.Name = "Maciej";
             szczesny.Surname = "Szczęsny";
-            szczesny.Position = Player.PlayerPosition.GoalKeeper;
+            szczesny.Position = Player.PlayerPosition.GK;
             szczesny.Speed = 80;
             szczesny.Acceleration = 80;
             szczesny.Reflex = 90;
@@ -31,7 +31,7 @@ namespace SLMTest
 
             ramos.Name = "Sergio";
             ramos.Surname = "Ramos";
-            ramos.Position = Player.PlayerPosition.Defender;
+            ramos.Position = Player.PlayerPosition.CB;
             ramos.Speed = 86;
             ramos.Acceleration = 86;
             ramos.Tackling = 96;
@@ -49,7 +49,7 @@ namespace SLMTest
 
             deBruyne.Name = "Kevin";
             deBruyne.Surname = "De Bruyne";
-            deBruyne.Position = Player.PlayerPosition.Midfielder;
+            deBruyne.Position = Player.PlayerPosition.AM;
             deBruyne.Speed = 88;
             deBruyne.Acceleration = 90;
             deBruyne.ShortPassAccuracy = 94;
@@ -66,7 +66,7 @@ namespace SLMTest
 
             ronaldo.Name = "Christiano";
             ronaldo.Surname = "Ronaldo";
-            ronaldo.Position = Player.PlayerPosition.Attacker;
+            ronaldo.Position = Player.PlayerPosition.CF;
             ronaldo.Speed = 94;
             ronaldo.Acceleration = 94;
             ronaldo.ShotPower = 98;

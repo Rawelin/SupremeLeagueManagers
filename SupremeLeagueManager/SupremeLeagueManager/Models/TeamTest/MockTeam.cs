@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupremeLeagueManager.Models.Global_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -202,7 +203,7 @@ namespace SupremeLeagueManager.Models.TeamTest
             mockTeams.Add(schalke);
             mockTeams.Add(sevilla);
 
-            mockTeams = mockTeams.OrderBy(s => Guid.NewGuid()).ToList();
+            //mockTeams = mockTeams.OrderBy(s => Guid.NewGuid()).ToList();
         }
     }
 }

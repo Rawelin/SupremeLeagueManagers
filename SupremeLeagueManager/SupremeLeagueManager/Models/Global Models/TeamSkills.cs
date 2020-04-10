@@ -1,9 +1,10 @@
-﻿using System;
+﻿using SupremeLeagueManager.Models.Global_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SupremeLeagueManager.Models.Global_Models
+namespace SupremeLeagueManager.Models
 {
     public class TeamSkills
     {
@@ -14,9 +15,9 @@ namespace SupremeLeagueManager.Models.Global_Models
             this.Team = Team;
            
             TeamGoalKeeper();
+            TeamFormationsSkill();
             TeamSpeed();
             TeamTechnique();
-            TeamDefence();
             TeamOverall();
         }
 
@@ -30,36 +31,14 @@ namespace SupremeLeagueManager.Models.Global_Models
             Team.TeamSkillsModel.GoalKeeper = PlayerSkills.Compute(Team.Players[0], Player.PlayerPosition.GK);
         }
 
-        public void TeamDefence()
+        private void TeamFormationsSkill()
         {
-            // TO DO implement formation class to calculate team defence
-            switch (Team.Formation)
-            {
-                case 1:
-                case 2:
-                case 3:
-                    Team.TeamSkillsModel.Defence = (Team.Players.Select(d => d.Defence).Skip(1).Take(4).Sum()) / 4;
-                    break;
-                case 4:
-                    Team.TeamSkillsModel.Defence = (Team.Players.Select(d => d.Defence).Skip(1).Take(3).Sum()) / 3;
-                    break;
-            }
-
+            Team.TeamSkillsModel.Defence = TeamFormation.SetDefence(Team);
+            Team.TeamSkillsModel.Midfield = TeamFormation.SetMidfield(Team);
+            Team.TeamSkillsModel.Attack = TeamFormation.SetAttack(Team);
         }
 
-        public void TeamMidfield()
-        {
-            // TO DO implement formation class to calculate team midfield
-           
-        }
-
-        public void  TeamAttack()
-        {
-            // TO DO implement formation class to calculate team attack
-           
-        }
-
-        public void TeamSpeed()
+        private void TeamSpeed()
         {
             double value = Team.Players.Select(p => p.Speed)
                                        .Take(11)
@@ -68,7 +47,7 @@ namespace SupremeLeagueManager.Models.Global_Models
             Team.TeamSkillsModel.Speed = value / 11;
         }
 
-        public void TeamTechnique()
+        private void TeamTechnique()
         {
             double value = Team.Players.Select(p => p.Technique)
                                        .Take(11)
@@ -77,7 +56,7 @@ namespace SupremeLeagueManager.Models.Global_Models
             Team.TeamSkillsModel.Technicque =  value / 11;
         }
 
-        public void TeamOverall()
+        private void TeamOverall()
         {
             //double value  = Team.Players.Select(p => p.GetAverageSkils())
             //                            .Take(11)

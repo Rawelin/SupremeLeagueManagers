@@ -130,6 +130,7 @@
     <Compile Include="Models\Global Models\Person.cs" />
     <Compile Include="Models\Global Models\Player.cs" />
     <Compile Include="Models\Global Models\PlayerSkills.cs" />
+    <Compile Include="Models\Global Models\TeamFormation.cs" />
     <Compile Include="Models\Global Models\TeamSkills.cs" />
     <Compile Include="Models\Global Models\TeamSkillsModel.cs" />
     <Compile Include="Models\SignIn\SignInVM.cs" />
@@ -587,6 +588,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Person\" />
+    <Folder Include="Models\Player\" />
+    <Folder Include="Models\Team\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

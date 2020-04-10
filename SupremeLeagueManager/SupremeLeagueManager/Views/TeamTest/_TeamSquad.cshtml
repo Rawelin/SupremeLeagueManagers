@@ -2,125 +2,128 @@
 
 @if (!(@Model.Team.Name is null))
 {
-    <div class="row ml-5 mt-5">
-        <div class="col-md-3 table-responsive-xl">
-            <table class="table table-bordered table-striped table-sm" id="squadTable">
-                <tr>
-                    <th colspan="7" class="text-center">
-                        <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
-                        <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
-                        <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
-                    </th>
-                </tr>
-                <tr class="text-center">
-                    <th style="width: 40%">Name</th>
-                    <th style="width: 10%">Flag</th>
-                    <th style="width: 10%">Pos</th>
-                    <th style="width: 10%">Age</th>
-                    <th style="width: 10%">App</th>
-                    <th style="width: 10%">Gls</th>
-                    <th style="width: 10%">Skl</th>
-                </tr>
-                @for (int i = 0; i < Model.Team.Players.Count; i++)
-                {
-                    <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
-                        <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
-                        <td><img src="~/Content/Resources/Flags/@Model.Team.Players.ElementAt(i).GetNationalityFlag()" width="24" height="24" /></td>
-                        <td>@Model.Team.Players.ElementAt(i).Position</td>
-                        <td>@Model.Team.Players.ElementAt(i).Age</td>
-                        <td></td>
-                        <td></td>
-                        <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkils()))</td>
-                    </tr>
-                }
-            </table>
-        </div>
-        <div class="col-md-2 table-responsive-xl" id="playerSkills" style="visibility: hidden;">
-            <table class="table table-bordered table-striped table-sm" id="playerSkillsTable">
-                <tr>
-                    <td style="width:50%">Name</td>
-                    <td class="text-center" id="nameForSkillsTable"></td>
-                </tr>
-                <tr>
-                    <td>Surname</td>
-                    <td class="text-center" id="surnameForSkillsTable"></td>
-                </tr>
-                <tr>
-                    <td>Position</td>
-                    <td class="text-center" id="positionForSkillsTable"></td>
-                </tr>
-                <tr>
-                    <td>Nationality</td>
-                    <td class="text-center" id="nationalityForSkillsTable"><img id="flag" src="" width="24" height="24" /></td>
-                </tr>
-                <tr>
-                    <td>Age</td>
-                    <td class="text-center" id="ageForSkillsTable"></td>
-                </tr>
-                <tr>
-                    <td>GoalKepper</td>
-                    <td class="text-center" id="goalkeeperSkillsTable"></td>
-                </tr>
-                <tr>
-                    <td>Defence</td>
-                    <td class="text-center" id="defenceForSkillsTable"></td>
-                </tr>
-                <tr>
-                    <td>Midfield</td>
-                    <td class="text-center" id="midfieldForSkillsTable"></td>
-                </tr>
-                <tr>
-                    <td>Attack</td>
-                    <td class="text-center" id="attackForSkillsTable"></td>
-                </tr>
-
-            </table>
-
-        </div>
-        <div class="col-md-1 table-responsive-xl">
-            <table class="table table-bordered table-striped table-sm">
-                <tr>
-                    <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
-                </tr>
-                <tr>
-                    <th>Goalkepper</th>
-                    <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</td>
-                </tr>
-                <tr>
-                    <th>Defence</th>
-                    <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Defence))</td>
-                </tr>
-                <tr>
-                    <th>Midfield</th>
+<div class="row ml-5 mt-5">
+    <div class="col-md-3">
+        <table class="table table-bordered table-striped table-sm" id="squadTable">
+            <tr>
+                <th colspan="7" class="text-center">
+                    <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
+                    <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
+                    <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
+                </th>
+            </tr>
+            <tr class="text-center">
+                <th style="width: 40%">Name</th>
+                <th style="width: 10%">Flag</th>
+                <th style="width: 10%">Pos</th>
+                <th style="width: 10%">Age</th>
+                <th style="width: 10%">App</th>
+                <th style="width: 10%">Gls</th>
+                <th style="width: 10%">Skl</th>
+            </tr>
+            @for (int i = 0; i < Model.Team.Players.Count; i++)
+            {
+                <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
+                    <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
+                    <td><img src="~/Content/Resources/Flags/@Model.Team.Players.ElementAt(i).GetNationalityFlag()" width="24" height="24" /></td>
+                    <td>@Model.Team.Players.ElementAt(i).Position</td>
+                    <td>@Model.Team.Players.ElementAt(i).Age</td>
                     <td></td>
-                </tr>
-                <tr>
-                    <th>Attack</th>
                     <td></td>
+                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkils()))</td>
                 </tr>
-                <tr>
-                    <th>Speed</th>
-                    <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Speed))</td>
-                </tr>
-                <tr>
-                    <th>Technique</th>
-                    <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Technicque))</td>
-                </tr>
-                <tr>
-                    <th>Overall</th>
-                    <td class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Overall))</td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-2 table-responsive-md">
-            <div class="btn-group" role="group" aria-label="Basic example" id="formationButtons">
-                <button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button>
-                <button class="btn btn-info" id="443" onclick="formationChange(@Model.Team.TeamId, 2)">4-4-3</button>
-                <button class="btn btn-info" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button>
-                <button class="btn btn-info" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button>
-            </div>
+            }
+        </table>
+    </div>
+    <div class="col-md-2" id="playerSkills" style="visibility: hidden;">
+        <table class="table table-bordered table-striped table-sm" id="playerSkillsTable">
+            <tr>
+                <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
+            </tr>
+            <tr>
+                <td style="width:50%">Name</td>
+                <td class="text-center" id="nameForSkillsTable"></td>
+            </tr>
+            <tr>
+                <td>Surname</td>
+                <td class="text-center" id="surnameForSkillsTable"></td>
+            </tr>
+            <tr>
+                <td>Position</td>
+                <td class="text-center" id="positionForSkillsTable"></td>
+            </tr>
+            <tr>
+                <td>Nationality</td>
+                <td class="text-center" id="nationalityForSkillsTable"><img id="flag" src="" width="24" height="24" /></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td class="text-center" id="ageForSkillsTable"></td>
+            </tr>
+            <tr>
+                <td>GoalKepper</td>
+                <td class="text-center" id="goalkeeperSkillsTable"></td>
+            </tr>
+            <tr>
+                <td>Defence</td>
+                <td class="text-center" id="defenceForSkillsTable"></td>
+            </tr>
+            <tr>
+                <td>Midfield</td>
+                <td class="text-center" id="midfieldForSkillsTable"></td>
+            </tr>
+            <tr>
+                <td>Attack</td>
+                <td class="text-center" id="attackForSkillsTable"></td>
+            </tr>
+
+        </table>
+
+    </div>
+    <div class="col-md-1">
+        <table class="table table-bordered table-striped table-sm">
+            <tr>
+                <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
+            </tr>
+            <tr>
+                <td>Goalkepper</td>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</td>
+            </tr>
+            <tr>
+                <td>Defence</td>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Defence))</td>
+            </tr>
+            <tr>
+                <td>Midfield</td>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Midfield))</td>
+            </tr>
+            <tr>
+                <td>Attack</td>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Attack))</td>
+            </tr>
+            <tr>
+                <td>Speed</td>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Speed))</td>
+            </tr>
+            <tr>
+                <td>Technique</td>
+                <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Technicque))</td>
+            </tr>
+            <tr>
+                <td>Overall</td>
+                <td class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Overall))</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <div class="btn-group" role="group" aria-label="Basic example" id="formationButtons">
+            <button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button>
+            <button class="btn btn-info" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button>
+            <button class="btn btn-info" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button>
+            <button class="btn btn-info" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button>
         </div>
     </div>
+</div>
 }
 
 <script type="text/javascript">
@@ -132,7 +135,7 @@
            formation442();
            break;
         case 2:
-           formation443();
+           formation433();
            break;
         case 3:
            formation451();
@@ -147,8 +150,8 @@
         $('#442').click(function () {
             formation442();
         });
-        $('#443').click(function () {
-            formation443();
+        $('#433').click(function () {
+            formation433();
         });
         $('#451').click(function () {
             formation451();
@@ -173,7 +176,7 @@
         $('#442').addClass('active');
     }
 
-    function formation443() {
+    function formation433() {
         $('#squadTable tr:nth-child(3)').css('background', 'rgba(235, 231, 40, 0.7)');
         for (var i = 4; i < 8; i++) {
             $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.7)');
@@ -185,7 +188,7 @@
             $('#squadTable tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.7)');
         }
         $('#formationButtons button').removeClass('active')
-        $('#443').addClass('active');
+        $('#433').addClass('active');
     }
 
     function formation451() {
@@ -259,7 +262,7 @@
                 country = "Wales";
                 break;
         }
-         
+
         $('#playerSkills').css("visibility", "visible");
         $('#nameForSkillsTable').text(players[id].Name);
         $('#surnameForSkillsTable').text(players[id].Surname);
@@ -279,8 +282,6 @@
         Provider.TeamId = teamId;
         Provider.FormationId = formationId;
 
-        console.log(teamId + ' ' + formationId);
-
         $.ajax(
             {
                 url: "_TeamSquad/TeamTest",
@@ -288,7 +289,7 @@
                 contentType: "application/json",
                 data: JSON.stringify({ provider: Provider }),
                 success: function () {
-                  
+
                 },
                 error: function () {
                     alert('Nieoczekiwany błąd');
