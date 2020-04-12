@@ -33,6 +33,11 @@ namespace SupremeLeagueManager.Models
             TeamSkillsModel = new TeamSkills(this).GetTeamSkillsModel();
         }
 
+        public void SetTeamDynamicSkills()
+        {
+
+        }
+
         public string GetFullName()
         {
             return Name + " " + City;

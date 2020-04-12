@@ -129,7 +129,9 @@
     </Compile>
     <Compile Include="Models\GlobalModels\Person.cs" />
     <Compile Include="Models\GlobalModels\Player.cs" />
+    <Compile Include="Models\GlobalModels\PlayerDynamicSkills.cs" />
     <Compile Include="Models\GlobalModels\PlayerSkills.cs" />
+    <Compile Include="Models\GlobalModels\TeamDynamicSkills.cs" />
     <Compile Include="Models\GlobalModels\TeamFormation.cs" />
     <Compile Include="Models\GlobalModels\TeamSkills.cs" />
     <Compile Include="Models\GlobalModels\TeamSkillsModel.cs" />

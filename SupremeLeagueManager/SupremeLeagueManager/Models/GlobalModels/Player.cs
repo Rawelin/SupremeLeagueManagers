@@ -1,4 +1,5 @@
 ﻿using SupremeLeagueManager.Models.Global_Models;
+using SupremeLeagueManager.Models.GlobalModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace SupremeLeagueManager.Models
         public int TeamId { get; set; }
 
         public PlayerPosition Position { get; set; }
-
+   
         //leg play skills
-        public int LeftFootPlaysSkill { get; set; }
-        public int RightFootPlaysSkill { get; set; }
+        public int LeftFootSkills { get; set; }
+        public int RightFootSkills { get; set; }
 
         // formation skils
         public double GoalKeeper { get; set; }
@@ -49,19 +50,25 @@ namespace SupremeLeagueManager.Models
         public double Stamina { get; set; }
 
         private double averageSkills;
+        private double averageDynamicSkills;
 
         public Player() : base() { }
 
-        public double GetAverageSkils()
+        public double GetAverageSkills()
         {
             return averageSkills;
+        }
+
+        public double GetAverageDynamicSkills(int currentPosition, int formation)
+        {
+            return averageDynamicSkills = new PlayerDynamicSkills(this, currentPosition, formation).GetDynamicSkills();
         }
 
         public void SetAverageSkills()
         {
             averageSkills = PlayerSkills.Compute(this);
         }
-      
+
         public enum PlayerPosition { GK = 1, CB = 2, LB = 4, RB = 5, DM = 6, CM = 7, LM = 8, RM = 9, AM = 10, LW = 11, RW = 12, SS = 13, CF = 14 };
 
     }

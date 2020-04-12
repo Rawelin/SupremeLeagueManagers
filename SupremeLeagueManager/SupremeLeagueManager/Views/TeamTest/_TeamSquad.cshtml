@@ -6,7 +6,7 @@
     <div class="col-md-3">
         <table class="table table-bordered table-striped table-sm" id="squadTable">
             <tr>
-                <th colspan="7" class="text-center">
+                <th colspan="8" class="text-center">
                     <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
                     <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
                     <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
@@ -20,6 +20,7 @@
                 <th style="width: 10%">App</th>
                 <th style="width: 10%">Gls</th>
                 <th style="width: 10%">Skl</th>
+                <th style="width: 10%">Dyn</th>
             </tr>
             @for (int i = 0; i < Model.Team.Players.Count; i++)
             {
@@ -30,7 +31,8 @@
                     <td>@Model.Team.Players.ElementAt(i).Age</td>
                     <td></td>
                     <td></td>
-                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkils()))</td>
+                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkills()))</td>
+                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageDynamicSkills(@i, @Model.Team.Formation)))</td>
                 </tr>
             }
         </table>
