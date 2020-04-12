@@ -59,7 +59,7 @@ namespace SupremeLeagueManager.Models
 
         public void SetAverageSkills()
         {
-            averageSkills = PlayerSkills.Compute(this, Position);
+            averageSkills = PlayerSkills.Compute(this);
         }
       
         public enum PlayerPosition { GK = 1, CB = 2, LB = 4, RB = 5, DM = 6, CM = 7, LM = 8, RM = 9, AM = 10, LW = 11, RW = 12, SS = 13, CF = 14 };

@@ -28,7 +28,7 @@ namespace SupremeLeagueManager.Models
 
         private void TeamGoalKeeper()
         {
-            Team.TeamSkillsModel.GoalKeeper = PlayerSkills.Compute(Team.Players[0], Player.PlayerPosition.GK);
+            Team.TeamSkillsModel.GoalKeeper = PlayerSkills.Compute(Team.Players[0]);
         }
 
         private void TeamFormationsSkill()
