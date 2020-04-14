@@ -600,6 +600,7 @@
     <Content Include="Views\TeamTest\TeamTest.cshtml" />
     <Content Include="Views\SignIn\SignIn.cshtml" />
     <Content Include="Views\SignIn\Confirmation.cshtml" />
+    <Content Include="Views\TeamTest\_TeamSquad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
