@@ -152,15 +152,15 @@
 
                         success: function (data) {
                             if (data == 1) {
-                                alert("Zalogowany");
+                                window.location.href = "/Home/Home";
                             }
                             else if (data == 0) {
-                                alert("Nieprawidłowy login lub hasło !");
+                                alert("E-mail address or password incorrect !");
                             }
                         },
 
                         error: function () {
-                            alert("Błąd podczas logowania !");
+                            alert("Error, try again later !");
                         }
                     })
                 }

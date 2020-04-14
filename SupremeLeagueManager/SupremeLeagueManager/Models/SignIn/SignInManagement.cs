@@ -101,5 +101,55 @@ namespace SupremeLeagueManager.Models.SignIn
             PasswordHash passwordHash = new PasswordHash(usersM.Pass);
             usersM.Password = passwordHash.ToArray();
         }
+
+        public bool SessionAdd(UsersM users)
+        {
+            bool correct = false;
+
+            try
+            {
+                HttpContext httpContext = HttpContext.Current;
+
+                httpContext.Session["IdUser"] = users.IdUser;
+                httpContext.Session["eMail"] = users.eMail;
+                httpContext.Session["FirstName"] = users.FirstName;
+                httpContext.Session["LastName"] = users.LastName;
+                httpContext.Session["AccountActivated"] = users.AccountActivated;
+                httpContext.Session["Active"] = users.Active;
+
+                correct = true;
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.InsertError("SignIn", "SignInManagement", "SessionAdd", ex);
+            }
+
+            return correct;
+        }
+
+        public bool SessionRemove()
+        {
+            bool correct = false;
+
+            try
+            {
+                HttpContext httpContext = HttpContext.Current;
+
+                httpContext.Session["IdUser"] = null;
+                httpContext.Session["eMail"] = null;
+                httpContext.Session["FirstName"] = null;
+                httpContext.Session["LastName"] = null;
+                httpContext.Session["AccountActivated"] = null;
+                httpContext.Session["Active"] = null;
+
+                correct = true;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("SignIn", "SignInManagement", "SessionAdd", ex);
+            }
+
+            return correct;
+        }
     }
 }

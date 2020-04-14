@@ -134,6 +134,7 @@
     </Compile>
     <Compile Include="Models\Global\Email.cs" />
     <Compile Include="Models\Global\EmailManagement.cs" />
+    <Compile Include="Models\Global\ErrorHandling.cs" />
     <Compile Include="Models\Global\PasswordHash.cs" />
     <Compile Include="Models\Global\ThisServer.cs" />
     <Compile Include="Models\Person.cs" />

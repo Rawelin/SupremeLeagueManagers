@@ -29,9 +29,20 @@
             <div class="d-flex d-flex justify-content-between" style="width: 100%; align-self: center;">
                 <div class="p-2"> Supreme League Managers </div>
                 <div class="p-2">
-                    <button class="btn btn-sm btn-outline-light" type="button" data-toggle="tooltip" title="Sign In" onclick="location.href='@Url.Action("SignIn", "SignIn")'">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </button>
+                    @if (Session["IdUser"] == null)
+                    {
+                        <button class="btn btn-sm btn-outline-light" type="button" data-toggle="tooltip" title="Sign In" onclick="location.href='@Url.Action("SignIn", "SignIn")'">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <i style="margin-right: 1em;"> @Session["eMail"] </i>
+
+                        <button class="btn btn-sm btn-outline-light" type="button" data-toggle="tooltip" title="Sign Out" onclick="location.href='@Url.Action("UserSignOut", "SignIn")'">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    }
                 </div>
             </div>
         </div>

@@ -24,17 +24,31 @@ namespace SupremeLeagueManager.Controllers
         {
             int result = 0;
 
-            UsersM users2  = new UsersM(CRUD.GetUsersByEmail(usersM.eMail));
+            UsersM users2 = new UsersM(CRUD.GetUsersByEmail(usersM.eMail));
 
-            PasswordHash passwordHash = new PasswordHash(usersM.Pass);
-            usersM.Password = passwordHash.ToArray();
+            PasswordHash hash = new PasswordHash(users2.Password);
 
-            if (usersM.Password.SequenceEqual(users2.Password))
+            if (!hash.Verify(usersM.Pass))
             {
+
+            }
+            else
+            {
+                SignInManagement signIn = new SignInManagement();
+                signIn.SessionAdd(users2);
+
                 result = 1;
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UserSignOut()
+        {
+            SignInManagement signIn = new SignInManagement();
+            signIn.SessionRemove();
+
+            return RedirectToAction("Home", "Home");
         }
 
         public ActionResult UserRegistration(UsersM usersM)
