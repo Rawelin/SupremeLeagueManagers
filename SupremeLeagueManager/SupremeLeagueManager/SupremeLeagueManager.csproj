@@ -137,8 +137,6 @@
     <Compile Include="Models\Global\ErrorHandling.cs" />
     <Compile Include="Models\Global\PasswordHash.cs" />
     <Compile Include="Models\Global\ThisServer.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\Player.cs" />
     <Compile Include="Models\SignIn\CRUD.cs" />
     <Compile Include="Models\SignIn\SignInManagement.cs" />
     <Compile Include="Models\GlobalModels\Person.cs" />
