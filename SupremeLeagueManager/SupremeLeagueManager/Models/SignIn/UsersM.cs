@@ -3,16 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using System.Diagnostics;
+
+using SLMContextDB;
+using SupremeLeagueManager.Models.Global;
+
 namespace SupremeLeagueManager.Models.SignIn
 {
-    public class UsersM
+    public class UsersM : Users
     {
-        public int IdUser { get; set; }
-        public string eMail { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime LastLoginDate { get; set; }
-        public int AccountActivated { get; set; }
-        public int Active { get; set; }
+        public string Pass { get; set; }
+
+        public UsersM()
+        {
+
+        }
+
+        public UsersM(Users u)
+        {
+            IdUser = u.IdUser;
+            eMail = u.eMail;
+            Password = u.Password;
+            FirstName = u.FirstName;
+            LastName = u.LastName;
+            LastLoginDate = u.LastLoginDate;
+            AccountActivated = u.AccountActivated;
+            Active = u.Active;         
+        }
     }
 }

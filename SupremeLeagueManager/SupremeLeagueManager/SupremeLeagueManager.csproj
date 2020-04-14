@@ -47,7 +47,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -127,6 +132,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Global\Email.cs" />
+    <Compile Include="Models\Global\EmailManagement.cs" />
+    <Compile Include="Models\Global\ErrorHandling.cs" />
+    <Compile Include="Models\Global\PasswordHash.cs" />
+    <Compile Include="Models\Global\ThisServer.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\SignIn\CRUD.cs" />
+    <Compile Include="Models\SignIn\SignInManagement.cs" />
     <Compile Include="Models\GlobalModels\Person.cs" />
     <Compile Include="Models\GlobalModels\Player.cs" />
     <Compile Include="Models\GlobalModels\PlayerDynamicSkills.cs" />
@@ -153,6 +167,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\Global.css" />
     <Content Include="Content\CSS\Layout.css" />
     <Content Include="Content\FontAwesome\css\all.css" />
     <Content Include="Content\FontAwesome\js\all.js" />
@@ -560,7 +575,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -584,9 +601,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\TeamTest\TeamTest.cshtml" />
     <Content Include="Views\SignIn\SignIn.cshtml" />
-    <Content Include="Views\SignIn\_SignIn.cshtml" />
-    <Content Include="Views\SignIn\_Registration.cshtml" />
-    <Content Include="Views\TeamTest\_TeamSquad.cshtml" />
+    <Content Include="Views\SignIn\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

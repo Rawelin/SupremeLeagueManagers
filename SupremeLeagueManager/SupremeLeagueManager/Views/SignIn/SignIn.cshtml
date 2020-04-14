@@ -4,25 +4,72 @@
     ViewBag.Title = "SignIn";
 }
 
-<div id="signIn">
+<div class="site-settings" id="signIn">
     <div class="container body-container">
-        
-        <div class="tab-content" id="tabContents">
-            <div v-bind:class="{show: tabsVisibility.SignIn, active:  tabsVisibility.SignIn}" class="tab-pane fade" id="tabSignIn" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div id="tabSignIn">
-                    <div id="tabRegistration">
-                        @Html.Partial("_SignIn", Model.UsersM)
+        <div v-if="SignReg == 0">
+            <div class="standard-frame" style="margin-top: 5em; margin-left: 24em; margin-right: 24em;">
+                <div class="d-flex justify-content-center">
+                    <picture>
+                        <img src="~/Content/Icons/FootballPlayer200.png" />
+                    </picture>
+                </div>
+                <form>
+                    <div class="d-flex justify-content-center">
+                        <input class="standard-input" type="email" placeholder="email@email.com" autocomplete="username" v-model="UserM.eMail" />
                     </div>
-                </div>
-            </div>
-
-            <div v-bind:class="{show: tabsVisibility.Registration, active:  tabsVisibility.Registration}" class="tab-pane fade" id="tabSignIn" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div id="tabRegistration">
-                    @Html.Partial("_Registration", Model.UsersM)
-                </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="standard-input" type="password" placeholder="password" autocomplete="current-password" v-model="UserM.Pass" />
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-outline-dark standard-btn" type="button" v-on:click="SignIn()"> Sign in ! </button>
+                    </div>
+                    <div class="d-flex justify-content-center" style="margin-top: 3em;">
+                        <p style="margin-bottom: 0.2em;"> You do not have an account ? </p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-outline-primary standard-btn" type="button" v-on:click="Registration()"> Create them! </button>
+                    </div>
+                </form>
             </div>
         </div>
+        <div v-else-if="SignReg == 1">
+            <div class="standard-frame" style="margin-top: 5em; margin-left: 24em; margin-right: 24em;">
+                <div class="d-flex justify-content-center">
+                    <picture>
+                        <img src="~/Content/Icons/FootballPlayer200.png" />
+                    </picture>
+                </div>
 
+                <form>
+                    <div style="margin-top: 1em; padding-left: 1em;"><i>Email</i></div>
+                    <div class="d-flex justify-content-center">
+                        <input class="standard-input" type="email" placeholder="email@email.com" v-model="NewUserM.eMail" />
+                    </div>
+                    <div style="margin-top: 0.5em; padding-left: 1em;"><i>Confirm email</i></div>
+                    <div class="d-flex justify-content-center">
+                        <input class="standard-input" type="email" placeholder="email@email.com" v-model="confirmEmail" />
+                    </div>
+                    <div v-if="emailCorrect == false" style="margin-top: 0.5em; padding-left: 1em;"><i style="color: red;">Email addresses are different !</i></div>
+
+                    <div style="margin-top: 2em; padding-left: 1em;"><i>Password</i></div>
+                    <div class="d-flex justify-content-center">
+                        <input class="standard-input" type="password" placeholder="password" v-model="NewUserM.Pass" />
+                    </div>
+                    <div style="margin-top: 0.5em; padding-left: 1em;"><i>Confirm password</i></div>
+                    <div class="d-flex justify-content-center">
+                        <input class="standard-input" type="password" placeholder="password" v-model="confirmPassword" />
+                    </div>
+                    <div v-if="passCorrect == false" style="margin-top: 0.5em; padding-left: 1em;"><i style="color: red;">Passwords are different !</i></div>
+
+                </form>
+
+                <div class="d-flex justify-content-around" style="margin-top: 1em;">
+                    <button class="btn btn-outline-primary standard-btn" type="button" v-on:click="BackSignIn()"> Back to Sign In </button>
+                    <button class="btn btn-outline-dark standard-btn" type="button" v-on:click="UserRegistration()"> Registration </button>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 
@@ -35,34 +82,168 @@
         },
 
         data: {
-            tabsVisibility: {
-                SignIn: true,
-                Registration: false
-            }
+            SignReg: 0,
+
+            UserM: {},
+            NewUserM: {},
+
+            confirmEmail: "",
+            confirmPassword: "",
+
+            emailCorrect: true,
+            passCorrect: true
         },
 
         methods: {
-            LoadSignInTab: function () {
-                $.ajax({
-                    url: "_SignIn/SignIn",
-                    type: "GET",
-                    contentType: "application/json",
-                })
-                .done(function (partialViewResult) {
-                    $("#tabSignIn").html(partialViewResult);
-                });
+            BackSignIn: function () {
+                vueSignIn.SignReg = 0;
             },
 
-            LoadRegistrationTab: function () {
+            Registration: function () {
+                vueSignIn.SignReg = 1;
+            },
 
+            EmailCompare: function (val, oldVal) {
+                if (vueSignIn.NewUserM.eMail != "" && vueSignIn.confirmEmail != "") {
+                    if (vueSignIn.NewUserM.eMail != vueSignIn.confirmEmail) {
+                        vueSignIn.emailCorrect = false;
+                    }
+                    else {
+                        vueSignIn.emailCorrect = true;
+                    }
+                }
+            },
+
+            PasswordCompare: function (val, oldVal) {
+                if (vueSignIn.NewUserM.Pass != "" && vueSignIn.confirmPassword != "") {
+                    if (vueSignIn.NewUserM.Pass != vueSignIn.confirmPassword) {
+                        vueSignIn.passCorrect = false;
+                    }
+                    else {
+                        vueSignIn.passCorrect = true;
+                    }
+                }
+            },
+
+            SignInCheckUserM: function () {
+                correct = true;
+
+                if (vueSignIn.UserM.eMail.length == 0) {
+
+                    correct = false;
+                    alert("Please enter an email address !");
+                }
+                if (vueSignIn.UserM.Pass.length == 0) {
+
+                    correct = false;
+                    alert("Please enter a password !");
+                }
+
+                return correct;
+            },
+
+            SignIn: function () {
+                if (vueSignIn.SignInCheckUserM()) {
+                    $.ajax({
+                        url: "@Url.Action("UserSignIn", "SignIn")",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ UsersM: vueSignIn.UserM }),
+
+                        success: function (data) {
+                            if (data == 1) {
+                                window.location.href = "/Home/Home";
+                            }
+                            else if (data == 0) {
+                                alert("E-mail address or password incorrect !");
+                            }
+                        },
+
+                        error: function () {
+                            alert("Error, try again later !");
+                        }
+                    })
+                }
+            },
+
+            RegistrationCheckUserM: function () {
+                correct = true;
+
+                if (vueSignIn.emailCorrect == false) {
+                    correct = false;
+                }
+                if (vueSignIn.passCorrect == false) {
+                    correct = false;
+                }
+                if (vueSignIn.NewUserM.eMail.length == 0) {
+
+                    correct = false;
+                }
+                if (vueSignIn.confirmEmail.length == 0) {
+                    correct = false;
+                }
+
+                if (vueSignIn.NewUserM.Pass.length == 0) {
+
+                    correct = false;
+                }
+                if (vueSignIn.confirmPassword.lenght == 0) {
+                    correct = false;
+                }
+
+                return correct;
+            },
+
+            UserRegistration: function () {
+                if (vueSignIn.RegistrationCheckUserM()) {
+                    $.ajax({
+                        url: "@Url.Action("UserRegistration", "SignIn")",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ UsersM: vueSignIn.NewUserM }),
+
+                        success: function (data) {
+                            if (data == 0) {
+                                alert("An activation email has been sent to the email address provided");
+                            }
+                            else if (data == 1) {
+                                alert("The email address provided exists in the database");
+                            }
+                            else if (data == 3) {
+                                alert("Error trying to send activation email. Please try again later.");
+                            }
+                            else {
+                                alert("Err");
+                            }
+                        },
+
+                        error: function () {
+                            alert("Błąd podczas rejestracji użytkownika !");
+                        }
+                   })
+                }
             }
         },
 
         watch: {
+            'NewUserM.eMail': function (val, oldVal) {
+                vueSignIn.EmailCompare(val, oldVal);
+            },
 
+            confirmEmail: function (val, oldVal) {
+                vueSignIn.EmailCompare(val, oldVal);
+            },
+
+            'NewUserM.Pass': function (val, oldVal) {
+                vueSignIn.PasswordCompare(val, oldVal);
+            },
+
+            confirmPassword: function (val, oldVal) {
+                vueSignIn.PasswordCompare(val, oldVal);
+            }
         },
 
-         computed: {
+        computed: {
 
         },
 
@@ -79,11 +260,12 @@
         },
 
         mounted() {
-            this.LoadSignInTab();
+            this.UserM = @Html.Raw(Json.Encode(Model.UsersM));
+            this.NewUserM = this.UserM;
         },
 
         update() {
 
-        }       
+        }
     })
 </script>
