@@ -1,149 +1,47 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
-@if (!(@Model.Team.Name is null))
-{
-    <div class="row ml-5 mt-5">
-        <div class="col-md-3">
-            <table class="table table-bordered table-striped table-sm" id="squadTable">
-                <thead>
-                    <tr>
-                        <th colspan="8" class="text-center">
-                            <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
-                            <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
-                            <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
-                        </th>
-                    </tr>
-                    <tr class="text-center">
-                        <th style="width: 40%">Name</th>
-                        <th style="width: 10%">Flag</th>
-                        <th style="width: 10%">Pos</th>
-                        <th style="width: 10%">Age</th>
-                        <th style="width: 10%">App</th>
-                        <th style="width: 10%">Gls</th>
-                        <th style="width: 10%">Skl</th>
-                        <th style="width: 10%">Dyn</th>
-                    </tr>
-                </thead>
-                <tbody id="squadBody">
-                    @for (int i = 0; i < Model.Team.Players.Count; i++)
-                    {
-                        <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
-                            <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
-                            <td><img src="~/Content/Resources/Flags/@Model.Team.Players.ElementAt(i).GetNationalityFlag()" width="24" height="24" /></td>
-                            <td>@Model.Team.Players.ElementAt(i).Position</td>
-                            <td>@Model.Team.Players.ElementAt(i).Age</td>
-                            <td></td>
-                            <td></td>
-                            <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkills()))</td>
-                            <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageDynamicSkills(@i, @Model.Team.Formation)))</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-2" id="playerSkills" style="visibility: hidden;">
-            <table class="table table-bordered table-striped table-sm" id="playerSkillsTable">
-                <thead>
-                    <tr>
-                        <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td style="width:50%">Name</td>
-                        <td class="text-center" id="nameForSkillsTable"></td>
-                    </tr>
-                    <tr>
-                        <td>Surname</td>
-                        <td class="text-center" id="surnameForSkillsTable"></td>
-                    </tr>
-                    <tr>
-                        <td>Position</td>
-                        <td class="text-center" id="positionForSkillsTable"></td>
-                    </tr>
-                    <tr>
-                        <td>Nationality</td>
-                        <td class="text-center" id="nationalityForSkillsTable"><img id="flag" src="" width="24" height="24" /></td>
-                    </tr>
-                    <tr>
-                        <td>Age</td>
-                        <td class="text-center" id="ageForSkillsTable"></td>
-                    </tr>
-                    <tr>
-                        <td>GoalKepper</td>
-                        <td class="text-center" id="goalkeeperSkillsTable"></td>
-                    </tr>
-                    <tr>
-                        <td>Defence</td>
-                        <td class="text-center" id="defenceForSkillsTable"></td>
-                    </tr>
-                    <tr>
-                        <td>Midfield</td>
-                        <td class="text-center" id="midfieldForSkillsTable"></td>
-                    </tr>
-                    <tr>
-                        <td>Attack</td>
-                        <td class="text-center" id="attackForSkillsTable"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-1">
-            <table class="table table-bordered table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td>Goalkepper</td>
-                        <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</td>
-                    </tr>
-                    <tr>
-                        <td>Defence</td>
-                        <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Defence))</td>
-                    </tr>
-                    <tr>
-                        <td>Midfield</td>
-                        <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Midfield))</td>
-                    </tr>
-                    <tr>
-                        <td>Attack</td>
-                        <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Attack))</td>
-                    </tr>
-                    <tr>
-                        <td>Speed</td>
-                        <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Speed))</td>
-                    </tr>
-                    <tr>
-                        <td>Technique</td>
-                        <td>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Technicque))</td>
-                    </tr>
-                    <tr>
-                        <td>Overall</td>
-                        <td class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Overall))</td>
-                    </tr>
-                </tbody>
-          
-            </table>
-        </div>
-        <div class="col-md-6">
-            <div class="btn-group" role="group" aria-label="Basic example" id="formationButtons">
-                <button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button>
-                <button class="btn btn-info" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button>
-                <button class="btn btn-info" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button>
-                <button class="btn btn-info" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button>
-            </div>
-        </div>
-    </div>
-}
+<div class="col-md-3">
+    <table class="table table-bordered table-striped table-sm" id="squadTable" style="float:left;">
+        <thead>
+            <tr>
+                <th colspan="8" class="text-center">
+                    <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
+                    <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
+                    <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
+                </th>
+            </tr>
+            <tr class="text-center">
+                <th style="width: 40%">Name</th>
+                <th style="width: 10%">Flag</th>
+                <th style="width: 10%">Pos</th>
+                <th style="width: 10%">Age</th>
+                <th style="width: 10%">App</th>
+                <th style="width: 10%">Gls</th>
+                <th style="width: 10%">Skl</th>
+                <th style="width: 10%">Dyn</th>
+            </tr>
+        </thead>
+        <tbody id="squadBody">
+            @for (int i = 0; i < Model.Team.Players.Count; i++)
+            {
+                <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
+                    <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
+                    <td><img src="~/Content/Resources/Flags/@Model.Team.Players.ElementAt(i).GetNationalityFlag()" width="24" height="24" /></td>
+                    <td>@Model.Team.Players.ElementAt(i).Position</td>
+                    <td>@Model.Team.Players.ElementAt(i).Age</td>
+                    <td></td>
+                    <td></td>
+                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkills()))</td>
+                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageDynamicSkills(@i, @Model.Team.Formation)))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <script type="text/javascript">
 
-    var formation = @Html.Raw(Json.Encode(Model.Team.Formation));
+     var formation = @Html.Raw(Json.Encode(Model.Team.Formation));
 
     switch (formation) {
         case 1:
@@ -179,21 +77,6 @@
         }
     });
 
-    $(document).ready(function () {
-
-        $('#442').click(function () {
-            formation442();
-        });
-        $('#433').click(function () {
-            formation433();
-        });
-        $('#451').click(function () {
-            formation451();
-        });
-        $('#352').click(function () {
-            formation352();
-        });
-    });
 
     function formation442() {
         $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.7)');
@@ -309,34 +192,4 @@
         $('#attackForSkillsTable').text(players[id].Attack);
     }
 
-    function formationChange(teamId, formationId) {
-
-        var Provider = {};
-
-        Provider.TeamId = teamId;
-        Provider.FormationId = formationId;
-
-        $.ajax(
-            {
-                url: "_TeamSquad/TeamTest",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ provider: Provider }),
-                success: function () {
-
-                },
-                error: function () {
-                    alert('Nieoczekiwany błąd');
-                }
-            })
-            .done(function (partialViewResult) {
-                $("#teamSquad").html(partialViewResult);
-            });
-    }
-
 </script>
-
-
-
-
-

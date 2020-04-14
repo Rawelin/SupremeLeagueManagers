@@ -1,7 +1,7 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
-<div class="row mt-3 justify-content-center">
-    <div class="col-md-10">
+<div class="row mt-3">
+    <div class="col-md-12">
         <div class="text-center">
             @for (int i = 0; i < Model.Teams.Count(); i++)
             {
@@ -10,21 +10,21 @@
                 </button>
             }
         </div>
-    </div>
-</div>
-
-<div class="row m-lg-5 justify-content-center"  id="stadium">
-    <div class="col-md-8 m-lg-4">
-        <div class="text-center">
-            <div>
-                <img src="~/Content/Resources/Stadiums/bernabeu.jpg" width="800" height="600" />
+        <div class="row mt-lg-5 justify-content-center" id="stadium">
+            <div class="text-center">
+                <div>
+                    <img src="~/Content/Resources/Stadiums/bernabeu.jpg" width="800" height="600" />
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 
-<div id="teamSquad" style="display:none">
-    @Html.Partial("_TeamSquad");
+<div>
+    <div id="teamManagement" style="display:none">
+        @Html.Partial("_TeamManagement");
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -43,7 +43,7 @@
 
         $.ajax(
             {
-                url: "_TeamSquad/TeamTest",
+                url: "_TeamManagement/TeamTest",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({ provider: Provider }),
@@ -55,9 +55,9 @@
                 }
             })
             .done(function (partialViewResult) {
-                $("#teamSquad").show();
+                $("#teamManagement").show();
                 $("#stadium").hide();
-                $("#teamSquad").html(partialViewResult);
+                $("#teamManagement").html(partialViewResult);
             });
     }
 

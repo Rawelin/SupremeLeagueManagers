@@ -1,0 +1,40 @@
+﻿
+<div style="float:left" class="col-md-1">
+    <table class="table table-bordered table-striped table-sm">
+        <thead>
+            <tr>
+                <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Goalkepper</td>
+                <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</td>
+            </tr>
+            <tr>
+                <td>Defence</td>
+                <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Defence))</td>
+            </tr>
+            <tr>
+                <td>Midfield</td>
+                <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Midfield))</td>
+            </tr>
+            <tr>
+                <td>Attack</td>
+                <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Attack))</td>
+            </tr>
+            <tr>
+                <td>Speed</td>
+                <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Speed))</td>
+            </tr>
+            <tr>
+                <td>Technique</td>
+                <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Technicque))</td>
+            </tr>
+            <tr>
+                <td>Overall</td>
+                <td class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Overall))</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,138 @@
+﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
+
+@if (!(@Model.Team.Name is null))
+{
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+
+            <div id="teamSquad">
+                @Html.Partial("_TeamSquad")
+            </div>
+
+            <div id="playerSkills" style="float:left" class="col-md-2">
+                <table class="table table-bordered table-striped table-sm" id="playerSkillsTable">
+                    <thead>
+                        <tr>
+                            <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td style="width:50%">Name</td>
+                            <td class="text-center" id="nameForSkillsTable"></td>
+                        </tr>
+                        <tr>
+                            <td>Surname</td>
+                            <td class="text-center" id="surnameForSkillsTable"></td>
+                        </tr>
+                        <tr>
+                            <td>Position</td>
+                            <td class="text-center" id="positionForSkillsTable"></td>
+                        </tr>
+                        <tr>
+                            <td>Nationality</td>
+                            <td class="text-center" id="nationalityForSkillsTable"><img id="flag" src="" width="24" height="24" /></td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td class="text-center" id="ageForSkillsTable"></td>
+                        </tr>
+                        <tr>
+                            <td>GoalKepper</td>
+                            <td class="text-center" id="goalkeeperSkillsTable"></td>
+                        </tr>
+                        <tr>
+                            <td>Defence</td>
+                            <td class="text-center" id="defenceForSkillsTable"></td>
+                        </tr>
+                        <tr>
+                            <td>Midfield</td>
+                            <td class="text-center" id="midfieldForSkillsTable"></td>
+                        </tr>
+                        <tr>
+                            <td>Attack</td>
+                            <td class="text-center" id="attackForSkillsTable"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="teamSkills">
+                @Html.Partial("_TeamSkills")
+            </div>
+
+            <div class="btn-group" role="group" aria-label="Basic example" id="formationButtons">
+                <button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button>
+                <button class="btn btn-info" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button>
+                <button class="btn btn-info" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button>
+                <button class="btn btn-info" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $('#442').click(function () {
+        formation442();
+    });
+    $('#433').click(function () {
+        formation433();
+    });
+    $('#451').click(function () {
+        formation451();
+    });
+    $('#352').click(function () {
+        formation352();
+    });
+
+
+    function formationChange(teamId, formationId) {
+
+        var Provider = {};
+
+        Provider.TeamId = teamId;
+        Provider.FormationId = formationId;
+
+        $.ajax(
+            {
+                url: "_TeamSquad/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+                
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#teamSquad").html(partialViewResult);
+            });
+
+        $.ajax(
+            {
+                url: "_TeamSkills/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#teamSkills").html(partialViewResult);
+            });
+    }
+
+</script>
+
+
+
+
+
