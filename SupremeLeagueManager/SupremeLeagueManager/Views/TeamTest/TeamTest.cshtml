@@ -17,15 +17,15 @@
                 </div>
             </div>
         </div>
-
+        <div>
+            <div id="teamManagement" style="display:none">
+                @Html.Partial("_TeamManagement");
+            </div>
+        </div>
     </div>
 </div>
 
-<div>
-    <div id="teamManagement" style="display:none">
-        @Html.Partial("_TeamManagement");
-    </div>
-</div>
+
 
 <script type="text/javascript">
 
@@ -55,8 +55,8 @@
                 }
             })
             .done(function (partialViewResult) {
-                $("#teamManagement").show();
                 $("#stadium").hide();
+                $("#teamManagement").show();
                 $("#teamManagement").html(partialViewResult);
             });
     }

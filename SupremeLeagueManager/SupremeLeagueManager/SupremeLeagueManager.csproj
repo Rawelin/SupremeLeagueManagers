@@ -603,6 +603,7 @@
     <Content Include="Views\TeamTest\_TeamManagement.cshtml" />
     <Content Include="Views\TeamTest\_TeamSquad.cshtml" />
     <Content Include="Views\TeamTest\_TeamSkills.cshtml" />
+    <Content Include="Views\TeamTest\_PlayerSkills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

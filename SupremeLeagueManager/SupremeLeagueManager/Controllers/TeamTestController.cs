@@ -29,5 +29,10 @@ namespace SupremeLeagueManager.Controllers
         {
             return PartialView(new TeamMenagement(provider).GetTeam());
         }
+
+        public ActionResult _PlayerSkills()
+        {
+            return PartialView();
+        }
     }
 }

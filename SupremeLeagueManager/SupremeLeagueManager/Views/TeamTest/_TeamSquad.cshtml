@@ -1,43 +1,42 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
-<div class="col-md-3">
-    <table class="table table-bordered table-striped table-sm" id="squadTable" style="float:left;">
-        <thead>
-            <tr>
-                <th colspan="8" class="text-center">
-                    <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
-                    <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
-                    <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
-                </th>
+<table class="table table-bordered table-striped table-sm ml-2" id="squadTable" style="width: 25%; float:left">
+    <thead>
+        <tr>
+            <th colspan="8" class="text-center">
+                <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
+                <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
+                <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
+            </th>
+        </tr>
+        <tr class="text-center">
+            <th style="width: 40%">Name</th>
+            <th style="width: 10%">Flag</th>
+            <th style="width: 10%">Pos</th>
+            <th style="width: 10%">Age</th>
+            <th style="width: 10%">App</th>
+            <th style="width: 10%">Gls</th>
+            <th style="width: 10%">Skl</th>
+            <th style="width: 10%">Dyn</th>
+        </tr>
+    </thead>
+    <tbody id="squadBody">
+        @for (int i = 0; i < Model.Team.Players.Count; i++)
+        {
+            <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
+                <td style="display:none"><input type="checkbox" value="@i" class="checker"/></td>
+                <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
+                <td><img src="~/Content/Resources/Flags/@Model.Team.Players.ElementAt(i).GetNationalityFlag()" width="24" height="24" /></td>
+                <td>@Model.Team.Players.ElementAt(i).Position</td>
+                <td>@Model.Team.Players.ElementAt(i).Age</td>
+                <td></td>
+                <td></td>
+                <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkills()))</td>
+                <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageDynamicSkills(@i, @Model.Team.Formation)))</td>
             </tr>
-            <tr class="text-center">
-                <th style="width: 40%">Name</th>
-                <th style="width: 10%">Flag</th>
-                <th style="width: 10%">Pos</th>
-                <th style="width: 10%">Age</th>
-                <th style="width: 10%">App</th>
-                <th style="width: 10%">Gls</th>
-                <th style="width: 10%">Skl</th>
-                <th style="width: 10%">Dyn</th>
-            </tr>
-        </thead>
-        <tbody id="squadBody">
-            @for (int i = 0; i < Model.Team.Players.Count; i++)
-            {
-                <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
-                    <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
-                    <td><img src="~/Content/Resources/Flags/@Model.Team.Players.ElementAt(i).GetNationalityFlag()" width="24" height="24" /></td>
-                    <td>@Model.Team.Players.ElementAt(i).Position</td>
-                    <td>@Model.Team.Players.ElementAt(i).Age</td>
-                    <td></td>
-                    <td></td>
-                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkills()))</td>
-                    <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageDynamicSkills(@i, @Model.Team.Formation)))</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>
 
 <script type="text/javascript">
 
@@ -58,22 +57,77 @@
            break;
     }
 
-    var row;
+    $('#442').click(function () {
+        formation442();
+    });
+    $('#433').click(function () {
+        formation433();
+    });
+    $('#451').click(function () {
+        formation451();
+    });
+    $('#352').click(function () {
+        formation352();
+    });
+
+    var counter = 0;
+    var hoveredRow;
+    var selectedBefore;
+    var selectedClicked;
+    var selectedRow;
+    var selected;
+     
+
     $('#squadBody tr').on({
 
         'click': function () {
-            $(this).css('background', 'rgba(200, 242, 201, 0.5)');
+            if (counter < 2) {
+
+                 var input = $(this).find("input.checker");
+              
+                if (input.is(':checked')) {
+                    $(this).css('background', selectedBefore);
+                    input.prop('checked', false);
+                    counter--;
+                }
+                else if (input.not(':checked')) {
+                    input.prop('checked', true);
+                    selectedRow = $(this).css('background', 'rgba(200, 0, 201, 0.5)');
+                    
+                    selected = true;
+                    counter++;
+                }
+            }
+            if (counter == 2) {
+                //var input = $(this).find("input.checker");
+                //input.prop('checked', true);
+                //if (input.is(':checked')) {
+                    var arrayOfSelected = new Array();
+                    $('#squadBody input[type="checkbox"]:checked').each(function () {
+                        arrayOfSelected.push($(this).val());
+                    });
+                    changePlayer(arrayOfSelected);
+              
+                //}
+            }
         },
 
         'mouseover': function () {
-            console.log('on');
-            row = $(this).css('background-color');
-            $(this).css('background', 'rgba(200, 187, 201, 0.5)');
+            selectedBefore = $(this).css('background-color');
+            hoveredRow = $(this).css('background-color');
+            $(this).css('background', 'rgba(200, 187, 201, 0.7)');
         },
 
         'mouseout': function () {
-            console.log(row);
-            $(this).css('background', row);
+            if (selected == true) {
+                if (counter <= 2) {
+                    $(this).css('background', selectedRow);
+                    selected = false;
+                   
+                }
+            } else {
+                $(this).css('background', hoveredRow);
+            }
         }
     });
 
@@ -190,6 +244,54 @@
         $('#defenceForSkillsTable').text(players[id].Defence);
         $('#midfieldForSkillsTable').text(players[id].Midfield);
         $('#attackForSkillsTable').text(players[id].Attack);
+    }
+
+    function changePlayer(arrayOfSelected) {
+
+        var teamId = @Html.Raw(Json.Encode(Model.Team.TeamId));
+        var formation =  @Html.Raw(Json.Encode(Model.Team.Formation));
+
+        var Provider = {};
+
+        Provider.TeamId = teamId;
+        Provider.FormationId = formation;
+        Provider.Player1 = arrayOfSelected[0];
+        Provider.Player2 = arrayOfSelected[1];
+
+        $.ajax(
+            {
+                url: "_TeamSquad/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#teamSquad").html(partialViewResult);
+            });
+
+        $.ajax(
+            {
+                url: "_TeamSkills/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#teamSkills").html(partialViewResult);
+            });
+
     }
 
 </script>
