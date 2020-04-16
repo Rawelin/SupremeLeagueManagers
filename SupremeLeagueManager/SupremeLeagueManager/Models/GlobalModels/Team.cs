@@ -28,6 +28,13 @@ namespace SupremeLeagueManager.Models
             return TeamSkillsModel;
         }
 
+        public void ChangePlayer(int p1, int p2)
+        {
+            Player Tmp = Players[p1];
+            Players[p1] = Players[p2];
+            Players[p2] = Tmp;
+        }
+
         public void SetTeamSkills()
         {
             TeamSkillsModel = new TeamSkills(this).GetTeamSkillsModel();

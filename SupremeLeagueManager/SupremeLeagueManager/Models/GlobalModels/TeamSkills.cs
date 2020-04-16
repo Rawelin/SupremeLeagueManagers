@@ -62,8 +62,8 @@ namespace SupremeLeagueManager.Models
             //                            .Take(11)
             //                            .Sum();
 
-            Team.TeamSkillsModel.Overall = (Team.TeamSkillsModel.GoalKeeper + Team.TeamSkillsModel.Defence +
-                                           Team.TeamSkillsModel.Speed + Team.TeamSkillsModel.Technicque) / 4;
+            Team.TeamSkillsModel.Overall = (Team.TeamSkillsModel.GoalKeeper + Team.TeamSkillsModel.Defence + Team.TeamSkillsModel.Midfield + 
+                                            Team.TeamSkillsModel.Attack + Team.TeamSkillsModel.Speed + Team.TeamSkillsModel.Technicque) / 6;
         }
     }
 }

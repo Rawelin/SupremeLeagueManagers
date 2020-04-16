@@ -69,7 +69,6 @@ namespace SupremeLeagueManager.Models
             averageSkills = PlayerSkills.Compute(this);
         }
 
-        public enum PlayerPosition { GK = 1, CB = 2, LB = 4, RB = 5, DM = 6, CM = 7, LM = 8, RM = 9, AM = 10, LW = 11, RW = 12, SS = 13, CF = 14 };
-
+        public enum PlayerPosition { GK = 1, CB = 2, LB = 3, RB = 4, DM = 5, CM = 6, LM = 7, RM = 8, AM = 9, LW = 10, RW = 11, SS = 12, CF = 13 };
     }
 }

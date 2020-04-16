@@ -27,15 +27,22 @@ namespace SupremeLeagueManager.Models.TeamTest
         {
             try
             {
-                if (!(provider.FormationId is null))
+                switch (provider.Status)
                 {
-                    Team = new MockTeam(provider).GetTeam();
-                    Team.Formation = (int)provider.FormationId;
-                    Team.SetTeamSkills();
-                }
-                else
-                {
-                    Team = new MockTeam(provider).GetTeam();
+                    case 1:
+                        Team = new MockTeam(provider).GetTeam();
+                        break;
+                    case 2:
+                        Team = new MockTeam(provider).GetTeam();
+                        Team.Formation = (int)provider.FormationId;
+                        Team.SetTeamSkills();
+                        break;
+                    case 3:
+                        Team = new MockTeam(provider).GetTeam();
+                        Team.ChangePlayer(provider.Player1, provider.Player2);
+                        Team.Formation = (int)provider.FormationId;
+                        Team.SetTeamSkills();
+                        break;
                 }
             }
             catch (Exception ex)

@@ -9,7 +9,8 @@ namespace SupremeLeagueManager.Models.TeamTest
     {
         public int? TeamId { get; set; }
         public int? FormationId { get; set; }
-        public int? Player1 { get; set; }
-        public int? Player2 { get; set; }
+        public int Player1 { get; set; }
+        public int Player2 { get; set; }
+        public int Status { get; set; }
     }
 }

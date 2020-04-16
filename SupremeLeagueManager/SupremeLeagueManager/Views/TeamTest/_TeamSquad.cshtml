@@ -24,7 +24,7 @@
         @for (int i = 0; i < Model.Team.Players.Count; i++)
         {
             <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
-                <td style="display:none"><input type="checkbox" value="@i" class="checker"/></td>
+                <td style="display:none"><input type="checkbox" value="@i" class="checker" /></td>
                 <td class="text-left">@Model.Team.Players.ElementAt(i).GetFullName()</td>
                 <td><img src="~/Content/Resources/Flags/@Model.Team.Players.ElementAt(i).GetNationalityFlag()" width="24" height="24" /></td>
                 <td>@Model.Team.Players.ElementAt(i).Position</td>
@@ -71,62 +71,68 @@
     });
 
     var counter = 0;
-    var hoveredRow;
-    var selectedBefore;
+    var selected = 3;
+    var beforeHover;
     var selectedClicked;
+    var firstClicked;
     var selectedRow;
-    var selected;
-     
-
+   
     $('#squadBody tr').on({
 
         'click': function () {
             if (counter < 2) {
-
-                 var input = $(this).find("input.checker");
-              
+                var input = $(this).find("input.checker");
+                // if the same row is clicked second time 
                 if (input.is(':checked')) {
-                    $(this).css('background', selectedBefore);
+
+                    // restores original background colourcif row is unclicked
+                    $(this).css('background', selectedClicked);
+                    selected = 2;
+
                     input.prop('checked', false);
                     counter--;
-                }
+
+                }// if row is clicked
                 else if (input.not(':checked')) {
                     input.prop('checked', true);
-                    selectedRow = $(this).css('background', 'rgba(200, 0, 201, 0.5)');
-                    
-                    selected = true;
+                    selectedRow = $(this).css('background', 'rgba(65, 107, 130, 0.5)');
+
+                    selected = 1;
                     counter++;
+
+                    //keeps background colour of clicked row in case of unclicking to restore original background
+                    if (counter == 1) {
+                        selectedClicked = beforeHover;
+                    }
                 }
-            }
+            }// if second row is clicked 2 value of inputs are pushed to array and send to changPlayer(array) function
             if (counter == 2) {
-                //var input = $(this).find("input.checker");
-                //input.prop('checked', true);
-                //if (input.is(':checked')) {
-                    var arrayOfSelected = new Array();
-                    $('#squadBody input[type="checkbox"]:checked').each(function () {
-                        arrayOfSelected.push($(this).val());
-                    });
-                    changePlayer(arrayOfSelected);
-              
-                //}
+                  var arrayOfSelected = new Array();
+                  $('#squadBody input[type="checkbox"]:checked').each(function () {
+                      arrayOfSelected.push($(this).val());
+                  });
+                  changePlayer(arrayOfSelected);
             }
         },
 
         'mouseover': function () {
-            selectedBefore = $(this).css('background-color');
-            hoveredRow = $(this).css('background-color');
+            beforeHover = $(this).css('background-color'); // keeps row background colour before hovering in order to restore original bc after leaving row
             $(this).css('background', 'rgba(200, 187, 201, 0.7)');
         },
 
         'mouseout': function () {
-            if (selected == true) {
-                if (counter <= 2) {
+            switch (selected) {
+                case 1: // selected row background color
                     $(this).css('background', selectedRow);
-                    selected = false;
-                   
-                }
-            } else {
-                $(this).css('background', hoveredRow);
+                    selected = 3;
+                    break;    
+                case 2: // first clicked row background color
+                    $(this).css('background', selectedClicked);
+                    selected = 3;
+                    break;
+                case 3: // hovered row background color
+                    $(this).css('background', beforeHover);
+                    break;
             }
         }
     });
@@ -257,6 +263,7 @@
         Provider.FormationId = formation;
         Provider.Player1 = arrayOfSelected[0];
         Provider.Player2 = arrayOfSelected[1];
+        Provider.Status = 3;
 
         $.ajax(
             {
