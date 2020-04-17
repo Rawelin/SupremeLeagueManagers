@@ -126,12 +126,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\TeamTestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin\AdminVM.cs" />
+    <Compile Include="Models\Admin\dictTeamsM.cs" />
+    <Compile Include="Models\Admin\dictTeamsPlayersM.cs" />
+    <Compile Include="Models\Admin\ListM.cs" />
+    <Compile Include="Models\Global\GlobalCRUD.cs" />
     <Compile Include="Models\Global\Email.cs" />
     <Compile Include="Models\Global\EmailManagement.cs" />
     <Compile Include="Models\Global\ErrorHandling.cs" />
@@ -600,6 +606,7 @@
     <Content Include="Views\TeamTest\TeamTest.cshtml" />
     <Content Include="Views\SignIn\SignIn.cshtml" />
     <Content Include="Views\SignIn\Confirmation.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,112 @@
+﻿@model SupremeLeagueManager.Models.Admin.AdminVM
+
+@{
+    ViewBag.Title = "Admin";
+}
+
+<div id="adminView">
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-xl-10 offset-xl-1">
+            <div class="d-flex justify-content-start">
+                <div class="p-1">
+                    <button type="button" class="btn btn-outline-info" v-on:click="ChangeTab(1)" style="width: 10em;"> Teams </button>
+                </div>
+                <div class="p-1">
+                    <button type="button" class="btn btn-outline-info" v-on:click="ChangeTab(2)" style="width: 10em;"> Team players </button>
+                </div>
+                <div class="p-1">
+                    <a class="btn btn-outline-info" href="@Url.Action("TeamTest", "TeamTest")" style="width: 10em;">Team Test &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Teams*@
+    <div v-if="IdTab == 1"> 
+
+    </div>
+    @*Team players*@
+    <div v-else-if="IdTab == 2">
+        <div class="row">
+            <div class="col-xl-2 offset-1">
+                <div class="d-flex justify-content-center">
+                    <div class="p-2">
+                        <h4><i> Team: </i></h4>
+                    </div>
+                </div>
+                <div v-for="i in dictTeams">
+                    <div class="d-flex justify-content-center">
+                        <div class="p-1">
+                            <button type="button" class="btn btn-outline-info btn-sm" v-on:click="ChangeTeam(i.Id)" style="width: 14em; font-size: 14px; padding: 4px 0px 4px 0px;"> {{i.Description}} </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xl-8">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var vueAdmin = new Vue({
+        el: '#adminView',
+
+        data: {
+            IdTab: 0,
+
+            dictTeams: [],
+
+            teamsPlayers: [],
+            teamsPlayersAll: [],
+
+            teamPlayer: {}
+        },
+
+        methods: {
+            ChangeTab: function (IdTab) {
+                vueAdmin.IdTab = IdTab;
+            },
+
+            ChangeTeam: function (IdTeams) {
+                alert(IdTeams);
+            }
+        },
+
+        watch: {
+
+        },
+
+        computed: {
+
+        },
+
+        computed: {
+
+        },
+
+        beforeCreate: function () {
+
+        },
+
+        created: function () {
+
+        },
+
+        beforeMount() {
+
+        },
+
+        mounted() {
+            this.dictTeams = @Html.Raw(Json.Encode(Model.dictTeams));
+        },
+
+        update() {
+
+        }
+    })
+</script>
+
