@@ -49,24 +49,24 @@ namespace SupremeLeagueManager.Models
         public double Endurance { get; set; }
         public double Stamina { get; set; }
 
-        private double averageSkills;
-        private double averageDynamicSkills;
+        public double AverageSkills { get; set; }
+        public double AverageDynamicSkills { get; set; }
 
         public Player() : base() { }
 
         public double GetAverageSkills()
         {
-            return averageSkills;
+            return AverageSkills;
         }
 
         public double GetAverageDynamicSkills(int currentPosition, int formation)
         {
-            return averageDynamicSkills = new PlayerDynamicSkills(this, currentPosition, formation).GetDynamicSkills();
+            return AverageDynamicSkills = new PlayerDynamicSkills(this, currentPosition, formation).GetDynamicSkills();
         }
 
         public void SetAverageSkills()
         {
-            averageSkills = PlayerSkills.Compute(this);
+            AverageSkills = PlayerSkills.Compute(this);
         }
 
         public enum PlayerPosition { GK = 1, CB = 2, LB = 3, RB = 4, DM = 5, CM = 6, LM = 7, RM = 8, AM = 9, LW = 10, RW = 11, SS = 12, CF = 13 };

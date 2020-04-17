@@ -1,7 +1,7 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
-<table class="table table-bordered table-striped table-sm ml-2" id="squadTable" style="width: 25%; float:left">
-    <thead>
+<table class="table table-bordered table-striped table-sm ml-3" id="squadTable" style="width: 25%; float:left">
+    <thead  style="font-size:13px">
         <tr>
             <th colspan="8" class="text-center">
                 <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
@@ -20,7 +20,7 @@
             <th style="width: 10%">Dyn</th>
         </tr>
     </thead>
-    <tbody id="squadBody">
+    <tbody id="squadBody" style="font-size:13px">
         @for (int i = 0; i < Model.Team.Players.Count; i++)
         {
             <tr class="text-center" onmouseover="showPlayerSkills('@i')" style="vertical-align:middle;">
@@ -240,16 +240,67 @@
                 break;
         }
 
+    
+    
         $('#playerSkills').css("visibility", "visible");
         $('#nameForSkillsTable').text(players[id].Name);
         $('#surnameForSkillsTable').text(players[id].Surname);
         $('#positionForSkillsTable').text(players[id].Position);
         $('#ageForSkillsTable').text(players[id].Age);
         $('#flag').attr('src', '/Content/Resources/Flags/' + country + '.png');
-        $('#goalkeeperSkillsTable').text(players[id].GoalKeeper);
-        $('#defenceForSkillsTable').text(players[id].Defence);
-        $('#midfieldForSkillsTable').text(players[id].Midfield);
-        $('#attackForSkillsTable').text(players[id].Attack);
+       
+        colors($('#goalkeeperSkillsTable'), players[id].GoalKeeper);
+        colors($('#defenceForSkillsTable'), players[id].Defence);
+        colors($('#midfieldForSkillsTable'), players[id].Midfield);
+        colors($('#attackForSkillsTable'), players[id].Attack);
+        colors($('#divingForSkillsTable'), players[id].Diving);
+        colors($('#handlingForSkillsTable'), players[id].Handling);
+        colors($('#tacklingForSkillsTable'), players[id].Tackling);
+        colors($('#coveringForSkillsTable'), players[id].Covering);
+        colors($('#LPForSkillsTable'), players[id].LongPassAccuracy);
+        colors($('#SPForSkillsTable'), players[id].ShortPassAccuracy);
+        colors($('#shotForSkillsTable'), players[id].ShotAccuracy);
+        colors($('#speedForSkillsTable'), players[id].Speed);
+        colors($('#accelerationForSkillsTable'), players[id].Acceleration);
+        colors($('#reflexForSkillsTable'), players[id].Reflex);
+        colors($('#headingForSkillsTable'), players[id].Heading);
+        colors($('#shotPowerForSkillsTable'), players[id].ShotPower);
+        colors($('#techniqueForSkillsTable'), players[id].Technique);
+        colors($('#enduranceForSkillsTable'), players[id].Endurance);
+        colors($('#staminaForSkillsTable'), players[id].Stamina);
+        colors($('#avgSkillsForSkillsTable'), players[id].AverageSkills);
+        colors($('#avgDynSkillsForSkillsTable'), players[id].AverageDynamicSkills);
+
+        var differ = players[id].AverageDynamicSkills - players[id].AverageSkills;
+
+        if (id < 11) {
+            colors($('#avgDiffForSkillsTable'), differ);
+        } else {
+            colors($('#avgDiffForSkillsTable'), 0);
+        }
+
+
+      
+    }
+
+    function colors(item,value) {
+
+        value = Math.round(value);
+
+        item.text(value);
+
+        if (value >= 95) {
+            item.css('color', "darkred");
+        } else if (value >= 90 && value < 95) {
+            item.css('color', "red");
+        } else if (value >= 80 && value < 90) {
+            item.css('color', "orange");
+        } else if (value >= 70 && value < 80) {
+            item.css('color', "forestgreen");
+        }
+        else {
+            item.css('color', "black");
+        }
     }
 
     function changePlayer(arrayOfSelected) {
