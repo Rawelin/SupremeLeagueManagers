@@ -1,16 +1,16 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
 
 <table class="table table-bordered table-striped table-sm ml-3" id="squadTable" style="width: 25%; float:left">
-    <thead  style="font-size:13px">
+    <thead style="font-size:13px">
         <tr>
-            <th colspan="8" class="text-center">
+            <th colspan="9" class="text-center">
                 <div style="display: inline-block; float:left"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
                 <div style="display: inline-block;"><div style="font-size:25px">@Model.Team.GetFullName()</div></div>
                 <div style="display: inline-block; float:right"><img src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></div>
             </th>
         </tr>
         <tr class="text-center">
-            <th style="width: 40%">Name</th>
+            <th style="width: 35%">Name</th>
             <th style="width: 10%">Flag</th>
             <th style="width: 10%">Pos</th>
             <th style="width: 10%">Age</th>
@@ -18,6 +18,7 @@
             <th style="width: 10%">Gls</th>
             <th style="width: 10%">Skl</th>
             <th style="width: 10%">Dyn</th>
+            <th style="width: 15%">Stamina</th>
         </tr>
     </thead>
     <tbody id="squadBody" style="font-size:13px">
@@ -33,6 +34,11 @@
                 <td></td>
                 <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkills()))</td>
                 <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageDynamicSkills(@i, @Model.Team.Formation)))</td>
+                <td class="text-center" style="vertical-align:middle">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@Model.Team.Players.ElementAt(i).Stamina%;">@Model.Team.Players.ElementAt(i).Stamina</div>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
@@ -40,8 +46,26 @@
 
 <script type="text/javascript">
 
-     var formation = @Html.Raw(Json.Encode(Model.Team.Formation));
+    var formation = @Html.Raw(Json.Encode(Model.Team.Formation));
+    var players = @Html.Raw(Json.Encode(Model.Team.Players));
 
+    // progress bar
+    $('#squadBody .progress-bar').each(function () {
+
+        var text = $(this).text();
+
+        if ($(this).text() > 80) {
+            $(this).addClass('bg-success');
+            $(this).text('' + text + '%');
+        } else if ($(this).text() < 80 && $(this).text() >= 40) {
+            $(this).addClass('bg-warning');
+            $(this).text(''+ text +'%');
+        } else if ($(this).text() < 40) {
+            $(this).addClass('bg-danger');
+            $(this).text('');
+        }
+    });
+   
     switch (formation) {
         case 1:
            formation442();
@@ -76,13 +100,13 @@
     var selectedClicked;
     var firstClicked;
     var selectedRow;
-   
+
     $('#squadBody tr').on({
 
         'click': function () {
             if (counter < 2) {
                 var input = $(this).find("input.checker");
-                // if the same row is clicked second time 
+                // if the same row is clicked second time
                 if (input.is(':checked')) {
 
                     // restores original background colourcif row is unclicked
@@ -125,7 +149,7 @@
                 case 1: // selected row background color
                     $(this).css('background', selectedRow);
                     selected = 3;
-                    break;    
+                    break;
                 case 2: // first clicked row background color
                     $(this).css('background', selectedClicked);
                     selected = 3;
@@ -240,15 +264,13 @@
                 break;
         }
 
-    
-    
         $('#playerSkills').css("visibility", "visible");
         $('#nameForSkillsTable').text(players[id].Name);
         $('#surnameForSkillsTable').text(players[id].Surname);
         $('#positionForSkillsTable').text(players[id].Position);
         $('#ageForSkillsTable').text(players[id].Age);
         $('#flag').attr('src', '/Content/Resources/Flags/' + country + '.png');
-       
+
         colors($('#goalkeeperSkillsTable'), players[id].GoalKeeper);
         colors($('#defenceForSkillsTable'), players[id].Defence);
         colors($('#midfieldForSkillsTable'), players[id].Midfield);
@@ -278,9 +300,6 @@
         } else {
             colors($('#avgDiffForSkillsTable'), 0);
         }
-
-
-      
     }
 
     function colors(item,value) {

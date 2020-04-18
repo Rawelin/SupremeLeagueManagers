@@ -50,7 +50,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 80,
                 Technique = 78,
                 Endurance = 75,
-                Stamina = 100
+                Stamina = 90
 
             };
 
@@ -83,7 +83,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 85,
                 Technique = 84,
                 Endurance = 90,
-                Stamina = 100
+                Stamina = 33
             };
 
             Player ramos = new Player()
@@ -115,7 +115,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 85,
                 Technique = 84,
                 Endurance = 85,
-                Stamina = 100
+                Stamina = 77
             };
 
             Player varane = new Player()
@@ -147,7 +147,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 80,
                 Technique = 80,
                 Endurance = 83,
-                Stamina = 100
+                Stamina = 77
             };
 
             Player carvajal = new Player()
@@ -179,7 +179,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 80,
                 Technique = 84,
                 Endurance = 90,
-                Stamina = 100
+                Stamina = 56
             };
 
             Player casemiro = new Player()
@@ -211,7 +211,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 85,
                 Technique = 85,
                 Endurance = 90,
-                Stamina = 100
+                Stamina = 83
             };
 
             Player modric = new Player()
@@ -243,7 +243,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 87,
                 Technique = 90,
                 Endurance = 88,
-                Stamina = 100
+                Stamina = 60
             };
 
             Player kroos = new Player()
@@ -275,7 +275,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 88,
                 Technique = 88,
                 Endurance = 85,
-                Stamina = 100
+                Stamina = 60
             };
 
             Player hazard = new Player()
@@ -307,7 +307,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 88,
                 Technique = 93,
                 Endurance = 90,
-                Stamina = 100
+                Stamina = 50
             };
 
             Player bale = new Player()
@@ -339,7 +339,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 92,
                 Technique = 90,
                 Endurance = 85,
-                Stamina = 100
+                Stamina = 90
             };
 
             Player benzema = new Player()
@@ -371,7 +371,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 85,
                 Technique = 88,
                 Endurance = 84,
-                Stamina = 100
+                Stamina = 33
             };
 
             Player isco = new Player()
@@ -403,7 +403,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 87,
                 Technique = 93,
                 Endurance = 88,
-                Stamina = 100
+                Stamina = 99
             };
 
             Player assensio = new Player()
@@ -435,7 +435,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 ShotPower = 87,
                 Technique = 93,
                 Endurance = 88,
-                Stamina = 100
+                Stamina = 99
             };
 
             List<Player> realMadrid = new List<Player>();

@@ -1,0 +1,9 @@
+﻿#dashboard {
+    position: absolute;
+    right: -80px;
+    padding: 20px;
+    border: 1px solid #5bc0de;
+    border-radius: 5px;
+    z-index: 100;
+}
+
