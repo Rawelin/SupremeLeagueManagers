@@ -134,6 +134,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin\AdminVM.cs" />
+    <Compile Include="Models\Admin\CRUD.cs" />
     <Compile Include="Models\Admin\dictTeamsM.cs" />
     <Compile Include="Models\Admin\dictTeamsPlayersM.cs" />
     <Compile Include="Models\Admin\ListM.cs" />

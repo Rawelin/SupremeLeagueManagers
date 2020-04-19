@@ -10,14 +10,16 @@ namespace SupremeLeagueManager.Models.Admin
     public class AdminVM
     {
         public List<ListM> dictTeams = new List<ListM>();
-        public List<dictTeamsPlayersM> teamsPlayersAll = new List<dictTeamsPlayersM>();
+        public List<ListM> dictCountries = new List<ListM>();
+        public List<ListM> dictPositions = new List<ListM>();
 
-        dictTeamsPlayersM teamPlayer = new dictTeamsPlayersM();
+        public dictTeamsPlayersM teamPlayer = new dictTeamsPlayersM();
 
         public AdminVM()
         {
             dictTeams = GlobalCRUD.GetDictTeams();
-            teamsPlayersAll = GlobalCRUD.GetTeamsPlayers();
+            dictCountries = GlobalCRUD.GetCountries();
+            dictPositions = GlobalCRUD.GetPositions();
         }
     }
 }

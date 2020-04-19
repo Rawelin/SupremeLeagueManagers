@@ -34,7 +34,56 @@ namespace SupremeLeagueManager.Models.Global
             return r;
         }
 
-        internal static List<dictTeamsPlayersM> GetTeamsPlayers()
+        internal static List<ListM> GetPositions()
+        {
+            List<ListM> r = new List<ListM>();
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    r = slmCtx.dictPositions
+                        .Where(a => a.Active == 1)
+                        .Select(a => new ListM {
+                            Id = a.IdDictPositions,
+                            Description = a.Description
+                        }).ToList();
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.InsertError("Admin", "GlobalCRUD", "GetTeamsPlayers", ex);
+            }
+
+            return r;
+        }
+
+        internal static List<ListM> GetCountries()
+        {
+            List<ListM> r = new List<ListM>();
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    r = slmCtx.dictCountries
+                        .Select(a => new ListM {
+                            Id = a.IdDictCountries,
+                            Description = a.CountryName
+                        })
+                        .OrderBy(a => a.Description)
+                        .ToList();
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.InsertError("Admin", "GlobalCRUD", "GetCountries", ex);
+            }
+
+            return r;
+        }
+
+        internal static List<dictTeamsPlayersM> GetTeamPlayers(int IdDictTeams)
         {
             List<dictTeamsPlayersM> r = new List<dictTeamsPlayersM>();
 
@@ -43,6 +92,7 @@ namespace SupremeLeagueManager.Models.Global
                 using (Entities slmCtx = new Entities())
                 {
                     r = slmCtx.dictTeamsPlayers
+                        .Where(a => a.IdDictTeams == IdDictTeams)
                         .Select(a => new dictTeamsPlayersM {
                             IdDictTeamsPlayers = a.IdDictTeamsPlayers,
                             IdDictTeams = a.IdDictTeams,
