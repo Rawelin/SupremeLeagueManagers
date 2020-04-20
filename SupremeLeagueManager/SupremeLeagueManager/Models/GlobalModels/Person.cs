@@ -17,7 +17,13 @@ namespace SupremeLeagueManager.Models
 
         public string GetFullName()
         {
-            return Name + ' ' + Surname; 
+            return Name + ' ' + Surname;
+        }
+
+        public string GetIcoFullName()
+        {
+            string fulname = Name + Surname + ".png";
+            return fulname.Replace(" ", "");
         }
 
         public string GetNationalityFlag()
@@ -27,6 +33,6 @@ namespace SupremeLeagueManager.Models
         }
 
         public enum PersonNationality { Argentina = 10, Belgium = 20, Brazil = 30 , Colombia = 107, Croatia = 39,
-                                        France = 61, Germany = 149, Serbia = 190 , Spain = 82, Uruguay = 223 , Wales  = 250};
+                                        France = 61, Germany = 149, Portugal= 171, Serbia = 190 , Spain = 82, Uruguay = 223 , Wales  = 250};
     }
 }

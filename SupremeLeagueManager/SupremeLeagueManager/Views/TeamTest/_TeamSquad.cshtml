@@ -65,7 +65,8 @@
             $(this).text('');
         }
     });
-   
+
+    // default formation 
     switch (formation) {
         case 1:
            formation442();
@@ -80,6 +81,8 @@
            formation352();
            break;
     }
+
+    // change formation
 
     $('#442').click(function () {
         formation442();
@@ -269,6 +272,9 @@
         $('#surnameForSkillsTable').text(players[id].Surname);
         $('#positionForSkillsTable').text(players[id].Position);
         $('#ageForSkillsTable').text(players[id].Age);
+        $('#playerPhoto').attr('src', '/Content/Resources/Players/' + players[id].Name + players[id].Surname + '.png');
+        $('#playerPhoto').attr('src', '/Content/Resources/Players/' + players[id].Name + players[id].Surname + '.png');
+        $('#playerPhoto').show();
         $('#flag').attr('src', '/Content/Resources/Flags/' + country + '.png');
 
         colors($('#goalkeeperSkillsTable'), players[id].GoalKeeper);
