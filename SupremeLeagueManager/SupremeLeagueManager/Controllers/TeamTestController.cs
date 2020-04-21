@@ -34,5 +34,10 @@ namespace SupremeLeagueManager.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult _FormationPitch(Provider provider)
+        {
+            return PartialView(new TeamMenagement(provider).GetTeam());
+        }
     }
 }

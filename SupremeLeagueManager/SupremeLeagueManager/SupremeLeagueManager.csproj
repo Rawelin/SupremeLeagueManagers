@@ -476,22 +476,22 @@
     <Content Include="Content\Resources\Players\ThibautCortouis.png" />
     <Content Include="Content\Resources\Players\ToniKroos.png" />
     <Content Include="Content\Resources\Stadiums\bernabeu.jpg" />
-    <Content Include="Content\Resources\TShirts\arsenal.png" />
-    <Content Include="Content\Resources\TShirts\atletico.png" />
-    <Content Include="Content\Resources\TShirts\barcelona.png" />
-    <Content Include="Content\Resources\TShirts\bayern.png" />
-    <Content Include="Content\Resources\TShirts\benfica.png" />
-    <Content Include="Content\Resources\TShirts\borussia.png" />
-    <Content Include="Content\Resources\TShirts\chelsea.png" />
-    <Content Include="Content\Resources\TShirts\juventus.png" />
-    <Content Include="Content\Resources\TShirts\manchester city.png" />
-    <Content Include="Content\Resources\TShirts\manu.png" />
-    <Content Include="Content\Resources\TShirts\napoli.png" />
-    <Content Include="Content\Resources\TShirts\porto.png" />
-    <Content Include="Content\Resources\TShirts\psg.png" />
+    <Content Include="Content\Resources\TShirts\ArsenalLondon.png" />
+    <Content Include="Content\Resources\TShirts\AtleticoMadrid.png" />
+    <Content Include="Content\Resources\TShirts\FCBarcelona.png" />
+    <Content Include="Content\Resources\TShirts\BayernMunich.png" />
+    <Content Include="Content\Resources\TShirts\BenficaLisabona.png" />
+    <Content Include="Content\Resources\TShirts\BorussiaDortmund.png" />
+    <Content Include="Content\Resources\TShirts\ChelseaLondon.png" />
+    <Content Include="Content\Resources\TShirts\JuventusTorino.png" />
+    <Content Include="Content\Resources\TShirts\ManchesterCity.png" />
+    <Content Include="Content\Resources\TShirts\ManchesterUnited.png" />
+    <Content Include="Content\Resources\TShirts\FCNapoli.png" />
+    <Content Include="Content\Resources\TShirts\FCPorto.png" />
+    <Content Include="Content\Resources\TShirts\PSGParis.png" />
     <Content Include="Content\Resources\TShirts\RealMadrid.png" />
-    <Content Include="Content\Resources\TShirts\schalke.png" />
-    <Content Include="Content\Resources\TShirts\sevilla.png" />
+    <Content Include="Content\Resources\TShirts\Schalke04Gelsenkirchen.png" />
+    <Content Include="Content\Resources\TShirts\FCSevilla.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -646,6 +646,7 @@
     <Content Include="Views\TeamTest\_TeamSquad.cshtml" />
     <Content Include="Views\TeamTest\_TeamSkills.cshtml" />
     <Content Include="Views\TeamTest\_PlayerSkills.cshtml" />
+    <Content Include="Views\TeamTest\_FormationPitch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
