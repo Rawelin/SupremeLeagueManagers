@@ -9,29 +9,40 @@
 
     @*jQuery*@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
-
+    @*jQuery-ui*@
+    <script src="~/Scripts/jquery-ui.js"></script>
     @*font-awesome*@
     <link href="~/Content/FontAwesome/css/all.css" rel="stylesheet"> <!--load all styles -->
     <script defer src="~/Content/FontAwesome/js/all.js"></script> <!--load all styles -->
-
     @*Vue*@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script><!-- development version, includes helpful console warnings -->
     <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script><!-- production version, optimized for size and speed -->
-
     @*CSS*@
-    <link href="~/Content/CSS/Layout.css"  rel="stylesheet"/>
+    <link href="~/Content/CSS/Layout.css" rel="stylesheet" />
+    <link href="~/Content/CSS/Global.css" rel="stylesheet" />
 
 </head>
 
 <body>
-    <div id="startPage">
+    <div>
         <div class="row navbar-main">
             <div class="d-flex d-flex justify-content-between" style="width: 100%; align-self: center;">
                 <div class="p-2"> Supreme League Managers </div>
                 <div class="p-2">
-                    <button class="btn btn-sm btn-outline-light" type="button" data-toggle="tooltip" title="Sign In" v-on:click="SignIn()">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </button>              
+                    @if (Session["IdUser"] == null)
+                    {
+                        <button class="btn btn-sm btn-outline-light" type="button" data-toggle="tooltip" title="Sign In" onclick="location.href='@Url.Action("SignIn", "SignIn")'">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <i style="margin-right: 1em;"> @Session["eMail"] </i>
+
+                        <button class="btn btn-sm btn-outline-light" type="button" data-toggle="tooltip" title="Sign Out" onclick="location.href='@Url.Action("UserSignOut", "SignIn")'">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    }
                 </div>
             </div>
         </div>
@@ -41,7 +52,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Supreme League Managers</p>
+            <p style="padding-left: 1em;">&copy; 2020 - Supreme League Managers</p>
         </footer>
     </div>
 
@@ -52,17 +63,5 @@
 </html>
 
 <script>
-    var vueStartPage = new Vue({
-        el: '#startPage',
 
-        data: {
-
-        },
-
-        methods: {
-            SignIn: function () {
-                window.location.href = "SignIn/SignIn";
-            }
-        }
-    })
 </script>

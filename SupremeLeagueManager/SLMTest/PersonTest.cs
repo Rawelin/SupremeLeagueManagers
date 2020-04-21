@@ -15,5 +15,15 @@ namespace SLMTest
             person.Surname = "Klop";
             Assert.AreEqual(person.GetFullName(), "Jurgen Klop");
         }
+
+        [TestMethod]
+        public void GetNationalityFlag()
+        {
+            Person person = new Person();
+            person.Nationality = Person.PersonNationality.Spain;
+
+            Assert.AreEqual(person.GetNationalityFlag(), "Spain.png");
+
+        }
     }
 }

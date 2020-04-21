@@ -1,0 +1,132 @@
+﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
+
+<link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
+
+@if (!(@Model.Team.Name is null))
+{
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div id="teamSquad">
+                @Html.Partial("_TeamSquad")
+            </div>
+
+            <div id="_PlayerSkills">
+                @Html.Partial("_PlayerSkills")
+            </div>
+
+            <div id="teamSkills">
+                @Html.Partial("_TeamSkills")
+            </div>
+
+            <div class="pane ml-2"  style="width: 13%">
+                <img id="playerPhoto" src="~/Content/Resources/Players/@Model.Team.Players.ElementAt(0).GetIcoFullName()" width="250" height="295" />
+            </div>
+
+            <div id="formationPitch">
+                @Html.Partial("_FormationPitch")
+            </div>
+
+            <div id="dashboard">
+                <div><button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button></div>
+                <div><button class="btn btn-info mt-1" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button></div>
+                <div><button class="btn btn-info mt-1" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button></div>
+                <div><button class="btn btn-info mt-1" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button></div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+   
+        $("body").css("overflow", "hidden");
+        $("body").css("overflow-x", "hidden");
+        $("body").css("overflow-y", "hidden");
+
+        $('#dashboard').hover(
+            function () {
+                $(this).stop().animate(
+                    {
+                        right: '5',
+                    },
+                    500,
+                    'easeInSine'
+                );
+            },
+            function () {
+                $(this).stop().animate(
+                    {
+                        right: '-80',
+                    },
+                    1500,
+                    'easeOutBounce'
+                );
+            });
+    });
+
+
+    function formationChange(teamId, formationId) {
+
+        var Provider = {};
+
+        Provider.TeamId = teamId;
+        Provider.FormationId = formationId;
+        Provider.Status = 2;
+
+        $.ajax(
+            {
+                url: "_TeamSquad/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#teamSquad").html(partialViewResult);
+            });
+
+        $.ajax(
+            {
+                url: "_TeamSkills/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#teamSkills").html(partialViewResult);
+            });
+
+        $.ajax(
+            {
+                url: "_FormationPitch/TeamTest",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ provider: Provider }),
+                success: function () {
+
+                },
+                error: function () {
+                    alert('Nieoczekiwany błąd');
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#formationPitch").html(partialViewResult);
+            });
+    }
+
+</script>
+
+
+
+

@@ -1,0 +1,122 @@
+﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
+
+
+@if (Model.Team.Formation == 1)
+{
+    <div class="pane ml-2" style="font-size:12px;">
+        <div style="width:550px; height: 550px;">
+            <div class="row col-md-7" style="margin-left:auto; margin-right:auto;">
+                <div class="mt-4" style="width:50%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(9).GetFullName()</label>
+                </div>
+                <div class="mt-4" style="width:50%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(10).GetFullName()</label>
+                </div>
+            </div>
+            <div class="row col-md-13" style="margin-left:auto; margin-right:auto;">
+                <div class="mt-5" style="width:25%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(5).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:25%; float:left">
+                    <img class="mt-3" src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(6).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:25%; float:left">
+                    <img class="mt-3" src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(7).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:25%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(8).GetFullName()</label>
+                </div>
+            </div>
+            <div class="row col-md-13">
+                <div class="mt-5" style="width:25%; float:left;">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(1).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:25%; float:left">
+                    <img class="mt-3" src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(3).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:25%; float:left">
+                    <img class="mt-3" src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(2).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:25%; float:right">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(4).GetFullName()</label>
+                </div>
+            </div>
+            <div class="row col-md-13">
+                <div class="mt-3" style="width:100%">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(0).GetFullName()</label>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Team.Formation == 2)
+{
+    <div class="pane ml-2" style="font-size:12px;">
+        <div style="width: 550px; height: 550px;">
+            <div class="row col-md-11" style="margin-left:auto; margin-right:auto;">
+                <div class="mt-5" style="width:33%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(8).GetFullName()</label>
+                </div>
+                <div class="mt-2" style="width:33%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(9).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:33%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(10).GetFullName()</label>
+                </div>
+            </div>
+            <div class="row col-md-9" style="margin-left:auto; margin-right:auto;">
+                <div class="mt-3" style="width:33%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(5).GetFullName()</label>
+                </div>
+                <div class="mt-5" style="width:33%; float:left">
+                    <img class="mt-5" src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(6).GetFullName()</label>
+                </div>
+                <div class="mt-3" style="width:33%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(7).GetFullName()</label>
+                </div>
+            </div>
+            <div class="row col-md-13">
+                <div style="width:25%; float:left;">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(1).GetFullName()</label>
+                </div>
+                <div class="mt-3" style="width:25%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(3).GetFullName()</label>
+                </div>
+                <div class="mt-3" style="width:25%; float:left">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(2).GetFullName()</label>
+                </div>
+                <div style="width:25%; float:right">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(4).GetFullName()</label>
+                </div>
+            </div>
+            <div class="row col-md-13">
+                <div class="mt-3" style="width:100%">
+                    <img src="~/Content/Resources/TShirts/@Model.Team.GetEmblemsName()" width="50" height="60" /><br />
+                    <label>@Model.Team.Players.ElementAt(0).GetFullName()</label>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
