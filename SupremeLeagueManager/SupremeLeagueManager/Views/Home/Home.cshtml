@@ -2,37 +2,140 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container body-container">
-    <div class="jumbotron">
-        <h1>Supreme League Managers </h1>
-        <p>Online simulator of the football league composed of the best international teams</p>
-        <p>
-            <a href="https://www.youtube.com/watch?v=nWiD9ySL65M&t=5s" class="btn btn-primary btn-lg">Desktop Version &raquo;</a>
-            <a href="/TeamTest/TeamTest" class="btn btn-primary btn-lg">Team Test &raquo;</a>
-        </p>
-
-        <div>
-            <img src="~/Content/Resources/Emblems/ArsenalLondon.png" width="50" height="50"/>
-            <img src="~/Content/Resources/Emblems/AtleticoMadrid.png" width="50" height="50"/>
-            <img src="~/Content/Resources/Emblems/BayernMunich.png" width="50" height="50"/>
+<div id="HomeVue">
+    <div class="d-flex justify-content-center" style="margin-top: 1em;">
+        <div class="p-2">
+            <h1><i> Supreme League Managers </i></h1>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="p-2">
+            <h4><i> Online simulator of the football league composed of the best international teams </i></h4>
+        </div>
+    </div> 
+    <div class="d-flex justify-content-between" style="margin-top: 1em; padding: 0em 9em 0em 9em;">
+        <div class="p-1">
+            <img src="~/Content/Resources/Emblems/ArsenalLondon.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
+            <img src="~/Content/Resources/Emblems/AtleticoMadrid.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
+            <img src="~/Content/Resources/Emblems/BayernMunich.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/Schalke04Gelsenkirchen.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/BenficaLisabona.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/BorussiaDortmund.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/ChelseaLondon.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/FCBarcelona.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/ManchesterUnited.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/PSGParis.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/RealMadrid.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/ManchesterCity.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/JuventusTorino.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/FCPorto.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/FCSevilla.png" width="50" height="50" />
+        </div>
+        <div class="p-1">
             <img src="~/Content/Resources/Emblems/FCNapoli.png" width="50" height="50" />
         </div>
-        <br />
-        <img src="~/Content/Resources/Pictures/bernabeu.jpg" width="850" />
+    </div>
+
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-xl-2 offset-1">
+            @if (Session["IdUser"] != null)
+            {
+                <div class="d-flex justify-content-center">
+                    <div class="p-1">
+                        <h4> Menu: </h4>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="p-1">
+                        <div class="btn btn-outline-info" href="" style="width: 10em;"> Online League </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="p-1">
+                        <div class="btn btn-outline-info" href="" style="width: 10em;"> League </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="p-1">
+                        <div class="btn btn-outline-info" href="" style="width: 10em;"> Friendly match </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="p-1">
+                        <div class="btn btn-outline-info" href="" style="width: 10em;"> Training </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="p-1">
+                        <div class="btn btn-outline-info" href="" style="width: 10em;"> Team </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-xl-6">
+            <div class="d-flex justify-content-center">
+                <div class="p-2">
+                    <img src="~/Content/Resources/Pictures/bernabeu.jpg" width="850" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2">
+            <div class="d-flex justify-content-center">
+                <div class="p-1">
+                    <h4> Help: </h4>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="p-1">
+                    <a class="btn btn-outline-info" href="https://www.youtube.com/watch?v=nWiD9ySL65M&t=5s" style="width: 10em;"> Desktop Version &raquo; </a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="p-1">
+                    <a class="btn btn-outline-info" href="@Url.Action("TeamTest", "TeamTest")" style="width: 10em;">Team Test &raquo;</a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="p-1">
+                    <a class="btn btn-outline-info" href="@Url.Action("Admin", "Admin")"  style="width: 10em;"> Admin </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+
 
 
 

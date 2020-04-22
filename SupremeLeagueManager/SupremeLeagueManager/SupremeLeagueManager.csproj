@@ -126,12 +126,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\TeamTestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin\AdminVM.cs" />
+    <Compile Include="Models\Admin\CRUD.cs" />
+    <Compile Include="Models\Admin\dictTeamsM.cs" />
+    <Compile Include="Models\Admin\dictTeamsPlayersM.cs" />
+    <Compile Include="Models\Admin\Helpers.cs" />
+    <Compile Include="Models\Admin\ListM.cs" />
+    <Compile Include="Models\Global\GlobalCRUD.cs" />
     <Compile Include="Models\Global\Email.cs" />
     <Compile Include="Models\Global\EmailManagement.cs" />
     <Compile Include="Models\Global\ErrorHandling.cs" />
@@ -165,6 +173,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\Admin\Admin.css" />
     <Content Include="Content\CSS\Global.css" />
     <Content Include="Content\CSS\Layout.css" />
     <Content Include="Content\CSS\TeamManagement.css" />
@@ -647,6 +656,7 @@
     <Content Include="Views\TeamTest\_TeamSkills.cshtml" />
     <Content Include="Views\TeamTest\_PlayerSkills.cshtml" />
     <Content Include="Views\TeamTest\_FormationPitch.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
