@@ -21,6 +21,7 @@ namespace SupremeLeagueManager.Models.Admin
                     IdDictTeams = v.IdDictTeams,
                     IdDictCountries = v.IdDictCountries,
                     IdDictPositions = v.IdDictPositions,
+                    IdDictPositionsActual = v.IdDictPositions,
                     IdDictPersons = 1,
                     BirthDate = v.BirthDate,
                     FirstName = v.FirstName,

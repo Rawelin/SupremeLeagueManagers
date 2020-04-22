@@ -100,6 +100,8 @@ namespace SupremeLeagueManager.Models.Global
                             CountryCode = a.dictCountries.AlphaCode3,
                             IdDictPositions = a.IdDictPositions,
                             PositionShortName = a.dictPositions.ShortName,
+                            IdDictPositionsActual = a.IdDictPositionsActual,
+                            PositionActualyShortName = a.dictPositions1.ShortName,
                             IdDictPersons = a.IdDictPersons,
                             BirthDate = a.BirthDate,
                             Age = 0,

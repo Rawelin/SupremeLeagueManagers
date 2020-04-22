@@ -11,6 +11,7 @@ namespace SupremeLeagueManager.Models.Admin
     {
         public string CountryCode { get; set; }
         public string PositionShortName { get; set; }
+        public string PositionActualyShortName { get; set; }
         public int Age { get; set; }
     }
 }

@@ -1,12 +1,16 @@
 ﻿@model SupremeLeagueManager.Models.Admin.AdminVM
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Admin";
+    ViewBag.Title = "Admin";
 }
 
 <link href="~/Content/CSS/Admin/Admin.css" rel="stylesheet" />
+
+@*Slider*@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
 
 <div id="adminView">
     <div class="row" style="margin-top: 1em;">
@@ -31,18 +35,37 @@
     </div>
     @*Team players*@
     <div v-else-if="IdTab == 2">
-        <div class="row" style="padding-top: 2em;">
-            @*Menu --> Left side*@
+        <div class="row" style="margin-top: 1em;">
+            <div class="col-xl-1">
+
+            </div>
+            <div class="col-xl-9">
+                <div v-if="IdDictTeams != 0" class="d-flex justify-content-end">
+                    <div class="p-1">
+                        <button class="btn btn-outline-primary" v-on:click="ModalShow()" style="width: 14em; font-size: 14px;"> New player </button>
+                    </div>
+                    <div class="p-1">
+                        <button class="btn btn-outline-danger" v-on:click="SaveTeamSetting()" style="width: 14em; font-size: 14px;"> Save team </button>
+                    </div>
+                </div>
+            </div>
             <div class="col-xl-2">
+
+            </div>
+        </div>
+
+        <div class="row">
+            @*Menu --> Left side*@
+            <div class="col-xl-1">
                 <div class="d-flex justify-content-center" style="padding-left: 3em;">
-                    <div class="p-2">
-                        <h4><i> Team: </i></h4>
+                    <div class="p-1">
+                        <h5><i> Team: </i></h5>
                     </div>
                 </div>
                 <div v-for="i in dictTeams">
                     <div class="d-flex justify-content-center" style="padding-left: 3em;">
                         <div class="p-1">
-                            <button type="button" class="btn btn-outline-info btn-sm" v-on:click="ChangeTeam(i.Id)" style="width: 14em; font-size: 14px; padding: 4px 0px 4px 0px;"> {{i.Description}} </button>
+                            <button type="button" class="btn btn-outline-info btn-sm" v-on:click="ChangeTeam(i.Id)" style="width: 9em; font-size: 12px; padding: 4px 0px 4px 0px;"> {{i.Description}} </button>
                         </div>
                     </div>
                 </div>
@@ -50,12 +73,7 @@
             </div>
 
             @*Team players*@
-            <div class="col-xl-8">
-                <div v-if="IdDictTeams != 0" class="d-flex justify-content-center">
-                    <div class="p-1">
-                        <button class="btn btn-outline-primary" v-on:click="ModalShow()" style="width: 14em; font-size: 14px;"> New player </button>
-                    </div>
-                </div>
+            <div class="col-xl-9">
 
                 <div v-if="IdDictTeams != 0" style="font-size: 14px;">
                     <div class="d-flex justify-content-start">
@@ -71,6 +89,9 @@
 
                         <div class="p-1 tblCell">
                             <b>Pos</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>ActPos</b>
                         </div>
                         <div class="p-1 tblCell">
                             <b>Age</b>
@@ -147,16 +168,19 @@
 
                     <div v-for="p in teamPlayers" class="d-flex justify-content-lg-start">
                         <div class="p-1 tblXlCell">
-                            <i> {{p.FirstName}} </i>
+                            <input type="text" v-model="p.FirstName" style="font-size: 11px; width: 7em;" />
                         </div>
                         <div class="p-1 tblXlCell">
-                            <i> {{p.LastName}} </i>
+                            <input type="text" v-model="p.LastName" style="font-size: 11px; width: 7em;" />
                         </div>
                         <div class="p-1 tblXlCell">
                             <i> {{p.CountryCode}} </i>
                         </div>
                         <div class="p-1 tblCell">
                             <i> {{p.PositionShortName}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.PositionActualyShortName}} </i>
                         </div>
                         <div class="p-1 tblCell">
                             <i> {{p.Age}} </i>
@@ -227,7 +251,7 @@
                         </div>
 
                         <div class="p-1 tblBtn">
-                            <button class="btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-outline-info btn-sm" v-on:click="ChoosPlayer(p.IdDictTeamsPlayers)"><i class="fa fa-edit"></i></button>
                         </div>
 
                     </div>
@@ -237,8 +261,182 @@
             </div>
 
             @*Player parameters*@
-            <div class="col-xl-2">
-                <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="0.01" data-slider-value="14" />
+            <div v-if="SliderObject.IdDictTeamsPlayers != undefined" class="col-xl-2">
+                <div class="d-flex justify-content-start" style="padding-left: 4em; font-size: 12px;">
+                    <div class="p-1">
+                        <h5>Parameters:</h5>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>LFS</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.LeftFootSkills" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>RFS</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.RightFootSkills" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>GK</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.GoalKeeper" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>DEF</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Defence" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>MID</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Midfield" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>ATT</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Attack" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>DIV</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Diving" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>HAN</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Handling" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>TAC</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Tackling" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>COV</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Covering" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>LPA</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.LongPassAccuracy" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>SPA</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.ShortPassAccuracy" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>SA</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.ShotAccuracy" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>SPE</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Speed" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>ACC</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Acceleration" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>REF</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Reflex" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>HEA</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Heading" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>SP</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.ShotPower" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>TEC</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Technique" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>END</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Endurance" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <div class="p-1" style="width: 3em;">
+                        <b>STA</b>
+                    </div>
+                    <div class="p-1" style="width: 10em;">
+                        <vue-slider ref="slider" v-model="SliderObject.Stamina" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -297,195 +495,6 @@
                             <input type="text" v-model="teamPlayer.LastName" />
                         </div>
                     </div>
-                    @*<div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Left foot skills: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.LeftFootSkills" min="0" step="1"/>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Right foot skills: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.RightFootSkills" min="0" step="1" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Goal keeper: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.GoalKeeper" min="0" step="0.01" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Defence: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.Defence" min="0" step="0.01" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Midfield: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.Midfield" min="0" step="0.01" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Attack: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.Attack" min="0" step="0.01" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Diving: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.Diving" min="0" step="0.01" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Handling: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.Handling" min="0" step="0.01" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start">
-                            <div class="p-1" style="width: 9em;">
-                                <i> Tackling: </i>
-                            </div>
-                            <div class="p-1">
-                                <input type="number" v-model="teamPlayer.Tackling" min="0" step="0.01" />
-                            </div>
-                        </div>*@
-                    @*</div>*@
-
-                    @*<div class="col-xl-6">
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Covering: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Covering" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Long pass accuracy: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.LongPassAccuracy" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Short pass accuracy: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.ShortPassAccuracy" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Shot accuracy </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.ShotAccuracy" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Speed: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Speed" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Acceleration: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Acceleration" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Reflex: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Reflex" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Heading: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Heading" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Shot power: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.ShotPower" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Technique: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Technique" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Endurance: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Endurance" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Stamina: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.Stamina" min="0" step="0.01" />
-                                </div>
-                            </div>
-
-                            @*<div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Average skills: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.AverageSkills" min="0" step="0.01" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="p-1" style="width: 9em;">
-                                    <i> Average dynamic skills: </i>
-                                </div>
-                                <div class="p-1">
-                                    <input type="number" v-model="teamPlayer.AverageDynamicSkills" min="0" step="0.01" disabled/>
-                                </div>
-                            </div>
-                        </div>*@
                 </div>
                 <div class="modal-footer align-content-center">
                     <button class="btn btn-outline-danger" v-on:click="ModalHide()"> Save </button>
@@ -496,7 +505,6 @@
     </div>
 </div>
 
-</div>
 
 <script>
     var vueAdmin = new Vue({
@@ -515,7 +523,54 @@
             teamPlayer: {},
 
             IdCountry: {},
-            IdPosition: {}
+            IdPosition: {},
+
+            SliderOption: {
+                dotSize: 12,
+                width: 'auto',
+                height: 4,
+                contained: false,
+                direction: 'ltr',
+                data: null,
+                min: 0,
+                max: 100,
+                interval: 0.01,
+                disabled: false,
+                clickable: true,
+                duration: 0.5,
+                adsorb: false,
+                lazy: false,
+                tooltip: 'active',
+                tooltipPlacement: 'top',
+                tooltipFormatter: void 0,
+                useKeyboard: false,
+                keydownHook: null,
+                dragOnClick: false,
+                enableCross: true,
+                fixed: false,
+                minRange: void 0,
+                maxRange: void 0,
+                order: true,
+                marks: false,
+                dotOptions: void 0,
+                process: true,
+                dotStyle: void 0,
+                railStyle: void 0,
+                processStyle: void 0,
+                tooltipStyle: void 0,
+                stepStyle: void 0,
+                stepActiveStyle: void 0,
+                labelStyle: void 0,
+                labelActiveStyle: void 0,
+            },
+
+            value: 10,
+
+            SliderObject: {}
+        },
+
+        components: {
+            'vueSlider': window['vue-slider-component'],
         },
 
         methods: {
@@ -576,6 +631,14 @@
                 })
             },
 
+            ChoosPlayer: function (IdDictTeamsPlayers) {
+                vueAdmin.SliderObject = vueAdmin.teamPlayers[vueAdmin.teamPlayers.findIndex(a => a.IdDictTeamsPlayers == IdDictTeamsPlayers)];
+            },
+
+            SaveTeamSetting: function () {
+
+            },
+
             ChangeCountry: function () {
 
             },
@@ -587,10 +650,6 @@
         },
 
         watch: {
-
-        },
-
-        computed: {
 
         },
 
@@ -617,12 +676,9 @@
             this.dictCountries = @Html.Raw(Json.Encode(Model.dictCountries));
             this.dictPositions = @Html.Raw(Json.Encode(Model.dictPositions));
 
-            //Slidery:
-            $('#ex1').slider({
-                formatter: function (value) {
-                    return 'Current value: ' + value;
-                }
-            });
+            $("body").css("overflow", "hidden");
+            $("body").css("overflow-x", "hidden");
+            $("body").css("overflow-y", "hidden");
         },
 
         update() {
