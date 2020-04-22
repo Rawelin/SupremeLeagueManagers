@@ -1,0 +1,24 @@
+﻿body {
+
+}
+
+.tblXlCell{
+    width: 200px;
+
+    text-align: center;
+    rotation: 90deg;
+
+    margin-top: 0.5em;
+}
+
+.tblCell {
+    width: 100px;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.tblBtn {
+    width: 100px;
+    text-align: center;
+    margin-top: 0em;
+}

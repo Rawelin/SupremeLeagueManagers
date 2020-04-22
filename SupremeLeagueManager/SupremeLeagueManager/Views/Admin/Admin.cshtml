@@ -1,8 +1,12 @@
 ﻿@model SupremeLeagueManager.Models.Admin.AdminVM
 
 @{
-    ViewBag.Title = "Admin";
+                /**/
+
+                ViewBag.Title = "Admin";
 }
+
+<link href="~/Content/CSS/Admin/Admin.css" rel="stylesheet" />
 
 <div id="adminView">
     <div class="row" style="margin-top: 1em;">
@@ -46,12 +50,195 @@
             </div>
 
             @*Team players*@
-            <div class="col-xl-9">
+            <div class="col-xl-8">
                 <div v-if="IdDictTeams != 0" class="d-flex justify-content-center">
                     <div class="p-1">
                         <button class="btn btn-outline-primary" v-on:click="ModalShow()" style="width: 14em; font-size: 14px;"> New player </button>
                     </div>
                 </div>
+
+                <div v-if="IdDictTeams != 0" style="font-size: 14px;">
+                    <div class="d-flex justify-content-start">
+                        <div class="p-1 tblXlCell">
+                            <b>First name</b>
+                        </div>
+                        <div class="p-1 tblXlCell">
+                            <b>Last name</b>
+                        </div>
+                        <div class="p-1 tblXlCell">
+                            <b>Country</b>
+                        </div>
+
+                        <div class="p-1 tblCell">
+                            <b>Pos</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>Age</b>
+                        </div>
+
+                        <div class="p-1 tblCell">
+                            <b>LFS</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>RFS</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>GK</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>DEF</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>MID</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>ATT</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>DIV</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>HAN</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>TAC</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>COV</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>LPA</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>SPA</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>SA</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>SPE</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>ACC</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>REF</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>HEA</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>SP</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>TEC</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>END</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <b>STA</b>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> * </i>
+                        </div>
+
+                    </div>
+
+                    <div v-for="p in teamPlayers" class="d-flex justify-content-lg-start">
+                        <div class="p-1 tblXlCell">
+                            <i> {{p.FirstName}} </i>
+                        </div>
+                        <div class="p-1 tblXlCell">
+                            <i> {{p.LastName}} </i>
+                        </div>
+                        <div class="p-1 tblXlCell">
+                            <i> {{p.CountryCode}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.PositionShortName}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.Age}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.LeftFootSkills}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.RightFootSkills}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.GoalKeeper}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.Defence}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.Midfield}} </i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i> {{p.Attack}} </i>
+                        </div>
+
+                        <div class="p-1 tblCell">
+                            <i>{{p.Diving}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Handling}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Tackling}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Covering}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.LongPassAccuracy}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.ShortPassAccuracy}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.ShotAccuracy}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Speed}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Acceleration}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Reflex}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Heading}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.ShotPower}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Technique}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Endurance}}</i>
+                        </div>
+                        <div class="p-1 tblCell">
+                            <i>{{p.Stamina}}</i>
+                        </div>
+
+                        <div class="p-1 tblBtn">
+                            <button class="btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            @*Player parameters*@
+            <div class="col-xl-2">
+                <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="0.01" data-slider-value="14" />
             </div>
         </div>
     </div>
@@ -65,7 +252,7 @@
                 </div>
                 <div class="modal-body" style="font-size: 12px;">
                     @*<div class="row">
-            <div class="col-xl-6">*@
+                        <div class="col-xl-6">*@
                     <div class="d-flex justify-content-start">
                         <div class="p-1" style="width: 9em;">
                             <i> Country: </i>
@@ -111,203 +298,203 @@
                         </div>
                     </div>
                     @*<div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Left foot skills: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.LeftFootSkills" min="0" step="1"/>
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Right foot skills: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.RightFootSkills" min="0" step="1" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Goal keeper: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.GoalKeeper" min="0" step="0.01" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Defence: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.Defence" min="0" step="0.01" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Midfield: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.Midfield" min="0" step="0.01" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Attack: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.Attack" min="0" step="0.01" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Diving: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.Diving" min="0" step="0.01" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Handling: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.Handling" min="0" step="0.01" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-start">
-                <div class="p-1" style="width: 9em;">
-                    <i> Tackling: </i>
-                </div>
-                <div class="p-1">
-                    <input type="number" v-model="teamPlayer.Tackling" min="0" step="0.01" />
-                </div>
-            </div>*@
+                            <div class="p-1" style="width: 9em;">
+                                <i> Left foot skills: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.LeftFootSkills" min="0" step="1"/>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Right foot skills: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.RightFootSkills" min="0" step="1" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Goal keeper: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.GoalKeeper" min="0" step="0.01" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Defence: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.Defence" min="0" step="0.01" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Midfield: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.Midfield" min="0" step="0.01" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Attack: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.Attack" min="0" step="0.01" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Diving: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.Diving" min="0" step="0.01" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Handling: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.Handling" min="0" step="0.01" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="p-1" style="width: 9em;">
+                                <i> Tackling: </i>
+                            </div>
+                            <div class="p-1">
+                                <input type="number" v-model="teamPlayer.Tackling" min="0" step="0.01" />
+                            </div>
+                        </div>*@
                     @*</div>*@
 
                     @*<div class="col-xl-6">
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Covering: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Covering" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Long pass accuracy: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.LongPassAccuracy" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Short pass accuracy: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.ShortPassAccuracy" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Shot accuracy </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.ShotAccuracy" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Speed: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Speed" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Acceleration: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Acceleration" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Reflex: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Reflex" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Heading: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Heading" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Shot power: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.ShotPower" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Technique: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Technique" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Endurance: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Endurance" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Stamina: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.Stamina" min="0" step="0.01" />
-                    </div>
-                </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Covering: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Covering" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Long pass accuracy: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.LongPassAccuracy" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Short pass accuracy: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.ShortPassAccuracy" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Shot accuracy </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.ShotAccuracy" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Speed: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Speed" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Acceleration: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Acceleration" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Reflex: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Reflex" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Heading: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Heading" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Shot power: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.ShotPower" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Technique: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Technique" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Endurance: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Endurance" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Stamina: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.Stamina" min="0" step="0.01" />
+                                </div>
+                            </div>
 
-                @*<div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Average skills: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.AverageSkills" min="0" step="0.01" />
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <div class="p-1" style="width: 9em;">
-                        <i> Average dynamic skills: </i>
-                    </div>
-                    <div class="p-1">
-                        <input type="number" v-model="teamPlayer.AverageDynamicSkills" min="0" step="0.01" disabled/>
-                    </div>
-                </div>
-            </div>*@
+                            @*<div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Average skills: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.AverageSkills" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="p-1" style="width: 9em;">
+                                    <i> Average dynamic skills: </i>
+                                </div>
+                                <div class="p-1">
+                                    <input type="number" v-model="teamPlayer.AverageDynamicSkills" min="0" step="0.01" disabled/>
+                                </div>
+                            </div>
+                        </div>*@
                 </div>
                 <div class="modal-footer align-content-center">
                     <button class="btn btn-outline-danger" v-on:click="ModalHide()"> Save </button>
                 </div>
             </div>
 
-            </div>
         </div>
     </div>
+</div>
 
 </div>
 
@@ -353,7 +540,7 @@
                         }
                         else {
                             $('#newPlayerModal').hide(300);
-                        }                    
+                        }
                     },
 
                     error: function () {
@@ -429,6 +616,13 @@
 
             this.dictCountries = @Html.Raw(Json.Encode(Model.dictCountries));
             this.dictPositions = @Html.Raw(Json.Encode(Model.dictPositions));
+
+            //Slidery:
+            $('#ex1').slider({
+                formatter: function (value) {
+                    return 'Current value: ' + value;
+                }
+            });
         },
 
         update() {

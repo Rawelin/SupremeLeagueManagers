@@ -97,9 +97,12 @@ namespace SupremeLeagueManager.Models.Global
                             IdDictTeamsPlayers = a.IdDictTeamsPlayers,
                             IdDictTeams = a.IdDictTeams,
                             IdDictCountries = a.IdDictCountries,
+                            CountryCode = a.dictCountries.AlphaCode3,
                             IdDictPositions = a.IdDictPositions,
+                            PositionShortName = a.dictPositions.ShortName,
                             IdDictPersons = a.IdDictPersons,
                             BirthDate = a.BirthDate,
+                            Age = 0,
                             FirstName = a.FirstName,
                             LastName = a.LastName,
                             LeftFootSkills = a.LeftFootSkills,
@@ -127,6 +130,11 @@ namespace SupremeLeagueManager.Models.Global
                             AverageDynamicSkills = a.AverageDynamicSkills,
                             Active = a.Active
                         }).ToList();
+                }
+
+                for(int i = 0; i < r.Count; i++)
+                {
+                    r[i].Age = Helpers.GetAge(r[i].BirthDate);
                 }
             }
             catch(Exception ex)

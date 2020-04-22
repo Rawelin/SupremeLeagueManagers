@@ -9,6 +9,8 @@ namespace SupremeLeagueManager.Models.Admin
 {
     public class dictTeamsPlayersM : dictTeamsPlayers
     {
-
+        public string CountryCode { get; set; }
+        public string PositionShortName { get; set; }
+        public int Age { get; set; }
     }
 }
