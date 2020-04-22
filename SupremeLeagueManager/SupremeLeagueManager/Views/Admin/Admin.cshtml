@@ -177,10 +177,18 @@
                             <i> {{p.CountryCode}} </i>
                         </div>
                         <div class="p-1 tblCell">
-                            <i> {{p.PositionShortName}} </i>
+                            @*<i> {{p.PositionShortName}} </i>*@
+
+                            <select class="" v-model="p.IdDictPositions" style="font-size: 11px; width: 4em;">
+                                <option v-for="(value, key) in dictPositionsShortName" :value="value.Id" :key="key"> {{value.Description}} </option>
+                            </select>
                         </div>
                         <div class="p-1 tblCell">
-                            <i> {{p.PositionActualyShortName}} </i>
+                            @*<i> {{p.PositionActualyShortName}} </i>*@
+
+                            <select class="" v-model="p.IdDictPositionsActual" style="font-size: 11px; width: 4em;" >
+                                <option v-for="(value, key) in dictPositionsShortName" :value="value.Id" :key="key"> {{value.Description}} </option>
+                            </select>
                         </div>
                         <div class="p-1 tblCell">
                             <i> {{p.Age}} </i>
@@ -517,6 +525,7 @@
             dictTeams: [],
             dictCountries: [],
             dictPositions: [],
+            dictPositionsShortName: [],
 
             teamPlayers: [],
 
@@ -636,7 +645,28 @@
             },
 
             SaveTeamSetting: function () {
+                $.ajax({
+                    url: "@Url.Action("SaveTeamSetting", "Admin")",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ teamsPlayers: vueAdmin.teamPlayers }),
 
+                    success: function (data) {
+                        if (data == 0) {
+                            alert("Something went wrong :-( ");
+                        }
+                        else if (data == 1) {
+                            alert("Done ");
+                        }
+                        else {
+                            alert("Something went totaly wrong :-( ");
+                        }
+                    },
+
+                    error: function () {
+                        alert("Error, try again later !");
+                    }
+                })
             },
 
             ChangeCountry: function () {
@@ -675,6 +705,7 @@
 
             this.dictCountries = @Html.Raw(Json.Encode(Model.dictCountries));
             this.dictPositions = @Html.Raw(Json.Encode(Model.dictPositions));
+            this.dictPositionsShortName = @Html.Raw(Json.Encode(Model.dictPositionsShortName))
 
             $("body").css("overflow", "hidden");
             $("body").css("overflow-x", "hidden");

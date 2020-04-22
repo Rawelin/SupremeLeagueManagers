@@ -67,5 +67,61 @@ namespace SupremeLeagueManager.Models.Admin
 
             return r;
         }
+
+        internal static int SaveTeamSetting(List<dictTeamsPlayersM> teamsPlayers)
+        {
+            int correct = 0;
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    for(int i = 0; i < teamsPlayers.Count; i++)
+                    {
+                        dictTeamsPlayers players = new dictTeamsPlayers();
+
+                        players = slmCtx.dictTeamsPlayers.Find(teamsPlayers[i].IdDictTeamsPlayers);
+
+                        players.IdDictCountries = teamsPlayers[i].IdDictCountries;
+                        players.IdDictPositions = teamsPlayers[i].IdDictPositions;
+                        players.IdDictPositionsActual = teamsPlayers[i].IdDictPositionsActual;
+                        players.IdDictPersons = teamsPlayers[i].IdDictPersons;
+                        players.FirstName = teamsPlayers[i].FirstName;
+                        players.LastName = teamsPlayers[i].LastName;
+                        players.LeftFootSkills = teamsPlayers[i].LeftFootSkills;
+                        players.RightFootSkills = teamsPlayers[i].RightFootSkills;
+                        players.GoalKeeper = teamsPlayers[i].GoalKeeper;
+                        players.Defence = teamsPlayers[i].Defence;
+                        players.Midfield = teamsPlayers[i].Midfield;
+                        players.Attack = teamsPlayers[i].Attack;
+                        players.Diving = teamsPlayers[i].Diving;
+                        players.Handling = teamsPlayers[i].Handling;
+                        players.Tackling = teamsPlayers[i].Tackling;
+                        players.Covering = teamsPlayers[i].Covering;
+                        players.LongPassAccuracy = teamsPlayers[i].LongPassAccuracy;
+                        players.ShortPassAccuracy = teamsPlayers[i].ShortPassAccuracy;
+                        players.ShotAccuracy = teamsPlayers[i].ShotAccuracy;
+                        players.Speed = teamsPlayers[i].Speed;
+                        players.Acceleration = teamsPlayers[i].Acceleration;
+                        players.Reflex = teamsPlayers[i].Reflex;
+                        players.Heading = teamsPlayers[i].Heading;
+                        players.ShotPower = teamsPlayers[i].ShotPower;
+                        players.Technique = teamsPlayers[i].Technique;
+                        players.Endurance = teamsPlayers[i].Endurance;
+                        players.Stamina = teamsPlayers[i].Stamina;
+
+                        slmCtx.SaveChanges();
+                    }
+
+                    correct = 1;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.InsertError("Admin", "CRUD", "SaveTeamSetting", ex);
+            }
+
+            return correct;
+        }
     }
 }

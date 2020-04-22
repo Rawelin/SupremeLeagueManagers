@@ -58,6 +58,31 @@ namespace SupremeLeagueManager.Models.Global
             return r;
         }
 
+        internal static List<ListM> GetPositionsShortName()
+        {
+            List<ListM> r = new List<ListM>();
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    r = slmCtx.dictPositions
+                        .Where(a => a.Active == 1)
+                        .Select(a => new ListM
+                        {
+                            Id = a.IdDictPositions,
+                            Description = a.ShortName
+                        }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("Admin", "GlobalCRUD", "GetTeamsPlayers", ex);
+            }
+
+            return r;
+        }
+
         internal static List<ListM> GetCountries()
         {
             List<ListM> r = new List<ListM>();

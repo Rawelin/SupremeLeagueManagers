@@ -30,5 +30,10 @@ namespace SupremeLeagueManager.Controllers
 
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult SaveTeamSetting(List<dictTeamsPlayersM> teamsPlayers)
+        {
+            return Json(CRUD.SaveTeamSetting(teamsPlayers), JsonRequestBehavior.AllowGet);
+        }
     }
 }
