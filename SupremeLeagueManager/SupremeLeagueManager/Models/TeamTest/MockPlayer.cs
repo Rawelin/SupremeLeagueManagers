@@ -445,8 +445,8 @@ namespace SupremeLeagueManager.Models.TeamTest
             realMadrid.Add(ramos);
             realMadrid.Add(varane);
             realMadrid.Add(carvajal);
-            realMadrid.Add(casemiro);
             realMadrid.Add(kroos);
+            realMadrid.Add(casemiro);
             realMadrid.Add(modric);
             realMadrid.Add(hazard);
             realMadrid.Add(benzema);
