@@ -21,7 +21,7 @@ namespace SupremeLeagueManager.Models.Admin
                     IdDictTeams = v.IdDictTeams,
                     IdDictCountries = v.IdDictCountries,
                     IdDictPositions = v.IdDictPositions,
-                    IdDictPositionsActual = v.IdDictPositions,
+                    Lp = FindNextLp(v.IdDictTeams),
                     IdDictPersons = 1,
                     BirthDate = v.BirthDate,
                     FirstName = v.FirstName,
@@ -84,7 +84,7 @@ namespace SupremeLeagueManager.Models.Admin
 
                         players.IdDictCountries = teamsPlayers[i].IdDictCountries;
                         players.IdDictPositions = teamsPlayers[i].IdDictPositions;
-                        players.IdDictPositionsActual = teamsPlayers[i].IdDictPositionsActual;
+                        players.Lp = teamsPlayers[i].Lp;
                         players.IdDictPersons = teamsPlayers[i].IdDictPersons;
                         players.FirstName = teamsPlayers[i].FirstName;
                         players.LastName = teamsPlayers[i].LastName;
@@ -122,6 +122,56 @@ namespace SupremeLeagueManager.Models.Admin
             }
 
             return correct;
+        }
+
+        private static int FindNextLp(int IdDictTeams)
+        {
+            int lp = 0;
+            int[] playerLp;
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    playerLp = slmCtx.dictTeamsPlayers
+                                    .Where(a => a.IdDictTeams == IdDictTeams)
+                                    .OrderBy(a => a.Lp)
+                                    .Select(a => a.Lp).ToArray();
+                }
+
+                if (playerLp.Length == 0)
+                {
+                    lp = 0;
+                }
+                else
+                {
+                    for(int i = 0; i < playerLp.Length; i++)
+                    {
+                        if(i < playerLp.Length - 1)
+                        {
+                            if ((playerLp[i]) + 1 != playerLp[i + 1])
+                            {
+                                lp = playerLp[i] + 1;
+
+                                return lp;
+                            }
+                        }
+                        else
+                        {
+                            lp = playerLp[i] + 1;
+
+                            return lp;
+                        }
+
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.InsertError("Admin", "CRUD", "FindNextLp", ex);
+            }
+
+            return lp;
         }
     }
 }
