@@ -91,7 +91,7 @@
                             <b>Pos</b>
                         </div>
                         <div class="p-1 tblCell">
-                            <b>ActPos</b>
+                            <b>Lp</b>
                         </div>
                         <div class="p-1 tblCell">
                             <b>Age</b>
@@ -134,10 +134,10 @@
                             <b>SPA</b>
                         </div>
                         <div class="p-1 tblCell">
-                            <b>SA</b>
+                            <b>SAC</b>
                         </div>
                         <div class="p-1 tblCell">
-                            <b>SPE</b>
+                            <b>SPD</b>
                         </div>
                         <div class="p-1 tblCell">
                             <b>ACC</b>
@@ -149,7 +149,7 @@
                             <b>HEA</b>
                         </div>
                         <div class="p-1 tblCell">
-                            <b>SP</b>
+                            <b>SPW</b>
                         </div>
                         <div class="p-1 tblCell">
                             <b>TEC</b>
@@ -161,7 +161,7 @@
                             <b>STA</b>
                         </div>
                         <div class="p-1 tblCell">
-                            <i> * </i>
+                            <i>  </i>
                         </div>
 
                     </div>
@@ -184,11 +184,7 @@
                             </select>
                         </div>
                         <div class="p-1 tblCell">
-                            @*<i> {{p.PositionActualyShortName}} </i>*@
-
-                            <select class="" v-model="p.IdDictPositionsActual" style="font-size: 11px; width: 4em;" >
-                                <option v-for="(value, key) in dictPositionsShortName" :value="value.Id" :key="key"> {{value.Description}} </option>
-                            </select>
+                            <i> {{p.Lp}} </i>
                         </div>
                         <div class="p-1 tblCell">
                             <i> {{p.Age}} </i>
@@ -374,7 +370,7 @@
                 </div>
                 <div class="d-flex justify-content-start">
                     <div class="p-1" style="width: 3em;">
-                        <b>SA</b>
+                        <b>SAC</b>
                     </div>
                     <div class="p-1" style="width: 10em;">
                         <vue-slider ref="slider" v-model="SliderObject.ShotAccuracy" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
@@ -382,7 +378,7 @@
                 </div>
                 <div class="d-flex justify-content-start">
                     <div class="p-1" style="width: 3em;">
-                        <b>SPE</b>
+                        <b>SPD</b>
                     </div>
                     <div class="p-1" style="width: 10em;">
                         <vue-slider ref="slider" v-model="SliderObject.Speed" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
@@ -414,7 +410,7 @@
                 </div>
                 <div class="d-flex justify-content-start">
                     <div class="p-1" style="width: 3em;">
-                        <b>SP</b>
+                        <b>SPW</b>
                     </div>
                     <div class="p-1" style="width: 10em;">
                         <vue-slider ref="slider" v-model="SliderObject.ShotPower" v-bind="SliderOption" style="padding-top: 0.6em; width: 95%;"></vue-slider>
@@ -505,7 +501,8 @@
                     </div>
                 </div>
                 <div class="modal-footer align-content-center">
-                    <button class="btn btn-outline-danger" v-on:click="ModalHide()"> Save </button>
+                    <button class="btn btn-outline-danger" v-on:click="ModalClose()" style="width: 6em;"> Close </button>
+                    <button class="btn btn-outline-success" v-on:click="ModalHide()" style="width: 6em;"> Save </button>
                 </div>
             </div>
 
@@ -543,7 +540,7 @@
                 data: null,
                 min: 0,
                 max: 100,
-                interval: 0.01,
+                interval: 1,
                 disabled: false,
                 clickable: true,
                 duration: 0.5,
@@ -600,6 +597,7 @@
                         }
                         else if (data == 1) {
                             vueAdmin.ChangeTeam(vueAdmin.IdDictTeams);
+                            vueAdmin.ClearTeamPlayer();
                             $('#newPlayerModal').hide(300);
                         }
                         else {
@@ -613,6 +611,19 @@
                 })
 
                 $('#newPlayerModal').hide(300);
+            },
+
+            ModalClose: function () {
+                vueAdmin.ClearTeamPlayer();
+                $('#newPlayerModal').hide(300);
+            },
+
+            ClearTeamPlayer: function () {
+                vueAdmin.teamPlayer.IdDictCountries = null;
+                vueAdmin.teamPlayer.IdDictPositions = null;
+                vueAdmin.teamPlayer.BirthDate = null;
+                vueAdmin.teamPlayer.FirstName = null;
+                vueAdmin.teamPlayer.LastName = null
             },
 
             ChangeTab: function (IdTab) {
@@ -630,6 +641,7 @@
                     data: JSON.stringify({ IdDictTeams: IdDictTeams }),
 
                     success: function (data) {
+                        vueAdmin.SliderObject = {};
                         vueAdmin.teamPlayers = [];
                         vueAdmin.teamPlayers = data.slice();
                     },

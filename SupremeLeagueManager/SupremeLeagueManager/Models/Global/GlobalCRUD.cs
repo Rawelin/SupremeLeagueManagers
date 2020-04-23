@@ -125,8 +125,7 @@ namespace SupremeLeagueManager.Models.Global
                             CountryCode = a.dictCountries.AlphaCode3,
                             IdDictPositions = a.IdDictPositions,
                             PositionShortName = a.dictPositions.ShortName,
-                            IdDictPositionsActual = a.IdDictPositionsActual,
-                            PositionActualyShortName = a.dictPositions1.ShortName,
+                            Lp = a.Lp,
                             IdDictPersons = a.IdDictPersons,
                             BirthDate = a.BirthDate,
                             Age = 0,
@@ -156,7 +155,9 @@ namespace SupremeLeagueManager.Models.Global
                             AverageSkills = a.AverageSkills,
                             AverageDynamicSkills = a.AverageDynamicSkills,
                             Active = a.Active
-                        }).ToList();
+                        })
+                        .OrderBy(a => a.Lp)
+                        .ToList();
                 }
 
                 for(int i = 0; i < r.Count; i++)
