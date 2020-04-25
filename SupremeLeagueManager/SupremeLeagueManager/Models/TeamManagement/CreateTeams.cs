@@ -1,5 +1,6 @@
 ﻿using SLMContextDB;
 using SupremeLeagueManager.Models.Global_Models;
+using SupremeLeagueManager.Models.TeamManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,27 @@ namespace SupremeLeagueManager.Models.TeamTest
 {
     public class CreateTeams
     {
-        private TeamTestVM TeamTestVM = new TeamTestVM();
+        private TeamManagementVM TeamManagementVM = new TeamManagementVM();
 
         public CreateTeams()
         {
             SetTeams();
         }
 
-        public TeamTestVM GetTeams()
+        public TeamManagementVM GetTeams()
         {
-            return TeamTestVM;
+            return TeamManagementVM;
         }
         private void SetTeams()
         {
             try
             {
-                TeamTestVM.Team = new Team();
-                TeamTestVM.Teams.AddRange(new MockTeam().GetTeams());
+                //TeamManagementVM.Teams = CRUD.GetTams();
+                TeamManagementVM.Teams.AddRange(new MockTeam().GetTeams());
             }
             catch (Exception ex)
             {
-                TeamTestVM.ErrorMessage = ex.ToString();
+                TeamManagementVM.ErrorMessage = ex.ToString();
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿@model SupremeLeagueManager.Models.TeamTest.TeamTestVM
+﻿@model SupremeLeagueManager.Models.TeamTest.TeamManagementVM
 
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
@@ -18,7 +18,7 @@
                 @Html.Partial("_TeamSkills")
             </div>
 
-            <div class="pane ml-2"  style="width: 13%">
+            <div class="pane ml-2" style="width: 13%">
                 <img id="playerPhoto" src="~/Content/Resources/Players/@Model.Team.Players.ElementAt(0).GetIcoFullName()" width="250" height="295" />
             </div>
 
@@ -38,7 +38,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-   
+
         $("body").css("overflow", "hidden");
         $("body").css("overflow-x", "hidden");
         $("body").css("overflow-y", "hidden");

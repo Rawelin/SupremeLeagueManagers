@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SupremeLeagueManager.Models.TeamTest
 {
-    public class TeamTestVM
+    public class TeamManagementVM
     {
         public List<Team> Teams = new List<Team>();
         public Team Team = new Team();
