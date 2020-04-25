@@ -7,10 +7,10 @@ using System.Web.Mvc;
 
 namespace SupremeLeagueManager.Controllers
 {
-    public class TeamTestController : Controller
+    public class TeamManagementController : Controller
     {
         // GET: TeamTest
-        public ActionResult TeamTest()
+        public ActionResult TeamManagement()
         {
             return View(new CreateTeams().GetTeams());
         }

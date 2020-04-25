@@ -1,4 +1,5 @@
 ﻿using SupremeLeagueManager.Models.Global_Models;
+using SupremeLeagueManager.Models.TeamManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace SupremeLeagueManager.Models.TeamTest
 {
     public class TeamMenagement
     {
-        private TeamTestVM TeamTestVM = new TeamTestVM();
+        private TeamManagementVM TeamTestVM = new TeamManagementVM();
         private Team Team;
         private Provider provider;
 
@@ -18,7 +19,7 @@ namespace SupremeLeagueManager.Models.TeamTest
             SetTeam();
         }
 
-        public TeamTestVM GetTeam()
+        public TeamManagementVM GetTeam()
         {
             return TeamTestVM;
         }
@@ -30,6 +31,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 switch (provider.Status)
                 {
                     case 1:
+                        //Team = CRUD.GetTeam(provider.TeamId);
                         Team = new MockTeam(provider).GetTeam();
                         break;
                     case 2:
