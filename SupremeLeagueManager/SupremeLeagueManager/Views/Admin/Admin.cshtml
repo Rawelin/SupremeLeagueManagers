@@ -76,7 +76,7 @@
             <div class="col-xl-9">
 
                 <div v-if="IdDictTeams != 0" style="font-size: 14px;">
-                    <div class="d-flex justify-content-start">
+                    <div class="d-flex justify-content-start" style="width: calc(100% - 16px);">
                         <div class="p-1 tblXlCell">
                             <b>First name</b>
                         </div>
@@ -166,98 +166,100 @@
 
                     </div>
 
-                    <div v-for="p in teamPlayers" class="d-flex justify-content-lg-start">
-                        <div class="p-1 tblXlCell">
-                            <input type="text" v-model="p.FirstName" style="font-size: 11px; width: 7em;" />
-                        </div>
-                        <div class="p-1 tblXlCell">
-                            <input type="text" v-model="p.LastName" style="font-size: 11px; width: 7em;" />
-                        </div>
-                        <div class="p-1 tblXlCell">
-                            <i> {{p.CountryCode}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            @*<i> {{p.PositionShortName}} </i>*@
+                    <div style="height: 45em; width: 100%; overflow-y: scroll;">
+                        <div v-for="p in teamPlayers" class="d-flex justify-content-lg-start">
+                            <div class="p-1 tblXlCell">
+                                <input type="text" v-model="p.FirstName" style="font-size: 11px; width: 7em;" />
+                            </div>
+                            <div class="p-1 tblXlCell">
+                                <input type="text" v-model="p.LastName" style="font-size: 11px; width: 7em;" />
+                            </div>
+                            <div class="p-1 tblXlCell">
+                                <i> {{p.CountryCode}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                @*<i> {{p.PositionShortName}} </i>*@
 
-                            <select class="" v-model="p.IdDictPositions" style="font-size: 11px; width: 4em;">
-                                <option v-for="(value, key) in dictPositionsShortName" :value="value.Id" :key="key"> {{value.Description}} </option>
-                            </select>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.Lp}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.Age}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.LeftFootSkills}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.RightFootSkills}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.GoalKeeper}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.Defence}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.Midfield}} </i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i> {{p.Attack}} </i>
-                        </div>
+                                <select class="" v-model="p.IdDictPositions" style="font-size: 11px; width: 4em;">
+                                    <option v-for="(value, key) in dictPositionsShortName" :value="value.Id" :key="key"> {{value.Description}} </option>
+                                </select>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.Lp}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.Age}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.LeftFootSkills}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.RightFootSkills}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.GoalKeeper}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.Defence}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.Midfield}} </i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i> {{p.Attack}} </i>
+                            </div>
 
-                        <div class="p-1 tblCell">
-                            <i>{{p.Diving}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Handling}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Tackling}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Covering}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.LongPassAccuracy}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.ShortPassAccuracy}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.ShotAccuracy}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Speed}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Acceleration}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Reflex}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Heading}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.ShotPower}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Technique}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Endurance}}</i>
-                        </div>
-                        <div class="p-1 tblCell">
-                            <i>{{p.Stamina}}</i>
-                        </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Diving}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Handling}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Tackling}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Covering}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.LongPassAccuracy}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.ShortPassAccuracy}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.ShotAccuracy}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Speed}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Acceleration}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Reflex}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Heading}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.ShotPower}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Technique}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Endurance}}</i>
+                            </div>
+                            <div class="p-1 tblCell">
+                                <i>{{p.Stamina}}</i>
+                            </div>
 
-                        <div class="p-1 tblBtn">
-                            <button class="btn btn-outline-info btn-sm" v-on:click="ChoosPlayer(p.IdDictTeamsPlayers)"><i class="fa fa-edit"></i></button>
-                        </div>
+                            <div class="p-1 tblBtn">
+                                <button class="btn btn-outline-info btn-sm" v-on:click="ChoosPlayer(p.IdDictTeamsPlayers)"><i class="fa fa-edit"></i></button>
+                            </div>
 
+                        </div>
                     </div>
 
                 </div>
@@ -265,8 +267,8 @@
             </div>
 
             @*Player parameters*@
-            <div v-if="SliderObject.IdDictTeamsPlayers != undefined" class="col-xl-2">
-                <div class="d-flex justify-content-start" style="padding-left: 4em; font-size: 12px;">
+            <div v-if="SliderObject.IdDictTeamsPlayers != undefined" class="col-xl-2" style="font-size: 14px;">
+                <div class="d-flex justify-content-start" style="padding-left: 4em;">
                     <div class="p-1">
                         <h5>Parameters:</h5>
                     </div>
@@ -675,7 +677,10 @@
                         }
                     },
 
-                    error: function () {
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        //alert(jqXHR);
+                        //alert(textStatus);
+                        //alert(errorThrown);
                         alert("Error, try again later !");
                     }
                 })
