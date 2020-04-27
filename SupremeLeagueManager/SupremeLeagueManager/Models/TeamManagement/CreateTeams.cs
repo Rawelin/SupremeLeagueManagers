@@ -25,8 +25,8 @@ namespace SupremeLeagueManager.Models.TeamTest
         {
             try
             {
-                TeamManagementVM.Teams = CRUD.GetTams();
-                //TeamManagementVM.Teams.AddRange(new MockTeam().GetTeams());
+                //TeamManagementVM.Teams = CRUD.GetTeams();
+                TeamManagementVM.Teams.AddRange(new MockTeam().GetTeams());
             }
             catch (Exception ex)
             {

@@ -40,7 +40,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
             return team;
         }
 
-        public static List<Team> GetTams()
+        public static List<Team> GetTeams()
         {
             List<Team> teams = new List<Team>();
 
