@@ -10,7 +10,7 @@
             </button>
         }*@
         <div>
-            <button v-for="team in dictTeams" v-bind:title="team.Name" class="btn btn-outline-info">
+            <button v-for="team in dictTeams" v-bind:title="fullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
                 <img v-bind:src="emblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
             </button>
         </div>
@@ -38,20 +38,47 @@
     var vueTeamManagement = new Vue({
         el: '#managementView',
         data: {
-            dictTeams: 0,
+            dictTeams: [],
+            Provider: {},
             src: '',
-            title: ''
+            fulname: ''
         },
 
         methods: {
             emblemName: function (name, city) {
-                //var source = '/Content/Resources/Emblems/' + name + city + '.png';
-                //this.src = source.replace(" ", "");
-                return this.src = '/Content/Resources/Emblems/' + name + city + '.png';
+               
+                var fulname = name + city;
+                fulname = fulname.replace(" ", "");
+                return this.src = '/Content/Resources/Emblems/' + fulname + '.png';
             },
 
             fullName: function (name, city) {
-                return this.title = name + ' ' + city;
+                return this.fulname = name + ' ' + city;
+            },
+
+            ShowTeamSquad: function (teamId) {
+
+                vueTeamManagement.Provider.TeamId = teamId;
+                vueTeamManagement.Provider.Status = 1;
+
+                $.ajax(
+                    {
+                        url: "_TeamManagement/TeamManagement",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: vueTeamManagement.Provider }),
+                        success: function () {
+
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
+                    .done(function (partialViewResult) {
+                        $("#stadium").hide(300);
+                        $("#teamManagement").show(300);
+                        $("#teamManagement").html(partialViewResult);
+                    });
             }
         },
 
@@ -80,7 +107,7 @@
 
         $.ajax(
             {
-                url: "_TeamManagement/TeamTest",
+                url: "_TeamManagement/TeamManagement",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({ provider: Provider }),

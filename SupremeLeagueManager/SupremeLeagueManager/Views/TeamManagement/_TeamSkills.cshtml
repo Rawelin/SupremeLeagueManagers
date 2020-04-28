@@ -1,5 +1,5 @@
 ﻿
-<table class="table table-bordered table-striped table-sm ml-2" style="width:10%; float:left">
+<table class="table table-bordered table-striped table-sm ml-2" style="width:10%; float:left; display:none;">
     <thead>
         <tr>
             <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
@@ -7,7 +7,7 @@
     </thead>
     <tbody style="font-size:13px">
         <tr>
-            <td>Goalkepper</td>
+            <td>Goalkeeper</td>
             <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</td>
         </tr>
         <tr>
@@ -36,3 +36,34 @@
         </tr>
     </tbody>
 </table>
+
+<div class="pane ml-2" style="width:10%; float:left">
+    <div class="teamSkill mt-3">
+        <div class="teamSkillLeft">Goalkeeper</div>
+        <div class="teamSkillRight"><span>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</span></div>
+    </div>
+    <div class="teamSkill">
+        <div class="teamSkillLeft">Defence</div>
+        <div class="teamSkillRight"><span>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Defence))</span></div>
+    </div>
+    <div class="teamSkill">
+        <div class="teamSkillLeft">Midfield</div>
+        <div class="teamSkillRight"><span>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Midfield))</span></div>
+    </div>
+    <div class="teamSkill">
+        <div class="teamSkillLeft">Atack</div>
+        <div class="teamSkillRight"><span>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Attack))</span></div>
+    </div>
+    <div class="teamSkill">
+        <div class="teamSkillLeft">Speed</div>
+        <div class="teamSkillRight"><span>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Speed))</span></div>
+    </div>
+    <div class="teamSkill">
+        <div class="teamSkillLeft">Technique</div>
+        <div class="teamSkillRight"><span>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Technicque))</span></div>
+    </div>
+    <div class="teamSkill mb-2">
+        <div class="teamSkillLeft">Overall</div>
+        <div class="teamSkillRight"><span>@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Overall))</span></div>
+    </div>
+</div>
