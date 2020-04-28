@@ -20,7 +20,7 @@ namespace SupremeLeagueManager.Controllers
             return PartialView(new TeamMenagement(provider).GetTeam());
         }
 
-        public ActionResult _TeamSquad  (Provider provider)
+        public ActionResult _TeamSquad(Provider provider)
         {
             return PartialView(new TeamMenagement(provider).GetTeam());
         }
