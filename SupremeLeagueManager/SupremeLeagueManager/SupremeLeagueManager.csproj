@@ -193,6 +193,8 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\Resources\Backgrounds\back2.jpg" />
+    <Content Include="Content\Resources\Backgrounds\black.jpg" />
     <Content Include="Content\Resources\Emblems\ArsenalLondon.png" />
     <Content Include="Content\Resources\Emblems\AtleticoMadrid.png" />
     <Content Include="Content\Resources\Emblems\FCBarcelona.png" />

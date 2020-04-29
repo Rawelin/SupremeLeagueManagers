@@ -1,6 +1,8 @@
 ﻿body {
     margin: 0px;
     padding: 0px;
+    background-image: url('/Content/Resources/Backgrounds/back2.jpg');
+    color: white
 }
 
 .navbar-main{
