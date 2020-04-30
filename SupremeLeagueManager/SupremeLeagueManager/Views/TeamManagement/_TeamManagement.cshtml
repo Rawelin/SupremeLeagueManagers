@@ -2,68 +2,98 @@
 
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
-@if (!(@Model.Team.Name is null))
-{
-    <div class="row mt-3" >
-        <div class="col-md-12">
-            <div id="teamSquad">
-                @Html.Partial("_TeamSquad")
-            </div>
+<div id="teamView" >
+    @if (!(@Model.Team.Name is null))
+    {
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div id="teamSquad">
+                    @Html.Partial("_TeamSquad")
+                </div>
 
-            <div id="_PlayerSkills">
-                @Html.Partial("_PlayerSkills")
-            </div>
+                <div id="_PlayerSkills">
+                    @Html.Partial("_PlayerSkills")
+                </div>
 
-            <div id="teamSkills">
-                @Html.Partial("_TeamSkills")
-            </div>
+                <div id="teamSkills">
+                    @Html.Partial("_TeamSkills")
+                </div>
 
-            <div class="pane ml-2" style="width: 13%">
-                <img id="playerPhoto" src="~/Content/Resources/Players/@Model.Team.Players.ElementAt(0).GetIcoFullName()" width="250" height="295" />
-            </div>
+                <div class="pane ml-2" style="width: 13%" v-if="Players.length">
+                    @*<img id="playerPhoto" src="~/Content/Resources/Players/@Model.Team.Players.ElementAt(0).GetIcoFullName()" width="250" height="295" />*@
+                    <img id="playerPhoto" v-bind:src="playerName()" width="250" height="295" />
+                </div>
 
-            <div id="formationPitch">
-                @Html.Partial("_FormationPitch")
-            </div>
+                <div id="formationPitch">
+                    @Html.Partial("_FormationPitch")
+                </div>
 
-            <div id="dashboard">
-                <div><button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button></div>
-                <div><button class="btn btn-info mt-1" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button></div>
-                <div><button class="btn btn-info mt-1" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button></div>
-                <div><button class="btn btn-info mt-1" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button></div>
+                <div id="dashboard">
+                    <div><button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button></div>
+                    <div><button class="btn btn-info mt-1" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button></div>
+                    <div><button class="btn btn-info mt-1" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button></div>
+                    <div><button class="btn btn-info mt-1" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button></div>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
+
 <script type="text/javascript">
 
-    $(document).ready(function () {
+    var vueTeamView = new Vue({
+        el: '#teamView',
+        data: {
+            Team: {},
+            Players: [],
+            src: ''
+        },
 
-        $("body").css("overflow", "hidden");
-        $("body").css("overflow-x", "hidden");
-        $("body").css("overflow-y", "hidden");
+        methods: {
+            playerName: function () {
+                var fulname = this.Players[0].Name + this.Players[0].Surname;
+                fulname = fulname.replace(" ", "");
+                return this.src = '/Content/Resources/Players/' + fulname + '.png';
+            }
 
-        $('#dashboard').hover(
-            function () {
-                $(this).stop().animate(
-                    {
-                        right: '5',
-                    },
-                    500,
-                    'easeInSine'
-                );
-            },
-            function () {
-                $(this).stop().animate(
-                    {
-                        right: '-80',
-                    },
-                    1500,
-                    'easeOutBounce'
-                );
-            });
-    });
+        },
 
+        computed: {
+
+        },
+
+        mounted() {
+       
+            this.Team =  @Html.Raw(Json.Encode(Model.Team));
+            this.Players =  @Html.Raw(Json.Encode(Model.Team.Players));
+
+            $("body").css("overflow", "hidden");
+            $("body").css("overflow-x", "hidden");
+            $("body").css("overflow-y", "hidden");
+
+
+            $('#dashboard').hover(
+                function () {
+                    $(this).stop().animate(
+                        {
+                            right: '5',
+                        },
+                        500,
+                        'easeInSine'
+                    );
+                },
+                function () {
+                    $(this).stop().animate(
+                        {
+                            right: '-80',
+                        },
+                        1500,
+                        'easeOutBounce'
+                    );
+                });
+
+        }
+    })
 
     function formationChange(teamId, formationId) {
 

@@ -1,30 +1,31 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamManagementVM
 
-
-<div class="col-md-12 mt-3" id="managementView" >
-    <div class="text-center">
-        @*@for (int i = 0; i < Model.Teams.Count(); i++)
-        {
-            <button class="btn btn-outline-info" id="@Model.Teams.ElementAt(i).TeamId" onclick="showTeamSquad(@Model.Teams.ElementAt(i).TeamId)" title="@Model.Teams.ElementAt(i).GetFullName()">
-                <img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).GetEmblemsName()" width="50" height="50" alt="Emblem" />
-            </button>
-        }*@
-        <div>
-            <button v-for="team in dictTeams" v-bind:title="fullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
-                <img v-bind:src="emblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
-            </button>
-        </div>
-    </div>
-   
-
-    <div class="row mt-lg-5 justify-content-center" id="stadium">
+<div id="managementView">
+    <div class="col-md-12 mt-3">
         <div class="text-center">
+            @*@for (int i = 0; i < Model.Teams.Count(); i++)
+                {
+                    <button class="btn btn-outline-info" id="@Model.Teams.ElementAt(i).TeamId" onclick="showTeamSquad(@Model.Teams.ElementAt(i).TeamId)" title="@Model.Teams.ElementAt(i).GetFullName()">
+                        <img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).GetEmblemsName()" width="50" height="50" alt="Emblem" />
+                    </button>
+                }*@
             <div>
-                <img src="~/Content/Resources/Stadiums/bernabeu.png" width="800" height="600" />
+                <button v-for="team in dictTeams" v-bind:title="fullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
+                    <img v-bind:src="emblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
+                </button>
             </div>
         </div>
-    </div>
 
+
+        <div class="row mt-lg-5 justify-content-center" id="stadium">
+            <div class="text-center">
+                <div>
+                    <img src="~/Content/Resources/Stadiums/bernabeu.png" width="800" height="600" />
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <div>
@@ -33,9 +34,10 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
 
-    var vueTeamManagement = new Vue({
+    var vueTeamsManagement = new Vue({
         el: '#managementView',
         data: {
             dictTeams: [],
@@ -46,7 +48,7 @@
 
         methods: {
             emblemName: function (name, city) {
-               
+
                 var fulname = name + city;
                 fulname = fulname.replace(" ", "");
                 return this.src = '/Content/Resources/Emblems/' + fulname + '.png';
@@ -58,15 +60,15 @@
 
             ShowTeamSquad: function (teamId) {
 
-                vueTeamManagement.Provider.TeamId = teamId;
-                vueTeamManagement.Provider.Status = 1;
+                vueTeamsManagement.Provider.TeamId = teamId;
+                vueTeamsManagement.Provider.Status = 1;
 
                 $.ajax(
                     {
                         url: "_TeamManagement/TeamManagement",
                         type: "POST",
                         contentType: "application/json",
-                        data: JSON.stringify({ provider: vueTeamManagement.Provider }),
+                        data: JSON.stringify({ provider: vueTeamsManagement.Provider }),
                         success: function () {
 
                         },
@@ -83,7 +85,7 @@
         },
 
         computed: {
-          
+
         },
 
         mounted() {
@@ -92,7 +94,7 @@
 
     })
 
-    var errorMessage = @Html.Raw(Json.Encode(Model.ErrorMessage));
+    @*var errorMessage = @Html.Raw(Json.Encode(Model.ErrorMessage));
 
     if (errorMessage != null) {
         alert(errorMessage);
@@ -123,6 +125,6 @@
                 $("#teamManagement").show();
                 $("#teamManagement").html(partialViewResult);
             });
-    }
+    }*@
 
 </script>

@@ -9,7 +9,7 @@ namespace SupremeLeagueManager.Models.TeamTest
     public class MockTeam
     {
         private List<Team> mockTeams = new List<Team>();
-        private Team team = new Team();
+        private Team Team = new Team();
         private Provider provider;
 
         public MockTeam()
@@ -31,12 +31,12 @@ namespace SupremeLeagueManager.Models.TeamTest
 
         public Team GetTeam()
         {
-            return team;
+            return Team;
         }
 
         private void SetTeam()
         {
-             team = mockTeams.Where(t => t.TeamId == provider.TeamId)
+             Team = mockTeams.Where(t => t.TeamId == provider.TeamId)
                              .FirstOrDefault();
         }
 
