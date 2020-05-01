@@ -49,5 +49,8 @@
         font-weight: 600;
     }
 
+.progress-transparent {
+    background: rgba(0,0,0,.3);
 
+}
 

@@ -2,7 +2,7 @@
 
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
-<div id="teamView" >
+<div id="teamView">
     @if (!(@Model.Team.Name is null))
     {
         <div class="row mt-3">
@@ -11,7 +11,7 @@
                     @Html.Partial("_TeamSquad")
                 </div>
 
-                <div id="_PlayerSkills">
+                <div id="_PlayerSkills" v-if="Players.length">
                     @Html.Partial("_PlayerSkills")
                 </div>
 
@@ -29,10 +29,14 @@
                 </div>
 
                 <div id="dashboard">
-                    <div><button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button></div>
-                    <div><button class="btn btn-info mt-1" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button></div>
-                    <div><button class="btn btn-info mt-1" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button></div>
-                    <div><button class="btn btn-info mt-1" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button></div>
+                    @*<div><button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button></div>
+                        <div><button class="btn btn-info mt-1" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button></div>
+                        <div><button class="btn btn-info mt-1" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button></div>
+                        <div><button class="btn btn-info mt-1" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button></div>*@
+                    <div><button class="btn btn-info" id="442" v-on:click="formationChange(1)">4-4-2</button></div>
+                    <div><button class="btn btn-info mt-1" id="433" v-on:click="formationChange(2)">4-3-3</button></div>
+                    <div><button class="btn btn-info mt-1" id="451" v-on:click="formationChange(3)">4-5-1</button></div>
+                    <div><button class="btn btn-info mt-1" id="352" v-on:click="formationChange(4)">3-5-2</button></div>
                 </div>
             </div>
         </div>
@@ -45,7 +49,9 @@
         el: '#teamView',
         data: {
             Team: {},
+            Provider: {},
             Players: [],
+            Formation: '',
             src: ''
         },
 
@@ -54,8 +60,395 @@
                 var fulname = this.Players[0].Name + this.Players[0].Surname;
                 fulname = fulname.replace(" ", "");
                 return this.src = '/Content/Resources/Players/' + fulname + '.png';
-            }
+            },
 
+            NationalityEmblem: function (id) {
+                var nationalityNum = this.Players[id].Nationality;
+                var country;
+                switch (nationalityNum) {
+                    case 10:
+                        country = "Argentina";
+                        break;
+                    case 20:
+                        country = "Belgium";
+                        break;
+                    case 30:
+                        country = "Brazil";
+                        break;
+                    case 107:
+                        country = "Colombia";
+                        break;
+                    case 39:
+                        country = "Croatia";
+                        break;
+                    case 61:
+                        country = "France";
+                        break;
+                    case 149:
+                        country = "Germany";
+                        break;
+                    case 171:
+                        country = "Portugal";
+                        break;
+                    case 190:
+                        country = "Serbia";
+                        break;
+                    case 82:
+                        country = "Spain";
+                        break;
+                    case 223:
+                        country = "Uruguay";
+                        break;
+                    case 250:
+                        country = "Wales";
+                        break;
+                }
+
+                return this.src = '/Content/Resources/Flags/' + country + '.png';
+                console.log(src)
+            },
+
+            formationChange: function (formationId){
+
+                vueTeamView.Provider.TeamId = this.Team.TeamId;
+                vueTeamView.Provider.FormationId = formationId;
+                vueTeamView.Provider.Status = 2;
+                this.FormationColors(formationId);
+
+                $.ajax(
+                    {
+                         
+                        url: "@Url.Action("_TeamSquad", "TeamManagement")",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: vueTeamView.Provider }),
+                        success: function () {
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
+                    .done(function (partialViewResult) {
+                        $("#teamSquad").html(partialViewResult);
+                    });
+
+                $.ajax(
+                    {
+                        url: "_TeamSkills/TeamManagement",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: vueTeamView.Provider }),
+                        success: function () {
+
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
+                    .done(function (partialViewResult) {
+                        $("#teamSkills").html(partialViewResult);
+                    });
+
+                $.ajax(
+                    {
+                        url: "_FormationPitch/TeamManagement",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: vueTeamView.Provider }),
+                        success: function () {
+
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
+                    .done(function (partialViewResult) {
+                        $("#formationPitch").html(partialViewResult);
+                    });
+            },
+
+            formation442: function () {
+                $('#squadBody tr:nth-child(1)').css('background', 'rgba(255, 231, 40, 0.3)');
+                for (var i = 2; i < 6; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+                }
+                for (var i = 6; i < 10; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+                }
+                for (var i = 10; i < 12; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+                }
+                $('#formationButtons button').removeClass('active')
+                $('#442').addClass('active');
+            },
+
+            formation433: function () {
+
+                $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.3)');
+                for (var i = 2; i < 6; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+                }
+                for (var i = 6; i < 9; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+                }
+                for (var i = 9; i < 12; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+                }
+                $('#formationButtons button').removeClass('active')
+                $('#433').addClass('active');
+
+            },
+
+            formation451: function () {
+
+                $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.3)');
+                for (var i = 2; i < 6; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+                }
+                for (var i = 6; i < 11; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+                }
+                for (var i = 11; i < 12; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+                }
+                $('#formationButtons button').removeClass('active')
+                $('#451').addClass('active');
+
+            },
+
+            formation352: function () {
+
+                $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.3)');
+                for (var i = 2; i < 5; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+                }
+                for (var i = 5; i < 10; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+                }
+                for (var i = 10; i < 12; i++) {
+                    $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+                }
+                $('#formationButtons button').removeClass('active')
+                $('#352').addClass('active');
+
+            },
+
+            FormationColors: function (formationId) {
+
+                switch (formationId) {
+                    case 1:
+                        this.formation442();
+                        break;
+                    case 2:
+                        this.formation433();
+                        break;
+                    case 3:
+                        this.formation451();
+                        break;
+                    case 4:
+                        this.formation352();
+                        break;
+                }
+            },
+
+            HoverTableRow: function () {
+                var counter = 0;
+                var selected = 3;
+                var beforeHover;
+                var selectedClicked;
+
+                var selectedRow;
+
+                $('#squadBody tr').on({
+
+                    'click': function () {
+                        if (counter < 2) {
+                            var input = $(this).find("input.checker");
+                            // if the same row is clicked second time
+
+                            if (input.is(':checked')) {
+
+                                // restores original background colourcif row is unclicked
+                                $(this).css('background', selectedClicked);
+                                selected = 2;
+
+                                input.prop('checked', false);
+                                counter--;
+
+                            }// if row is clicked
+                            else if (input.not(':checked')) {
+                                input.prop('checked', true);
+                                selectedRow = $(this).css('background', 'rgba(65, 107, 130, 0.3)');
+
+                                selected = 1;
+                                counter++;
+
+                                //keeps background colour of clicked row in case of unclicking to restore original background
+                                if (counter == 1) {
+                                    selectedClicked = beforeHover;
+                                }
+                            }
+                        }// if second row is clicked 2 value of inputs are pushed to array and send to changPlayer(array) function
+                        if (counter == 2) {
+                            var arrayOfSelected = new Array();
+                            $('#squadBody input[type="checkbox"]:checked').each(function () {
+                                arrayOfSelected.push($(this).val());
+                            });
+                            changePlayer(arrayOfSelected);
+                        }
+                    },
+
+                    'mouseover': function () {
+                        beforeHover = $(this).css('background-color'); // keeps row background colour before hovering in order to restore original bc after leaving row
+                        $(this).css('background', 'rgba(200, 187, 201, 0.3)');
+                        console.log('test');
+                    },
+
+                    'mouseout': function () {
+                        switch (selected) {
+                            case 1: // selected row background color
+                                $(this).css('background', selectedRow);
+                                selected = 3;
+                                break;
+                            case 2: // first clicked row background color
+                                $(this).css('background', selectedClicked);
+                                selected = 3;
+                                break;
+                            case 3: // hovered row background color
+                                $(this).css('background', beforeHover);
+                                break;
+                        }
+                    }
+                });
+            },
+
+            ShowPlayerSkils: function (id) {
+
+                    var nationalityNum = this.Players[id].Nationality;
+                    var country;
+
+                    switch (nationalityNum) {
+                        case 10:
+                            country = "Argentina";
+                            break;
+                        case 20:
+                            country = "Belgium";
+                            break;
+                        case 30:
+                            country = "Brazil";
+                            break;
+                        case 107:
+                            country = "Colombia";
+                            break;
+                        case 39:
+                            country = "Croatia";
+                            break;
+                        case 61:
+                            country = "France";
+                            break;
+                        case 149:
+                            country = "Germany";
+                            break;
+                        case 171:
+                            country = "Portugal";
+                            break;
+                        case 190:
+                            country = "Serbia";
+                            break;
+                        case 82:
+                            country = "Spain";
+                            break;
+                        case 223:
+                            country = "Uruguay";
+                            break;
+                        case 250:
+                            country = "Wales";
+                            break;
+                    }
+
+                    $('#playerSkills').css("visibility", "visible");
+                    $('#nameForSkillsTable').text(this.Players[id].Name);
+                    $('#surnameForSkillsTable').text(this.Players[id].Surname);
+                    $('#positionForSkillsTable').text(this.Players[id].Position);
+                    $('#ageForSkillsTable').text(this.Players[id].Age);
+                    $('#playerPhoto').attr('src', '/Content/Resources/Players/' + this.Players[id].Name + this.Players[id].Surname + '.png');
+                    $('#playerPhoto').attr('src', '/Content/Resources/Players/' + this.Players[id].Name + this.Players[id].Surname + '.png');
+                    $('#playerPhoto').show();
+                    $('#flag').attr('src', '/Content/Resources/Flags/' + country + '.png');
+
+                    this.SkillTextColor($('#goalkeeperSkillsTable'), this.Players[id].GoalKeeper);
+                    this.SkillTextColor($('#defenceForSkillsTable'), this.Players[id].Defence);
+                    this.SkillTextColor($('#midfieldForSkillsTable'), this.Players[id].Midfield);
+                    this.SkillTextColor($('#attackForSkillsTable'), this.Players[id].Attack);
+                    this.SkillTextColor($('#divingForSkillsTable'), this.Players[id].Diving);
+                    this.SkillTextColor($('#handlingForSkillsTable'), this.Players[id].Handling);
+                    this.SkillTextColor($('#tacklingForSkillsTable'), this.Players[id].Tackling);
+                    this.SkillTextColor($('#coveringForSkillsTable'), this.Players[id].Covering);
+                    this.SkillTextColor($('#LPForSkillsTable'), this.Players[id].LongPassAccuracy);
+                    this.SkillTextColor($('#SPForSkillsTable'), this.Players[id].ShortPassAccuracy);
+                    this.SkillTextColor($('#shotForSkillsTable'), this.Players[id].ShotAccuracy);
+                    this.SkillTextColor($('#speedForSkillsTable'), this.Players[id].Speed);
+                    this.SkillTextColor($('#accelerationForSkillsTable'), this.Players[id].Acceleration);
+                    this.SkillTextColor($('#reflexForSkillsTable'), this.Players[id].Reflex);
+                    this.SkillTextColor($('#headingForSkillsTable'), this.Players[id].Heading);
+                    this.SkillTextColor($('#shotPowerForSkillsTable'), this.Players[id].ShotPower);
+                    this.SkillTextColor($('#techniqueForSkillsTable'), this.Players[id].Technique);
+                    this.SkillTextColor($('#enduranceForSkillsTable'), this.Players[id].Endurance);
+                    this.SkillTextColor($('#staminaForSkillsTable'), this.Players[id].Stamina);
+                    this.SkillTextColor($('#avgSkillsForSkillsTable'), this.Players[id].AverageSkills);
+                    this.SkillTextColor($('#avgDynSkillsForSkillsTable'), this.Players[id].AverageDynamicSkills);
+
+                    var differ = this.Players[id].AverageDynamicSkills - this.Players[id].AverageSkills;
+
+                    if (id < 11) {
+                        this.SkillTextColor($('#avgDiffForSkillsTable'), differ);
+                    } else {
+                        this.SkillTextColor($('#avgDiffForSkillsTable'), 0);
+                    }
+            },
+
+            SkillTextColor: function (item, value) {
+
+                value = Math.round(value);
+                item.text(value);
+
+                if (value >= 95) {
+                    item.css('color', "darkred");
+                    item.css('font-weight', '700');
+                } else if (value >= 90 && value < 95) {
+                    item.css('color', "red");
+                    item.css('font-weight', '700');
+                } else if (value >= 80 && value < 90) {
+                    item.css('color', "orange");
+                    item.css('font-weight', '700');
+                } else if (value >= 70 && value < 80) {
+                    item.css('color', "forestgreen");
+                    item.css('font-weight', '700');
+                }
+                else {
+                    item.css('color', "white");
+                    item.css('font-weight', '700');
+                }
+            },
+
+            ProgressBar: function () {
+
+                $('#squadBody .progress-bar').each(function () {
+
+                    var text = $(this).text();
+
+                    if ($(this).text() > 80) {
+                        $(this).addClass('bg-success');
+                        $(this).text('' + text + '%');
+                    } else if ($(this).text() < 80 && $(this).text() >= 40) {
+                        $(this).addClass('bg-warning');
+                        $(this).text('' + text + '%');
+                    } else if ($(this).text() < 40) {
+                        $(this).addClass('bg-danger');
+                        $(this).text('');
+                    }
+                });
+            }
         },
 
         computed: {
@@ -63,14 +456,17 @@
         },
 
         mounted() {
-       
+
             this.Team =  @Html.Raw(Json.Encode(Model.Team));
             this.Players =  @Html.Raw(Json.Encode(Model.Team.Players));
+            this.Formation = @Html.Raw(Json.Encode(Model.Team.Formation));
+            this.ProgressBar();
+            this.FormationColors(2);
+            this.HoverTableRow();
 
             $("body").css("overflow", "hidden");
             $("body").css("overflow-x", "hidden");
             $("body").css("overflow-y", "hidden");
-
 
             $('#dashboard').hover(
                 function () {
@@ -91,21 +487,376 @@
                         'easeOutBounce'
                     );
                 });
+        },
 
-        }
     })
 
-    function formationChange(teamId, formationId) {
+    //function formationChange(teamId, formationId) {
+
+    //    var Provider = {};
+
+    //    Provider.TeamId = teamId;
+    //    Provider.FormationId = formationId;
+    //    Provider.Status = 2;
+
+    //    $.ajax(
+    //        {
+    //            url: "_TeamSquad/TeamTest",
+    //            type: "POST",
+    //            contentType: "application/json",
+    //            data: JSON.stringify({ provider: Provider }),
+    //            success: function () {
+
+    //            },
+    //            error: function () {
+    //                alert('Nieoczekiwany błąd');
+    //            }
+    //        })
+    //        .done(function (partialViewResult) {
+    //            $("#teamSquad").html(partialViewResult);
+    //        });
+
+    //    $.ajax(
+    //        {
+    //            url: "_TeamSkills/TeamTest",
+    //            type: "POST",
+    //            contentType: "application/json",
+    //            data: JSON.stringify({ provider: Provider }),
+    //            success: function () {
+
+    //            },
+    //            error: function () {
+    //                alert('Nieoczekiwany błąd');
+    //            }
+    //        })
+    //        .done(function (partialViewResult) {
+    //            $("#teamSkills").html(partialViewResult);
+    //        });
+
+    //    $.ajax(
+    //        {
+    //            url: "_FormationPitch/TeamTest",
+    //            type: "POST",
+    //            contentType: "application/json",
+    //            data: JSON.stringify({ provider: Provider }),
+    //            success: function () {
+
+    //            },
+    //            error: function () {
+    //                alert('Nieoczekiwany błąd');
+    //            }
+    //        })
+    //        .done(function (partialViewResult) {
+    //            $("#formationPitch").html(partialViewResult);
+    //        });
+    //}
+
+     @*var formation = @Html.Raw(Json.Encode(Model.Team.Formation));
+    var players = @Html.Raw(Json.Encode(Model.Team.Players));*@
+
+    // progress bar
+    //$('#squadBody .progress-bar').each(function () {
+
+    //    var text = $(this).text();
+
+    //    if ($(this).text() > 80) {
+    //        $(this).addClass('bg-success');
+    //        $(this).text('' + text + '%');
+    //    } else if ($(this).text() < 80 && $(this).text() >= 40) {
+    //        $(this).addClass('bg-warning');
+    //        $(this).text(''+ text +'%');
+    //    } else if ($(this).text() < 40) {
+    //        $(this).addClass('bg-danger');
+    //        $(this).text('');
+    //    }
+    //});
+
+    // default formation
+    //switch (formation) {
+    //    case 1:
+    //       formation442();
+    //       break;
+    //    case 2:
+    //       formation433();
+    //       break;
+    //    case 3:
+    //       formation451();
+    //        break;
+    //    case 4:
+    //       formation352();
+    //       break;
+    //}
+
+    // change formation
+
+    //$('#442').click(function () {
+    //    formation442();
+    //});
+    //$('#433').click(function () {
+    //    formation433();
+    //});
+    //$('#451').click(function () {
+    //    formation451();
+    //});
+    //$('#352').click(function () {
+    //    formation352();
+    //});
+
+    //var counter = 0;
+    //var selected = 3;
+    //var beforeHover;
+    //var selectedClicked;
+    //var firstClicked;
+    //var selectedRow;
+
+    //$('#squadBody tr').on({
+
+    //    'click': function () {
+    //        if (counter < 2) {
+    //            var input = $(this).find("input.checker");
+    //            // if the same row is clicked second time
+    //            if (input.is(':checked')) {
+
+    //                // restores original background colourcif row is unclicked
+    //                $(this).css('background', selectedClicked);
+    //                selected = 2;
+
+    //                input.prop('checked', false);
+    //                counter--;
+
+    //            }// if row is clicked
+    //            else if (input.not(':checked')) {
+    //                input.prop('checked', true);
+    //                selectedRow = $(this).css('background', 'rgba(65, 107, 130, 0.3)');
+
+    //                selected = 1;
+    //                counter++;
+
+    //                //keeps background colour of clicked row in case of unclicking to restore original background
+    //                if (counter == 1) {
+    //                    selectedClicked = beforeHover;
+    //                }
+    //            }
+    //        }// if second row is clicked 2 value of inputs are pushed to array and send to changPlayer(array) function
+    //        if (counter == 2) {
+    //              var arrayOfSelected = new Array();
+    //              $('#squadBody input[type="checkbox"]:checked').each(function () {
+    //                  arrayOfSelected.push($(this).val());
+    //              });
+    //              changePlayer(arrayOfSelected);
+    //        }
+    //    },
+
+    //    'mouseover': function () {
+    //        beforeHover = $(this).css('background-color'); // keeps row background colour before hovering in order to restore original bc after leaving row
+    //        $(this).css('background', 'rgba(200, 187, 201, 0.3)');
+    //    },
+
+    //    'mouseout': function () {
+    //        switch (selected) {
+    //            case 1: // selected row background color
+    //                $(this).css('background', selectedRow);
+    //                selected = 3;
+    //                break;
+    //            case 2: // first clicked row background color
+    //                $(this).css('background', selectedClicked);
+    //                selected = 3;
+    //                break;
+    //            case 3: // hovered row background color
+    //                $(this).css('background', beforeHover);
+    //                break;
+    //        }
+    //    }
+    //});
+
+
+    //function formation442() {
+    //    $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.3)');
+    //    for (var i = 2; i < 6; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+    //    }
+    //    for (var i = 6; i < 10; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+    //    }
+    //    for (var i = 10; i < 12; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+    //    }
+    //    $('#formationButtons button').removeClass('active')
+    //    $('#442').addClass('active');
+    //}
+
+    //function formation433() {
+    //    $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.3)');
+    //    for (var i = 2; i < 6; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+    //    }
+    //    for (var i = 6; i < 9; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+    //    }
+    //    for (var i = 9; i < 12; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+    //    }
+    //    $('#formationButtons button').removeClass('active')
+    //    $('#433').addClass('active');
+    //}
+
+    //function formation451() {
+    //    $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.3)');
+    //    for (var i = 2; i < 6; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+    //    }
+    //    for (var i = 6; i < 11; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+    //    }
+    //    for (var i = 11; i < 12; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+    //    }
+    //    $('#formationButtons button').removeClass('active')
+    //    $('#451').addClass('active');
+    //}
+
+    //function formation352() {
+    //    $('#squadBody tr:nth-child(1)').css('background', 'rgba(235, 231, 40, 0.3)');
+    //    for (var i = 2; i < 5; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
+    //    }
+    //    for (var i = 5; i < 10; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(50, 85, 209, 0.3)');
+    //    }
+    //    for (var i = 10; i < 12; i++) {
+    //        $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
+    //    }
+    //    $('#formationButtons button').removeClass('active')
+    //    $('#352').addClass('active');
+    //}
+
+    @*function showPlayerSkills(id) {
+
+        var players = @Html.Raw(Json.Encode(Model.Team.Players));
+
+        var nationalityNum = players[id].Nationality;
+        var country
+        switch (nationalityNum) {
+            case 10:
+                country = "Argentina";
+                break;
+            case 20:
+                country = "Belgium";
+                break;
+            case 30:
+                country = "Brazil";
+                break;
+            case 107:
+                country = "Colombia";
+                break;
+            case 39:
+                country = "Croatia";
+                break;
+            case 61:
+                country = "France";
+                break;
+            case 149:
+                country = "Germany";
+                break;
+            case 171:
+                country = "Portugal";
+                break;
+            case 190:
+                country = "Serbia";
+                break;
+            case 82:
+                country = "Spain";
+                break;
+            case 223:
+                country = "Uruguay";
+                break;
+            case 250:
+                country = "Wales";
+                break;
+        }
+
+        $('#playerSkills').css("visibility", "visible");
+        $('#nameForSkillsTable').text(players[id].Name);
+        $('#surnameForSkillsTable').text(players[id].Surname);
+        $('#positionForSkillsTable').text(players[id].Position);
+        $('#ageForSkillsTable').text(players[id].Age);
+        $('#playerPhoto').attr('src', '/Content/Resources/Players/' + players[id].Name + players[id].Surname + '.png');
+        $('#playerPhoto').attr('src', '/Content/Resources/Players/' + players[id].Name + players[id].Surname + '.png');
+        $('#playerPhoto').show();
+        $('#flag').attr('src', '/Content/Resources/Flags/' + country + '.png');
+
+        colors($('#goalkeeperSkillsTable'), players[id].GoalKeeper);
+        colors($('#defenceForSkillsTable'), players[id].Defence);
+        colors($('#midfieldForSkillsTable'), players[id].Midfield);
+        colors($('#attackForSkillsTable'), players[id].Attack);
+        colors($('#divingForSkillsTable'), players[id].Diving);
+        colors($('#handlingForSkillsTable'), players[id].Handling);
+        colors($('#tacklingForSkillsTable'), players[id].Tackling);
+        colors($('#coveringForSkillsTable'), players[id].Covering);
+        colors($('#LPForSkillsTable'), players[id].LongPassAccuracy);
+        colors($('#SPForSkillsTable'), players[id].ShortPassAccuracy);
+        colors($('#shotForSkillsTable'), players[id].ShotAccuracy);
+        colors($('#speedForSkillsTable'), players[id].Speed);
+        colors($('#accelerationForSkillsTable'), players[id].Acceleration);
+        colors($('#reflexForSkillsTable'), players[id].Reflex);
+        colors($('#headingForSkillsTable'), players[id].Heading);
+        colors($('#shotPowerForSkillsTable'), players[id].ShotPower);
+        colors($('#techniqueForSkillsTable'), players[id].Technique);
+        colors($('#enduranceForSkillsTable'), players[id].Endurance);
+        colors($('#staminaForSkillsTable'), players[id].Stamina);
+        colors($('#avgSkillsForSkillsTable'), players[id].AverageSkills);
+        colors($('#avgDynSkillsForSkillsTable'), players[id].AverageDynamicSkills);
+
+        var differ = players[id].AverageDynamicSkills - players[id].AverageSkills;
+
+        if (id < 11) {
+            colors($('#avgDiffForSkillsTable'), differ);
+        } else {
+            colors($('#avgDiffForSkillsTable'), 0);
+        }
+    }
+
+    function colors(item,value) {
+
+        value = Math.round(value);
+
+        item.text(value);
+
+        if (value >= 95) {
+            item.css('color', "darkred");
+            item.css('font-weight', '700');
+        } else if (value >= 90 && value < 95) {
+            item.css('color', "red");
+            item.css('font-weight', '700');
+        } else if (value >= 80 && value < 90) {
+            item.css('color', "orange");
+            item.css('font-weight', '700');
+        } else if (value >= 70 && value < 80) {
+            item.css('color', "forestgreen");
+            item.css('font-weight', '700');
+        }
+        else {
+            item.css('color', "white");
+            item.css('font-weight', '700');
+        }
+    }*@
+
+    @*function changePlayer(arrayOfSelected) {
+
+        var teamId = @Html.Raw(Json.Encode(Model.Team.TeamId));
+        var formation =  @Html.Raw(Json.Encode(Model.Team.Formation));
 
         var Provider = {};
 
         Provider.TeamId = teamId;
-        Provider.FormationId = formationId;
-        Provider.Status = 2;
+        Provider.FormationId = formation;
+        Provider.Player1 = arrayOfSelected[0];
+        Provider.Player2 = arrayOfSelected[1];
+        Provider.Status = 3;
 
         $.ajax(
             {
-                url: "_TeamSquad/TeamTest",
+                url: "_TeamSquad/TeamManagement",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({ provider: Provider }),
@@ -122,7 +873,7 @@
 
         $.ajax(
             {
-                url: "_TeamSkills/TeamTest",
+                url: "_TeamSkills/TeamManagement",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({ provider: Provider }),
@@ -137,23 +888,7 @@
                 $("#teamSkills").html(partialViewResult);
             });
 
-        $.ajax(
-            {
-                url: "_FormationPitch/TeamTest",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ provider: Provider }),
-                success: function () {
-
-                },
-                error: function () {
-                    alert('Nieoczekiwany błąd');
-                }
-            })
-            .done(function (partialViewResult) {
-                $("#formationPitch").html(partialViewResult);
-            });
-    }
+    }*@
 
 </script>
 
