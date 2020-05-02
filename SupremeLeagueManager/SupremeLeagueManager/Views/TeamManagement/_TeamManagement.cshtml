@@ -45,14 +45,21 @@
 
 <script type="text/javascript">
 
+
     var vueTeamView = new Vue({
         el: '#teamView',
         data: {
             Team: {},
             Provider: {},
             Players: [],
+            Selected: [],
             Formation: '',
-            src: ''
+            src: '',
+            //counter: 0,
+            //selected: 3,
+            //beforeHover: '',
+            //selectedRow: ''
+           
         },
 
         methods: {
@@ -65,6 +72,7 @@
             NationalityEmblem: function (id) {
                 var nationalityNum = this.Players[id].Nationality;
                 var country;
+                 // TO DO delete after mounting real model data
                 switch (nationalityNum) {
                     case 10:
                         country = "Argentina";
@@ -117,19 +125,21 @@
 
                 $.ajax(
                     {
-                         
+
                         url: "@Url.Action("_TeamSquad", "TeamManagement")",
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify({ provider: vueTeamView.Provider }),
                         success: function () {
+
                         },
                         error: function () {
                             alert('Nieoczekiwany błąd');
                         }
                     })
                     .done(function (partialViewResult) {
-                        $("#teamSquad").html(partialViewResult);
+                        //$("#teamSquad").html(partialViewResult);
+
                     });
 
                 $.ajax(
@@ -212,7 +222,6 @@
                     $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(194, 6, 21, 0.3)');
                 }
                 $('#formationButtons button').removeClass('active')
-                $('#451').addClass('active');
 
             },
 
@@ -251,75 +260,114 @@
                 }
             },
 
-            HoverTableRow: function () {
-                var counter = 0;
-                var selected = 3;
-                var beforeHover;
-                var selectedClicked;
+            HoverRow: function () {
 
-                var selectedRow;
+                $('#squadBody tr').hover(
+
+                    function () {
+                        this.beforeHover = $(this).css('background-color');
+                        $(this).css('background', 'rgba(200, 187, 201, 0.3)');
+                    },
+                    function () {
+                        $(this).css('background', this.beforeHover)
+                      
+                    });
+            },
+
+            changePlayer: function (index) {
+
+                if (this.Selected.includes(index)) {
+
+                    const arrayIndex = this.Selected.indexOf(index);
+                    if (arrayIndex > -1) {
+                        this.Selected.splice(arrayIndex, 1);
+                        this.Players[index].Selected = false
+                    }
+                } else {
+                    this.Selected.push(index);
+                    this.Players[index].Selected = true;
+                }
+
+                if (this.Selected.length == 2) {
+
+                    var p1 = this.Selected.shift();
+                    var p2 = this.Selected.shift();
+                    var Player = this.Players[p1];
+
+                    this.Players[p1] = this.Players[p2];
+                    this.Players[p2] = Player;
+                    this.Players[p1].Selected = false;
+                    this.Players[p2].Selected = false;
+                    this.Selected = [];
+                }
+            },
+
+            HoverTableRow: function () {
 
                 $('#squadBody tr').on({
 
                     'click': function () {
-                        if (counter < 2) {
+                        if (this.counter < 2) {
                             var input = $(this).find("input.checker");
                             // if the same row is clicked second time
 
                             if (input.is(':checked')) {
 
                                 // restores original background colourcif row is unclicked
-                                $(this).css('background', selectedClicked);
-                                selected = 2;
+                                $(this).css('background', this.selectedClicked);
+                                this.selected = 2;
 
                                 input.prop('checked', false);
-                                counter--;
+                                this.counter--;
 
                             }// if row is clicked
                             else if (input.not(':checked')) {
                                 input.prop('checked', true);
-                                selectedRow = $(this).css('background', 'rgba(65, 107, 130, 0.3)');
+                                this.selectedRow = $(this).css('background', 'rgba(65, 107, 130, 0.3)');
 
-                                selected = 1;
-                                counter++;
+                                this.selected = 1;
+                                this.counter++;
 
                                 //keeps background colour of clicked row in case of unclicking to restore original background
-                                if (counter == 1) {
-                                    selectedClicked = beforeHover;
+                                if (this.counter == 1) {
+                                    this.selectedClicked = this.beforeHover;
                                 }
                             }
                         }// if second row is clicked 2 value of inputs are pushed to array and send to changPlayer(array) function
-                        if (counter == 2) {
+                        if (this.counter == 2) {
                             var arrayOfSelected = new Array();
                             $('#squadBody input[type="checkbox"]:checked').each(function () {
                                 arrayOfSelected.push($(this).val());
                             });
-                            changePlayer(arrayOfSelected);
+                            //changePlayer(arrayOfSelected);
+                            console.log('change player')
                         }
                     },
 
                     'mouseover': function () {
-                        beforeHover = $(this).css('background-color'); // keeps row background colour before hovering in order to restore original bc after leaving row
+                        this.beforeHover = $(this).css('background-color'); // keeps row background colour before hovering in order to restore original bc after leaving row
                         $(this).css('background', 'rgba(200, 187, 201, 0.3)');
-                        console.log('test');
+
                     },
 
                     'mouseout': function () {
-                        switch (selected) {
+                        switch (this.selected) {
                             case 1: // selected row background color
-                                $(this).css('background', selectedRow);
-                                selected = 3;
+                                $(this).css('background', this.selectedRow);
+                                this.selected = 3;
                                 break;
                             case 2: // first clicked row background color
-                                $(this).css('background', selectedClicked);
+                                $(this).css('background', this.selectedClicked);
                                 selected = 3;
                                 break;
                             case 3: // hovered row background color
-                                $(this).css('background', beforeHover);
+                                $(this).css('background', this.beforeHover);
                                 break;
                         }
                     }
                 });
+
+                console.log(this.counter);
             },
 
             ShowPlayerSkils: function (id) {
@@ -327,6 +375,8 @@
                     var nationalityNum = this.Players[id].Nationality;
                     var country;
 
+
+                   // TO DO delete after mounting real model data
                     switch (nationalityNum) {
                         case 10:
                             country = "Argentina";
@@ -448,46 +498,64 @@
                         $(this).text('');
                     }
                 });
+            },
+
+            FormationMenu: function () {
+                $('#dashboard').hover(
+                    function () {
+                        $(this).stop().animate(
+                            {
+                                right: '5',
+                            },
+                            500,
+                            'easeInSine'
+                        );
+                    },
+                    function () {
+                        $(this).stop().animate(
+                            {
+                                right: '-80',
+                            },
+                            1500,
+                            'easeOutBounce'
+                        );
+                    });
+            },
+
+            ScrollOff: function () {
+                $("body").css("overflow", "hidden");
+                $("body").css("overflow-x", "hidden");
+                $("body").css("overflow-y", "hidden");
             }
         },
 
         computed: {
-
+            
         },
 
-        mounted() {
-
+        created: function () {
             this.Team =  @Html.Raw(Json.Encode(Model.Team));
             this.Players =  @Html.Raw(Json.Encode(Model.Team.Players));
             this.Formation = @Html.Raw(Json.Encode(Model.Team.Formation));
-            this.ProgressBar();
-            this.FormationColors(2);
-            this.HoverTableRow();
-
-            $("body").css("overflow", "hidden");
-            $("body").css("overflow-x", "hidden");
-            $("body").css("overflow-y", "hidden");
-
-            $('#dashboard').hover(
-                function () {
-                    $(this).stop().animate(
-                        {
-                            right: '5',
-                        },
-                        500,
-                        'easeInSine'
-                    );
-                },
-                function () {
-                    $(this).stop().animate(
-                        {
-                            right: '-80',
-                        },
-                        1500,
-                        'easeOutBounce'
-                    );
-                });
         },
+
+        beforeMount() {
+           
+        },
+
+        mounted() {
+            this.counter = 0;
+            this.ProgressBar();
+            this.FormationColors(this.Formation);
+            this.HoverRow();
+            this.FormationMenu()
+            this.ScrollOff();
+
+        },
+        updated() {
+           
+           
+        }
 
     })
 
@@ -841,7 +909,7 @@
         }
     }*@
 
-    @*function changePlayer(arrayOfSelected) {
+    function changePlayer(arrayOfSelected) {
 
         var teamId = @Html.Raw(Json.Encode(Model.Team.TeamId));
         var formation =  @Html.Raw(Json.Encode(Model.Team.Formation));
@@ -868,7 +936,7 @@
                 }
             })
             .done(function (partialViewResult) {
-                $("#teamSquad").html(partialViewResult);
+                //$("#teamSquad").html(partialViewResult);
             });
 
         $.ajax(
@@ -888,7 +956,7 @@
                 $("#teamSkills").html(partialViewResult);
             });
 
-    }*@
+    }
 
 </script>
 
