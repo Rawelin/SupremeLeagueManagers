@@ -60,8 +60,6 @@
             <td></td>
             <td></td>
             <td></td>
-            @*<td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageSkills()))</td>
-            <td> @Html.Raw(String.Format("{0:####}", @Model.Team.Players.ElementAt(i).GetAverageDynamicSkills(@i, @Model.Team.Formation)))</td>*@
             <td class="text-center" style="vertical-align:middle">
                 <div class="progress progress-transparent">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" :style="{width: player.Stamina + '%'}">{{ player.Stamina }}</div>

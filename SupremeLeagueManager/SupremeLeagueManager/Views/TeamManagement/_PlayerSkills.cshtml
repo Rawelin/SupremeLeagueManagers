@@ -8,27 +8,27 @@
     <tbody style="font-size:13px">
         <tr>
             <td style="width:60%">Name</td>
-            <td class="text-center" id="nameForSkillsTable"></td>
+            <td class="text-center" >{{ Player.Name }}</td>
         </tr>
         <tr>
             <td>Surname</td>
-            <td class="text-center" id="surnameForSkillsTable"></td>
+            <td class="text-center">{{Player.Surname}}</td>
         </tr>
         <tr>
             <td>Position</td>
-            <td class="text-center" id="positionForSkillsTable"></td>
+            <td class="text-center">{{ Player.Position }}</td>
         </tr>
         <tr>
             <td>Nationality</td>
-            <td class="text-center" id="nationalityForSkillsTable"><img id="flag" src="~/Content/Resources/Flags/Unknown.png" width="24" height="24" /></td>
+            <td class="text-center"><img id="flag" src="~/Content/Resources/Flags/Unknown.png" width="24" height="24" /></td>
         </tr>
         <tr>
             <td>Age</td>
-            <td class="text-center" id="ageForSkillsTable"></td>
+            <td class="text-center" id="ageForSkillsTable">{{ Player.Age }}</td>
         </tr>
         <tr>
-            <td>GoalKepper</td>
-            <td class="text-center" id="goalkeeperSkillsTable"></td>
+            <td>GoalKeeper</td>
+            <td class="text-center" id="goalkeeperSkillsTable"> {{ Player.Goalkeeper }}</td>
         </tr>
         <tr>
             <td>Defence</td>

@@ -20,19 +20,14 @@
                 </div>
 
                 <div class="pane ml-2" style="width: 13%" v-if="Players.length">
-                    @*<img id="playerPhoto" src="~/Content/Resources/Players/@Model.Team.Players.ElementAt(0).GetIcoFullName()" width="250" height="295" />*@
-                    <img id="playerPhoto" v-bind:src="playerName()" width="250" height="295" />
+                    <img id="playerPhoto" v-bind:src="GetplayerName()" width="250" height="295" />
                 </div>
 
-                <div id="formationPitch">
+                <div id="formationPitch" v-if="Players.length">
                     @Html.Partial("_FormationPitch")
                 </div>
 
                 <div id="dashboard">
-                    @*<div><button class="btn btn-info" id="442" onclick="formationChange(@Model.Team.TeamId, 1)">4-4-2</button></div>
-                        <div><button class="btn btn-info mt-1" id="433" onclick="formationChange(@Model.Team.TeamId, 2)">4-3-3</button></div>
-                        <div><button class="btn btn-info mt-1" id="451" onclick="formationChange(@Model.Team.TeamId, 3)">4-5-1</button></div>
-                        <div><button class="btn btn-info mt-1" id="352" onclick="formationChange(@Model.Team.TeamId, 4)">3-5-2</button></div>*@
                     <div><button class="btn btn-info" id="442" v-on:click="formationChange(1)">4-4-2</button></div>
                     <div><button class="btn btn-info mt-1" id="433" v-on:click="formationChange(2)">4-3-3</button></div>
                     <div><button class="btn btn-info mt-1" id="451" v-on:click="formationChange(3)">4-5-1</button></div>
@@ -51,22 +46,33 @@
         data: {
             Team: {},
             Provider: {},
+            Player: {},
             Players: [],
             Selected: [],
             Formation: '',
-            src: '',
-            //counter: 0,
-            //selected: 3,
-            //beforeHover: '',
-            //selectedRow: ''
-           
+            F442: true,
+            F433: true,
+            F451: true,
+            F352: true
         },
 
         methods: {
-            playerName: function () {
+
+            GetPlayer: function (index) {
+                this.Player = this.Players[index];
+                return this.Player;
+            },
+
+            GetplayerName: function () {
                 var fulname = this.Players[0].Name + this.Players[0].Surname;
                 fulname = fulname.replace(" ", "");
-                return this.src = '/Content/Resources/Players/' + fulname + '.png';
+                return fulname = '/Content/Resources/Players/' + fulname + '.png';
+            },
+
+            TShirts: function () {
+                var fulname = this.Team.Name + this.Team.City;
+                fulname = fulname.replace(" ", "");
+                return fulname = '/Content/Resources/TShirts/' + fulname + '.png';
             },
 
             NationalityEmblem: function (id) {
@@ -116,12 +122,18 @@
                 console.log(src)
             },
 
+            GetPlayerName: function (index) {
+                var playerName = this.Players[index].Name + ' ' + this.Players[index].Surname;
+                return playerName;
+            },
+
             formationChange: function (formationId){
 
                 vueTeamView.Provider.TeamId = this.Team.TeamId;
                 vueTeamView.Provider.FormationId = formationId;
                 vueTeamView.Provider.Status = 2;
                 this.FormationColors(formationId);
+                this.Formation = formationId;
 
                 $.ajax(
                     {
@@ -173,11 +185,27 @@
                         }
                     })
                     .done(function (partialViewResult) {
-                        $("#formationPitch").html(partialViewResult);
+                        //$("#formationPitch").html(partialViewResult);
                     });
             },
 
+            formationPitch: function (formation) {
+
+                var formationsTable = [this.F442, this.F433, this.F451, this.F352];
+
+                for (var i = 0; i < formationsTable.length; i++) {
+                    if (formationsTable[i] == formation) {
+                        formationsTable[i] = false;
+                        console.log(formationsTable[i]);
+                    } else {
+                        formationsTable[i] = true;
+                        console.log(formationsTable[i]);
+                    }
+                }
+            },
+
             formation442: function () {
+
                 $('#squadBody tr:nth-child(1)').css('background', 'rgba(255, 231, 40, 0.3)');
                 for (var i = 2; i < 6; i++) {
                     $('#squadBody tr:nth-child(' + i + ')').css('background', 'rgba(56, 158, 43, 0.3)');
@@ -247,15 +275,31 @@
                 switch (formationId) {
                     case 1:
                         this.formation442();
+                        this.F442 = false;
+                        this.F433 = true;
+                        this.F451 = true;
+                        this.F352 = true;
                         break;
                     case 2:
                         this.formation433();
+                        this.F442 = true;
+                        this.F433 = false;
+                        this.F451 = true;
+                        this.F352 = true;
                         break;
                     case 3:
                         this.formation451();
+                        this.F442 = true;
+                        this.F433 = true;
+                        this.F451 = false;
+                        this.F352 = true;
                         break;
                     case 4:
                         this.formation352();
+                        this.F442 = true;
+                        this.F433 = true;
+                        this.F451 = true;
+                        this.F352 = false;
                         break;
                 }
             },
@@ -270,7 +314,7 @@
                     },
                     function () {
                         $(this).css('background', this.beforeHover)
-                      
+
                     });
             },
 
@@ -302,79 +346,12 @@
                 }
             },
 
-            HoverTableRow: function () {
-
-                $('#squadBody tr').on({
-
-                    'click': function () {
-                        if (this.counter < 2) {
-                            var input = $(this).find("input.checker");
-                            // if the same row is clicked second time
-
-                            if (input.is(':checked')) {
-
-                                // restores original background colourcif row is unclicked
-                                $(this).css('background', this.selectedClicked);
-                                this.selected = 2;
-
-                                input.prop('checked', false);
-                                this.counter--;
-
-                            }// if row is clicked
-                            else if (input.not(':checked')) {
-                                input.prop('checked', true);
-                                this.selectedRow = $(this).css('background', 'rgba(65, 107, 130, 0.3)');
-
-                                this.selected = 1;
-                                this.counter++;
-
-                                //keeps background colour of clicked row in case of unclicking to restore original background
-                                if (this.counter == 1) {
-                                    this.selectedClicked = this.beforeHover;
-                                }
-                            }
-                        }// if second row is clicked 2 value of inputs are pushed to array and send to changPlayer(array) function
-                        if (this.counter == 2) {
-                            var arrayOfSelected = new Array();
-                            $('#squadBody input[type="checkbox"]:checked').each(function () {
-                                arrayOfSelected.push($(this).val());
-                            });
-                            //changePlayer(arrayOfSelected);
-                            console.log('change player')
-                        }
-                    },
-
-                    'mouseover': function () {
-                        this.beforeHover = $(this).css('background-color'); // keeps row background colour before hovering in order to restore original bc after leaving row
-                        $(this).css('background', 'rgba(200, 187, 201, 0.3)');
-
-                    },
-
-                    'mouseout': function () {
-                        switch (this.selected) {
-                            case 1: // selected row background color
-                                $(this).css('background', this.selectedRow);
-                                this.selected = 3;
-                                break;
-                            case 2: // first clicked row background color
-                                $(this).css('background', this.selectedClicked);
-                                selected = 3;
-                                break;
-                            case 3: // hovered row background color
-                                $(this).css('background', this.beforeHover);
-                                break;
-                        }
-                    }
-                });
-
-                console.log(this.counter);
-            },
-
             ShowPlayerSkils: function (id) {
 
                     var nationalityNum = this.Players[id].Nationality;
                     var country;
 
+                    this.GetPlayer(id);
 
                    // TO DO delete after mounting real model data
                     switch (nationalityNum) {
@@ -530,8 +507,9 @@
         },
 
         computed: {
-            
+
         },
+
 
         created: function () {
             this.Team =  @Html.Raw(Json.Encode(Model.Team));
@@ -540,7 +518,7 @@
         },
 
         beforeMount() {
-           
+
         },
 
         mounted() {
@@ -553,8 +531,8 @@
 
         },
         updated() {
-           
-           
+
+
         }
 
     })

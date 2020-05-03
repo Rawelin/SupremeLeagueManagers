@@ -110,4 +110,12 @@
     transform: rotate(45deg);
 }
 
+.available{
+    display: inline-block;
+}
+
+.unavilable {
+    display: none;
+}
+
 
