@@ -10,6 +10,7 @@ namespace SupremeLeagueManager.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public PersonNationality Nationality { get; set; }
+        public string CountryName { get; set; }
         public int Age { get; set; }
         public DateTime DOB { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using SLMContextDB;
+using SupremeLeagueManager.Models.Admin;
 using SupremeLeagueManager.Models.Global;
 using System;
 using System.Collections.Generic;
@@ -18,17 +19,57 @@ namespace SupremeLeagueManager.Models.TeamManagement
                 using (Entities slmCtx = new Entities())
                 {
                     team = slmCtx.dictTeams
-                                  .Where(t=> t.IdDictTeams == id &&  
-                                             t.Active == 1 )
+                                  .Where(t => t.IdDictTeams == id &&
+                                             t.Active == 1)
                                   .Select(t => new Team
                                   {
                                       TeamId = t.IdDictTeams,
                                       Name = t.Name,
                                       City = t.City,
-                                      Formation = t.IdDictFormations
+                                      Formation = t.IdDictFormations,
+                                      Players = slmCtx.dictTeamsPlayers
+                                                       .Where(p => p.IdDictTeams == id)
+                                                       .Select(p => new Player {
+                                                           Name = p.FirstName,
+                                                           Surname = p.LastName,
+                                                           CountryName = p.dictCountries.CountryName,
+                                                           DOB = p.BirthDate,
+                                                           Age = 0,
+                                                           TeamId = p.IdDictTeams,
+                                                           IndexPosition = p.Lp,
+                                                           PositionShort = p.dictPositions.ShortName,
+                                                           LeftFootSkills = p.LeftFootSkills,
+                                                           RightFootSkills = p.RightFootSkills,
+                                                           GoalKeeper = (double)p.GoalKeeper,
+                                                           Defence = (double)p.Defence,
+                                                           Midfield = (double)p.Midfield,
+                                                           Attack = (double)p.Attack,
+                                                           Diving = (double)p.Diving,
+                                                           Handling = (double)p.Handling,
+                                                           Tackling = (double)p.Tackling,
+                                                           Covering = (double)p.Covering,
+                                                           LongPassAccuracy = (double)p.LongPassAccuracy,
+                                                           ShortPassAccuracy = (double)p.ShortPassAccuracy,
+                                                           ShotAccuracy = (double)p.ShotAccuracy,
+                                                           Speed = (double)p.Speed,
+                                                           Acceleration = (double)p.Acceleration,
+                                                           Reflex = (double)p.Reflex,
+                                                           Heading = (double)p.Heading,
+                                                           ShotPower = (double)p.ShotPower,
+                                                           Technique = (double)p.Technique,
+                                                           Endurance = (double)p.Endurance,
+                                                           Stamina = (double)p.Stamina
+                                                        })
+                                                        .OrderBy(p=> p.IndexPosition)
+                                                        .ToList()
                                   })
                                   .FirstOrDefault();
-                                  
+
+                    for (int i = 0; i < team.Players.Count; i++)
+                    {
+                        team.Players[i].Age = Helpers.GetAge(team.Players[i].DOB);
+                    }
+
                 }
 
             }

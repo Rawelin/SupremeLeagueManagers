@@ -13,7 +13,9 @@ namespace SupremeLeagueManager.Models
         public int PlayerId { get; set; }
         public int TeamId { get; set; }
 
+        public int IndexPosition { get; set; }
         public PlayerPosition Position { get; set; }
+        public string PositionShort { get; set; }
    
         //leg play skills
         public int LeftFootSkills { get; set; }

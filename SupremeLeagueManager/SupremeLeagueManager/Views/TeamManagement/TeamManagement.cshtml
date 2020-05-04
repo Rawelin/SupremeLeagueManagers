@@ -10,8 +10,8 @@
                     </button>
                 }*@
             <div>
-                <button v-for="team in dictTeams" v-bind:title="fullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
-                    <img v-bind:src="emblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
+                <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
+                    <img v-bind:src="EmblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
                 </button>
             </div>
         </div>
@@ -40,35 +40,33 @@
     var vueTeamsManagement = new Vue({
         el: '#managementView',
         data: {
-            dictTeams: [],
+            Teams: [],
             Provider: {},
-            src: '',
-            fulname: ''
         },
 
         methods: {
-            emblemName: function (name, city) {
-
-                var fulname = name + city;
-                fulname = fulname.replace(" ", "");
-                return this.src = '/Content/Resources/Emblems/' + fulname + '.png';
+            EmblemName: function (name, city) {
+                var fulName = name + city;
+                fulName = fulName.replace(" ", "");
+                return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
             },
 
-            fullName: function (name, city) {
-                return this.fulname = name + ' ' + city;
+            FullName: function (name, city) {
+                var fulName = name + ' ' + city;
+                return fulName;
             },
 
             ShowTeamSquad: function (teamId) {
 
-                vueTeamsManagement.Provider.TeamId = teamId;
-                vueTeamsManagement.Provider.Status = 1;
+                this.Provider.TeamId = teamId;
+                this.Provider.Status = 1;
 
                 $.ajax(
                     {
                         url: "_TeamManagement/TeamManagement",
                         type: "POST",
                         contentType: "application/json",
-                        data: JSON.stringify({ provider: vueTeamsManagement.Provider }),
+                        data: JSON.stringify({ provider: this.Provider }),
                         success: function () {
 
                         },
@@ -89,7 +87,7 @@
         },
 
         mounted() {
-            this.dictTeams =  @Html.Raw(Json.Encode(Model.Teams));
+            this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
         }
 
     })

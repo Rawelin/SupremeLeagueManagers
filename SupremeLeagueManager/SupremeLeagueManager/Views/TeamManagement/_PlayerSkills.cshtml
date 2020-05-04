@@ -2,21 +2,21 @@
 <table class="table table-dark table-striped  table-hover table-sm ml-2" id="playerSkillsTable" style="width:12%; float:left; background: rgba(0,0,0, .3)">
     <thead>
         <tr>
-            <th colspan="2"><img style="visibility:hidden" src="~/Content/Resources/Emblems/@Model.Team.GetEmblemsName()" width="50" height="50" /></th>
+            <th colspan="2"><img style="visibility:hidden" v-bind:src="TeamEmblem()" width="50" height="50" /></th>
         </tr>
     </thead>
     <tbody style="font-size:13px">
         <tr>
-            <td style="width:60%">Name</td>
-            <td class="text-center" >{{ Player.Name }}</td>
+            <td style="width:60%" id="nameForSkillsTable">Name</td>
+            <td class="text-center" ></td>
         </tr>
         <tr>
             <td>Surname</td>
-            <td class="text-center">{{Player.Surname}}</td>
+            <td class="text-center" id="surnameForSkillsTable"></td>
         </tr>
         <tr>
             <td>Position</td>
-            <td class="text-center">{{ Player.Position }}</td>
+            <td class="text-center" id="positionForSkillsTable"></td>
         </tr>
         <tr>
             <td>Nationality</td>
@@ -24,11 +24,11 @@
         </tr>
         <tr>
             <td>Age</td>
-            <td class="text-center" id="ageForSkillsTable">{{ Player.Age }}</td>
+            <td class="text-center" id="ageForSkillsTable"></td>
         </tr>
         <tr>
             <td>GoalKeeper</td>
-            <td class="text-center" id="goalkeeperSkillsTable"> {{ Player.Goalkeeper }}</td>
+            <td class="text-center" id="goalkeeperSkillsTable"></td>
         </tr>
         <tr>
             <td>Defence</td>
