@@ -12,5 +12,8 @@ namespace SupremeLeagueManager.Models.TeamTest
         public int Player1 { get; set; }
         public int Player2 { get; set; }
         public int Status { get; set; }
+        public Player PlayerOne { get; set;}
+        public Player PlayerTwo { get; set;}
+        public string ErrorMessage { get; set; }
     }
 }

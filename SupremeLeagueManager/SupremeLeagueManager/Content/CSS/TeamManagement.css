@@ -1,5 +1,4 @@
 ﻿
-
 #dashboard {
     position: absolute;
     right: -80px;
@@ -110,6 +109,7 @@
     transform: rotate(45deg);
 }
 
+/* Style squad table*/
 .available{
     display: inline-block;
 }
@@ -117,5 +117,44 @@
 .unavilable {
     display: none;
 }
+
+#squadTable.scroll {
+    border-spacing: 0;
+    /*border: 2px solid white;*/
+}
+
+#squadTable.scroll tbody,
+#squadTable.scroll thead {
+    display: block;
+}
+
+#squadTable th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+
+#squadTable.scroll tbody {
+    height: 50em;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#squadTable ::-webkit-scrollbar {
+    width: 5px;
+    height: 15px;
+}
+
+#squadTable ::-webkit-scrollbar-track-piece {
+    background-color: rgba(0,0,0,0);
+}
+
+#squadTable ::-webkit-scrollbar-thumb:vertical {
+    height: 5px;
+    background-color: rgba(255,58,64, .5);
+}
+
 
 

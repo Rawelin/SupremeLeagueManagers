@@ -165,6 +165,7 @@
     <Compile Include="Models\TeamManagement\MockTeam.cs" />
     <Compile Include="Models\TeamManagement\Provider.cs" />
     <Compile Include="Models\TeamManagement\TeamManagementVM.cs" />
+    <Compile Include="Models\TeamManagement\UpdateDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

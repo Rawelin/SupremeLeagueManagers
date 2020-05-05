@@ -3,20 +3,12 @@
 <div id="managementView">
     <div class="col-md-12 mt-3">
         <div class="text-center">
-            @*@for (int i = 0; i < Model.Teams.Count(); i++)
-                {
-                    <button class="btn btn-outline-info" id="@Model.Teams.ElementAt(i).TeamId" onclick="showTeamSquad(@Model.Teams.ElementAt(i).TeamId)" title="@Model.Teams.ElementAt(i).GetFullName()">
-                        <img src="~/Content/Resources/Emblems/@Model.Teams.ElementAt(i).GetEmblemsName()" width="50" height="50" alt="Emblem" />
-                    </button>
-                }*@
             <div>
                 <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
                     <img v-bind:src="EmblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
                 </button>
             </div>
         </div>
-
-
         <div class="row mt-lg-5 justify-content-center" id="stadium">
             <div class="text-center">
                 <div>
@@ -91,38 +83,4 @@
         }
 
     })
-
-    @*var errorMessage = @Html.Raw(Json.Encode(Model.ErrorMessage));
-
-    if (errorMessage != null) {
-        alert(errorMessage);
-    }
-
-    function showTeamSquad(teamId) {
-
-        var Provider = {};
-
-        Provider.TeamId = teamId;
-        Provider.Status = 1;
-
-        $.ajax(
-            {
-                url: "_TeamManagement/TeamManagement",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ provider: Provider }),
-                success: function () {
-
-                },
-                error: function () {
-                    alert('Nieoczekiwany błąd');
-                }
-            })
-            .done(function (partialViewResult) {
-                $("#stadium").hide();
-                $("#teamManagement").show();
-                $("#teamManagement").html(partialViewResult);
-            });
-    }*@
-
 </script>

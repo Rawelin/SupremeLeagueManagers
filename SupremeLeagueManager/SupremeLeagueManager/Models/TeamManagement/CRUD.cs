@@ -29,7 +29,9 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       Formation = t.IdDictFormations,
                                       Players = slmCtx.dictTeamsPlayers
                                                        .Where(p => p.IdDictTeams == id)
-                                                       .Select(p => new Player {
+                                                       .Select(p => new Player
+                                                       {
+                                                           PlayerId = p.IdDictTeamsPlayers,
                                                            Name = p.FirstName,
                                                            Surname = p.LastName,
                                                            CountryName = p.dictCountries.CountryName,
@@ -59,8 +61,8 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                                            Technique = (double)p.Technique,
                                                            Endurance = (double)p.Endurance,
                                                            Stamina = (double)p.Stamina
-                                                        })
-                                                        .OrderBy(p=> p.IndexPosition)
+                                                       })
+                                                        .OrderBy(p => p.IndexPosition)
                                                         .ToList()
                                   })
                                   .FirstOrDefault();
@@ -96,7 +98,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       TeamId = t.IdDictTeams,
                                       Name = t.Name,
                                       City = t.City,
-                                      Formation = t. IdDictFormations
+                                      Formation = t.IdDictFormations
                                   })
                                   .ToList();
                 }
@@ -108,6 +110,29 @@ namespace SupremeLeagueManager.Models.TeamManagement
             }
 
             return teams;
+        }
+
+        public static void SwaPlayers(Player playerOne, Player playerTwo)
+        {
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    dictTeamsPlayers firstPlayer = slmCtx.dictTeamsPlayers.Find(playerOne.PlayerId);
+                    firstPlayer.Lp = playerOne.IndexPosition;
+
+                    dictTeamsPlayers secondPlayer = slmCtx.dictTeamsPlayers.Find(playerTwo.PlayerId);
+                    secondPlayer.Lp = playerTwo.IndexPosition;
+
+                    slmCtx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "SwaPlayers", ex);
+            }
+
         }
     }
 }

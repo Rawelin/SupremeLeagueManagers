@@ -1,4 +1,5 @@
-﻿using SupremeLeagueManager.Models.TeamTest;
+﻿using SupremeLeagueManager.Models.TeamManagement;
+using SupremeLeagueManager.Models.TeamTest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace SupremeLeagueManager.Controllers
         public ActionResult TeamManagement()
         {
             return View(new CreateTeams().GetTeams());
+        }
+
+        public ActionResult UpdateDB(Provider provider)
+        {
+            return Json(new UpdateDB(provider).GetData(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _TeamManagement(Provider provider)

@@ -39,6 +39,7 @@
 </div>
 
 <script type="text/javascript">
+
     var vueTeamView = new Vue({
         el: '#teamView',
         data: {
@@ -86,47 +87,6 @@
             },
 
             NationalityFlag: function (index) {
-                //var nationalityNum = this.Players[id].Nationality;
-                //var country;
-                 // TO DO delete after mounting real model data
-                //switch (nationalityNum) {
-                //    case 10:
-                //        country = "Argentina";
-                //        break;
-                //    case 20:
-                //        country = "Belgium";
-                //        break;
-                //    case 30:
-                //        country = "Brazil";
-                //        break;
-                //    case 107:
-                //        country = "Colombia";
-                //        break;
-                //    case 39:
-                //        country = "Croatia";
-                //        break;
-                //    case 61:
-                //        country = "France";
-                //        break;
-                //    case 149:
-                //        country = "Germany";
-                //        break;
-                //    case 171:
-                //        country = "Portugal";
-                //        break;
-                //    case 190:
-                //        country = "Serbia";
-                //        break;
-                //    case 82:
-                //        country = "Spain";
-                //        break;
-                //    case 223:
-                //        country = "Uruguay";
-                //        break;
-                //    case 250:
-                //        country = "Wales";
-                //        break;
-                //}
                 var src = '/Content/Resources/Flags/' + this.Players[index].CountryName + '.png';
                 return src;
             },
@@ -198,20 +158,68 @@
                     });
             },
 
-            //formationPitch: function (formation) {
+            ChangePlayerDB: function (playerOne, playerTwo) {
 
-            //    var formationsTable = [this.F442, this.F433, this.F451, this.F352];
+                var Provider = {};
 
-            //    for (var i = 0; i < formationsTable.length; i++) {
-            //        if (formationsTable[i] == formation) {
-            //            formationsTable[i] = false;
-            //            console.log(formationsTable[i]);
-            //        } else {
-            //            formationsTable[i] = true;
-            //            console.log(formationsTable[i]);
-            //        }
-            //    }
-            //},
+                Provider.PlayerOne = playerOne;
+                Provider.PlayerTwo = playerTwo;
+
+                $.ajax(
+                    {
+                        url: "UpdateDB/TeamManagement",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: Provider }),
+                        success: function (data) {
+                            if (data != null) {
+                           
+                            } else {
+                                alert(data.ErrorMessage)
+                            }
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
+            },
+
+            ChangePlayer: function (index) {
+
+                if (this.Selected.includes(index)) {
+
+                    const arrayIndex = this.Selected.indexOf(index);
+                    if (arrayIndex > -1) {
+                        this.Selected.splice(arrayIndex, 1);
+                        this.Players[index].Selected = false
+                    }
+                } else {
+                    this.Selected.push(index);
+                    this.Players[index].Selected = true;
+                }
+
+                if (this.Selected.length == 2) {
+
+                    var playerOne = this.Selected.shift();
+                    var playerTwo = this.Selected.shift();
+                    var Player = this.Players[playerOne];
+
+                    var indexPositionPlayerOne = this.Players[playerOne].IndexPosition;
+                    var indexPositionPlayerTwo = this.Players[playerTwo].IndexPosition;
+
+                    this.Players[playerOne].IndexPosition = indexPositionPlayerTwo;
+                    this.Players[playerTwo].IndexPosition = indexPositionPlayerOne;
+
+                    // swap players position
+                    this.Players[playerOne] = this.Players[playerTwo];
+                    this.Players[playerTwo] = Player;
+
+                    this.Players[playerOne].Selected = false;
+                    this.Players[playerTwo].Selected = false;
+
+                    this.ChangePlayerDB(this.Players[playerOne], this.Players[playerTwo]);
+                }
+            },
 
             Formation442: function () {
 
@@ -325,78 +333,7 @@
                     });
             },
 
-            ChangePlayer: function (index) {
-
-                if (this.Selected.includes(index)) {
-
-                    const arrayIndex = this.Selected.indexOf(index);
-                    if (arrayIndex > -1) {
-                        this.Selected.splice(arrayIndex, 1);
-                        this.Players[index].Selected = false
-                    }
-                } else {
-                    this.Selected.push(index);
-                    this.Players[index].Selected = true;
-                }
-
-                if (this.Selected.length == 2) {
-
-                    var p1 = this.Selected.shift();
-                    var p2 = this.Selected.shift();
-                    var Player = this.Players[p1];
-
-                    this.Players[p1] = this.Players[p2];
-                    this.Players[p2] = Player;
-                    this.Players[p1].Selected = false;
-                    this.Players[p2].Selected = false;
-                    this.Selected = [];
-                }
-            },
-
             ShowPlayerSkils: function (id) {
-
-                    //var nationalityNum = this.Players[id].Nationality;
-                    //var country;
-
-                   // TO DO delete after mounting real model data
-                    //switch (nationalityNum) {
-                    //    case 10:
-                    //        country = "Argentina";
-                    //        break;
-                    //    case 20:
-                    //        country = "Belgium";
-                    //        break;
-                    //    case 30:
-                    //        country = "Brazil";
-                    //        break;
-                    //    case 107:
-                    //        country = "Colombia";
-                    //        break;
-                    //    case 39:
-                    //        country = "Croatia";
-                    //        break;
-                    //    case 61:
-                    //        country = "France";
-                    //        break;
-                    //    case 149:
-                    //        country = "Germany";
-                    //        break;
-                    //    case 171:
-                    //        country = "Portugal";
-                    //        break;
-                    //    case 190:
-                    //        country = "Serbia";
-                    //        break;
-                    //    case 82:
-                    //        country = "Spain";
-                    //        break;
-                    //    case 223:
-                    //        country = "Uruguay";
-                    //        break;
-                    //    case 250:
-                    //        country = "Wales";
-                    //        break;
-                    //}
 
                     $('#playerSkills').css("visibility", "visible");
                     $('#nameForSkillsTable').text(this.Players[id].Name);
