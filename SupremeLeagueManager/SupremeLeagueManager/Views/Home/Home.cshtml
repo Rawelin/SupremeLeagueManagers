@@ -12,7 +12,7 @@
         <div class="p-2">
             <h4><i> Online simulator of the football league composed of the best international teams </i></h4>
         </div>
-    </div> 
+    </div>
     <div class="d-flex justify-content-between" style="margin-top: 1em; padding: 0em 9em 0em 9em;">
         <div class="p-1">
             <img src="~/Content/Resources/Emblems/ArsenalLondon.png" width="50" height="50" />
@@ -106,13 +106,25 @@
             }
         </div>
 
-        <div class="col-xl-6">
-            <div class="d-flex justify-content-center">
-                <div class="p-2">
-                    <img src="~/Content/Resources/Pictures/bernabeu.jpg" width="850" />
+        <div class="col-xl-6 mt-5" style="width: 100%; display:inline-block">
+            <div class="d-flex justify-content-center" style="width: 33%; float: left">
+                <div class="p-1" style="border: solid 2px; border-radius: 5px;">
+                    <img src="~/Content/Resources/Gifs/liverpool.gif" width="240" height="320" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-center" style="width: 33%; float:left">
+                <div class="p-1" style="border: solid 2px; border-radius: 5px;">
+                    <img src="~/Content/Resources/Gifs/real.gif" width="240" height="320" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-center" style="width: 33%">
+                <div class="p-1" style="border: solid 2px; border-radius: 5px;">
+                    <img src="~/Content/Resources/Gifs/barcelona.gif" width="240" height="320" />
                 </div>
             </div>
         </div>
+
+
 
         <div class="col-xl-2">
             <div class="d-flex justify-content-center">
@@ -132,13 +144,21 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div class="p-1">
-                    <a class="btn btn-outline-info" href="@Url.Action("Admin", "Admin")"  style="width: 10em;"> Admin </a>
+                    <a class="btn btn-outline-info" href="@Url.Action("Admin", "Admin")" style="width: 10em;"> Admin </a>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $("body").css("overflow", "hidden");
+    $("body").css("overflow-x", "hidden");
+    $("body").css("overflow-y", "hidden");
+
+</script>
 
 
 

@@ -16,24 +16,24 @@ namespace SupremeLeagueManager.Controllers
             return View(new CreateTeams().GetTeams());
         }
 
-        public ActionResult UpdateDB(Provider provider)
-        {
-            return Json(new UpdateDB(provider).GetData(), JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult _TeamManagement(Provider provider)
         {
             return PartialView(new TeamMenagement(provider).GetTeam());
         }
 
-        public ActionResult _TeamSquad(Provider provider)
+        public ActionResult UpdateDB(Provider provider)
         {
-            return PartialView(new TeamMenagement(provider).GetTeam());
+            return Json(new UpdateDB(provider).GetData(), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult _TeamSkills(Provider provider)
+        public ActionResult _TeamSquad()
         {
-            return PartialView(new TeamMenagement(provider).GetTeam());
+            return PartialView();
+        }
+
+        public ActionResult _TeamSkills()
+        {
+            return PartialView();
         }
 
         public ActionResult _PlayerSkills()
@@ -41,9 +41,9 @@ namespace SupremeLeagueManager.Controllers
             return PartialView();
         }
 
-        public ActionResult _FormationPitch(Provider provider)
+        public ActionResult _FormationPitch()
         {
-            return PartialView(new TeamMenagement(provider).GetTeam());
+            return PartialView();
         }
     }
 }

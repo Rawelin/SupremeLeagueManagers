@@ -472,6 +472,9 @@
     <Content Include="Content\Resources\Flags\Yemen.png" />
     <Content Include="Content\Resources\Flags\Zambia.png" />
     <Content Include="Content\Resources\Flags\Zimbabwe.png" />
+    <Content Include="Content\Resources\Gifs\barcelona.gif" />
+    <Content Include="Content\Resources\Gifs\liverpool.gif" />
+    <Content Include="Content\Resources\Gifs\real.gif" />
     <Content Include="Content\Resources\Pictures\bernabeu.jpg" />
     <Content Include="Content\Resources\Players\Casemiro.png" />
     <Content Include="Content\Resources\Players\ChristianoRonaldo.png" />

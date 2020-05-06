@@ -14,7 +14,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
         public UpdateDB(Provider provider)
         {
             this.provider = provider;
-            SetData();
+            Menu();
         }
 
         public Provider GetData()
@@ -22,7 +22,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
             return provider;
         }
 
-        private void SetData()
+        private void SwapPlayer()
         {
             try
             {
@@ -34,6 +34,34 @@ namespace SupremeLeagueManager.Models.TeamManagement
             catch (Exception ex)
             {
                 provider.ErrorMessage = ex.ToString();
+            }
+        }
+
+        private void ChangeFormation()
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    CRUD.ChangeFormation(provider);
+                }
+            }
+            catch (Exception ex)
+            {
+                provider.ErrorMessage = ex.ToString();
+            }
+        }
+
+        private void Menu()
+        {
+            switch(provider.Status)
+            {
+                case 1:
+                    SwapPlayer();
+                    break;
+                case 2:
+                    ChangeFormation();
+                    break;
             }
         }
     }

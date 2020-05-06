@@ -1,6 +1,7 @@
 ﻿using SLMContextDB;
 using SupremeLeagueManager.Models.Admin;
 using SupremeLeagueManager.Models.Global;
+using SupremeLeagueManager.Models.TeamTest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,10 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                                            ShotPower = (double)p.ShotPower,
                                                            Technique = (double)p.Technique,
                                                            Endurance = (double)p.Endurance,
-                                                           Stamina = (double)p.Stamina
+                                                           Stamina = (double)p.Stamina,
+                                                           AverageSkills = (double)p.AverageSkills,
+                                                           AverageDynamicSkills = (double)p.AverageDynamicSkills
+                                                           
                                                        })
                                                         .OrderBy(p => p.IndexPosition)
                                                         .ToList()
@@ -114,7 +118,6 @@ namespace SupremeLeagueManager.Models.TeamManagement
 
         public static void SwaPlayers(Player playerOne, Player playerTwo)
         {
-
             try
             {
                 using (Entities slmCtx = new Entities())
@@ -131,6 +134,25 @@ namespace SupremeLeagueManager.Models.TeamManagement
             catch (Exception ex)
             {
                 ErrorHandling.InsertError("TeamManagement", "CRUD", "SwaPlayers", ex);
+            }
+
+        }
+
+        public static void ChangeFormation(Provider provider)
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    dictTeams team = slmCtx.dictTeams.Find(provider.TeamId);
+                    team.IdDictFormations = (int)provider.FormationId;
+
+                    slmCtx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "ChangeFormation", ex);
             }
 
         }
