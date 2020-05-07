@@ -39,7 +39,7 @@
                 <td style="width: 8%"></td>
                 <td class="text-center align-midle" style="width: 13%">
                     <div class="progress progress-transparent">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" :style="{width: player.Stamina + '%'}">{{ player.Stamina }}</div>
+                        <div v-bind:class="ProgressBarColor(player.Stamina)" :style="{width: player.Stamina + '%'}" v-html="ProgressText(player.Stamina)"></div>
                     </div>
                 </td>
             </tr>

@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="pane ml-2" style="width: 13%" v-if="Players.length">
-                    <img id="playerPhoto" v-bind:src="GetplayerName()" width="250" height="295" />
+                    <img id="playerPhoto" v-bind:src="GetPlayeryerPhoto()" width="250" height="295" />
                 </div>
 
                 <div id="formationPitch" v-if="Players.length">
@@ -44,16 +44,11 @@
         el: '#teamView',
         data: {
             Team: {},
-            //Provider: {},
             ProgressBarObj: {},
             Player: {},
             Players: [],
             Selected: [],
             Formation: '',
-            F442: true,
-            F433: true,
-            F451: true,
-            F352: true
         },
 
         methods: {
@@ -63,7 +58,7 @@
                 return this.Player;
             },
 
-            GetplayerName: function () {
+            GetPlayeryerPhoto: function () {
                 var fulname = this.Players[0].Name + this.Players[0].Surname;
                 fulname = fulname.replace(" ", "");
                 return fulname = '/Content/Resources/Players/' + fulname + '.png';
@@ -140,7 +135,6 @@
 
                 $.ajax(
                     {
-
                         url: "@Url.Action("UpdateDB", "TeamManagement")",
                         type: "POST",
                         contentType: "application/json",
@@ -192,8 +186,47 @@
                     this.Players[playerOne].Selected = false;
                     this.Players[playerTwo].Selected = false;
 
-                    this.Counter++;
+                    // send changes to DB
                     this.SwapPlayer(this.Players[playerOne], this.Players[playerTwo]);
+                }
+            },
+
+            ProgressBarColor: function (stamina) {
+
+                if (stamina >= 80) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-success';
+                } else if (stamina < 80 && stamina >= 40) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-warning';
+                } else if(stamina < 40) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-danger';
+                }
+            },
+
+            ProgressText: function (stamina) {
+                if (stamina < 40) {
+                    return '';
+                } else {
+                    return stamina + '%';
+                }
+            },
+
+            FormationPitch: function (formation) {
+
+                this.F442 = this.F433 = this.F451 = this.F352 = true;
+
+                switch (formation) {
+                    case 1:
+                    this.F442 = false;
+                        break;
+                    case 2:
+                        this.F433 = false;
+                        break;
+                    case 3:
+                        this.F451 = false;
+                        break;
+                    case 4:
+                        this.F352 = false;
+                        break;
                 }
             },
 
@@ -268,31 +301,19 @@
                 switch (formationId) {
                     case 1:
                         this.Formation442();
-                        this.F442 = false;
-                        this.F433 = true;
-                        this.F451 = true;
-                        this.F352 = true;
+                        this.FormationPitch(formationId);
                         break;
                     case 2:
                         this.Formation433();
-                        this.F442 = true;
-                        this.F433 = false;
-                        this.F451 = true;
-                        this.F352 = true;
+                        this.FormationPitch(formationId);
                         break;
                     case 3:
                         this.Formation451();
-                        this.F442 = true;
-                        this.F433 = true;
-                        this.F451 = false;
-                        this.F352 = true;
+                        this.FormationPitch(formationId);
                         break;
                     case 4:
                         this.Formation352();
-                        this.F442 = true;
-                        this.F433 = true;
-                        this.F451 = true;
-                        this.F352 = false;
+                        this.FormationPitch(formationId);
                         break;
                 }
             },
@@ -339,7 +360,7 @@
                     this.SkillTextColor($('#shotPowerForSkillsTable'), this.Players[id].ShotPower);
                     this.SkillTextColor($('#techniqueForSkillsTable'), this.Players[id].Technique);
                     this.SkillTextColor($('#enduranceForSkillsTable'), this.Players[id].Endurance);
-                    //this.SkillTextColor($('#staminaForSkillsTable'), this.Players[id].Stamina);
+                    this.SkillTextColor($('#staminaForSkillsTable'), this.Players[id].Stamina);
                     this.SkillTextColor($('#avgSkillsForSkillsTable'), this.Players[id].AverageSkills);
                     this.SkillTextColor($('#avgDynSkillsForSkillsTable'), this.Players[id].AverageDynamicSkills);
 
@@ -412,7 +433,7 @@
                         this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
                         break;
                     default:
-                        break; 
+                        break;
                 }
             },
 
@@ -425,10 +446,10 @@
                     item.css('color', "red");
                     item.css('font-weight', '700');
                 } else if (value >= 90 && value < 95) {
-                    item.css('color', "orange");
+                    item.css('color', "indianred");
                     item.css('font-weight', '700');
                 } else if (value >= 80 && value < 90) {
-                    item.css('color', "yellow");
+                    item.css('color', "orange");
                     item.css('font-weight', '700');
                 } else if (value >= 70 && value < 80) {
                     item.css('color', "lightgreen");
@@ -497,7 +518,7 @@
             this.Team =  @Html.Raw(Json.Encode(Model.Team));
             this.Players =  @Html.Raw(Json.Encode(Model.Team.Players));
             this.Formation = @Html.Raw(Json.Encode(Model.Team.Formation));
-          
+            this.FormationPitch(this.Formation);
         },
 
         beforeMount() {
@@ -506,13 +527,10 @@
 
         mounted() {
             this.SetPlayersAverageSkills();
-            this.ProgressBar();
             this.FormationColors(this.Formation);
             this.HoverRow();
             this.FormationMenu()
             this.ScrollOff();
-          
-
         },
         updated() {
 

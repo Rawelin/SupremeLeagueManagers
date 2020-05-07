@@ -196,6 +196,7 @@
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\Resources\Backgrounds\back2.jpg" />
     <Content Include="Content\Resources\Backgrounds\black.jpg" />
+    <Content Include="Content\Resources\Emblems\ACMilan.png" />
     <Content Include="Content\Resources\Emblems\ArsenalLondon.png" />
     <Content Include="Content\Resources\Emblems\AtleticoMadrid.png" />
     <Content Include="Content\Resources\Emblems\FCBarcelona.png" />
@@ -203,6 +204,7 @@
     <Content Include="Content\Resources\Emblems\BenficaLisabona.png" />
     <Content Include="Content\Resources\Emblems\BorussiaDortmund.png" />
     <Content Include="Content\Resources\Emblems\ChelseaLondon.png" />
+    <Content Include="Content\Resources\Emblems\FCLiverpool.png" />
     <Content Include="Content\Resources\Emblems\JuventusTorino.png" />
     <Content Include="Content\Resources\Emblems\ManchesterCity.png" />
     <Content Include="Content\Resources\Emblems\ManchesterUnited.png" />
@@ -241,7 +243,7 @@
     <Content Include="Content\Resources\Flags\Bermuda.png" />
     <Content Include="Content\Resources\Flags\Bhutan.png" />
     <Content Include="Content\Resources\Flags\Bolivia.png" />
-    <Content Include="Content\Resources\Flags\Bosnia-and-Herzegovina.png" />
+    <Content Include="Content\Resources\Flags\BosniaandHerzegovina.png" />
     <Content Include="Content\Resources\Flags\Botswana.png" />
     <Content Include="Content\Resources\Flags\Brazil.png" />
     <Content Include="Content\Resources\Flags\British-Antarctic-Territory.png" />
@@ -489,7 +491,7 @@
     <Content Include="Content\Resources\Players\MarcoAssensio.png" />
     <Content Include="Content\Resources\Players\RaphaelVarane.png" />
     <Content Include="Content\Resources\Players\SergioRamos.png" />
-    <Content Include="Content\Resources\Players\ThibautCortouis.png" />
+    <Content Include="Content\Resources\Players\ThibautCourtois.png" />
     <Content Include="Content\Resources\Players\ToniKroos.png" />
     <Content Include="Content\Resources\Stadiums\bernabeu.jpg" />
     <Content Include="Content\Resources\TShirts\ArsenalLondon.png" />
