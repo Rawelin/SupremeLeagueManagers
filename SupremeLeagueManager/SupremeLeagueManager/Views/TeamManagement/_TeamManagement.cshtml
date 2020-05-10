@@ -37,7 +37,7 @@
         </div>
     }
 </div>
-
+<script src="~/Scripts/Skills/PlayerSkills.js"></script>
 <script type="text/javascript">
 
     var vueTeamView = new Vue({
@@ -49,6 +49,7 @@
             Players: [],
             Selected: [],
             Formation: '',
+            PlayerPhotoIndex: 0
         },
 
         methods: {
@@ -59,7 +60,7 @@
             },
 
             GetPlayeryerPhoto: function () {
-                var fulname = this.Players[0].Name + this.Players[0].Surname;
+                var fulname = this.Players[this.PlayerPhotoIndex].Name + this.Players[this.PlayerPhotoIndex].Surname;
                 fulname = fulname.replace(" ", "");
                 return fulname = '/Content/Resources/Players/' + fulname + '.png';
             },
@@ -87,6 +88,12 @@
                 return src;
             },
 
+            CountryFlag: function (countryName) {
+                this.Player.CountryName = countryName;
+                var src = '/Content/Resources/Flags/' + this.Player.CountryName + '.png';
+                return src;
+            },
+
             GetPlayerName: function (index) {
                 var playerName = this.Players[index].Name + ' ' + this.Players[index].Surname;
                 return playerName;
@@ -99,8 +106,6 @@
                 Provider.PlayerOne = playerOne;
                 Provider.PlayerTwo = playerTwo;
                 Provider.Status = 1;
-
-                this.ProgressBar();
 
                 $.ajax(
                     {
@@ -330,155 +335,176 @@
                     });
             },
 
-            ShowPlayerSkils: function (id) {
-
-                    $('#playerSkills').css("visibility", "visible");
-                    $('#nameForSkillsTable').text(this.Players[id].Name);
-                    $('#surnameForSkillsTable').text(this.Players[id].Surname);
-                    $('#positionForSkillsTable').text(this.Players[id].PositionShort);
-                    $('#ageForSkillsTable').text(this.Players[id].Age);
-                    $('#ageForSkillsTable').css('font-weight', '700');
-                    $('#playerPhoto').attr('src', '/Content/Resources/Players/' + this.Players[id].Name + this.Players[id].Surname + '.png');
-                    $('#playerPhoto').show();
-                   $('#flag').attr('src', '/Content/Resources/Flags/' + this.Players[id].CountryName + '.png');
-
-                    this.SkillTextColor($('#goalkeeperSkillsTable'), this.Players[id].GoalKeeper);
-                    this.SkillTextColor($('#defenceForSkillsTable'), this.Players[id].Defence);
-                    this.SkillTextColor($('#midfieldForSkillsTable'), this.Players[id].Midfield);
-                    this.SkillTextColor($('#attackForSkillsTable'), this.Players[id].Attack);
-                    this.SkillTextColor($('#divingForSkillsTable'), this.Players[id].Diving);
-                    this.SkillTextColor($('#handlingForSkillsTable'), this.Players[id].Handling);
-                    this.SkillTextColor($('#tacklingForSkillsTable'), this.Players[id].Tackling);
-                    this.SkillTextColor($('#coveringForSkillsTable'), this.Players[id].Covering);
-                    this.SkillTextColor($('#LPForSkillsTable'), this.Players[id].LongPassAccuracy);
-                    this.SkillTextColor($('#SPForSkillsTable'), this.Players[id].ShortPassAccuracy);
-                    this.SkillTextColor($('#shotForSkillsTable'), this.Players[id].ShotAccuracy);
-                    this.SkillTextColor($('#speedForSkillsTable'), this.Players[id].Speed);
-                    this.SkillTextColor($('#accelerationForSkillsTable'), this.Players[id].Acceleration);
-                    this.SkillTextColor($('#reflexForSkillsTable'), this.Players[id].Reflex);
-                    this.SkillTextColor($('#headingForSkillsTable'), this.Players[id].Heading);
-                    this.SkillTextColor($('#shotPowerForSkillsTable'), this.Players[id].ShotPower);
-                    this.SkillTextColor($('#techniqueForSkillsTable'), this.Players[id].Technique);
-                    this.SkillTextColor($('#enduranceForSkillsTable'), this.Players[id].Endurance);
-                    this.SkillTextColor($('#staminaForSkillsTable'), this.Players[id].Stamina);
-                    this.SkillTextColor($('#avgSkillsForSkillsTable'), this.Players[id].AverageSkills);
-                    this.SkillTextColor($('#avgDynSkillsForSkillsTable'), this.Players[id].AverageDynamicSkills);
-
-                    var differ = this.Players[id].AverageDynamicSkills - this.Players[id].AverageSkills;
-
-                    if (id < 11) {
-                        this.SkillTextColor($('#avgDiffForSkillsTable'), differ);
-                    } else {
-                        this.SkillTextColor($('#avgDiffForSkillsTable'), 0);
-                    }
+            ShowPlayerSkills: function (index) {
+                this.Player = this.Players[index];
+                this.PlayerPhotoIndex = index;
             },
+
+            SkillsColor: function (value) {
+              
+                if (value >= 95) {
+                    return 'red';
+                } else if (value >= 90 && value < 95) {
+                    return 'indianred';
+                } else if (value >= 80 && value < 90) {
+                    return 'orange';
+                } else if (value >= 70 && value < 80) {
+                    return 'lightgreen';
+                }
+                else {
+                    return 'white';
+                }
+            },
+
+            //ShowPlayerSkils: function (id) {
+
+            //        $('#playerSkills').css("visibility", "visible");
+            //        $('#nameForSkillsTable').text(this.Players[id].Name);
+            //        $('#surnameForSkillsTable').text(this.Players[id].Surname);
+            //        $('#positionForSkillsTable').text(this.Players[id].PositionShort);
+            //        $('#ageForSkillsTable').text(this.Players[id].Age);
+            //        $('#ageForSkillsTable').css('font-weight', '700');
+            //        $('#playerPhoto').attr('src', '/Content/Resources/Players/' + this.Players[id].Name + this.Players[id].Surname + '.png');
+            //        $('#playerPhoto').show();
+            //       $('#flag').attr('src', '/Content/Resources/Flags/' + this.Players[id].CountryName + '.png');
+
+            //        this.SkillTextColor($('#goalkeeperSkillsTable'), this.Players[id].GoalKeeper);
+            //        this.SkillTextColor($('#defenceForSkillsTable'), this.Players[id].Defence);
+            //        this.SkillTextColor($('#midfieldForSkillsTable'), this.Players[id].Midfield);
+            //        this.SkillTextColor($('#attackForSkillsTable'), this.Players[id].Attack);
+            //        this.SkillTextColor($('#divingForSkillsTable'), this.Players[id].Diving);
+            //        this.SkillTextColor($('#handlingForSkillsTable'), this.Players[id].Handling);
+            //        this.SkillTextColor($('#tacklingForSkillsTable'), this.Players[id].Tackling);
+            //        this.SkillTextColor($('#coveringForSkillsTable'), this.Players[id].Covering);
+            //        this.SkillTextColor($('#LPForSkillsTable'), this.Players[id].LongPassAccuracy);
+            //        this.SkillTextColor($('#SPForSkillsTable'), this.Players[id].ShortPassAccuracy);
+            //        this.SkillTextColor($('#shotForSkillsTable'), this.Players[id].ShotAccuracy);
+            //        this.SkillTextColor($('#speedForSkillsTable'), this.Players[id].Speed);
+            //        this.SkillTextColor($('#accelerationForSkillsTable'), this.Players[id].Acceleration);
+            //        this.SkillTextColor($('#reflexForSkillsTable'), this.Players[id].Reflex);
+            //        this.SkillTextColor($('#headingForSkillsTable'), this.Players[id].Heading);
+            //        this.SkillTextColor($('#shotPowerForSkillsTable'), this.Players[id].ShotPower);
+            //        this.SkillTextColor($('#techniqueForSkillsTable'), this.Players[id].Technique);
+            //        this.SkillTextColor($('#enduranceForSkillsTable'), this.Players[id].Endurance);
+            //        this.SkillTextColor($('#staminaForSkillsTable'), this.Players[id].Stamina);
+            //        this.SkillTextColor($('#avgSkillsForSkillsTable'), this.Players[id].AverageSkills);
+            //        this.SkillTextColor($('#avgDynSkillsForSkillsTable'), this.Players[id].AverageDynamicSkills);
+
+            //        var differ = this.Players[id].AverageDynamicSkills - this.Players[id].AverageSkills;
+
+            //        if (id < 11) {
+            //            this.SkillTextColor($('#avgDiffForSkillsTable'), differ);
+            //        } else {
+            //            this.SkillTextColor($('#avgDiffForSkillsTable'), 0);
+            //        }
+            //},
 
             SetPlayersAverageSkills: function () {
 
                 for (var i = 0; i < this.Players.length; i++) {
-                    this.PlayerSkill(this.Players[i]);
+                    PlayerSkill(this.Players[i]);
                 }
             },
 
-            PlayerSkill: function (player) {
-                this.Player = player
+            //PlayerSkill: function (player) {
+            //    this.Player = player
 
-                switch (this.Player.PositionShort) {
-                    case 'GK':
-                        this.Player.AverageSkills = (this.Player.GoalKeeper + this.Player.Diving + this.Player.Handling + this.Player.Reflex) / 4;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'CB':
-                        this.Player.AverageSkills = (this.Player.Defence + this.Player.Tackling + this.Player.Covering + this.Player.Heading + this.Player.Speed + this.Player.Acceleration) / 6;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'LB':
-                    case 'RB':
-                        this.Player.AverageSkills = (this.Player.Defence + this.Player.Attack + this.Player.Technique + this.Player.LongPassAccuracy + this.Player.Speed + this.Player.Acceleration) / 6;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'DM':
-                        this.Player.AverageSkills = (this.Player.Defence + this.Player.Midfield + this.Player.Tackling + this.Player.Covering + this.Player.Speed + this.Player.Acceleration) / 6;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'CM':
-                        this.Player.AverageSkills = (this.Player.Midfield + this.Player.ShortPassAccuracy + this.Player.LongPassAccuracy + this.Player.Technique +
-                        this.Player.Speed + this.Player.Acceleration) / 6;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'LM':
-                    case 'RM':
-                        this.Player.AverageSkills = (this.Player.Midfield + this.Player.Attack + this.Player.Technique + this.Player.LongPassAccuracy + this.Player.Speed + this.Player.Acceleration) / 6;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'AM':
-                        this.Player.AverageSkills = (this.Player.Midfield + this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy +
-                        this.Player.LongPassAccuracy + this.Player.ShotPower + this.Player.ShotAccuracy + this.Player.Speed + this.Player.Acceleration) / 9;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'LW':
-                    case 'RW':
-                        this.Player.AverageSkills = (this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy + this.Player.LongPassAccuracy + this.Player.ShotPower +
-                        this.Player.ShotAccuracy + this.Player.Speed + this.Player.Acceleration) / 8;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'SS':
-                        this.Player.AverageSkills = (this.Player.Midfield + this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy + this.Player.ShotPower +
-                        this.Player.ShotAccuracy + this.Player.Speed + this.Player.Acceleration) / 8;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    case 'CF':
-                        this.Player.AverageSkills = (this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy + this.Player.ShotPower + this.Player.ShotAccuracy +
-                        this.Player.Speed + this.Player.Acceleration) / 7;
-                        this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
-                        break;
-                    default:
-                        break;
-                }
-            },
+            //    switch (this.Player.PositionShort) {
+            //        case 'GK':
+            //            this.Player.AverageSkills = (this.Player.GoalKeeper + this.Player.Diving + this.Player.Handling + this.Player.Reflex) / 4;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'CB':
+            //            this.Player.AverageSkills = (this.Player.Defence + this.Player.Tackling + this.Player.Covering + this.Player.Heading + this.Player.Speed + this.Player.Acceleration) / 6;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'LB':
+            //        case 'RB':
+            //            this.Player.AverageSkills = (this.Player.Defence + this.Player.Attack + this.Player.Technique + this.Player.LongPassAccuracy + this.Player.Speed + this.Player.Acceleration) / 6;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'DM':
+            //            this.Player.AverageSkills = (this.Player.Defence + this.Player.Midfield + this.Player.Tackling + this.Player.Covering + this.Player.Speed + this.Player.Acceleration) / 6;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'CM':
+            //            this.Player.AverageSkills = (this.Player.Midfield + this.Player.ShortPassAccuracy + this.Player.LongPassAccuracy + this.Player.Technique +
+            //            this.Player.Speed + this.Player.Acceleration) / 6;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'LM':
+            //        case 'RM':
+            //            this.Player.AverageSkills = (this.Player.Midfield + this.Player.Attack + this.Player.Technique + this.Player.LongPassAccuracy + this.Player.Speed + this.Player.Acceleration) / 6;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'AM':
+            //            this.Player.AverageSkills = (this.Player.Midfield + this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy +
+            //            this.Player.LongPassAccuracy + this.Player.ShotPower + this.Player.ShotAccuracy + this.Player.Speed + this.Player.Acceleration) / 9;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'LW':
+            //        case 'RW':
+            //            this.Player.AverageSkills = (this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy + this.Player.LongPassAccuracy + this.Player.ShotPower +
+            //            this.Player.ShotAccuracy + this.Player.Speed + this.Player.Acceleration) / 8;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'SS':
+            //            this.Player.AverageSkills = (this.Player.Midfield + this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy + this.Player.ShotPower +
+            //            this.Player.ShotAccuracy + this.Player.Speed + this.Player.Acceleration) / 8;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        case 'CF':
+            //            this.Player.AverageSkills = (this.Player.Attack + this.Player.Technique + this.Player.ShortPassAccuracy + this.Player.ShotPower + this.Player.ShotAccuracy +
+            //            this.Player.Speed + this.Player.Acceleration) / 7;
+            //            this.Player.AverageSkills = this.Player.AverageSkills.toFixed(0);
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //},
 
-            SkillTextColor: function (item, value) {
+            //SkillTextColor: function (item, value) {
 
-                value = Math.round(value);
-                item.text(value);
+            //    value = Math.round(value);
+            //    item.text(value);
 
-                if (value >= 95) {
-                    item.css('color', "red");
-                    item.css('font-weight', '700');
-                } else if (value >= 90 && value < 95) {
-                    item.css('color', "indianred");
-                    item.css('font-weight', '700');
-                } else if (value >= 80 && value < 90) {
-                    item.css('color', "orange");
-                    item.css('font-weight', '700');
-                } else if (value >= 70 && value < 80) {
-                    item.css('color', "lightgreen");
-                    item.css('font-weight', '700');
-                }
-                else {
-                    item.css('color', "white");
-                    item.css('font-weight', '700');
-                }
-            },
+            //    if (value >= 95) {
+            //        item.css('color', "red");
+            //        item.css('font-weight', '700');
+            //    } else if (value >= 90 && value < 95) {
+            //        item.css('color', "indianred");
+            //        item.css('font-weight', '700');
+            //    } else if (value >= 80 && value < 90) {
+            //        item.css('color', "orange");
+            //        item.css('font-weight', '700');
+            //    } else if (value >= 70 && value < 80) {
+            //        item.css('color', "lightgreen");
+            //        item.css('font-weight', '700');
+            //    }
+            //    else {
+            //        item.css('color', "white");
+            //        item.css('font-weight', '700');
+            //    }
+            //},
 
-            ProgressBar: function () {
+            //ProgressBar: function () {
 
-                $('#squadBody .progress-bar').each(function () {
+            //    $('#squadBody .progress-bar').each(function () {
 
-                    var text = $(this).text();
+            //        var text = $(this).text();
 
-                    if ($(this).text() > 80) {
-                        $(this).addClass('bg-success');
-                        $(this).text('' + text + '%');
-                    } else if ($(this).text() < 80 && $(this).text() >= 40) {
-                        $(this).addClass('bg-warning');
-                        $(this).text('' + text + '%');
-                    } else if ($(this).text() < 40) {
-                        $(this).addClass('bg-danger');
-                        $(this).text('');
-                    }
-                });
-            },
+            //        if ($(this).text() > 80) {
+            //            $(this).addClass('bg-success');
+            //            $(this).text('' + text + '%');
+            //        } else if ($(this).text() < 80 && $(this).text() >= 40) {
+            //            $(this).addClass('bg-warning');
+            //            $(this).text('' + text + '%');
+            //        } else if ($(this).text() < 40) {
+            //            $(this).addClass('bg-danger');
+            //            $(this).text('');
+            //        }
+            //    });
+            //},
 
             FormationMenu: function () {
                 $('#dashboard').hover(
