@@ -28,6 +28,14 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       Name = t.Name,
                                       City = t.City,
                                       Formation = t.IdDictFormations,
+                                      GoalKeeper = 0,
+                                      Defence = 0,
+                                      Midfield = 0,
+                                      Attack = 0,
+                                      Header = 0 ,
+                                      Speed = 0,
+                                      Technique = 0,
+                                      Overall = 0,
                                       Players = slmCtx.dictTeamsPlayers
                                                        .Where(p => p.IdDictTeams == id)
                                                        .Select(p => new Player

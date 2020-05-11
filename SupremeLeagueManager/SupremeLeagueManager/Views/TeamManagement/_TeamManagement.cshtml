@@ -37,7 +37,7 @@
         </div>
     }
 </div>
-<script src="~/Scripts/Skills/PlayerSkills.js"></script>
+<script src="~/Scripts/Skills/Skills.js"></script>
 <script type="text/javascript">
 
     var vueTeamView = new Vue({
@@ -137,6 +137,8 @@
 
                 this.FormationColors(formationId);
                 this.Formation = formationId;
+                this.Team.Formation = formationId;
+                this.SetTeamSkills(this.Team);
 
                 $.ajax(
                     {
@@ -402,8 +404,12 @@
             SetPlayersAverageSkills: function () {
 
                 for (var i = 0; i < this.Players.length; i++) {
-                    PlayerSkill(this.Players[i]);
+                    PlayerSkills(this.Players[i]);
                 }
+            },
+
+            SetTeamSkills: function (team) {
+                TeamSkills(team);
             },
 
             //PlayerSkill: function (player) {
@@ -539,12 +545,12 @@
 
         },
 
-
         created: function () {
             this.Team =  @Html.Raw(Json.Encode(Model.Team));
             this.Players =  @Html.Raw(Json.Encode(Model.Team.Players));
             this.Formation = @Html.Raw(Json.Encode(Model.Team.Formation));
             this.FormationPitch(this.Formation);
+            this.SetTeamSkills(this.Team);
         },
 
         beforeMount() {
@@ -557,6 +563,7 @@
             this.HoverRow();
             this.FormationMenu()
             this.ScrollOff();
+          
         },
         updated() {
 

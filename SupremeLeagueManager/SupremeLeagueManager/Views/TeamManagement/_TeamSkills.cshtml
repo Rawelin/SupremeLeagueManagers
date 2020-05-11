@@ -8,31 +8,31 @@
     <tbody style="font-size:13px">
         <tr>
             <td>Goalkeeper</td>
-            <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.GoalKeeper))</td>
+            <td class="text-center">{{ Team.GoalKeeper }}</td>
         </tr>
         <tr>
             <td>Defence</td>
-            <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Defence))</td>
+            <td class="text-center">{{ Team.Defence }}</td>
         </tr>
         <tr>
             <td>Midfield</td>
-            <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Midfield))</td>
+            <td class="text-center">{{ Team.Midfield }}</td>
         </tr>
         <tr>
             <td>Attack</td>
-            <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Attack))</td>
+            <td class="text-center">{{ Team.Attack}}</td>
         </tr>
         <tr>
             <td>Speed</td>
-            <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Speed))</td>
+            <td class="text-center">{{ Team.Speed }}</td>
         </tr>
         <tr>
             <td>Technique</td>
-            <td class="text-center">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Technicque))</td>
+            <td class="text-center">{{ Team.Technique }}</td>
         </tr>
         <tr>
             <td>Overall</td>
-            <td class="text-center text-danger">@Html.Raw(String.Format("{0:##}", @Model.Team.TeamSkillsModel.Overall))</td>
+            <td class="text-center text-danger"> {{ Team.Overall }}</td>
         </tr>
     </tbody>
 </table>

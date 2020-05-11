@@ -14,6 +14,14 @@ namespace SupremeLeagueManager.Models
         public string City { get; set; }
         public string Emblems { get; set; }
         public int Formation { get; set; }
+        public double GoalKeeper { get; set; }
+        public double Defence { get; set; }
+        public double Midfield { get; set; }
+        public double Attack { get; set; }
+        public double Header { get; set; }
+        public double Speed { get; set; }
+        public double Technique { get; set; }
+        public double Overall { get; set; }
         public List<Player> Players { get; set; }
         public TeamSkillsModel TeamSkillsModel { get; set; }
 

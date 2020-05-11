@@ -22,7 +22,6 @@ namespace SupremeLeagueManager.Models.GlobalModels
             Menu();
         }
 
-     
         public double GetDynamicSkills()
         {
             return dynamicSkills;
