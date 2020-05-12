@@ -11,7 +11,7 @@
                     @Html.Partial("_TeamSquad")
                 </div>
 
-                <div id="_PlayerSkills" v-if="Players.length">
+                <div id="_PlayerSkills" v-if="Team.Players.length">
                     @Html.Partial("_PlayerSkills")
                 </div>
 
@@ -19,11 +19,11 @@
                     @Html.Partial("_TeamSkills")
                 </div>
 
-                <div class="pane ml-2" style="width: 13%" v-if="Players.length">
+                <div class="pane ml-2" style="width: 13%" v-if="Team.Players.length">
                     <img id="playerPhoto" v-bind:src="GetPlayeryerPhoto()" width="250" height="295" />
                 </div>
 
-                <div id="formationPitch" v-if="Players.length">
+                <div id="formationPitch" v-if="Team.Players.length">
                     @Html.Partial("_FormationPitch")
                 </div>
 
@@ -46,7 +46,7 @@
             Team: {},
             ProgressBarObj: {},
             Player: {},
-            Players: [],
+            //Players: [],
             Selected: [],
             Formation: '',
             PlayerPhotoIndex: 0
@@ -55,12 +55,12 @@
         methods: {
 
             GetPlayer: function (index) {
-                this.Player = this.Players[index];
+                this.Player = this.Team.Players[index];
                 return this.Player;
             },
 
             GetPlayeryerPhoto: function () {
-                var fulname = this.Players[this.PlayerPhotoIndex].Name + this.Players[this.PlayerPhotoIndex].Surname;
+                var fulname = this.Team.Players[this.PlayerPhotoIndex].Name + this.Team.Players[this.PlayerPhotoIndex].Surname;
                 fulname = fulname.replace(" ", "");
                 return fulname = '/Content/Resources/Players/' + fulname + '.png';
             },
@@ -84,7 +84,7 @@
             },
 
             NationalityFlag: function (index) {
-                var src = '/Content/Resources/Flags/' + this.Players[index].CountryName + '.png';
+                var src = '/Content/Resources/Flags/' + this.Team.Players[index].CountryName + '.png';
                 return src;
             },
 
@@ -95,7 +95,7 @@
             },
 
             GetPlayerName: function (index) {
-                var playerName = this.Players[index].Name + ' ' + this.Players[index].Surname;
+                var playerName = this.Team.Players[index].Name + ' ' + this.Team.Players[index].Surname;
                 return playerName;
             },
 
@@ -106,7 +106,7 @@
                 Provider.PlayerOne = playerOne;
                 Provider.PlayerTwo = playerTwo;
                 Provider.Status = 1;
-
+            
                 $.ajax(
                     {
                         url: "UpdateDB/TeamManagement",
@@ -138,7 +138,7 @@
                 this.FormationColors(formationId);
                 this.Formation = formationId;
                 this.Team.Formation = formationId;
-                this.SetTeamSkills(this.Team);
+                this.SetTeamSkills();
 
                 $.ajax(
                     {
@@ -166,11 +166,11 @@
                     const arrayIndex = this.Selected.indexOf(index);
                     if (arrayIndex > -1) {
                         this.Selected.splice(arrayIndex, 1);
-                        this.Players[index].Selected = false
+                        this.Team.Players[index].Selected = false
                     }
                 } else { // else add second player to swap
                     this.Selected.push(index);
-                    this.Players[index].Selected = true;
+                    this.Team.Players[index].Selected = true;
                 }
                 // if array contains 2 player swap them
                 if (this.Selected.length == 2) {
@@ -180,21 +180,25 @@
                     var playerTwo = this.Selected.shift();
 
                     // swap indexPosition L.P.
-                    var indexPositionPlayerTmp = this.Players[playerOne].IndexPosition
-                    this.Players[playerOne].IndexPosition = this.Players[playerTwo].IndexPosition;
-                    this.Players[playerTwo].IndexPosition = indexPositionPlayerTmp;
+                    var indexPositionPlayerTmp = this.Team.Players[playerOne].IndexPosition
+                    this.Team.Players[playerOne].IndexPosition = this.Team.Players[playerTwo].IndexPosition;
+                    this.Team.Players[playerTwo].IndexPosition = indexPositionPlayerTmp;
 
                     // swap players position
-                    var PlayerTmp = this.Players[playerOne];
-                    this.Players[playerOne] = this.Players[playerTwo];
-                    this.Players[playerTwo] = PlayerTmp;
+                    var PlayerTmp = this.Team.Players[playerOne];
+                    this.Team.Players[playerOne] = this.Team.Players[playerTwo];
+                    this.Team.Players[playerTwo] = PlayerTmp;
 
                     // restore inbuts checbox to unchecked
-                    this.Players[playerOne].Selected = false;
-                    this.Players[playerTwo].Selected = false;
+                    this.Team.Players[playerOne].Selected = false;
+                    this.Team.Players[playerTwo].Selected = false;
+
+                    this.SetPlayerDynamicSkills();
+                    this.SetTeamSkills();
+                    this.SetPlayersAverageSkills();
 
                     // send changes to DB
-                    this.SwapPlayer(this.Players[playerOne], this.Players[playerTwo]);
+                    this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
                 }
             },
 
@@ -338,7 +342,7 @@
             },
 
             ShowPlayerSkills: function (index) {
-                this.Player = this.Players[index];
+                this.Player = this.Team.Players[index];
                 this.PlayerPhotoIndex = index;
             },
 
@@ -403,13 +407,20 @@
 
             SetPlayersAverageSkills: function () {
 
-                for (var i = 0; i < this.Players.length; i++) {
-                    PlayerSkills(this.Players[i]);
+                for (var i = 0; i < this.Team.Players.length; i++) {
+                    PlayerSkills(this.Team.Players[i]);
                 }
             },
 
-            SetTeamSkills: function (team) {
-                TeamSkills(team);
+            SetPlayerDynamicSkills: function () {
+
+                for (var i = 0; i < this.Team.Players.length; i++) {
+                    PlayerSkillsDynamic(this.Team.Players[i], this.Team.Formation);
+                }
+            },
+
+            SetTeamSkills: function () {
+                TeamSkills(this.Team);
             },
 
             //PlayerSkill: function (player) {
@@ -547,10 +558,10 @@
 
         created: function () {
             this.Team =  @Html.Raw(Json.Encode(Model.Team));
-            this.Players =  @Html.Raw(Json.Encode(Model.Team.Players));
+            @*this.Players =  @Html.Raw(Json.Encode(Model.Team.Players));*@
             this.Formation = @Html.Raw(Json.Encode(Model.Team.Formation));
             this.FormationPitch(this.Formation);
-            this.SetTeamSkills(this.Team);
+            this.SetTeamSkills();
         },
 
         beforeMount() {
@@ -559,6 +570,7 @@
 
         mounted() {
             this.SetPlayersAverageSkills();
+            this.SetPlayerDynamicSkills();
             this.FormationColors(this.Formation);
             this.HoverRow();
             this.FormationMenu()

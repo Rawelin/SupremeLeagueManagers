@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody id="squadBody" style="font-size:13px">
-        <tr class="text-center align-middle" v-on:mouseover="ShowPlayerSkills(index)" v-for="(player, index) in Players" v-on:click="ChangePlayer(index)">
+        <tr class="text-center align-middle" v-on:mouseover="ShowPlayerSkills(index)" v-for="(player, index) in Team.Players" v-on:click="ChangePlayer(index)">
             <td style="width: 2%">
                 <label class="container">
                     <input type="checkbox" v-model="player.Selected" />
@@ -36,7 +36,7 @@
             <td style="width: 8%"></td>
             <td style="width: 8%"></td>
             <td style="width: 8%">{{ player.AverageSkills }}</td>
-            <td style="width: 8%"></td>
+            <td style="width: 8%">{{ player.AverageDynamicSkills }} </td>
             <td class="text-center align-midle" style="width: 13%">
                 <div class="progress progress-transparent">
                     <div v-bind:class="ProgressBarColor(player.Stamina)" :style="{width: player.Stamina + '%'}" v-html="ProgressText(player.Stamina)"></div>
