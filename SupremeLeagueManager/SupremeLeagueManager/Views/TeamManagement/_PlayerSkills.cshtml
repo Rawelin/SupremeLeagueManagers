@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td>Age</td>
-            <td class="text-center" id="ageForSkillsTable">{{ Player.Age }}</td>
+            <td class="text-center" id="ageForSkillsTable" style="font-weight: 700">{{ Player.Age }}</td>
         </tr>
         <tr>
             <td>GoalKeeper</td>
@@ -107,7 +107,7 @@
             <td>Avg. Skills / Dyn.</td>
             <td class="text-center">
                 <span id="avgSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageSkills), fontWeight: 700}">{{ Player.AverageSkills }}</span> / 
-                <span id="avgDynSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageDynamicSkills), fontWeight: 700}">{{ Player.AverageDynamicSkills }}</span>&nbsp; &nbsp;<span id="avgDiffForSkillsTable"></span>
+                <span id="avgDynSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageDynamicSkills), fontWeight: 700}">{{ Player.AverageDynamicSkills }}</span>&nbsp; &nbsp;<span id="avgDiffForSkillsTable"> {{ Player.SkillDifference }}</span>
             </td>
         </tr>
     </tbody>

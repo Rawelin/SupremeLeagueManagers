@@ -32,7 +32,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       Defence = 0,
                                       Midfield = 0,
                                       Attack = 0,
-                                      Header = 0 ,
+                                      Header = 0,
                                       Speed = 0,
                                       Technique = 0,
                                       Overall = 0,
@@ -71,11 +71,12 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                                            Endurance = (double)p.Endurance,
                                                            Stamina = (double)p.Stamina,
                                                            AverageSkills = (double)p.AverageSkills,
-                                                           AverageDynamicSkills = (double)p.AverageDynamicSkills
-                                                           
+                                                           AverageDynamicSkills = (double)p.AverageDynamicSkills,
+                                                           SkillDifference = 0
+  
                                                        })
-                                                        .OrderBy(p => p.IndexPosition)
-                                                        .ToList()
+                                                       .OrderBy(p => p.IndexPosition)
+                                                       .ToList()
                                   })
                                   .FirstOrDefault();
 
