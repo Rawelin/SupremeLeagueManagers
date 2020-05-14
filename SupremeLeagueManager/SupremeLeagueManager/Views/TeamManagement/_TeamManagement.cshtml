@@ -100,6 +100,11 @@
                 return playerName;
             },
 
+            GetPlayerDynamicSkills: function (index) {
+                var skills = this.Team.Players[index].AverageDynamicSkills
+                return skills;
+            },
+
             SwapPlayer: function (playerOne, playerTwo) {
 
                 var Provider = {};
@@ -276,9 +281,17 @@
                     });
             },
 
+            HighlightPlayer: function (number) {
+                if (number == this.PlayerPhotoIndex) {
+                    return 'grey';
+                }
+              
+            },
+
             ShowPlayerSkills: function (index) {
                 this.Player = this.Team.Players[index];
                 this.PlayerPhotoIndex = index;
+        
             },
 
             SkillsColor: function (value) {
@@ -308,7 +321,7 @@
 
                 for (var i = 0; i < this.Team.Players.length; i++) {
                     PlayerSkillsDynamic(this.Team.Players[i], this.Team.Formation);
-                    if (this.Team.Players[i].IndexPosition > 10) {
+                    if (this.Team.Players[i].IndexPosition > 10 ) {
                         this.Team.Players[i].AverageDynamicSkills = 0;
                     }
                 }   
