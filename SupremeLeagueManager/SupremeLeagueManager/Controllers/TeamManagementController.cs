@@ -1,4 +1,5 @@
-﻿using SupremeLeagueManager.Models.TeamManagement;
+﻿using SupremeLeagueManager.Models.League;
+using SupremeLeagueManager.Models.TeamManagement;
 using SupremeLeagueManager.Models.TeamTest;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,13 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _FormationPitch()
         {
+            return PartialView();
+        }
+
+        public ActionResult _Fixture()
+        {
+            Fixture fixture = new Fixture(); 
+
             return PartialView();
         }
     }

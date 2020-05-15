@@ -7,6 +7,7 @@
                 <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
                     <img v-bind:src="EmblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
                 </button>
+                <button v-on:click="ShowFixture()"  class="btn btn-outline-info mr-1"> F </button>
             </div>
         </div>
         <div class="row mt-lg-5 justify-content-center" id="stadium">
@@ -70,6 +71,22 @@
                         $("#stadium").hide(300);
                         $("#teamManagement").show(300);
                         $("#teamManagement").html(partialViewResult);
+                    });
+            },
+
+            ShowFixture: function () {
+                $.ajax(
+                    {
+                        url: "_Fixture/TeamManagement",
+                        type: "POST",
+                        contentType: "application/json",
+
+                        success: function () {
+
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
                     });
             }
         },

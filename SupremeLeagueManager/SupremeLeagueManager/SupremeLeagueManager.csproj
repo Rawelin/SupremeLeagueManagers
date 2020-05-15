@@ -145,6 +145,7 @@
     <Compile Include="Models\Global\ErrorHandling.cs" />
     <Compile Include="Models\Global\PasswordHash.cs" />
     <Compile Include="Models\Global\ThisServer.cs" />
+    <Compile Include="Models\League\Fixture.cs" />
     <Compile Include="Models\SignIn\CRUD.cs" />
     <Compile Include="Models\SignIn\SignInManagement.cs" />
     <Compile Include="Models\TeamPlayer\Person.cs" />
