@@ -1,0 +1,45 @@
+﻿@model SupremeLeagueManager.Models.TeamTest.TeamManagementVM
+
+@if (!(@Model.AllFixtures is null))
+{
+    <div class="modal" id="fixturesModal" tabindex="-1" role="dialog" aria-labelledby="myModal-label">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="opacity: .9;">
+            <div class="modal-content" id="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detale</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mt-5" style="overflow-y: scroll; height: 30em;">
+                      
+                        <table class="table table-striped mt-3 table-sm" style="width: 100%">
+                            <tbody style="height:auto; max-height:40em;">
+                                @for (int i = 0, f = 1; i < Model.AllFixtures.Count; i++,f++)
+                                {
+                                <tr> <th class="text-center" colspan="3">Fixture @f</th></tr>
+
+                                    for (int j = 0; j < Model.AllFixtures.ElementAt(i).Count; j++)
+                                    {
+
+                                        <tr>
+                                            <td class="text-right" width="48%"> @Model.AllFixtures.ElementAt(i).ElementAt(j).Item1.Name @Model.AllFixtures.ElementAt(i).ElementAt(j).Item1.City </td>
+                                            <td class="text-center" width="4%">vs</td>
+                                            <td class="text-left" width="48%"> @Model.AllFixtures.ElementAt(i).ElementAt(j).Item2.Name @Model.AllFixtures.ElementAt(i).ElementAt(j).Item2.City </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

@@ -148,6 +148,7 @@
     <Compile Include="Models\League\Fixture.cs" />
     <Compile Include="Models\SignIn\CRUD.cs" />
     <Compile Include="Models\SignIn\SignInManagement.cs" />
+    <Compile Include="Models\TeamManagement\CreateFixtues.cs" />
     <Compile Include="Models\TeamPlayer\Person.cs" />
     <Compile Include="Models\TeamPlayer\Player.cs" />
     <Compile Include="Models\TeamPlayer\PlayerDynamicSkills.cs" />
@@ -669,6 +670,7 @@
     <Content Include="Views\TeamManagement\_PlayerSkills.cshtml" />
     <Content Include="Views\TeamManagement\_FormationPitch.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\TeamManagement\_Fixture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
