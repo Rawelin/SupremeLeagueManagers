@@ -22,8 +22,9 @@ namespace SupremeLeagueManager.Models.League
         {
             SetTeams();
             RoundRobin();
-            SetFixtures();
-            //SetFixture();
+            //SetFixtures();
+         
+            RoundRobinFixtures();
         }
 
         public List<Tuple<Team, Team>> GetAllPairs()
@@ -81,6 +82,44 @@ namespace SupremeLeagueManager.Models.League
             catch (Exception ex)
             {
                 ErrorHandling.InsertError("League", "Fixture", "RoundRobin", ex);
+            }
+        }
+
+        private void RoundRobinFixtures()
+        {
+            List<int> revolver = new List<int>() {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8};
+            List<int> revolver2 = new List<int>() {17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9};
+
+            int i, j, k;
+            int leftSide = 0;
+            int rightSide = teams.Count;
+ 
+
+            try
+            {
+                for (int f = 0; f < 17; f++)
+                {
+                    List<Tuple<Team, Team>> fixture = new List<Tuple<Team, Team>>(); 
+                    for (i = leftSide, j = rightSide, k = 0; i < teams.Count * 2; i++, j++, k++)
+                    {
+                        fixture.Add(Tuple.Create(teams[revolver[i]], teams[revolver2[j]]));
+
+                        if (k == (teams.Count / 2) -1)
+                        {
+                            leftSide++;
+                            rightSide--;
+
+                            break;
+                        }
+                    }
+                    allFixtures.Add(fixture);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
         private void SetFixtures()
@@ -319,68 +358,6 @@ namespace SupremeLeagueManager.Models.League
             }
         }
 
-        private void SetFixture()
-        {
-            try
-            {
-                for (int i = 0; i <= 17; i++)
-                {
-                    pairsTmp.Add(pairs.First());
-
-                    if (i == 17)
-                    {
-                        allPairs.AddRange(pairs);
-                        allFixtures.Add(new List<Tuple<Team, Team>>(pairs));
-                        break;
-                    }
-
-                    for (int j = 0; j < pairs.Count(); j++)
-                    {
-                        bool exist = true;
-                        for (int k = 0; k < pairsTmp.Count; k++)
-                        {
-                            //Debug.Write(pairsTmp[k].Item1.TeamId);
-                            //Debug.Write(" ");
-                            //Debug.Write(pairsTmp[k].Item2.TeamId);
-                            //Debug.WriteLine(" F ");
-                            //Debug.Write(pairs[j].Item1.TeamId);
-                            //Debug.Write(" ");
-                            //Debug.WriteLine(pairs[j].Item2.TeamId);
-                            //Debug.WriteLine("-------");
-
-                            if (pairsTmp[k].Item1.TeamId != pairs[j].Item1.TeamId && pairsTmp[k].Item1.TeamId != pairs[j].Item2.TeamId &&
-                                pairsTmp[k].Item2.TeamId != pairs[j].Item1.TeamId && pairsTmp[k].Item2.TeamId != pairs[j].Item2.TeamId)
-                            {
-                                exist = false;
-                            }
-                            else
-                            {
-                                exist = true;
-                            }
-                        }
-
-                        if (exist == false)
-                        {
-                            pairsTmp.Add(pairs[j]);
-                            pairs.Remove(pairs[j]);
-
-                            if (pairsTmp.Count() % (teams.Count / 2) == 0)
-                            {
-                                //pairsTmp = pairsTmp.OrderBy(p => Guid.NewGuid()).ToList();
-                                allPairs.AddRange(pairsTmp);
-                                allFixtures.Add(new List<Tuple<Team, Team>>(pairsTmp));
-                                pairsTmp.Clear();
-                                pairs.Remove(pairs.First());
-                            }
-                        }
-                    }
-                }
-                if (allFixtures.Count == 17) { }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandling.InsertError("League", "Fixture", "SetFixture", ex);
-            }
-        }
+      
     }
 }
