@@ -18,7 +18,7 @@ function PlayerSkills(player) {
             player.AverageSkills = player.AverageSkills.toFixed(0);
             break;
         case 'DM':
-            player.AverageSkills = (player.Defence + player.Midfield + player.Tackling + player.Covering + player.Speed + player.Acceleration) / 6;
+            player.AverageSkills = (player.Defence + player.Midfield + player.Tackling + player.Covering) / 4;
             player.AverageSkills = player.AverageSkills.toFixed(0);
             break;
         case 'CM':
@@ -48,8 +48,8 @@ function PlayerSkills(player) {
             player.AverageSkills = player.AverageSkills.toFixed(0);
             break;
         case 'CF':
-            player.AverageSkills = (player.Attack + player.Technique + player.ShortPassAccuracy + player.ShotPower + player.ShotAccuracy +
-                player.Speed + player.Acceleration) / 7;
+            player.AverageSkills = (player.Attack + player.Technique + player.ShotPower + player.ShotAccuracy +
+                player.Speed + player.Acceleration) / 6;
             player.AverageSkills = player.AverageSkills.toFixed(0);
             break;
     }

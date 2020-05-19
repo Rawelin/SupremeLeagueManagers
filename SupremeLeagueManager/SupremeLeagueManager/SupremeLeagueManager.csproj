@@ -197,7 +197,9 @@
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\Resources\Backgrounds\back2.jpg" />
+    <Content Include="Content\Resources\Backgrounds\black cubs.jpg" />
     <Content Include="Content\Resources\Backgrounds\black.jpg" />
+    <Content Include="Content\Resources\Backgrounds\cyber snake.gif" />
     <Content Include="Content\Resources\Emblems\ACMilan.png" />
     <Content Include="Content\Resources\Emblems\ArsenalLondon.png" />
     <Content Include="Content\Resources\Emblems\AtleticoMadrid.png" />

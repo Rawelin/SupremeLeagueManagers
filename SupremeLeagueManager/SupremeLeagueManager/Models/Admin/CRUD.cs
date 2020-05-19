@@ -86,8 +86,8 @@ namespace SupremeLeagueManager.Models.Admin
                         players.IdDictPositions = teamsPlayers[i].IdDictPositions;
                         players.Lp = teamsPlayers[i].Lp;
                         players.IdDictPersons = teamsPlayers[i].IdDictPersons;
-                        players.FirstName = teamsPlayers[i].FirstName;
-                        players.LastName = teamsPlayers[i].LastName;
+                        players.FirstName = teamsPlayers[i].FirstName ?? string.Empty;
+                        players.LastName = teamsPlayers[i].LastName ?? string.Empty;
                         players.LeftFootSkills = teamsPlayers[i].LeftFootSkills;
                         players.RightFootSkills = teamsPlayers[i].RightFootSkills;
                         players.GoalKeeper = teamsPlayers[i].GoalKeeper;

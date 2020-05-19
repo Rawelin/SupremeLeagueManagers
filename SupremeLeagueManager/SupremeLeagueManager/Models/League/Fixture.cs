@@ -99,6 +99,24 @@ namespace SupremeLeagueManager.Models.League
                     }
                     allFixtures.Add(fixture);
                 }
+
+                List<List<Tuple<Team, Team>>> rematches = new List<List<Tuple<Team, Team>>>();
+
+                for (int x = 0; x < allFixtures.Count; x++)
+                {
+                    List<Tuple<Team, Team>> fixture = new List<Tuple<Team, Team>>();
+                    for (int y = 0; y < allFixtures[x].Count(); y++)
+                    {
+                        fixture.Add(Tuple.Create(allFixtures[x][y].Item2, allFixtures[x][y].Item1));
+
+                        if (y == (teams.Count() / 2) - 1)
+                        {
+                            rematches.Add(fixture);
+                        }
+                    }
+                }
+
+                allFixtures.AddRange(rematches);
             }
             catch (Exception ex)
             {

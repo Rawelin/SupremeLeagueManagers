@@ -17,6 +17,11 @@ namespace SupremeLeagueManager.Controllers
             return View(new CreateTeams().GetTeams());
         }
 
+        public ActionResult _Fixture()
+        {
+            return PartialView(new CreateFixtues().GetFixtures());
+        }
+
         public ActionResult _TeamManagement(Provider provider)
         {
             return PartialView(new TeamMenagement(provider).GetTeam());
@@ -47,9 +52,6 @@ namespace SupremeLeagueManager.Controllers
             return PartialView();
         }
 
-        public ActionResult _Fixture()
-        {
-            return PartialView(new CreateFixtues().GetFixtures());
-        }
+       
     }
 }

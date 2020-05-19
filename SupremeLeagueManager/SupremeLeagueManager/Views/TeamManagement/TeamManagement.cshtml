@@ -4,10 +4,11 @@
     <div class="col-md-12 mt-3">
         <div class="text-center">
             <div>
+                <a class="btn btn-outline-info" href="@Url.Action("Admin", "Admin")">Admin</a>
                 <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" class="btn btn-outline-info mr-1" v-on:click="ShowTeamSquad(team.TeamId)">
                     <img v-bind:src="EmblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
                 </button>
-                <button v-on:click="ShowFixture()" class="btn btn-outline-info mr-1"> F </button>
+                <button v-on:click="ShowFixture()" class="btn btn-outline-info mr-1"> Fixture </button>
             </div>
         </div>
         <div class="row mt-lg-5 justify-content-center" id="stadium">
@@ -18,7 +19,7 @@
             </div>
         </div>
         <div id="fixture">
-            @Html.Partial("_Fixture");
+            @Html.Partial("_Fixture")
         </div>
 
     </div>
@@ -26,13 +27,10 @@
 
 <div>
     <div id="teamManagement" style="display:none">
-        @Html.Partial("_TeamManagement");
+        @Html.Partial("_TeamManagement")
     </div>
   
 </div>
-
-
-
 
 <script type="text/javascript">
   
