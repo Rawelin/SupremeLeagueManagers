@@ -31,7 +31,7 @@ namespace SupremeLeagueManager.Models.TeamTest
                 switch (provider.Status)
                 {
                     case 1: // Get team
-                        Team = CRUD.GetTeam(provider.TeamId);
+                        Team = CRUD.GetTeamPlayers(provider.TeamId);
                         //Team = new MockTeam(provider).GetTeam();
                         break;
                     case 2: // Change formation

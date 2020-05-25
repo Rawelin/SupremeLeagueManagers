@@ -12,8 +12,8 @@
             <h4><i> Online simulator of the football league composed of the best international teams </i></h4>
         </div>
     </div>
-    <div class="d-flex justify-content-between" style="margin-top: 1em; padding: 0em 9em 0em 9em;">
-        <div>
+    <div class="d-flex justify-content-between" style="margin-top: 1em;">
+        <div style="margin-left:auto; margin-right: auto">
             <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" class="btn btn-outline-info mr-1">
                 <img v-bind:src="EmblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
             </button>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="p-1">
-                        <div class="btn btn-outline-info" href="" style="width: 10em;"> Friendly match </div>
+                        <a class="btn btn-outline-info" href="@Url.Action("FriendlyMatch", "FriendlyMatch")" style="width: 10em;">Friendly match</a>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
