@@ -1,0 +1,47 @@
+﻿
+
+<div class="row mt-5" style="min-height:40em">
+    <div class="col">
+        <div id="carouselExampleIndicatorsHome" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner text-center">
+                <div class="carousel-item active" alt="first slide" v-on:click="ShowSquad()">
+                    <img v-bind:src="HomeTeamEmblem(0)" width="256" height="256" />
+                </div>
+                <div class="carousel-item" alt="first slide" v-for="(team, index) in HomeTeams" v-if="index">
+                    <img v-bind:src="HomeTeamEmblem(index)" width="256" height="256" />
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicatorsHome" role="button" data-slide="prev" v-on:click="HomePreviousTeam()">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicatorsHome" role="button" data-slide="next" v-on:click="HomeNextTeam()">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="col text-center" style="height: 10em;">
+        <h3 style="margin-top: 5em;">Vs</h3>
+    </div>
+    <div class="col">
+        <div id="carouselExampleIndicatorsAway" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner text-center">
+                <div class="carousel-item active" alt="first slide">
+                    <img v-bind:src="AwayTeamEmblem(0)" width="256" height="256" />
+                </div>
+                <div class="carousel-item" alt="first slide" v-for="(team, index) in AwayTeams" v-if="index">
+                    <img v-bind:src="AwayTeamEmblem(index)" width="256" height="256" />
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicatorsAway" role="button" data-slide="prev" v-on:click="AwayPreviousTeam()">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicatorsAway" role="button" data-slide="next" v-on:click="AwayNextTeam()">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>

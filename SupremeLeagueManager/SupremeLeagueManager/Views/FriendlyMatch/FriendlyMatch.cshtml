@@ -1,143 +1,107 @@
 ﻿@model SupremeLeagueManager.Models.FriendlyMatch.FriendlyMatchVM
 
-    <div id="friendlyMatchView">
-        <div class="container">
-            <div class="row text-center mt-3">
-                <div class="col">
-                    <h1>Friendly Match</h1>
-                </div>
+<div id="friendlyMatchView">
+    <div class="container">
+        <div id="friendlyMatch" class="row text-center mt-3">
+            <div class="col">
+                <h1>Friendly Match</h1>
             </div>
-            <div class="row mt-5" id="squadSelection">
-                <div class="col">
-                    <div id="carouselExampleIndicatorsHome" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <div class="carousel-inner text-center">
-                            <div class="carousel-item active" alt="first slide" v-on:click="ShowTeamSquad(1)">
-                                <img v-bind:src="HomeTeamEmblem(0)" width="256" height="256" />
-                            </div>
-                            <div class="carousel-item" alt="first slide" v-for="(team, index) in HomeTeams" v-if="index">
-                                <img v-bind:src="HomeTeamEmblem(index)" width="256" height="256" />
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicatorsHome" role="button" data-slide="prev" v-on:click="HomePreviousTeam()">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicatorsHome" role="button" data-slide="next" v-on:click="HomeNextTeam()">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col text-center" style="height: 10em;">
-                    <h3 style="margin-top: 5em;">Vs</h3>
-                </div>
-                <div class="col">
-                    <div id="carouselExampleIndicatorsAway" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <div class="carousel-inner text-center">
-                            <div class="carousel-item active" alt="first slide">
-                                <img v-bind:src="AwayTeamEmblem(0)" width="256" height="256" />
-                            </div>
-                            <div class="carousel-item" alt="first slide" v-for="(team, index) in AwayTeams" v-if="index">
-                                <img v-bind:src="AwayTeamEmblem(index)" width="256" height="256" />
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicatorsAway" role="button" data-slide="prev" v-on:click="AwayPreviousTeam()">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicatorsAway" role="button" data-slide="next" v-on:click="AwayNextTeam()" >
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
+        </div>
+        @*squad selection --------------------------------------------------*@
+        <div id="squadSelection" style="display: none;">
+            @Html.Partial("_SquadSelection")
+        </div>
+        @*team selection carousels -----------------------------------------*@
+        <div id="teamSelection">
+            @Html.Partial("_TeamSelection")
+        </div>
+        @*match arena ------------------------------------------------------*@
+        <div id="matchArena" style="display: none;">
+            @Html.Partial("_MatchArena")
+        </div>
+        @*menu buttons -----------------------------------------------------*@
+        <div id="menuButtons" class="row text-center mt-5">
+            <div class="col">
+                <div id="returnButton">@Html.ActionLink("Main Menu", "Home", "Home", null, new { @class = "btn btn-outline-info" })</div>
             </div>
-            <div class="row text-center mt-5">
-                <div class="col">
-                    <div>@Html.ActionLink("Main Menu", "Home", "Home", null, new { @class = "btn btn-outline-info" })</div>
-                </div>
-                <div class="col">
-                    <div class="btn btn-outline-info" v-on:click="ShowSquad()">Squad</div>
-                </div>
-                <div class="col">
-                    <div class="btn btn-outline-info"  v-on:click="PlayMatch()">Play</div>
-                </div>
-
+            <div class="col">
+                <div id="squadButton" class="btn btn-outline-info" v-on:click="ShowSquad()">Squad Selection</div>
+            </div>
+            <div class="col">
+                <div id="selectTeam" class="btn btn-outline-info" v-on:click="SelectTeam()">Select Team</div>
+            </div>
+            <div class="col">
+                <div id="playButton" class="btn btn-outline-info" v-on:click="PlayMatch()">Play Match</div>
             </div>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         var vueFriendlyMatch = new Vue({
             el: '#friendlyMatchView',
             data: {
+                Provider: {},
+                HomeTeam: {},
+                AwayTeam: {},
                 HomeTeams: [],
                 AwayTeams: [],
-                HomeTeamId: 1,
-                AwayTeamId: 1,
+                HomeIndex: 0,
+                AwayIndex: 0,
             },
 
             methods: {
 
-                HomeTeamEmblem: function (index, id) {
+                HomeTeamEmblem: function (index) {
                     var src = '/Content/Resources/Emblems/' + this.HomeTeams[index].Name + this.HomeTeams[index].City + '.png';
                     src = src.replace(" ", "");
                     return src;
                 },
 
-                AwayTeamEmblem: function (index,) {
+                AwayTeamEmblem: function (index) {
                     var src = '/Content/Resources/Emblems/' + this.HomeTeams[index].Name + this.HomeTeams[index].City + '.png';
                     src = src.replace(" ", "");
                     return src;
                 },
 
                 HomeNextTeam: function () {
-                    if (this.HomeTeamId < this.HomeTeams.length) {
-                        this.HomeTeamId++;
+                    if (this.HomeIndex < this.HomeTeams.length - 1) {
+                        this.HomeIndex++;
                     } else {
-                        this.HomeTeamId = 1;
+                        this.HomeIndex = 0;
                     }
-
-                    console.log(this.HomeTeamId);
+                    this.HomeTeam = this.HomeTeams[this.HomeIndex];
+                    console.log(this.HomeIndex);
                 },
 
                 HomePreviousTeam: function () {
-                    this.HomeTeamId--;
-                    if (this.HomeTeamId == 0) {
-                        this.HomeTeamId = 18;
-                    } 
-
-                    console.log(this.HomeTeamId);
+                    this.HomeIndex--;
+                    if (this.HomeIndex == -1) {
+                        this.HomeIndex = 17;
+                    }
+                    this.HomeTeam = this.HomeTeams[this.HomeIndex];
+                    console.log(this.HomeIndex);
                 },
 
                 AwayNextTeam: function () {
-                    if (this.AwayTeamId < this.AwayTeams.length) {
-                        this.AwayTeamId++;
+                    if (this.AwayIndex < this.AwayTeams.length - 1) {
+                        this.AwayIndex++;
                     } else {
-                        this.AwayTeamId = 1;
+                        this.AwayIndex = 0;
                     }
-                    console.log(this.AwayTeamId + 'a');
+                    this.AwayTeam = this.AwayTeams[this.AwayIndex];
+                    console.log(this.AwayIndex + 'a');
                 },
 
                 AwayPreviousTeam: function () {
-                    this.AwayTeamId--;
-                    if (this.AwayTeamId == 0) {
-                        this.AwayTeamId = 18;
+                    this.AwayIndex--;
+                    if (this.AwayIndex == -1) {
+                        this.AwayIndex = 17;
                     }
-                    console.log(this.AwayTeamId + 'a');
+                    this.AwayTeam = this.AwayTeams[this.AwayIndex];
+                    console.log(this.AwayIndex + 'a');
                 },
-
-                ShowSquad: function () {
-                    $('#squadSelection').effect('explode');
-                    //alert('H: ' + this.HomeTeamId);
-                },
-
-                PlayMatch: function () {
-                    $('#squadSelection').effect('explode');
-                    //alert('H: ' + this.HomeTeamId + '-' + 'A: ' + this.AwayTeamId);
-                },
-
 
                 GetHomeTeamId: function (id) {
                     this.HomeTeamId = id;
@@ -146,6 +110,76 @@
                 GetAwayTeamId: function (id) {
                     this.AwayTeamId = id;
                 },
+
+                SelectTeam: function () {
+                    $("#teamSelection").show(300);
+                    $("#matchArena").hide(300);
+                    $("#squadSelection").hide(300);
+                },
+
+                ShowSquad: function () {
+                    //alert('h: ' + this.HomeTeamId);
+                    $.ajax(
+                        {
+                            url: "_SquadSelection/FriendlyMatch",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify({ provider: this.Provider }),
+                            success: function (data) {
+                                if (data != null) {
+
+                                } else {
+                                    alert(data.ErrorMessage)
+                                }
+                            },
+                            error: function () {
+                                alert('Nieoczekiwany błąd');
+                            }
+                        })
+                        .done(function (partialViewResult) {
+                            $('#teamSelection').hide(300);
+                            $("#matchArena").hide(300);
+                            $("#squadSelection").show(300);
+                            $("#squadSelection").html(partialViewResult);
+                        });
+                },
+
+                PlayMatch: function () {
+                    //alert('H: ' + this.HomeTeamId + '-' + 'A: ' + this.AwayTeamId);
+                    this.Provider.HomeTeam = this.HomeTeam;
+                    this.Provider.AwayTeam = this.AwayTeam; 
+
+                    $.ajax(
+                        {
+                            url: "_MatchArena/FriendlyMatch",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify({ provider: this.Provider }),
+                            success: function (data) {
+                                if (data != null) {
+
+                                } else {
+                                    alert(data.ErrorMessage)
+                                }
+                            },
+                            error: function () {
+                                alert('Nieoczekiwany błąd');
+                            }
+                        })
+                        .done(function (partialViewResult) {
+                            $("#teamSelection").hide(300);
+                            $("#squadSelection").hide(300);
+                            $("#matchArena").show(300);
+                            $("#matchArena").html(partialViewResult);
+                        });
+
+                },
+
+                ScrollOff: function () {
+                    $("body").css("overflow", "hidden");
+                    $("body").css("overflow-x", "hidden");
+                    $("body").css("overflow-y", "hidden");
+                }
             },
 
             created: function () {
@@ -154,10 +188,8 @@
             },
 
             mounted: function () {
+                this.ScrollOff()
             }
-
-
         });
 
-
-    </script>
+</script>
