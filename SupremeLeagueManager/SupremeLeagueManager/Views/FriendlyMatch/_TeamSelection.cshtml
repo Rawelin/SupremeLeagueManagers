@@ -1,6 +1,6 @@
 ﻿
 
-<div class="row mt-5" style="min-height:40em">
+<div class="row mt-5" style="min-height: 50em">
     <div class="col">
         <div id="carouselExampleIndicatorsHome" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="carousel-inner text-center">
@@ -30,6 +30,7 @@
                 <div class="carousel-item active" alt="first slide">
                     <img v-bind:src="AwayTeamEmblem(0)" width="256" height="256" />
                 </div>
+               
                 <div class="carousel-item" alt="first slide" v-for="(team, index) in AwayTeams" v-if="index">
                     <img v-bind:src="AwayTeamEmblem(index)" width="256" height="256" />
                 </div>

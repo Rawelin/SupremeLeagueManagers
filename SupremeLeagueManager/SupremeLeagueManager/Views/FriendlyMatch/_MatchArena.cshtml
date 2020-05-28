@@ -1,5 +1,83 @@
 ﻿
 
-<div class="row mt-5" style="min-height: 40em;">
+<div style="min-height: 55em;">
+    <div class="row mt-1 pt-3 text-center pane" style="width:100%">
+        <div class="col">
+            <img v-bind:src="HomeTeamEmblem(HomeIndex)" width="128" height="128" />
+            <div class="col mt-3" style="font-size: 32px">{{ HomeTeam.Name }} {{ HomeTeam.City }}</div>
+        </div>
+        <div class="col">
+            <p class="mb-1" style="font-family: 'Cambria Math', sans-serif; font-size: 96px;">45</p>
+            <div class="row text-center">
+                <div class="col" style="font-size: 32px">1</div>
+                <div class="col" style="font-size: 32px">Vs</div>
+                <div class="col" style="font-size: 32px">0</div>
+            </div>
 
+        </div>
+        <div class="col">
+            <img v-bind:src="AwayTeamEmblem(AwayIndex)" width="128" height="128" />
+            <div class="col mt-3" style="font-size: 32px">{{ AwayTeam.Name }} {{AwayTeam.City }}</div>
+        </div>
+    </div>
+    <div class="row text-center" style="width:100%">
+        <div class="col pane mt-1 mr-1" style="min-height: 30em;"></div>
+        <div class="col pane mt-1 mr-1" style="min-height: 30em;">
+            <div class="mt-4 mb-1">Shoots</div>
+            <div class="row text-center aligne-midle">
+                <div style="width: 10%; font-size: 18px">8</div>
+                <div class="progress mt-1" style="width: 80%; background-color: blue">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 66%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="width: 10%; font-size: 18px">4</div>
+            </div>
+            <div class="mt-1 mb-1">On Target</div>
+            <div class="row text-center aligne-midle">
+                <div style="width: 10%; font-size: 18px">4</div>
+                <div class="progress mt-1" style="width: 80%; background-color: blue">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 80%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="width: 10%; font-size: 18px">1</div>
+            </div>
+            <div class="mt-1 mb-1">OFF Target</div>
+            <div class="row text-center aligne-midle">
+                <div style="width: 10%; font-size: 18px">4</div>
+                <div class="progress mt-1" style="width: 80%; background-color: blue">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="width: 10%; font-size: 18px">3</div>
+            </div>
+            <div class="mt-1 mb-1">Pressing</div>
+            <div class="row text-center aligne-midle">
+                <div style="width: 10%; font-size: 18px">60</div>
+                <div class="progress mt-1" style="width: 80%; background-color: blue">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="width: 10%; font-size: 18px">40</div>
+            </div>
+            <div class="mt-1 mb-1">Possession</div>
+            <div class="row text-center aligne-midle">
+                <div style="width: 10%; font-size: 18px">55</div>
+                <div class="progress mt-1" style="width: 80%; background-color: blue">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 55%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="width: 10%; font-size: 18px">45</div>
+            </div>
+            <div class="mt-1 mb-1">Fouls</div>
+            <div class="row text-center aligne-midle">
+                <div style="width: 10%; font-size: 18px">3</div>
+                <div class="progress mt-1" style="width: 80%; background-color: blue">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 33%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="width: 10%; font-size: 18px">6</div>
+            </div>
+        </div>
+        <div class="col pane mt-1" style="min-height: 30em;"></div>
+    </div>
 </div>
+
+
+
+
+
+

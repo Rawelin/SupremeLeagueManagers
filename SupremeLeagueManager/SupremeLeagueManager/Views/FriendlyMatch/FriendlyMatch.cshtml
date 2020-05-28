@@ -1,5 +1,7 @@
 ﻿@model SupremeLeagueManager.Models.FriendlyMatch.FriendlyMatchVM
 
+<link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
+
 <div id="friendlyMatchView">
     <div class="container">
         <div id="friendlyMatch" class="row text-center mt-3">
@@ -72,7 +74,7 @@
                         this.HomeIndex = 0;
                     }
                     this.HomeTeam = this.HomeTeams[this.HomeIndex];
-                    console.log(this.HomeIndex);
+                    console.log(this.HomeTeam.Name);
                 },
 
                 HomePreviousTeam: function () {
@@ -109,6 +111,11 @@
 
                 GetAwayTeamId: function (id) {
                     this.AwayTeamId = id;
+                },
+
+                DefaultTeams: function () {
+                    this.HomeTeam = this.HomeTeams[0];
+                    this.AwayTeam = this.AwayTeams[0];
                 },
 
                 SelectTeam: function () {
@@ -149,6 +156,10 @@
                     this.Provider.HomeTeam = this.HomeTeam;
                     this.Provider.AwayTeam = this.AwayTeam; 
 
+                    $("#teamSelection").hide(300);
+                    $("#squadSelection").hide(300);
+                    $("#matchArena").show(300);
+
                     $.ajax(
                         {
                             url: "_MatchArena/FriendlyMatch",
@@ -165,13 +176,8 @@
                             error: function () {
                                 alert('Nieoczekiwany błąd');
                             }
-                        })
-                        .done(function (partialViewResult) {
-                            $("#teamSelection").hide(300);
-                            $("#squadSelection").hide(300);
-                            $("#matchArena").show(300);
-                            $("#matchArena").html(partialViewResult);
                         });
+                      
 
                 },
 
@@ -188,7 +194,8 @@
             },
 
             mounted: function () {
-                this.ScrollOff()
+                this.ScrollOff();
+                this.DefaultTeams();
             }
         });
 
