@@ -39,6 +39,7 @@
     </div>
 </div>
 
+<script src="~/Scripts/GlobalFunctions/Skills.js"></script>
 <script type="text/javascript">
 
         var vueFriendlyMatch = new Vue({
@@ -74,7 +75,8 @@
                         this.HomeIndex = 0;
                     }
                     this.HomeTeam = this.HomeTeams[this.HomeIndex];
-                    console.log(this.HomeTeam.Name);
+                    TeamSkills(this.HomeTeam);
+                    console.log(this.HomeTeam.Defence);
                 },
 
                 HomePreviousTeam: function () {
@@ -83,6 +85,7 @@
                         this.HomeIndex = 17;
                     }
                     this.HomeTeam = this.HomeTeams[this.HomeIndex];
+                    TeamSkills(this.HomeTeam);
                     console.log(this.HomeIndex);
                 },
 
@@ -93,6 +96,7 @@
                         this.AwayIndex = 0;
                     }
                     this.AwayTeam = this.AwayTeams[this.AwayIndex];
+                    TeamSkills(this.AwayTeam);
                     console.log(this.AwayIndex + 'a');
                 },
 
@@ -102,6 +106,7 @@
                         this.AwayIndex = 17;
                     }
                     this.AwayTeam = this.AwayTeams[this.AwayIndex];
+                    TeamSkills(this.AwayTeam);
                     console.log(this.AwayIndex + 'a');
                 },
 
@@ -116,6 +121,9 @@
                 DefaultTeams: function () {
                     this.HomeTeam = this.HomeTeams[0];
                     this.AwayTeam = this.AwayTeams[0];
+
+                    TeamSkills(this.HomeTeam);
+                    TeamSkills(this.AwayTeam);
                 },
 
                 SelectTeam: function () {

@@ -39,10 +39,13 @@ namespace SupremeLeagueManager.Models.League
 
         private void RoundRobin()
         {
-            List<int> revolverL1 = new List<int>() {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
-            List<int> revolverR1 = new List<int>() {7, 6, 5, 4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9};
-            List<int> revolverL2 = new List<int>() {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 0};
-            List<int> revolverR2 = new List<int>() {10, 11, 12, 13, 14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8};
+            List<int> revolverL1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+            List<int> revolverR1 = new List<int>() { 7, 6, 5, 4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9 };
+            List<int> revolverL2 = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            List<int> revolverR2 = new List<int>() { 17, 16, 15, 14, 13, 12, 11, 10, 0 };
+
+
+
 
             int i, j, k;
             int leftSide = 0;
@@ -52,19 +55,19 @@ namespace SupremeLeagueManager.Models.League
             {
                 for (int f = 0; f < teams.Count / 2; f++)
                 {
-                    List<Tuple<Team, Team>> fixture = new List<Tuple<Team, Team>>(); 
+                    List<Tuple<Team, Team>> fixture = new List<Tuple<Team, Team>>();
                     for (i = leftSide, j = rightSide, k = 0; ; i++, j++, k++)
                     {
-                        if(f %2 == 0)
+                        if (f % 2 == 0)
                         {
                             fixture.Add(Tuple.Create(teams[revolverL1[i]], teams[revolverR1[j]]));
                         }
                         else
                         {
-                            fixture.Add(Tuple.Create(teams[revolverR1[j]],teams[revolverL1[i]]));
+                            fixture.Add(Tuple.Create(teams[revolverR1[j]], teams[revolverL1[i]]));
                         }
-                       
-                        if (k == (teams.Count / 2) -1)
+
+                        if (k == (teams.Count / 2) - 1)
                         {
                             leftSide++;
                             rightSide--;
@@ -74,8 +77,8 @@ namespace SupremeLeagueManager.Models.League
                     allFixtures.Add(fixture);
                 }
 
-                leftSide = 0;
-                rightSide = (teams.Count / 2) - 1;
+
+                leftSide = rightSide = 0;
 
                 for (int f = (teams.Count / 2); f < teams.Count - 1; f++)
                 {
@@ -92,8 +95,8 @@ namespace SupremeLeagueManager.Models.League
                         }
                         if (k == (teams.Count / 2) - 1)
                         {
-                            leftSide++;
-                            rightSide--;
+                            leftSide+= 2;
+                            //rightSide--;
                             break;
                         }
                     }
