@@ -52,10 +52,117 @@
                 AwayTeams: [],
                 HomeIndex: 0,
                 AwayIndex: 0,
+
+                Player: {},
+                Selected: [],
+                PlayerPhotoIndex: 0
+             
             },
 
             methods: {
 
+//---------------------------------------------------------------------
+
+               UserTeamFullName: function () {
+                    var fulname = this.HomeTeam.Name + this.HomeTeam.City;
+                    fulname = fulname.replace(" ", "");
+                    return fulname;
+                },
+
+                UserTeamEmblem: function () {
+                    var fulname = this.HomeTeam.Name + this.HomeTeam.City;
+                    fulname = fulname.replace(" ", "");
+                    console.log(this.HomeTeam.Name);
+                    return fulname = '/Content/Resources/Emblems/' + fulname + '.png';
+                },
+
+                NationalityFlag: function (index) {
+                    var src = '/Content/Resources/Flags/' + this.HomeTeam.Players[index].CountryName + '.png';
+                    return src;
+                },
+
+                ProgressBarColor: function (stamina) {
+
+                    if (stamina >= 80) {
+                        return 'progress-bar progress-bar-striped progress-bar-animated bg-success';
+                    } else if (stamina < 80 && stamina >= 40) {
+                        return 'progress-bar progress-bar-striped progress-bar-animated bg-warning';
+                    } else if (stamina < 40) {
+                        return 'progress-bar progress-bar-striped progress-bar-animated bg-danger';
+                    }
+                },
+
+                ProgressText: function (stamina) {
+                    if (stamina < 40) {
+                        return '';
+                    } else {
+                        return stamina + '%';
+                    }
+                },
+
+                HoverRow: function () {
+                    $('#squadBody tr').hover(
+                        function () {
+                            this.beforeHover = $(this).css('background-color');
+                            $(this).css('background', 'rgba(200, 187, 201, 0.3)');
+                        },
+                        function () {
+                            $(this).css('background', this.beforeHover)
+
+                        });
+                },
+
+                ShowPlayerSkills: function (index) {
+                    this.Player = this.HomeTeam.Players[index];
+                    this.PlayerPhotoIndex = index;
+
+                },
+
+
+                ChangePlayer: function (index) {
+
+                    // if clicked the same player again remove from array
+                    if (this.Selected.includes(index)) {
+                        const arrayIndex = this.Selected.indexOf(index);
+                        if (arrayIndex > -1) {
+                            this.Selected.splice(arrayIndex, 1);
+                            this.HomeTeam.Players[index].Selected = false
+                        }
+                    } else { // else add second player to swap
+                        this.Selected.push(index);
+                        this.HomeTeam.Players[index].Selected = true;
+                    }
+                    // if array contains 2 player swap them
+                    if (this.Selected.length == 2) {
+
+                        // players position in table squadTable of _TeamSqad.cshtml (the same value like field L.P of [SLM].[dbo].[dictTeamsPlayers] )
+                        var playerOne = this.Selected.shift();
+                        var playerTwo = this.Selected.shift();
+
+                        // swap indexPosition L.P.
+                        var indexPositionPlayerTmp = this.HomeTeam.Players[playerOne].IndexPosition
+                        this.HomeTeam.Players[playerOne].IndexPosition = this.HomeTeam.Players[playerTwo].IndexPosition;
+                        this.HomeTeam.Players[playerTwo].IndexPosition = indexPositionPlayerTmp;
+
+                        // swap players position
+                        var PlayerTmp = this.HomeTeam.Players[playerOne];
+                        this.HomeTeam.Players[playerOne] = this.HomeTeam.Players[playerTwo];
+                        this.HomeTeam.Players[playerTwo] = PlayerTmp;
+
+                        // restore inputs checbox to unchecked
+                        this.HomeTeam.Players[playerOne].Selected = false;
+                        this.HomeTeam.Players[playerTwo].Selected = false;
+
+                        //this.SetPlayerDynamicSkills();
+                        //this.SetTeamSkills();
+                        //this.SetPlayersAverageSkills();
+
+                        // send changes to DB
+                        //this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
+                    }
+                },
+
+ //---------------------------------------------------------------------
                 HomeTeamEmblem: function (index) {
                     var src = '/Content/Resources/Emblems/' + this.HomeTeams[index].Name + this.HomeTeams[index].City + '.png';
                     src = src.replace(" ", "");
@@ -134,35 +241,42 @@
 
                 ShowSquad: function () {
                     //alert('h: ' + this.HomeTeamId);
-                    $.ajax(
-                        {
-                            url: "_SquadSelection/FriendlyMatch",
-                            type: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify({ provider: this.Provider }),
-                            success: function (data) {
-                                if (data != null) {
 
-                                } else {
-                                    alert(data.ErrorMessage)
-                                }
-                            },
-                            error: function () {
-                                alert('Nieoczekiwany błąd');
-                            }
-                        })
-                        .done(function (partialViewResult) {
-                            $('#teamSelection').hide(300);
-                            $("#matchArena").hide(300);
-                            $("#squadSelection").show(300);
-                            $("#squadSelection").html(partialViewResult);
-                        });
+                    $('#teamSelection').hide(300);
+                    $("#matchArena").hide(300);
+                    $("#squadSelection").show(300);
+                   
+                    this.HoverRow();
+
+                    //$.ajax(
+                    //    {
+                    //        url: "_SquadSelection/FriendlyMatch",
+                    //        type: "POST",
+                    //        contentType: "application/json",
+                    //        data: JSON.stringify({ provider: this.Provider }),
+                    //        success: function (data) {
+                    //            if (data != null) {
+
+                    //            } else {
+                    //                alert(data.ErrorMessage)
+                    //            }
+                    //        },
+                    //        error: function () {
+                    //            alert('Nieoczekiwany błąd');
+                    //        }
+                    //    })
+                    //    .done(function (partialViewResult) {
+                    //        $('#teamSelection').hide(300);
+                    //        $("#matchArena").hide(300);
+                    //        $("#squadSelection").show(300);
+                    //        $("#squadSelection").html(partialViewResult);
+                    //    });
                 },
 
                 PlayMatch: function () {
                     //alert('H: ' + this.HomeTeamId + '-' + 'A: ' + this.AwayTeamId);
                     this.Provider.HomeTeam = this.HomeTeam;
-                    this.Provider.AwayTeam = this.AwayTeam; 
+                    this.Provider.AwayTeam = this.AwayTeam;
 
                     $("#teamSelection").hide(300);
                     $("#squadSelection").hide(300);
@@ -185,8 +299,6 @@
                                 alert('Nieoczekiwany błąd');
                             }
                         });
-                      
-
                 },
 
                 ScrollOff: function () {
@@ -199,11 +311,11 @@
             created: function () {
                 this.HomeTeams = @Html.Raw(Json.Encode(Model.Teams));
                 this.AwayTeams = @Html.Raw(Json.Encode(Model.Teams));
+                this.DefaultTeams();
             },
 
             mounted: function () {
                 this.ScrollOff();
-                this.DefaultTeams();
             }
         });
 
