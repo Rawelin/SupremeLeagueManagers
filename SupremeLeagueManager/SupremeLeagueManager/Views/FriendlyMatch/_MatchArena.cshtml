@@ -1,28 +1,30 @@
 ﻿
 
-<div style="min-height: 54em;">
-    <div class="row mt-1 pt-3 text-center pane" style="width:100%">
-        <div class="col">
+<div style="min-height: 47em;">
+    <div class="row mt-1 pt-3 text-center" style="width:100%">
+        <div class="col-3"></div>
+        <div class="col pane pt-3">
             <img v-bind:src="HomeTeamEmblem(HomeIndex)" width="128" height="128" />
             <div class="col mt-3" style="font-size: 32px">{{ HomeTeam.Name }} {{ HomeTeam.City }}</div>
         </div>
-        <div class="col">
+        <div class="col pane">
             <p class="mb-1" style="font-family: 'Cambria Math', sans-serif; font-size: 96px;">45</p>
             <div class="row text-center">
                 <div class="col" style="font-size: 32px">1</div>
                 <div class="col" style="font-size: 32px">Vs</div>
                 <div class="col" style="font-size: 32px">0</div>
             </div>
-
         </div>
-        <div class="col">
+        <div class="col pane pt-3">
             <img v-bind:src="AwayTeamEmblem(AwayIndex)" width="128" height="128" />
             <div class="col mt-3" style="font-size: 32px">{{ AwayTeam.Name }} {{AwayTeam.City }}</div>
         </div>
+        <div class="col-3"></div>
     </div>
     <div class="row text-center" style="width:100%">
-        <div class="col pane mt-1 mr-1" style="min-height: 30em;"></div>
-        <div class="col pane mt-1 mr-1" style="min-height: 30em;">
+        <div class="col-3"></div>
+        <div class="col pane mt-1 mr-1" style="min-height: 28em;"></div>
+        <div class="col pane mt-1 mr-1" style="min-height: 28em;">
             <div class="mt-4 mb-1">Shoots</div>
             <div class="row text-center aligne-midle">
                 <div style="width: 10%; font-size: 18px">8</div>
@@ -72,7 +74,8 @@
                 <div style="width: 10%; font-size: 18px">6</div>
             </div>
         </div>
-        <div class="col pane mt-1" style="min-height: 30em;"></div>
+        <div class="col pane mt-1" style="min-height: 28em;"></div>
+        <div class="col-3"></div>
     </div>
 </div>
 

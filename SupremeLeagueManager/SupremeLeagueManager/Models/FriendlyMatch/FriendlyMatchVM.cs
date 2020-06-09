@@ -8,6 +8,8 @@ namespace SupremeLeagueManager.Models.FriendlyMatch
     public class FriendlyMatchVM
     {
         public List<Team> Teams { get; set; }
+        public Team HomeTeam { get; set; }
+        public Team AwayTeam{ get; set; }
         public string ErrorMessage { get; set; }
     }
 }

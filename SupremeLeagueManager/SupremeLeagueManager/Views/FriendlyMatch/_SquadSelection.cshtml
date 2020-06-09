@@ -1,53 +1,187 @@
-﻿
+﻿@model SupremeLeagueManager.Models.FriendlyMatch.FriendlyMatchVM
+
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
-<div class="row mt-5">
-    <div class="col-5">
-        <table class="table table-dark table-striped table-sm ml-3 scroll" id="squadTable" style="background: rgba(0,0,0,.3);cursor: pointer;">
-            <thead style="font-size:13px">
-                <tr>
-                    <th colspan="10" class="text-center">
-                        <div style="display: inline-block; float:left"><img v-bind:src="UserTeamEmblem()" width="50" height="50" /></div>
-                        <div style="display: inline-block;"><div style="font-size:25px">{{ UserTeamFullName() }}</div></div>
-                        <div style="display: inline-block; float:right"><img v-bind:src="UserTeamEmblem()" width="50" height="50" /></div>
-                    </th>
-                </tr>
-                <tr class="text-center">
-                    <th style="width: 2%"></th>
-                    <th style="width: 30%">Name</th>
-                    <th style="width: 8%">Flag</th>
-                    <th style="width: 8%">Pos</th>
-                    <th style="width: 8%">Age</th>
-                    <th style="width: 8%">App</th>
-                    <th style="width: 8%">Gls</th>
-                    <th style="width: 8%">Skl</th>
-                    <th style="width: 8%">Dyn</th>
-                    <th style="width: 13%">Stamina</th>
-                </tr>
-            </thead>
-            <tbody id="squadBody" style="font-size:13px">
-                <tr class="text-center align-middle" v-on:mouseover="ShowPlayerSkills(index)" v-for="(player, index) in HomeTeam.Players" v-on:click="ChangePlayer(index)">
-                    <td style="width: 2%">
-                        <label class="container">
-                            <input type="checkbox" v-model="player.Selected" />
-                            <span class="checkmark"></span>
-                        </label>
-                    </td>
-                    <td class="text-left" style="width: 30%">{{ player.Name}} {{player.Surname}} </td>
-                    <td style="width: 8%"><img v-bind:src="NationalityFlag(index)" width="24" height="24" /></td>
-                    <td style="width: 8%">{{ player.PositionShort}}</td>
-                    <td style="width: 8%">{{ player.Age }}</td>
-                    <td style="width: 8%"></td>
-                    <td style="width: 8%"></td>
-                    <td style="width: 8%">{{ player.AverageSkills }}</td>
-                    <td style="width: 8%">{{ player.AverageDynamicSkills }} </td>
-                    <td class="text-center align-midle" style="width: 13%">
-                        <div class="progress progress-transparent">
-                            <div v-bind:class="ProgressBarColor(player.Stamina)" :style="{width: player.Stamina + '%'}" v-html="ProgressText(player.Stamina)"></div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+<div id="squadSelection">
+    <div class="container col-12">
+        <div class="row">
+            <div style="width:100%">
+                <table class="table table-dark table-striped table-sm ml-3 scroll" id="squadTable" style="width: 25% ;background: rgba(0,0,0,.3);cursor: pointer;">
+                    <thead style="font-size:13px">
+                        <tr>
+                            <th colspan="10" class="text-center">
+                                <div style="display: inline-block; float:left"><img v-bind:src="UserTeamEmblem()" width="50" height="50" /></div>
+                                <div style="display: inline-block;"><div style="font-size:25px">{{ UserTeamFullName() }}</div></div>
+                                <div style="display: inline-block; float:right"><img v-bind:src="UserTeamEmblem()" width="50" height="50" /></div>
+                            </th>
+                        </tr>
+                        <tr class="text-center">
+                            <th style="width: 2%"></th>
+                            <th style="width: 30%">Name</th>
+                            <th style="width: 8%">Flag</th>
+                            <th style="width: 8%">Pos</th>
+                            <th style="width: 8%">Age</th>
+                            <th style="width: 8%">App</th>
+                            <th style="width: 8%">Gls</th>
+                            <th style="width: 8%">Skl</th>
+                            <th style="width: 8%">Dyn</th>
+                            <th style="width: 13%">Stamina</th>
+                        </tr>
+                    </thead>
+                    <tbody id="squadBody" style="font-size:13px">
+                        <tr class="text-center align-middle" v-on:mouseover="ShowPlayerSkills(index)" v-for="(player, index) in HomeTeam.Players" v-on:click="ChangePlayer(index)">
+                            <td style="width: 2%">
+                                <label class="container">
+                                    <input type="checkbox" v-model="player.Selected" />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="text-left" style="width: 30%">{{ player.Name}} {{player.Surname}} </td>
+                            <td style="width: 8%"><img v-bind:src="NationalityFlag(index)" width="24" height="24" /></td>
+                            <td style="width: 8%">{{ player.PositionShort}}</td>
+                            <td style="width: 8%">{{ player.Age }}</td>
+                            <td style="width: 8%"></td>
+                            <td style="width: 8%"></td>
+                            <td style="width: 8%">{{ player.AverageSkills }}</td>
+                            <td style="width: 8%">{{ player.AverageDynamicSkills }} </td>
+                            <td class="text-center align-midle" style="width: 13%">
+                                <div class="progress progress-transparent">
+                                    <div v-bind:class="ProgressBarColor(player.Stamina)" :style="{width: player.Stamina + '%'}" v-html="ProgressText(player.Stamina)"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
+
+@*<script src="~/Scripts/GlobalFunctions/Skills.js"></script>
+<script type="text/javascript">
+
+    var vueApp = new Vue({
+        el: '#squadSelection',
+        data: {
+            Player: {},
+            HomeTeam: {},
+            Selected: [],
+            PlayerPhotoIndex: 0
+        },
+
+        methods: {
+
+            UserTeamFullName: function () {
+                var fulname = this.HomeTeam.Name + this.HomeTeam.City;
+                fulname = fulname.replace(" ", "");
+                return fulname;
+            },
+
+            UserTeamEmblem: function () {
+                var fulname = this.HomeTeam.Name + this.HomeTeam.City;
+                fulname = fulname.replace(" ", "");
+                console.log(this.HomeTeam.Name);
+                return fulname = '/Content/Resources/Emblems/' + fulname + '.png';
+            },
+
+            NationalityFlag: function (index) {
+                var src = '/Content/Resources/Flags/' + this.HomeTeam.Players[index].CountryName + '.png';
+                return src;
+            },
+
+            ProgressBarColor: function (stamina) {
+
+                if (stamina >= 80) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-success';
+                } else if (stamina < 80 && stamina >= 40) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-warning';
+                } else if (stamina < 40) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-danger';
+                }
+            },
+
+            ProgressText: function (stamina) {
+                if (stamina < 40) {
+                    return '';
+                } else {
+                    return stamina + '%';
+                }
+            },
+
+            HoverRow: function () {
+                $('#squadBody tr').hover(
+                    function () {
+                        this.beforeHover = $(this).css('background-color');
+                        $(this).css('background', 'rgba(200, 187, 201, 0.3)');
+                    },
+                    function () {
+                        $(this).css('background', this.beforeHover)
+
+                    });
+            },
+
+            ShowPlayerSkills: function (index) {
+                this.Player = this.HomeTeam.Players[index];
+                this.PlayerPhotoIndex = index;
+
+            },
+
+            ChangePlayer: function (index) {
+
+                // if clicked the same player again remove from array
+                if (this.Selected.includes(index)) {
+                    const arrayIndex = this.Selected.indexOf(index);
+                    if (arrayIndex > -1) {
+                        this.Selected.splice(arrayIndex, 1);
+                        this.HomeTeam.Players[index].Selected = false
+                    }
+                } else { // else add second player to swap
+                    this.Selected.push(index);
+                    this.HomeTeam.Players[index].Selected = true;
+                }
+                // if array contains 2 player swap them
+                if (this.Selected.length == 2) {
+
+                    // players position in table squadTable of _TeamSqad.cshtml (the same value like field L.P of [SLM].[dbo].[dictTeamsPlayers] )
+                    var playerOne = this.Selected.shift();
+                    var playerTwo = this.Selected.shift();
+
+                    // swap indexPosition L.P.
+                    var indexPositionPlayerTmp = this.HomeTeam.Players[playerOne].IndexPosition
+                    this.HomeTeam.Players[playerOne].IndexPosition = this.HomeTeam.Players[playerTwo].IndexPosition;
+                    this.HomeTeam.Players[playerTwo].IndexPosition = indexPositionPlayerTmp;
+
+                    // swap players position
+                    var PlayerTmp = this.HomeTeam.Players[playerOne];
+                    this.HomeTeam.Players[playerOne] = this.HomeTeam.Players[playerTwo];
+                    this.HomeTeam.Players[playerTwo] = PlayerTmp;
+
+                    // restore inputs checbox to unchecked
+                    this.HomeTeam.Players[playerOne].Selected = false;
+                    this.HomeTeam.Players[playerTwo].Selected = false;
+
+                    //this.SetPlayerDynamicSkills();
+                    //this.SetTeamSkills();
+                    //this.SetPlayersAverageSkills();
+
+                    // send changes to DB
+                    //this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
+                }
+            },
+
+            created: function () {
+                this.HomeTeam = @Html.Raw(Json.Encode(Model.HomeTeam));
+
+                console.log(this.HomeTeam)
+            },
+
+            mounted: function () {
+
+            }
+
+        }
+
+    });
+
+</script>*@

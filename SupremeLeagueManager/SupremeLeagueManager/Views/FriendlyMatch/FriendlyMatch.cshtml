@@ -3,16 +3,19 @@
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
 <div id="friendlyMatchView">
-    <div class="container">
-        <div id="friendlyMatch" class="row text-center mt-3">
+    <div class="col-12 mt-0">
+        <div id="friendlyMatch" class="row text-center">
             <div class="col">
                 <h1>Friendly Match</h1>
             </div>
         </div>
         @*squad selection --------------------------------------------------*@
-        <div id="squadSelection" style="display: none;">
-            @Html.Partial("_SquadSelection")
+        <div>
+            <div id="squadSelection" style="display: none;">
+                @Html.Partial("_SquadSelection")
+            </div>
         </div>
+
         @*team selection carousels -----------------------------------------*@
         <div id="teamSelection">
             @Html.Partial("_TeamSelection")
@@ -23,6 +26,7 @@
         </div>
         @*menu buttons -----------------------------------------------------*@
         <div id="menuButtons" class="row text-center mt-5">
+            <div class="col-3"></div>
             <div class="col">
                 <div id="returnButton">@Html.ActionLink("Main Menu", "Home", "Home", null, new { @class = "btn btn-outline-info" })</div>
             </div>
@@ -35,9 +39,12 @@
             <div class="col">
                 <div id="playButton" class="btn btn-outline-info" v-on:click="PlayMatch()">Play Match</div>
             </div>
+            <div class="col-3"></div>
         </div>
     </div>
 </div>
+
+
 
 <script src="~/Scripts/GlobalFunctions/Skills.js"></script>
 <script type="text/javascript">
@@ -56,7 +63,6 @@
                 Player: {},
                 Selected: [],
                 PlayerPhotoIndex: 0
-             
             },
 
             methods: {
@@ -117,7 +123,6 @@
                     this.PlayerPhotoIndex = index;
 
                 },
-
 
                 ChangePlayer: function (index) {
 
@@ -240,13 +245,12 @@
                 },
 
                 ShowSquad: function () {
-                    //alert('h: ' + this.HomeTeamId);
+                    this.Provider.HomeTeam = this.HomeTeam;
+                    this.Provider.AwayTeam = this.AwayTeam;
 
                     $('#teamSelection').hide(300);
                     $("#matchArena").hide(300);
                     $("#squadSelection").show(300);
-                   
-                    this.HoverRow();
 
                     //$.ajax(
                     //    {
@@ -265,12 +269,12 @@
                     //            alert('Nieoczekiwany błąd');
                     //        }
                     //    })
-                    //    .done(function (partialViewResult) {
-                    //        $('#teamSelection').hide(300);
-                    //        $("#matchArena").hide(300);
-                    //        $("#squadSelection").show(300);
-                    //        $("#squadSelection").html(partialViewResult);
-                    //    });
+                        //.done(function (partialViewResult) {
+                        //    $('#teamSelection').hide(300);
+                        //    $("#matchArena").hide(300);
+                        //    $("#squadSelection").show(300);
+                        //    $("#squadSelection").html(partialViewResult);
+                        //});
                 },
 
                 PlayMatch: function () {

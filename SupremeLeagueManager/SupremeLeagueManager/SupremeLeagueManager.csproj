@@ -143,6 +143,7 @@
     <Compile Include="Models\FriendlyMatch\Data.cs" />
     <Compile Include="Models\FriendlyMatch\FriendlyMatchVM.cs" />
     <Compile Include="Models\FriendlyMatch\Provider.cs" />
+    <Compile Include="Models\FriendlyMatch\Squad.cs" />
     <Compile Include="Models\Global\GlobalCRUD.cs" />
     <Compile Include="Models\Global\Email.cs" />
     <Compile Include="Models\Global\EmailManagement.cs" />
