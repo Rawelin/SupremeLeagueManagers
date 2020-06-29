@@ -22,7 +22,7 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _SquadSelection(Provider provider)
         {
-            return PartialView(new Squad(provider).GetSquad());
+            return PartialView();
         }
 
         public ActionResult _MatchArena(Provider provider)

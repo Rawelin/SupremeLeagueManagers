@@ -269,7 +269,7 @@
                 }
             },
 
-            HoverRow: function () {
+            HoverRow: function () { 
                 $('#squadBody tr').hover(
                     function () {
                         this.beforeHover = $(this).css('background-color');
@@ -380,9 +380,8 @@
             this.SetPlayersAverageSkills();
             this.FormationColors(this.Formation);
             this.HoverRow();
-            this.FormationMenu()
+            this.FormationMenu();
             this.ScrollOff();
-
         },
         updated() {
 

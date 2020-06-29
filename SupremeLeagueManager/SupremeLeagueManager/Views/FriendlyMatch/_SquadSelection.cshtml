@@ -2,11 +2,11 @@
 
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
-<div id="squadSelection">
+
     <div class="container col-12">
-        <div class="row">
-            <div style="width:100%">
-                <table class="table table-dark table-striped table-sm ml-3 scroll" id="squadTable" style="width: 25% ;background: rgba(0,0,0,.3);cursor: pointer;">
+        <div style="width: 100%; display: inline-block">
+            <div style="width:25%; float: left;">
+                <table class="table table-dark table-striped table-sm ml-3 scroll" id="squadTable" style="background: rgba(0,0,0,.3);cursor: pointer;">
                     <thead style="font-size:13px">
                         <tr>
                             <th colspan="10" class="text-center">
@@ -53,9 +53,123 @@
                     </tbody>
                 </table>
             </div>
+            <div class="ml-3" style="width:14%; float:left">
+                <table class="table table-dark table-striped  table-hover table-sm ml-2" id="playerSkillsTable" style="background: rgba(0,0,0, .3)">
+                    <thead>
+                        <tr>
+                            <th colspan="2"><img style="visibility:hidden" v-bind:src="TeamEmblem()" width="50" height="50" /></th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size:13px">
+                        <tr>
+                            <td style="width:70%">Name</td>
+                            <td style="width:30%" class="text-center" id="nameForSkillsTable">{{ Player.Name }}</td>
+
+                        </tr>
+                        <tr>
+                            <td>Surname</td>
+                            <td class="text-center" id="surnameForSkillsTable">{{ Player.Surname }}</td>
+                        </tr>
+                        <tr>
+                            <td>Position</td>
+                            <td class="text-center" id="positionForSkillsTable">{{ Player.PositionShort }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nationality</td>
+                            <td class="text-center"><img id="flag" v-bind:src="CountryFlag(Player.CountryName)" width="24" height="24" /></td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td class="text-center" id="ageForSkillsTable" style="font-weight: 700">{{ Player.Age }}</td>
+                        </tr>
+                        <tr>
+                            <td>GoalKeeper</td>
+                            <td class="text-center" id="goalkeeperSkillsTable" v-bind:style="{ color: SkillsColor(Player.GoalKeeper), fontWeight: 700}">{{ Player.GoalKeeper }}</td>
+                        </tr>
+                        <tr>
+                            <td>Defence</td>
+                            <td class="text-center" id="defenceForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Defence), fontWeight: 700}">{{ Player.Defence }}</td>
+                        </tr>
+                        <tr>
+                            <td>Midfield</td>
+                            <td class="text-center" id="midfieldForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Midfield), fontWeight: 700}">{{ Player.Midfield }}</td>
+                        </tr>
+                        <tr>
+                            <td>Attack</td>
+                            <td class="text-center" id="attackForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Attack), fontWeight: 700}">{{ Player.Attack }}</td>
+                        </tr>
+                        <tr>
+                            <td>Diving</td>
+                            <td class="text-center" id="divingForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Diving), fontWeight: 700}">{{ Player.Diving }}</td>
+                        </tr>
+                        <tr>
+                            <td>Handling</td>
+                            <td class="text-center" id="handlingForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Handling), fontWeight: 700}">{{ Player.Handling }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tackling</td>
+                            <td class="text-center" id="tacklingForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Tackling), fontWeight: 700}">{{ Player.Tackling }}</td>
+                        </tr>
+                        <tr>
+                            <td>Covering</td>
+                            <td class="text-center" id="coveringForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Covering), fontWeight: 700}">{{ Player.Covering }}</td>
+                        </tr>
+                        <tr>
+                            <td>L.P. Accuracy</td>
+                            <td class="text-center" id="LPForSkillsTable" v-bind:style="{ color: SkillsColor(Player.LongPassAccuracy), fontWeight: 700}">{{ Player.LongPassAccuracy }}</td>
+                        </tr>
+                        <tr>
+                            <td>S.P. Accuracy</td>
+                            <td class="text-center" id="SPForSkillsTable" v-bind:style="{ color: SkillsColor(Player.ShortPassAccuracy), fontWeight: 700}">{{ Player.ShortPassAccuracy }}</td>
+                        </tr>
+                        <tr>
+                            <td>Shot Accuracy</td>
+                            <td class="text-center" id="shotForSkillsTable" v-bind:style="{ color: SkillsColor(Player.ShotAccuracy), fontWeight: 700}">{{ Player.ShotAccuracy }}</td>
+                        </tr>
+                        <tr>
+                            <td>Speed</td>
+                            <td class="text-center" id="speedForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Speed), fontWeight: 700}">{{ Player.Speed }}</td>
+                        </tr>
+                        <tr>
+                            <td>Acceleration</td>
+                            <td class="text-center" id="accelerationForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Acceleration), fontWeight: 700}">{{ Player.Acceleration }}</td>
+                        </tr>
+                        <tr>
+                            <td>Reflex</td>
+                            <td class="text-center" id="reflexForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Reflex), fontWeight: 700}">{{ Player.Reflex }}</td>
+                        </tr>
+                        <tr>
+                            <td>Heading</td>
+                            <td class="text-center" id="headingForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Heading), fontWeight: 700}">{{ Player.Heading }}</td>
+                        </tr>
+                        <tr>
+                            <td>Shot Power</td>
+                            <td class="text-center" id="shotPowerForSkillsTable" v-bind:style="{ color: SkillsColor(Player.ShotPower), fontWeight: 700}">{{ Player.ShotPower }}</td>
+                        </tr>
+                        <tr>
+                            <td>Technique</td>
+                            <td class="text-center" id="techniqueForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Technique), fontWeight: 700}">{{ Player.Technique }}</td>
+                        </tr>
+                        <tr>
+                            <td>Endurance</td>
+                            <td class="text-center" id="enduranceForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Endurance), fontWeight: 700}">{{ Player.Endurance }}</td>
+                        </tr>
+                        @*<tr>
+                    <td>Stamina</td>
+                    <td class="text-center" id="staminaForSkillsTable" style="color:forestgreen">{{ Player.Stamina }}</td>
+                </tr>*@
+                        <tr>
+                            <td>Avg. Skills / Dyn.</td>
+                            <td class="text-center">
+                                <span id="avgSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageSkills), fontWeight: 700}">{{ Player.AverageSkills }}</span> /
+                                <span id="avgDynSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageDynamicSkills), fontWeight: 700}">{{ Player.AverageDynamicSkills }}</span>&nbsp; &nbsp;<span id="avgDiffForSkillsTable"> {{ Player.SkillDifference }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 
 @*<script src="~/Scripts/GlobalFunctions/Skills.js"></script>
