@@ -2,6 +2,7 @@
 
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
+
 <div id="friendlyMatchView">
     <div class="col-12 mt-0">
         <div id="friendlyMatch" class="row text-center">
@@ -60,7 +61,7 @@
                 HomeIndex: 0,
                 AwayIndex: 0,
                 Formation: '',
-                Index: 2,
+                Index: 10,
 
                 Player: {},
                 Selected: [],
@@ -84,6 +85,23 @@
                     return src;
                 },
 
+                GetPlayerPhoto: function () {
+                    var fulname = this.HomeTeam.Players[this.PlayerPhotoIndex].Name + this.HomeTeam.Players[this.PlayerPhotoIndex].Surname;
+                    fulname = fulname.replace(" ", "");
+                    return fulname = '/Content/Resources/Players/' + fulname + '.png';
+                },
+
+                HighlightPlayer: function (number) {
+                    if (number == this.PlayerPhotoIndex) {
+                        return 'grey';
+                    }
+                },
+
+                GetPlayerName: function (index) {
+                    var playerName = this.HomeTeam.Players[index].Name + ' ' + this.HomeTeam.Players[index].Surname;
+                    return playerName;
+                },
+
                 SkillsColor: function (value) {
 
                     if (value >= 95) {
@@ -105,19 +123,39 @@
                     switch (formationId) {
                         case 1:
                             formation442();
-                            //this.FormationPitch(formationId);
+                            this.FormationPitch(formationId);
                             break;
                         case 2:
                             formation433();
-                            //this.FormationPitch(formationId);
+                            this.FormationPitch(formationId);
                             break;
                         case 3:
                             formation451();
-                            //this.FormationPitch(formationId);
+                            this.FormationPitch(formationId);
                             break;
                         case 4:
                             formation352();
-                            //this.FormationPitch(formationId);
+                            this.FormationPitch(formationId);
+                            break;
+                    }
+                },
+
+                FormationPitch: function (formation) {
+
+                    this.F442 = this.F433 = this.F451 = this.F352 = true;
+
+                    switch (formation) {
+                        case 1:
+                            this.F442 = false;
+                            break;
+                        case 2:
+                            this.F433 = false;
+                            break;
+                        case 3:
+                            this.F451 = false;
+                            break;
+                        case 4:
+                            this.F352 = false;
                             break;
                     }
                 },
@@ -177,6 +215,38 @@
 
                 },
 
+                GetPlayerDynamicSkills: function (index) {
+                    var skills = this.HomeTeam.Players[index].AverageDynamicSkills
+                    return skills;
+                },
+
+                SetPlayersAverageSkills: function () {
+
+                    for (var i = 0; i < this.HomeTeam.Players.length; i++) {
+                        PlayerSkills(this.HomeTeam.Players[i]);
+                    }
+                },
+
+                SetPlayerDynamicSkills: function () {
+
+                    for (var i = 0; i < this.HomeTeam.Players.length; i++) {
+                        PlayerSkillsDynamic(this.HomeTeam.Players[i], this.HomeTeam.Formation);
+                        if (this.HomeTeam.Players[i].IndexPosition > 10) {
+                            this.HomeTeam.Players[i].AverageDynamicSkills = 0;
+                        }
+                    }
+                },
+
+                SetTeamSkills: function () {
+                    TeamSkills(this.HomeTeam);
+                },
+
+                TShirtsPng: function () {
+                    var fulname = this.HomeTeam.Name + this.HomeTeam.City;
+                    fulname = fulname.replace(" ", "");
+                    return fulname = '/Content/Resources/TShirts/' + fulname + '.png';
+                },
+
                 ChangePlayer: function (index) {
 
                     // if clicked the same player again remove from array
@@ -211,9 +281,9 @@
                         this.HomeTeam.Players[playerOne].Selected = false;
                         this.HomeTeam.Players[playerTwo].Selected = false;
 
-                        //this.SetPlayerDynamicSkills();
-                        //this.SetTeamSkills();
-                        //this.SetPlayersAverageSkills();
+                        this.SetPlayerDynamicSkills();
+                        this.SetTeamSkills();
+                        this.SetPlayersAverageSkills();
 
                         // send changes to DB
                         //this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
@@ -284,7 +354,7 @@
                 },
 
                 DefaultTeams: function () {
-                    this.HomeTeam = this.HomeTeams[2];
+                    this.HomeTeam = this.HomeTeams[10];
                     this.AwayTeam = this.AwayTeams[0];
 
                     TeamSkills(this.HomeTeam);
@@ -369,6 +439,9 @@
                 this.HomeTeams = @Html.Raw(Json.Encode(Model.Teams));
                 this.AwayTeams = @Html.Raw(Json.Encode(Model.Teams));
                 this.DefaultTeams(); 
+                this.FormationPitch(this.Formation);
+                this.SetTeamSkills();
+                this.SetPlayerDynamicSkills();
             },
 
             mounted: function () {

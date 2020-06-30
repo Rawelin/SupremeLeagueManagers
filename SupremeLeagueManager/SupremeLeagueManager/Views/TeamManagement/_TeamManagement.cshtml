@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="pane ml-2" style="width: 13%" v-if="Team.Players.length">
-                    <img id="playerPhoto" v-bind:src="GetPlayeryerPhoto()" width="250" height="295" />
+                    <img id="playerPhoto" v-bind:src="GetPlayerPhoto()" width="250" height="295" />
                 </div>
 
                 <div id="formationPitch" v-if="Team.Players.length">
@@ -60,7 +60,7 @@
                 return this.Player;
             },
 
-            GetPlayeryerPhoto: function () {
+            GetPlayerPhoto: function () {
                 var fulname = this.Team.Players[this.PlayerPhotoIndex].Name + this.Team.Players[this.PlayerPhotoIndex].Surname;
                 fulname = fulname.replace(" ", "");
                 return fulname = '/Content/Resources/Players/' + fulname + '.png';
@@ -285,7 +285,6 @@
                 if (number == this.PlayerPhotoIndex) {
                     return 'grey';
                 }
-              
             },
 
             ShowPlayerSkills: function (index) {

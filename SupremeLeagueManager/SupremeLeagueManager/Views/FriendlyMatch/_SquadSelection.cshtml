@@ -155,9 +155,9 @@
                             <td class="text-center" id="enduranceForSkillsTable" v-bind:style="{ color: SkillsColor(Player.Endurance), fontWeight: 700}">{{ Player.Endurance }}</td>
                         </tr>
                         @*<tr>
-                    <td>Stamina</td>
-                    <td class="text-center" id="staminaForSkillsTable" style="color:forestgreen">{{ Player.Stamina }}</td>
-                </tr>*@
+                        <td>Stamina</td>
+                        <td class="text-center" id="staminaForSkillsTable" style="color:forestgreen">{{ Player.Stamina }}</td>
+                    </tr>*@
                         <tr>
                             <td>Avg. Skills / Dyn.</td>
                             <td class="text-center">
@@ -167,6 +167,332 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div style="width:10%; float:left;">
+                <table class="table table-dark table-striped table-sm ml-2" style="background: rgba(0,0,0, .3)">
+                    <thead>
+                        <tr>
+                            <th colspan="2"><img style="visibility:hidden" v-bind:src="TeamEmblem()" width="50" height="50" /></th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size:13px">
+                        <tr>
+                            <td>Goalkeeper</td>
+                            <td class="text-center">{{ HomeTeam.GoalKeeper }}</td>
+                        </tr>
+                        <tr>
+                            <td>Defence</td>
+                            <td class="text-center">{{ HomeTeam.Defence }}</td>
+                        </tr>
+                        <tr>
+                            <td>Midfield</td>
+                            <td class="text-center">{{ HomeTeam.Midfield }}</td>
+                        </tr>
+                        <tr>
+                            <td>Attack</td>
+                            <td class="text-center">{{ HomeTeam.Attack}}</td>
+                        </tr>
+                        <tr>
+                            <td>Speed</td>
+                            <td class="text-center">{{ HomeTeam.Speed }}</td>
+                        </tr>
+                        <tr>
+                            <td>Technique</td>
+                            <td class="text-center">{{ HomeTeam.Technique }}</td>
+                        </tr>
+                        <tr>
+                            <td>Overall</td>
+                            <td class="text-center text-danger"> {{ HomeTeam.Overall }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="pane ml-2" style="width:14%; float:left">
+                <img id="playerPhoto" v-bind:src="GetPlayerPhoto()" width="250" height="295" />
+            </div>
+            <div>
+                @*442*@
+                <div v-bind:class="{unavilable: F442}">
+                    <div class="pane ml-2" style="font-size:12px;">
+                        <div style="width:550px; height: 550px;">
+                            <div class="row col-md-7" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-4" style="width:50%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(9)" v-bind:style="{ color: HighlightPlayer(9)}"></label><br />
+                                    <label style="color:red" v-bind:class="HighlightPlayer()">CF <span v-html="GetPlayerDynamicSkills(9)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:50%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(10)" v-bind:style="{ color: HighlightPlayer(10)}"></label><br />
+                                    <label style="color:red">CF <span v-html="GetPlayerDynamicSkills(10)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13" style="margin-left:auto; margin-right:auto">
+                                <div class="mt-4" style="width:25%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(5)" v-bind:style="{ color: HighlightPlayer(5)}"></label><br />
+                                    <label style="color:dodgerblue">LM <span v-html="GetPlayerDynamicSkills(5)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(6)" v-bind:style="{ color: HighlightPlayer(6)}"></label><br />
+                                    <label style="color:dodgerblue">DM <span v-html="GetPlayerDynamicSkills(6)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(7)" v-bind:style="{ color: HighlightPlayer(7)}"></label><br />
+                                    <label style="color:dodgerblue">CM <span v-html="GetPlayerDynamicSkills(7)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:25%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(8)" v-bind:style="{ color: HighlightPlayer(8)}"></label><br />
+                                    <label style="color:dodgerblue">RM <span v-html="GetPlayerDynamicSkills(8)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13">
+                                <div class="mt-4" style="width:25%; float:left;">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(1)" v-bind:style="{ color: HighlightPlayer(1)}"></label><br />
+                                    <label style="color:greenyellow">LB <span v-html="GetPlayerDynamicSkills(1)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(2)" v-bind:style="{ color: HighlightPlayer(2)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(2)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(3)" v-bind:style="{ color: HighlightPlayer(3)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(3)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:25%; float:right">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(4)" v-bind:style="{ color: HighlightPlayer(4)}"></label><br />
+                                    <label style="color:greenyellow">RB <span v-html="GetPlayerDynamicSkills(4)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13">
+                                <div class="mt-1" style="width:100%">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(0)" v-bind:style="{ color: HighlightPlayer(0)}"></label><br />
+                                    <label style="color:yellow">GK <span v-html="GetPlayerDynamicSkills(0)"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*443*@
+                <div v-bind:class="{unavilable: F433}">
+                    <div class="pane ml-2" style="font-size:12px;" v-if="Formation">
+                        <div style="width: 550px; height: 550px;">
+                            <div class="row col-md-11" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-4" style="width:33%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(8)" v-bind:style="{ color: HighlightPlayer(8)}"></label><br />
+                                    <label style="color:red">LW <span v-html="GetPlayerDynamicSkills(8)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:33%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(9)" v-bind:style="{ color: HighlightPlayer(9)}"></label><br />
+                                    <label style="color:red">CF <span v-html="GetPlayerDynamicSkills(9)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:33%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(10)" v-bind:style="{ color: HighlightPlayer(10)}"></label><br />
+                                    <label style="color:red">RW <span v-html="GetPlayerDynamicSkills(10)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-9" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-4" style="width:33%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(5)" v-bind:style="{ color: HighlightPlayer(5)}"></label><br />
+                                    <label style="color:dodgerblue">CM <span v-html="GetPlayerDynamicSkills(5)"></span></label>
+                                </div>
+                                <div class="mt-5" style="width:33%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(6)" v-bind:style="{ color: HighlightPlayer(6)}"></label><br />
+                                    <label style="color:dodgerblue">DM <span v-html="GetPlayerDynamicSkills(6)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:33%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(7)" v-bind:style="{ color: HighlightPlayer(7)}"></label><br />
+                                    <label style="color:dodgerblue">CM <span v-html="GetPlayerDynamicSkills(7)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13">
+                                <div class="mt-3" style="width:25%; float:left;">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(1)" v-bind:style="{ color: HighlightPlayer(1)}"></label><br />
+                                    <label style="color:greenyellow">LB <span v-html="GetPlayerDynamicSkills(1)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(2)" v-bind:style="{ color: HighlightPlayer(2)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(2)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(3)" v-bind:style="{ color: HighlightPlayer(3)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(3)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:25%; float:right">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(4)" v-bind:style="{ color: HighlightPlayer(4)}"></label><br />
+                                    <label style="color:greenyellow">RB <span v-html="GetPlayerDynamicSkills(4)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13">
+                                <div class="mt-1" style="width:100%">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(0)" v-bind:style="{ color: HighlightPlayer(0)}"></label><br />
+                                    <label style="color:yellow">GK <span v-html="GetPlayerDynamicSkills(0)"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*451*@
+                <div v-bind:class="{unavilable: F451}">
+                    <div class="pane ml-2" style="font-size:12px;" v-if="Formation">
+                        <div style="width:550px; height: 550px;">
+                            <div class="row col-md-3" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-4" style="width:100%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(10)" v-bind:style="{ color: HighlightPlayer(10)}"></label><br />
+                                    <label style="color:red">CF <span v-html="GetPlayerDynamicSkills(10)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-1" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(5)" v-bind:style="{ color: HighlightPlayer(5)}"></label><br />
+                                    <label style="color:dodgerblue">LM <span v-html="GetPlayerDynamicSkills(5)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(6)" v-bind:style="{ color: HighlightPlayer(6)}"></label><br />
+                                    <label style="color:dodgerblue">CM <span v-html="GetPlayerDynamicSkills(6)"></span></label>
+                                </div>
+                                <div class="mt-5" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(7)" v-bind:style="{ color: HighlightPlayer(7)}"></label><br />
+                                    <label style="color:dodgerblue">DM <span v-html="GetPlayerDynamicSkills(7)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(8)" v-bind:style="{ color: HighlightPlayer(8)}"></label><br />
+                                    <label style="color:dodgerblue">CM <span v-html="GetPlayerDynamicSkills(8)"></span></label>
+                                </div>
+                                <div class="mt-1" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(9)" v-bind:style="{ color: HighlightPlayer(9)}"></label><br />
+                                    <label style="color:dodgerblue">RM <span v-html="GetPlayerDynamicSkills(9)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13">
+                                <div class="mt-3" style="width:25%; float:left;">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(1)" v-bind:style="{ color: HighlightPlayer(1)}"></label><br />
+                                    <label style="color:greenyellow">LB <span v-html="GetPlayerDynamicSkills(1)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(2)" v-bind:style="{ color: HighlightPlayer(2)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(2)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:25%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(3)" v-bind:style="{ color: HighlightPlayer(3)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(3)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:25%; float:right">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(4)" v-bind:style="{ color: HighlightPlayer(4)}"></label><br />
+                                    <label style="color:greenyellow">RB <span v-html="GetPlayerDynamicSkills(4)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13">
+                                <div class="mt-1" style="width:100%">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(0)" v-bind:style="{ color: HighlightPlayer(0)}"></label><br />
+                                    <label style="color:yellow">GK <span v-html="GetPlayerDynamicSkills(0)"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*352*@
+                <div v-bind:class="{unavilable: F352}">
+                    <div class="pane ml-2" style="font-size:12px;" v-if="Formation">
+                        <div style="width:550px; height: 550px;">
+                            <div class="row col-md-7" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-4" style="width:50%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(9)" v-bind:style="{ color: HighlightPlayer(9)}"></label><br />
+                                    <label style="color:red" v-bind:class="HighlightPlayer()">CF <span v-html="GetPlayerDynamicSkills(9)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:50%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(10)" v-bind:style="{ color: HighlightPlayer(10)}"></label><br />
+                                    <label style="color:red" v-bind:class="HighlightPlayer()">CF <span v-html="GetPlayerDynamicSkills(10)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-13" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-1" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(5)" v-bind:style="{ color: HighlightPlayer(5)}"></label><br />
+                                    <label style="color:dodgerblue">LM <span v-html="GetPlayerDynamicSkills(5)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(6)" v-bind:style="{ color: HighlightPlayer(6)}"></label><br />
+                                    <label style="color:dodgerblue">CM <span v-html="GetPlayerDynamicSkills(6)"></span></label>
+                                </div>
+                                <div class="mt-5" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(7)" v-bind:style="{ color: HighlightPlayer(7)}"></label><br />
+                                    <label style="color:dodgerblue">DM <span v-html="GetPlayerDynamicSkills(7)"></span></label>
+                                </div>
+                                <div class="mt-4" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(8)" v-bind:style="{ color: HighlightPlayer(8)}"></label><br />
+                                    <label style="color:dodgerblue">CM <span v-html="GetPlayerDynamicSkills(8)"></span></label>
+                                </div>
+                                <div class="mt-1" style="width:20%; float:left">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(9)" v-bind:style="{ color: HighlightPlayer(9)}"></label><br />
+                                    <label style="color:dodgerblue">RM <span v-html="GetPlayerDynamicSkills(9)"></span></label>
+                                </div>
+                            </div>
+                            <div class="row col-md-9" style="margin-left:auto; margin-right:auto;">
+                                <div class="mt-3" style="width:33%; float:left;">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(1)" v-bind:style="{ color: HighlightPlayer(1)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(1)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:33%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(2)" v-bind:style="{ color: HighlightPlayer(2)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(2)"></span></label>
+                                </div>
+                                <div class="mt-3" style="width:33%; float:left">
+                                    <img class="mt-3" v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(3)" v-bind:style="{ color: HighlightPlayer(3)}"></label><br />
+                                    <label style="color:greenyellow">CB <span v-html="GetPlayerDynamicSkills(3)"></span></label>
+                                </div>
+
+                            </div>
+                            <div class="row col-md-13">
+                                <div class="mt-1" style="width:100%">
+                                    <img v-bind:src="TShirtsPng()" width="50" height="60" /><br />
+                                    <label class="mb-0" v-html="GetPlayerName(0)" v-bind:style="{ color: HighlightPlayer(0)}"></label><br />
+                                    <label style="color:yellow">GK <span v-html="GetPlayerDynamicSkills(0)"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
