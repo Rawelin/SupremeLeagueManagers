@@ -66,7 +66,7 @@
                 Player: {},
                 Selected: [],
                 PlayerPhotoIndex: 0
-               
+
             },
 
             methods: {
@@ -117,6 +117,14 @@
                         return 'white';
                     }
                 },
+
+                 FormationChange: function (formationId){
+                     console.log(formationId);
+                    this.FormationColors(formationId);
+                     this.Formation = formationId;
+                     this.HomeTeam.Formation = formationId;
+                    this.SetTeamSkills();
+                 },
 
                 FormationColors: function (formationId) {
 
@@ -206,7 +214,7 @@
                             $(this).css('background', this.beforeHover)
                         });
 
-                   
+
                 },
 
                 ShowPlayerSkills: function (index) {
@@ -428,6 +436,28 @@
                         });
                 },
 
+                FormationMenu: function () {
+                    $('#dashboard').hover(
+                        function () {
+                            $(this).stop().animate(
+                                {
+                                    right: '-10',
+                                },
+                                500,
+                                'easeInSine'
+                            );
+                        },
+                        function () {
+                            $(this).stop().animate(
+                                {
+                                    right: '-110',
+                                },
+                                1500,
+                                'easeOutBounce'
+                            );
+                        });
+                },
+
                 ScrollOff: function () {
                     $("body").css("overflow", "hidden");
                     $("body").css("overflow-x", "hidden");
@@ -438,16 +468,18 @@
             created: function () {
                 this.HomeTeams = @Html.Raw(Json.Encode(Model.Teams));
                 this.AwayTeams = @Html.Raw(Json.Encode(Model.Teams));
-                this.DefaultTeams(); 
+                this.DefaultTeams();
                 this.FormationPitch(this.Formation);
                 this.SetTeamSkills();
                 this.SetPlayerDynamicSkills();
             },
 
             mounted: function () {
+                this.SetPlayersAverageSkills();
                 this.ScrollOff();
                 this.FormationColors(this.HomeTeam.Formation);
                 this.HoverRow();
+                this.FormationMenu();
             }
         });
 
