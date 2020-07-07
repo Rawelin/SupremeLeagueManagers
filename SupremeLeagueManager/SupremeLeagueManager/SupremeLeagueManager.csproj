@@ -142,6 +142,7 @@
     <Compile Include="Models\Admin\ListM.cs" />
     <Compile Include="Models\FriendlyMatch\Data.cs" />
     <Compile Include="Models\FriendlyMatch\FriendlyMatchVM.cs" />
+    <Compile Include="Models\FriendlyMatch\MatchTeams.cs" />
     <Compile Include="Models\FriendlyMatch\Provider.cs" />
     <Compile Include="Models\FriendlyMatch\Squad.cs" />
     <Compile Include="Models\Global\GlobalCRUD.cs" />
@@ -680,9 +681,9 @@
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\TeamManagement\_Fixture.cshtml" />
     <Content Include="Views\FriendlyMatch\FriendlyMatch.cshtml" />
-    <Content Include="Views\FriendlyMatch\_MatchArena.cshtml" />
     <Content Include="Views\FriendlyMatch\_SquadSelection.cshtml" />
     <Content Include="Views\FriendlyMatch\_TeamSelection.cshtml" />
+    <Content Include="Views\FriendlyMatch\_MatchArena.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

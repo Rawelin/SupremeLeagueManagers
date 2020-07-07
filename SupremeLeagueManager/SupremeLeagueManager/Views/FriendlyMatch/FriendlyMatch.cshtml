@@ -22,9 +22,7 @@
             @Html.Partial("_TeamSelection")
         </div>
         @*match arena ------------------------------------------------------*@
-        <div id="matchArena" style="display: none;">
-            @Html.Partial("_MatchArena")
-        </div>
+
         @*menu buttons -----------------------------------------------------*@
         <div id="menuButtons" class="row text-center mt-5">
             <div class="col-3"></div>
@@ -43,6 +41,10 @@
             <div class="col-3"></div>
         </div>
     </div>
+</div>
+
+<div id="matchArena" style="display: none;">
+    @Html.Partial("_MatchArena")
 </div>
 
 
@@ -409,13 +411,9 @@
                 },
 
                 PlayMatch: function () {
-                    //alert('H: ' + this.HomeTeamId + '-' + 'A: ' + this.AwayTeamId);
+
                     this.Provider.HomeTeam = this.HomeTeam;
                     this.Provider.AwayTeam = this.AwayTeam;
-
-                    $("#teamSelection").hide(300);
-                    $("#squadSelection").hide(300);
-                    $("#matchArena").show(300);
 
                     $.ajax(
                         {
@@ -433,7 +431,13 @@
                             error: function () {
                                 alert('Nieoczekiwany błąd');
                             }
-                        });
+                        })
+                        .done(function (partialViewResult) {
+                             $("#teamSelection").hide(300);
+                             $("#squadSelection").hide(300);
+                             $("#matchArena").show(300);
+                             $("#matchArena").html(partialViewResult);
+                    });
                 },
 
                 FormationMenu: function () {

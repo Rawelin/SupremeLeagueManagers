@@ -27,7 +27,7 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _MatchArena(Provider provider)
         {
-            return PartialView();
+            return PartialView(new MatchTeams(provider).GetData());
         }
     }
 }
