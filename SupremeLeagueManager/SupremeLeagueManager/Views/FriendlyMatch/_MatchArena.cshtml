@@ -5,11 +5,13 @@
         <div class="row mt-1 pt-3 text-center" style="width:100%">
             <div class="col-3"></div>
             <div class="col pane pt-3">
-               <img v-bind:src="HomeTeamEmblem()" width="128" height="128" />
+                <img v-bind:src="HomeTeamEmblem()" width="128" height="128" />
                 <div class="col mt-3" style="font-size: 32px">{{ HomeTeam.Name }} {{ HomeTeam.City }}</div>
+                <div> {{ HomeTeam.Overall }} </div>
             </div>
+
             <div class="col pane">
-                <p class="mb-1" style="font-family: 'Cambria Math', sans-serif; font-size: 96px;">45</p>
+                <p class="mb-1" style="font-family: 'Cambria Math', sans-serif; font-size: 96px;">{{ Counter }}</p>
                 <div class="row text-center">
                     <div class="col" style="font-size: 32px">1</div>
                     <div class="col" style="font-size: 32px">Vs</div>
@@ -19,6 +21,7 @@
             <div class="col pane pt-3">
                 <img v-bind:src="AwayTeamEmblem()" width="128" height="128" />
                 <div class="col mt-3" style="font-size: 32px">{{ AwayTeam.Name }} {{AwayTeam.City }}</div>
+                <div> {{ AwayTeam.Overall }} </div>
             </div>
             <div class="col-3"></div>
         </div>
@@ -78,6 +81,12 @@
             <div class="col pane mt-1" style="min-height: 28em;"></div>
             <div class="col-3"></div>
         </div>
+        <div class="row text-center mt-3">
+            <div class="col" id="startMatch">
+                <div class="btn btn-outline-danger" v-on:click="StartMatch()">Start Match</div>
+                <div class="btn btn-outline-danger" v-on:click="PauseMatch()">Pause Match</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -89,7 +98,10 @@
         el: '#matchArenaView',
         data: {
             HomeTeam: {},
-            AwayTeam: {}
+            AwayTeam: {},
+            Counter: 0,
+            IntervalId: null,
+            Pause: false
         },
 
         methods: {
@@ -106,15 +118,45 @@
                 return src;
             },
 
+            StartMatch: function () {
+
+                console.log(this.Pause);
+                if (this.Pause == false) {
+                    this.IntervalId = setInterval(this.CounterStart, 100);
+                } else {
+                    
+                }
+            },
+
+            PauseMatch: function () {
+              
+                if (this.Pause == false) {
+                    this.Pause = true;
+                  
+                } else {
+                    this.Pause = false;
+                 
+                }
+            },
+
+            CounterStart: function () {
+                if (this.Counter < 91) {
+                    this.Counter++;
+                    console.log(this.Counter)
+                } else {
+                    console.log('End')
+                    clearInterval(this.IntervalId);
+                }
+            } 
         },
 
 
         created: function () {
            this.HomeTeam = @Html.Raw(Json.Encode(Model.HomeTeam));
-            this.AwayTeam = @Html.Raw(Json.Encode(Model.AwayTeam));
+           this.AwayTeam = @Html.Raw(Json.Encode(Model.AwayTeam));
 
-            console.log('ddd',this.HomeTeam);
-            console.log('ccc',this.AwayTeam);
+            //console.log('ddd',this.HomeTeam);
+            //console.log('ccc',this.AwayTeam);
         },
 
         beforeMount() {
