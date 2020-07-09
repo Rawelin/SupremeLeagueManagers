@@ -5,7 +5,7 @@
         <div class="row mt-1 pt-3 text-center" style="width:100%">
             <div class="col-3"></div>
             <div class="col pane pt-3">
-                <img v-bind:src="HomeTeamEmblem()" width="128" height="128" />
+                <img v-bind:src="HomeTeamEmblemMatch()" width="128" height="128" />
                 <div class="col mt-3" style="font-size: 32px">{{ HomeTeam.Name }} {{ HomeTeam.City }}</div>
                 <div> {{ HomeTeam.Overall }} </div>
             </div>
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col pane pt-3">
-                <img v-bind:src="AwayTeamEmblem()" width="128" height="128" />
+                <img v-bind:src="AwayTeamEmblemMatch()" width="128" height="128" />
                 <div class="col mt-3" style="font-size: 32px">{{ AwayTeam.Name }} {{AwayTeam.City }}</div>
                 <div> {{ AwayTeam.Overall }} </div>
             </div>
@@ -77,21 +77,19 @@
                     </div>
                     <div style="width: 10%; font-size: 18px">6</div>
                 </div>
+                <div class="col text-center aligne-midle mt-3">
+                    <div class="btn btn-outline-danger" id="startMatch" v-on:click="StartMatch()">Start Match</div>
+                    <div class="btn btn-outline-danger" id="pauseMatch" v-on:click="PauseMatch()" style="display: none">Pause Match</div>
+                </div>
             </div>
             <div class="col pane mt-1" style="min-height: 28em;"></div>
             <div class="col-3"></div>
-        </div>
-        <div class="row text-center mt-3">
-            <div class="col" id="startMatch">
-                <div class="btn btn-outline-danger" v-on:click="StartMatch()">Start Match</div>
-                <div class="btn btn-outline-danger" v-on:click="PauseMatch()">Pause Match</div>
-            </div>
         </div>
     </div>
 </div>
 
 
-<script type="text/javascript">
+@*<script type="text/javascript">
 
     var vueMatchArena = new Vue({
 
@@ -100,60 +98,52 @@
             HomeTeam: {},
             AwayTeam: {},
             Counter: 0,
+            MatchLength: 0,
             IntervalId: null,
-            Pause: false
         },
 
         methods: {
 
-            HomeTeamEmblem: function () {
+            HomeTeamEmblemMatch: function () {
                 var src = '/Content/Resources/Emblems/' + this.HomeTeam.Name + this.HomeTeam.City + '.png';
                 src = src.replace(" ", "");
                 return src;
             },
 
-            AwayTeamEmblem: function () {
+            AwayTeamEmblemMatch: function () {
                 var src = '/Content/Resources/Emblems/' + this.AwayTeam.Name + this.AwayTeam.City + '.png';
                 src = src.replace(" ", "");
                 return src;
             },
 
             StartMatch: function () {
-
-                console.log(this.Pause);
-                if (this.Pause == false) {
-                    this.IntervalId = setInterval(this.CounterStart, 100);
-                } else {
-                    
-                }
+                this.IntervalId = setInterval(this.CounterStart, 100);
             },
 
             PauseMatch: function () {
-              
-                if (this.Pause == false) {
-                    this.Pause = true;
-                  
-                } else {
-                    this.Pause = false;
-                 
-                }
+                clearInterval(this.IntervalId);
             },
 
             CounterStart: function () {
-                if (this.Counter < 91) {
-                    this.Counter++;
-                    console.log(this.Counter)
-                } else {
-                    console.log('End')
-                    clearInterval(this.IntervalId);
+                this.Counter++;
+                if (this.Counter == MatchLength) {
+                    this.PauseMatch();
+                } else if (this.Counter == (MatchLength / 2).toFixed(0)) {
+                    this.PauseMatch();
                 }
-            } 
+            },
+
+            RandomMatchLength: function () {
+                MatchLength = Math.floor(Math.random() * 6) + 90
+            }
         },
 
 
         created: function () {
-           this.HomeTeam = @Html.Raw(Json.Encode(Model.HomeTeam));
-           this.AwayTeam = @Html.Raw(Json.Encode(Model.AwayTeam));
+            this.HomeTeam = @Html.Raw(Json.Encode(Model.HomeTeam));
+            this.AwayTeam = @Html.Raw(Json.Encode(Model.AwayTeam));
+
+            this.RandomMatchLength();
 
             //console.log('ddd',this.HomeTeam);
             //console.log('ccc',this.AwayTeam);
@@ -168,7 +158,7 @@
 
         }
     })
-</script>
+</script>*@
 
 
 

@@ -2,7 +2,6 @@
 
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
-
 <div id="friendlyMatchView">
     <div class="col-12 mt-0">
         <div id="friendlyMatch" class="row text-center">
@@ -10,51 +9,32 @@
                 <h1>Friendly Match</h1>
             </div>
         </div>
-        @*squad selection --------------------------------------------------*@
         <div>
             <div id="squadSelection" style="display: none;">
                 @Html.Partial("_SquadSelection")
             </div>
         </div>
-
-        @*team selection carousels -----------------------------------------*@
+        <div id="matchArena" style="display: none;">
+            @Html.Partial("_MatchArena")
+        </div>
         <div id="teamSelection">
             @Html.Partial("_TeamSelection")
         </div>
 
-        @*menu buttons -----------------------------------------------------*@
         <div id="menuButtons" class="row text-center mt-5">
             <div class="col-3"></div>
-            <div class="col" id="returnButton">
-                <div>@Html.ActionLink("Main Menu", "Home", "Home", null, new { @class = "btn btn-outline-info" })</div>
+            <div class="col-6">
+                <div style="display: inline-block">
+                    <div style="float: left" id="returnButton">@Html.ActionLink("Main Menu", "Home", "Home", null, new { @class = "btn btn-outline-danger" })</div>
+                    <div style="float: left" id="selectTeamRefresh">@Html.ActionLink("Select Team", "FriendlyMatch", "FriendlyMatch", null, new { @class = "btn btn-outline-danger" })</div>
+                    <div style="float: left" id="selectTeam" class="btn btn-outline-info" v-on:click="SelectTeam()">Select Team</div>
+                    <div style="float: left" class="btn btn-outline-info" v-on:click="ShowSquad()">Squad Selection</div>
+                    <div style="float: left" id="playButton" class="btn btn-outline-info" v-on:click="PlayMatch()">Play Match</div>
+                </div>
             </div>
-            <div class="col" id="squadButton">
-                <div class="btn btn-outline-info" v-on:click="ShowSquad()">Squad Selection</div>
-            </div>
-            <div class="col" id="squadMatchButton">
-                <div class="btn btn-outline-info" v-on:click="ShowMatchSquad()">Squad Selection</div>
-            </div>
-            <div class="col">
-                <div id="selectTeam" class="btn btn-outline-info" v-on:click="SelectTeam()">Select Team</div>
-            </div>
-            <div class="col" id="selectTeamRefresh">
-                <div>@Html.ActionLink("Select Team", "FriendlyMatch", "FriendlyMatch", null, new { @class = "btn btn-outline-info" })</div>
-            </div>
-            <div class="col" id="playButton">
-                <div class="btn btn-outline-info" v-on:click="PlayMatch()">Play Match</div>
-            </div>
-            <div class="col" id="continueMatch">
-                <div class="btn btn-outline-info" v-on:click="ReturnToMatch()">Continue</div>
-            </div>
-            <div class="col-3"></div>
         </div>
     </div>
 </div>
-
-<div id="matchArena" style="display: none;">
-    @Html.Partial("_MatchArena")
-</div>
-
 
 <script src="~/Scripts/GlobalFunctions/FormationColors.js"></script>
 <script src="~/Scripts/GlobalFunctions/Skills.js"></script>
@@ -75,7 +55,11 @@
 
                 Player: {},
                 Selected: [],
-                PlayerPhotoIndex: 0
+                PlayerPhotoIndex: 0,
+
+                Counter: 0,
+                MatchLength: 0,
+                IntervalId: null,
 
             },
 
@@ -418,50 +402,45 @@
                         //});
                 },
 
-                ShowMatchSquad: function () {
-                    $("#matchArena").hide(300);
-                    $("#squadSelection").show(300);
-                    $("#continueMatch").show(300);
-                },
-
-                ReturnToMatch: function(){
-                    $("#matchArena").show(300);
-                    $("#squadSelection").hide(300);
-                    $("#continueMatch").hide();
-                },
-
                 PlayMatch: function () {
 
-                    this.Provider.HomeTeam = this.HomeTeam;
-                    this.Provider.AwayTeam = this.AwayTeam;
+                    $("#teamSelection").hide(300);
+                    $("#squadSelection").hide(300);
+                    $("#selectTeam").hide();
+                    $("#matchArena").show(300);
+                    $("#selectTeamRefresh").show();
+                    this.RandomMatchLength();
 
-                    $.ajax(
-                        {
-                            url: "_MatchArena/FriendlyMatch",
-                            type: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify({ provider: this.Provider }),
-                            success: function (data) {
-                                if (data != null) {
-                                    $('#squadButton').hide();
-                                    $('#selectTeam').hide();
-                                    $('#playButton').hide();
-                                    $('#squadMatchButton').show();
-                                    $('#selectTeamRefresh').show();
-                                } else {
-                                    alert(data.ErrorMessage)
-                                }
-                            },
-                            error: function () {
-                                alert('Nieoczekiwany błąd');
-                            }
-                        })
-                        .done(function (partialViewResult) {
-                             $("#teamSelection").hide(300);
-                             $("#squadSelection").hide(300);
-                             $("#matchArena").show(300);
-                             $("#matchArena").html(partialViewResult);
-                    });
+                    //this.Provider.HomeTeam = this.HomeTeam;
+                    //this.Provider.AwayTeam = this.AwayTeam;
+
+                    //$.ajax(
+                    //    {
+                    //        url: "_MatchArena/FriendlyMatch",
+                    //        type: "POST",
+                    //        contentType: "application/json",
+                    //        data: JSON.stringify({ provider: this.Provider }),
+                    //        success: function (data) {
+                    //            if (data != null) {
+                    //                $('#squadButton').hide();
+                    //                $('#selectTeam').hide();
+                    //                $('#playButton').hide();
+                    //                $('#squadMatchButton').show();
+                    //                $('#selectTeamRefresh').show();
+                    //            } else {
+                    //                alert(data.ErrorMessage)
+                    //            }
+                    //        },
+                    //        error: function () {
+                    //            alert('Nieoczekiwany błąd');
+                    //        }
+                    //    })
+                    //    .done(function (partialViewResult) {
+                    //         $("#teamSelection").hide(300);
+                    //         $("#squadSelection").hide(300);
+                    //         $("#matchArena").show(300);
+                    //         $("#matchArena").html(partialViewResult);
+                    //});
                 },
 
                 FormationMenu: function () {
@@ -485,7 +464,45 @@
                             );
                         });
                 },
+ //---------MatchArena----------------------------------------------------------------
+                HomeTeamEmblemMatch: function () {
+                    var src = '/Content/Resources/Emblems/' + this.HomeTeam.Name + this.HomeTeam.City + '.png';
+                    src = src.replace(" ", "");
+                    return src;
+                },
 
+                AwayTeamEmblemMatch: function () {
+                    var src = '/Content/Resources/Emblems/' + this.AwayTeam.Name + this.AwayTeam.City + '.png';
+                    src = src.replace(" ", "");
+                    return src;
+                },
+
+                StartMatch: function () {
+                    this.IntervalId = setInterval(this.CounterStart, 100);
+                    $('#pauseMatch').show(300);
+                    $('#startMatch').hide(300);
+                },
+
+                PauseMatch: function () {
+                    clearInterval(this.IntervalId);
+                    $('#pauseMatch').hide(300);
+                    $('#startMatch').show(300);
+                },
+
+                CounterStart: function () {
+                    this.Counter++;
+                    if (this.Counter == MatchLength) {
+                        this.PauseMatch();
+                        $('#startMatch').hide(300);
+                    } else if (this.Counter == (MatchLength / 2).toFixed(0)) {
+                        this.PauseMatch();
+                    }
+                },
+
+                RandomMatchLength: function () {
+                    MatchLength = Math.floor(Math.random() * 6) + 90
+                },
+ //-----------------------------------------------------------------------------------
                 ScrollOff: function () {
                     $("body").css("overflow", "hidden");
                     $("body").css("overflow-x", "hidden");
@@ -494,8 +511,6 @@
 
                 Jquery: function () {
                     $('#selectTeamRefresh').hide();
-                    $('#continueMatch').hide();
-                    $('#squadMatchButton').hide();
                 }
             },
 
@@ -506,8 +521,8 @@
                 this.FormationPitch(this.Formation);
                 this.SetTeamSkills();
                 this.SetPlayerDynamicSkills();
-              
-            
+
+
             },
 
             mounted: function () {
@@ -517,7 +532,7 @@
                 this.HoverRow();
                 this.FormationMenu();
                 this.Jquery();
-               
+
             }
         });
 
