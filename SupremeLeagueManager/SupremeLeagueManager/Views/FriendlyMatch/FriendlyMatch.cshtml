@@ -61,6 +61,10 @@
                 MatchLength: 0,
                 IntervalId: null,
 
+                HomeShots: 0,
+                AwayShots: 0,
+                ProgressBarShot: 50
+
             },
 
             methods: {
@@ -334,7 +338,6 @@
                     }
                     this.AwayTeam = this.AwayTeams[this.AwayIndex];
                     TeamSkills(this.AwayTeam);
-                    console.log(this.AwayIndex + 'a');
                 },
 
                 AwayPreviousTeam: function () {
@@ -344,7 +347,6 @@
                     }
                     this.AwayTeam = this.AwayTeams[this.AwayIndex];
                     TeamSkills(this.AwayTeam);
-                    console.log(this.AwayIndex + 'a');
                 },
 
                 GetHomeTeamId: function (id) {
@@ -491,16 +493,121 @@
 
                 CounterStart: function () {
                     this.Counter++;
-                    if (this.Counter == MatchLength) {
+                    if (this.Counter == this.MatchLength) {
                         this.PauseMatch();
                         $('#startMatch').hide(300);
-                    } else if (this.Counter == (MatchLength / 2).toFixed(0)) {
+                    } else if (this.Counter == (this.MatchLength / 2).toFixed(0)) {
                         this.PauseMatch();
                     }
+                    this.MatchAlgorithms();
                 },
 
                 RandomMatchLength: function () {
-                    MatchLength = Math.floor(Math.random() * 6) + 90
+                    this.MatchLength = Math.floor(Math.random() * 6) + 90
+                },
+
+                MatchAlgorithms: function () {
+                    var differ = this.HomeTeam.Overall - this.AwayTeam.Overall;
+                    var range = Math.floor(Math.random() * 100) + 1
+
+                   
+                  
+                    if (differ > 10) {
+                        differ = 10;
+                    }
+                    if (differ < -10) {
+                        differ = -10
+                    }
+
+                    console.log('r:', range);
+                    console.log('d:', differ);
+
+                    switch (differ) {
+                        case -10:
+                            if (range >= 95 && range <= 100) {
+                                this.HomeShots++;
+                            }
+                            if (range >= 0 && range <= 23) {
+                                this.AwayShots++;
+                            }
+                            break;
+                        case -9:
+                            break;
+                        case -8:
+                            break;
+                        case -7:
+                            break;
+                        case -6:
+                            break;
+                        case -5:
+                            break;
+                        case -4:
+                            break;
+                        case -3:
+                            break;
+                        case -2:
+                            if (range >= 87 && range <= 100) {
+                                this.HomeShots++;
+                            }
+                            if (range >= 0 && range <= 15) {
+                                this.AwayShots++;
+                            }
+                            break;
+                        case -1:
+                            if (range >= 86 && range <= 100) {
+                                this.HomeShots++;
+                            }
+                            if (range >= 0 && range <= 14) {
+                                this.AwayShots++;
+                            }
+                            break;
+                        case 0:
+                            if (range >= 85 && range <= 100) {
+                                this.HomeShots++;
+                            }
+                            if (range >= 0 && range <= 13) {
+                                this.AwayShots++;
+                            }
+                            break;
+                        case 1:
+                            if (range >= 84 && range <= 100) {
+                                this.HomeShots++;
+                            }
+                            if (range >= 0 && range <= 13) {
+                                this.AwayShots++;
+                            }
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        case 8:
+                            break;
+                        case 8:
+                            break;
+                        case 9:
+                            break;
+                        case 10:
+                            if (range >= 75 && range <= 100) {
+                                this.HomeShots++;
+                            }
+                            if (range >= 95 && range <= 100) {
+                                this.AwayShots++;
+                            }
+                            break; 
+                    }
+
+                    var shotSum = this.HomeShots + this.AwayShots
+
+                    this.ProgressBarShot = ((this.HomeShots / shotSum) * 100).toFixed(0);
                 },
  //-----------------------------------------------------------------------------------
                 ScrollOff: function () {

@@ -1,7 +1,7 @@
 ﻿@model SupremeLeagueManager.Models.FriendlyMatch.FriendlyMatchVM
 
 <div id="matchArenaView">
-    <div style="min-height: 47em;">
+    <div style="min-height: 48em;">
         <div class="row mt-1 pt-3 text-center" style="width:100%">
             <div class="col-3"></div>
             <div class="col pane pt-3">
@@ -27,15 +27,15 @@
         </div>
         <div class="row text-center" style="width:100%">
             <div class="col-3"></div>
-            <div class="col pane mt-1 mr-1" style="min-height: 28em;"></div>
-            <div class="col pane mt-1 mr-1" style="min-height: 28em;">
+            <div class="col pane mt-1 mr-1" style="min-height: 30em;"></div>
+            <div class="col pane mt-1 mr-1" style="min-height: 30em;">
                 <div class="mt-4 mb-1">Shoots</div>
                 <div class="row text-center aligne-midle">
-                    <div style="width: 10%; font-size: 18px">8</div>
+                    <div style="width: 10%; font-size: 18px">{{ HomeShots }}</div>
                     <div class="progress mt-1" style="width: 80%; background-color: blue">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 66%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" :style="{width: ProgressBarShot + '%'}" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div style="width: 10%; font-size: 18px">4</div>
+                    <div style="width: 10%; font-size: 18px">{{ AwayShots }}</div>
                 </div>
                 <div class="mt-1 mb-1">On Target</div>
                 <div class="row text-center aligne-midle">
