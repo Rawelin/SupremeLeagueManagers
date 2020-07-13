@@ -1,4 +1,5 @@
-﻿using SupremeLeagueManager.Models.TeamManagement;
+﻿using SupremeLeagueManager.Models.Match;
+using SupremeLeagueManager.Models.TeamManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace SupremeLeagueManager.Models.FriendlyMatch
             try
             {
                 FriendlyMatch.Teams = CRUD.GetTeamsPlayers();
+                FriendlyMatch.MatchStatistics = new MatchStatistics();
             }
             catch (Exception ex)
             {
