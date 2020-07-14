@@ -1,9 +1,9 @@
 ﻿
 function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
+
     var differ = HomeTeam.Overall - AwayTeam.Overall;
     var range = Math.floor(Math.random() * 100) + 1
-
-
+  
     if (differ > 10) {
         differ = 10;
     }
@@ -48,10 +48,16 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
                 MatchStatistics.AwayShots++;
             break;
         case 0:
-            if (range >= 85 && range <= 100)
+            if (range >= 85 && range <= 100) {
                 MatchStatistics.HomeShots++;
-            if (range >= 0 && range <= 13)
+                homeComment(MatchStatistics);
+            }
+           
+            if (range >= 0 && range <= 13) {
                 MatchStatistics.AwayShots++;
+                awayComment(MatchStatistics);
+            }
+              
             break;
         case 1:
             if (range >= 84 && range <= 100)
@@ -88,4 +94,29 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
     var shotSum = MatchStatistics.HomeShots + MatchStatistics.AwayShots;
 
     MatchStatistics.ProgressBarShot = ((MatchStatistics.HomeShots / shotSum) * 100).toFixed(0);
+}
+
+
+function homeComment(MatchStatistics) {
+    var commentHome = $('#commentHome');
+    commentHome.show("slow").delay(3000).hide("slow");
+    commentHome.position({
+        //my: 'top',
+        //at: 'right',
+        of: $('#homeComment')
+    });
+    $('#homeMinute').text(MatchStatistics.Counter + 1);
+}
+
+
+function awayComment(MatchStatistics) {
+    var commentAway = $('#commentAway');
+    commentAway.show("slow").delay(3000).hide("slow");
+    commentAway.position({
+        my: 'top',
+        at: 'left',
+        of: $('#awayComment')
+     
+    });
+    $('#awayMinute').text(MatchStatistics.Counter + 1);
 }

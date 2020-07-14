@@ -1,9 +1,9 @@
 ﻿@model SupremeLeagueManager.Models.FriendlyMatch.FriendlyMatchVM
 
 <div id="matchArenaView">
-    <div style="min-height: 48em;">
+    <div style="min-height: 35em;">
         <div class="row mt-1 pt-3 text-center" style="width:100%">
-            <div class="col-3"></div>
+            <div class="col-3" id="homeComment"></div>
             <div class="col pane pt-3">
                 <img v-bind:src="HomeTeamEmblemMatch()" width="128" height="128" />
                 <div class="col mt-3" style="font-size: 32px">{{ HomeTeam.Name }} {{ HomeTeam.City }}</div>
@@ -13,8 +13,8 @@
             <div class="col pane">
                 <p class="mb-1" style="font-family: 'Cambria Math', sans-serif; font-size: 96px;">{{ MatchStatistics.Counter }}</p>
                 <div class="row text-center">
-                    <div class="col" style="font-size: 32px">1</div>
-                    <div class="col" style="font-size: 32px">Vs</div>
+                    <div class="col" style="font-size: 32px">0</div>
+                    <div class="col" style="font-size: 32px" id="versus">Vs</div>
                     <div class="col" style="font-size: 32px">0</div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="col mt-3" style="font-size: 32px">{{ AwayTeam.Name }} {{AwayTeam.City }}</div>
                 <div> {{ AwayTeam.Overall }} </div>
             </div>
-            <div class="col-3"></div>
+            <div class="col-3" id="awayComment"></div>
         </div>
         <div class="row text-center" style="width:100%">
             <div class="col-3"></div>
@@ -35,7 +35,7 @@
                     <div class="progress mt-1" style="width: 80%; background-color: blue">
                         <div class="progress-bar bg-success" role="progressbar" :style="{width: MatchStatistics.ProgressBarShot + '%'}" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div style="width: 10%; font-size: 18px">{{ MatchStatistics.AwayShots }}</div>
+                    <div style="width: 10%; font-size: 18px" >{{ MatchStatistics.AwayShots }}</div>
                 </div>
                 <div class="mt-1 mb-1">On Target</div>
                 <div class="row text-center aligne-midle">
@@ -77,15 +77,22 @@
                     </div>
                     <div style="width: 10%; font-size: 18px">6</div>
                 </div>
-                <div class="col text-center aligne-midle mt-3">
+                <div class="col text-center aligne-midle mt-4">
                     <div class="btn btn-outline-danger" id="startMatch" v-on:click="StartMatch()">Start Match</div>
                     <div class="btn btn-outline-danger" id="pauseMatch" v-on:click="PauseMatch()" style="display: none">Pause Match</div>
                 </div>
             </div>
-            <div class="col pane mt-1" style="min-height: 28em;"></div>
+            <div class="col pane mt-1" style="min-height: 20em;"></div>
             <div class="col-3"></div>
         </div>
     </div>
+</div>
+
+<div id="commentHome" class="comment">
+    <div><span id="homeMinute"></span> minuta</div>
+</div>
+<div id="commentAway" class="comment">
+    <div><span id="awayMinute"></span> minuta</div>
 </div>
 
 
