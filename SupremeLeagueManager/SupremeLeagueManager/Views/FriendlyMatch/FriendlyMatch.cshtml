@@ -475,7 +475,7 @@
                 },
 
                 StartMatch: function () {
-                    this.IntervalId = setInterval(this.CounterStart, 2000);
+                    this.IntervalId = setInterval(this.CounterStart, 3200);
                     $('#pauseMatch').show(300);
                     $('#startMatch').hide(300);
                 },
@@ -502,7 +502,7 @@
                 },
 
                 MatchAlgorithms: function () {
-                    MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics)
+                    MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics, this.IntervalId)
                 },
  //-----------------------------------------------------------------------------------
                 ScrollOff: function () {

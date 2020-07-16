@@ -13,6 +13,8 @@ namespace SupremeLeagueManager.Models.Match
         public int AwayShots { get; set; }
         public int HomeShotsOnTarget { get; set; }
         public int AwayShotsOnTarget { get; set; }
+        public int HomeShotsOffTarget { get; set; }
+        public int AwayShotsOffTarget { get; set; }
         public int MatchLength { get; set; }
         public int Counter { get; set; }
         public double ProgressBarShot { get; set; }

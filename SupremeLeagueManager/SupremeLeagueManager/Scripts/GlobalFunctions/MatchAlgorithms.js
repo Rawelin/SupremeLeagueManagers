@@ -50,7 +50,7 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
         case 0:
             if (range >= 85 && range <= 100) {
                 MatchStatistics.HomeShots++;
-                homeComment(MatchStatistics);
+                homeComment(MatchStatistics, HomeTeam);
             }
            
             if (range >= 0 && range <= 13) {
@@ -97,26 +97,29 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
 }
 
 
-function homeComment(MatchStatistics) {
+function homeComment(MatchStatistics, HomeTeam) {
     var commentHome = $('#commentHome');
-    commentHome.show("slow").delay(3000).hide("slow");
+    commentHome.show(200).delay(2600).hide(200);
     commentHome.position({
-        //my: 'top',
-        //at: 'right',
+        my: 'right+85',
+        at: 'left top',
         of: $('#homeComment')
     });
     $('#homeMinute').text(MatchStatistics.Counter + 1);
-}
 
+    // TO DO WhoShots - function
+    $('#homePlayer').text(HomeTeam.Players[10].Name + ' ' + HomeTeam.Players[10].Surname);
+}
 
 function awayComment(MatchStatistics) {
     var commentAway = $('#commentAway');
-    commentAway.show("slow").delay(3000).hide("slow");
+    commentAway.show("slow").delay(2900).hide("slow");
     commentAway.position({
-        my: 'top',
-        at: 'left',
+        my: 'left+85',
+        at: 'left top',
         of: $('#awayComment')
-     
+
     });
     $('#awayMinute').text(MatchStatistics.Counter + 1);
 }
+ 
