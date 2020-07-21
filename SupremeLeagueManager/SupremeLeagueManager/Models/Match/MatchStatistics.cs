@@ -7,6 +7,7 @@ namespace SupremeLeagueManager.Models.Match
 {
     public class MatchStatistics
     {
+        public bool LiveMatch { get; set; }
         public int HomeGoals { get; set; }
         public int AwayGoals { get; set; }
         public int HomeShots { get; set; }
@@ -18,10 +19,12 @@ namespace SupremeLeagueManager.Models.Match
         public int MatchLength { get; set; }
         public int Counter { get; set; }
         public double ProgressBarShot { get; set; }
+        public string IntervalId { get; set; }
 
         public MatchStatistics()
         {
             ProgressBarShot = 50;
+            IntervalId = null;
         }
     }
 }

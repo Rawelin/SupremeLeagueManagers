@@ -2,7 +2,7 @@
 function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
 
     var differ = HomeTeam.Overall - AwayTeam.Overall;
-    var range = Math.floor(Math.random() * 100) + 1
+    var range = Math.floor(Math.random() * 99) + 1
   
     if (differ > 10) {
         differ = 10;
@@ -49,15 +49,11 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
             break;
         case 0:
             if (range >= 85 && range <= 100) {
-                MatchStatistics.HomeShots++;
-                homeComment(MatchStatistics, HomeTeam);
+                strikeHome(MatchStatistics, HomeTeam);
             }
-           
             if (range >= 0 && range <= 13) {
-                MatchStatistics.AwayShots++;
-                awayComment(MatchStatistics);
+                strikeAway(MatchStatistics, AwayTeam);
             }
-              
             break;
         case 1:
             if (range >= 84 && range <= 100)
@@ -105,13 +101,16 @@ function homeComment(MatchStatistics, HomeTeam) {
         at: 'left top',
         of: $('#homeComment')
     });
-    $('#homeMinute').text(MatchStatistics.Counter + 1);
 
-    // TO DO WhoShots - function
-    $('#homePlayer').text(HomeTeam.Players[10].Name + ' ' + HomeTeam.Players[10].Surname);
+    $('#homeMinute').text(MatchStatistics.Counter + 1);
+    $('#homePlayer').text(HomeTeam.Players[0].Name + ' ' + HomeTeam.Players[0].Surname);
+
+    //clearInterval(MatchStatistics.IntervalId);
+    //$('#pauseMatch').hide(300);
+    //$('#startMatch').show(300);
 }
 
-function awayComment(MatchStatistics) {
+function awayComment(MatchStatistics, AwayTeam) {
     var commentAway = $('#commentAway');
     commentAway.show("slow").delay(2900).hide("slow");
     commentAway.position({
@@ -120,6 +119,96 @@ function awayComment(MatchStatistics) {
         of: $('#awayComment')
 
     });
+
     $('#awayMinute').text(MatchStatistics.Counter + 1);
+    $('#awayPlayer').text(AwayTeam.Players[0].Name + ' ' + AwayTeam.Players[0].Surname);
 }
+
+function strikeHome(MatchStatistics, HomeTeam) {
+    if (MatchStatistics.LiveMatch == true) {
+        getStrikerLive(MatchStatistics, HomeTeam, true)
+    } else {
+        getStriker(MatchStatistics, HomeTeam, true)
+    }
+}
+
+function strikeAway(MatchStatistics, AwayTeam) {
+    if (MatchStatistics.LiveMatch == true) {
+        getStrikerLive(MatchStatistics, AwayTeam, false)
+    } else {
+        getStriker(MatchStatistics, AwayTeam, false)
+    }
+}
+
+function strikerValue(Team) {
+
+    for (var i = 1; i < 11; i++) {
+        if (Team.Players[i].Attack >= 95) {
+            striker = Math.floor(Math.random() * 16) + 83;
+            Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack >= 90 && Team.Players[i].Attack < 95) {
+            striker = Math.floor(Math.random() * 18) + 81;
+            Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack >= 80 && Team.Players[i].Attack < 90) {
+            striker = Math.floor(Math.random() * 19) + 80;
+            Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack >= 70 && Team.Players[i].Attack < 80) {
+            striker = Math.floor(Math.random() * 29) + 70;
+            Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack >= 60 && Team.Players[i].Attack < 70) {
+            striker = Math.floor(Math.random() * 39) + 60;
+            Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack >= 50 && Team.Players[i].Attack < 60) {
+            striker = Math.floor(Math.random() * 49) + 50;
+            Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack >= 30 && Team.Players[i].Attack < 50) {
+            striker = Math.floor(Math.random() * 40) + 59;
+            Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack < 30) {
+            striker = Math.floor(Math.random() * 30) + 69;
+            Team.Players[i].ShotTemp = striker;
+        }
+    }
+}
+
+function getStrikerLive(MatchStatistics, Team, Side) {
+
+    if (Side == true) {
+        MatchStatistics.HomeShots++;
+
+        strikerValue(Team)
+
+        let TeamTmp = JSON.parse(JSON.stringify(Team));
+        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
+
+        for (var i = 0; i < 11; i++) {
+            console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
+        }
+
+        homeComment(MatchStatistics, TeamTmp);
+
+        let id = TeamTmp.Players[0].PlayerId;
+        console.log('id: ', id)
+    } else {
+
+        MatchStatistics.AwayShots++;
+        strikerValue(Team)
+
+        let TeamTmp = JSON.parse(JSON.stringify(Team));
+        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
+
+        //for (var i = 0; i < 11; i++) {
+        //    console.log(TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
+        //}
+
+        awayComment(MatchStatistics, TeamTmp);
+    }
+}
+
+// TO DO For simulate
+function getStriker(side) {
+
+}
+
+
  

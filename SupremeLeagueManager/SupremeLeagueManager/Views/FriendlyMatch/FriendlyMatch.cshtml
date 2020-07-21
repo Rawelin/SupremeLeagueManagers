@@ -58,7 +58,6 @@
                 Selected: [],
                 PlayerPhotoIndex: 0,
 
-                IntervalId: null,
                 MatchStatistics: {}
             },
 
@@ -475,13 +474,13 @@
                 },
 
                 StartMatch: function () {
-                    this.IntervalId = setInterval(this.CounterStart, 3200);
+                    this.MatchStatistics.IntervalId = setInterval(this.CounterStart, 3200);
                     $('#pauseMatch').show(300);
                     $('#startMatch').hide(300);
                 },
 
                 PauseMatch: function () {
-                    clearInterval(this.IntervalId);
+                    clearInterval(this.MatchStatistics.IntervalId);
                     $('#pauseMatch').hide(300);
                     $('#startMatch').show(300);
                 },
@@ -493,6 +492,7 @@
                         $('#startMatch').hide(300);
                     } else if (this.MatchStatistics.Counter == (this.MatchStatistics.MatchLength / 2).toFixed(0)) {
                         this.PauseMatch();
+                       
                     }
                     this.MatchAlgorithms();
                 },
@@ -527,8 +527,6 @@
                 this.FormationPitch(this.Formation);
                 this.SetTeamSkills();
                 this.SetPlayerDynamicSkills();
-
-
             },
 
             mounted: function () {
@@ -538,6 +536,7 @@
                 this.HoverRow();
                 this.FormationMenu();
                 this.Jquery();
+                this.MatchStatistics.LiveMatch = true;
             }
         });
 

@@ -56,6 +56,8 @@ namespace SupremeLeagueManager.Models
         public double AverageDynamicSkills { get; set; }
         public double SkillDifference { get; set; }
 
+        public double ShotTemp { get; set; }
+
         public Player() : base() { }
 
         public double GetAverageSkills()
