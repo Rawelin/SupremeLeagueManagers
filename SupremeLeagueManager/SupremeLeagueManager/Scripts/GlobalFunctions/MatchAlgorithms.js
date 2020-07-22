@@ -17,9 +17,9 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
     switch (differ) {
         case -10:
             if (range >= 95 && range <= 100)
-                MatchStatistics.HomeShots++;
+                strikeHome(MatchStatistics, HomeTeam);
             if (range >= 0 && range <= 23)
-                MatchStatistics.AwayShots++;
+                strikeAway(MatchStatistics, AwayTeam);
             break;
         case -9:
             break;
@@ -37,29 +37,27 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
             break;
         case -2:
             if (range >= 87 && range <= 100)
-                MatchStatistics.HomeShots++
+                 strikeHome(MatchStatistics, HomeTeam);
             if (range >= 0 && range <= 15)
-                MatchStatistics.AwayShots++;
+                strikeAway(MatchStatistics, AwayTeam);
             break;
         case -1:
             if (range >= 86 && range <= 100)
-                MatchStatistics.AwayShots++;
+                strikeHome(MatchStatistics, HomeTeam);
             if (range >= 0 && range <= 14)
-                MatchStatistics.AwayShots++;
+                strikeAway(MatchStatistics, AwayTeam);
             break;
         case 0:
-            if (range >= 85 && range <= 100) {
+            if (range >= 85 && range <= 100) 
                 strikeHome(MatchStatistics, HomeTeam);
-            }
-            if (range >= 0 && range <= 13) {
+            if (range >= 0 && range <= 13) 
                 strikeAway(MatchStatistics, AwayTeam);
-            }
             break;
         case 1:
             if (range >= 84 && range <= 100)
-                MatchStatistics.HomeShots++
+                strikeHome(MatchStatistics, HomeTeam);
             if (range >= 0 && range <= 13)
-                MatchStatistics.AwayShots++;
+                strikeAway(MatchStatistics, AwayTeam);
             break;
         case 2:
             break;
@@ -81,9 +79,9 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
             break;
         case 10:
             if (range >= 75 && range <= 100)
-                MatchStatistics.HomeShots++;
+                strikeHome(MatchStatistics, HomeTeam);
             if (range >= 95 && range <= 100)
-                MatchStatistics.AwayShots++;
+                strikeAway(MatchStatistics, AwayTeam);
             break;
     }
 
@@ -144,28 +142,31 @@ function strikerValue(Team) {
 
     for (var i = 1; i < 11; i++) {
         if (Team.Players[i].Attack >= 95) {
-            striker = Math.floor(Math.random() * 16) + 83;
+            striker = Math.floor(Math.random() * 9) + 90;
             Team.Players[i].ShotTemp = striker;
         } else if (Team.Players[i].Attack >= 90 && Team.Players[i].Attack < 95) {
-            striker = Math.floor(Math.random() * 18) + 81;
+            striker = Math.floor(Math.random() * 14) + 85;
             Team.Players[i].ShotTemp = striker;
-        } else if (Team.Players[i].Attack >= 80 && Team.Players[i].Attack < 90) {
-            striker = Math.floor(Math.random() * 19) + 80;
+        } else if (Team.Players[i].Attack >= 85 && Team.Players[i].Attack < 90) {
+            striker = Math.floor(Math.random() * 29) + 80;
             Team.Players[i].ShotTemp = striker;
-        } else if (Team.Players[i].Attack >= 70 && Team.Players[i].Attack < 80) {
+        }else if (Team.Players[i].Attack >= 80 && Team.Players[i].Attack < 85) {
             striker = Math.floor(Math.random() * 29) + 70;
             Team.Players[i].ShotTemp = striker;
-        } else if (Team.Players[i].Attack >= 60 && Team.Players[i].Attack < 70) {
+        } else if (Team.Players[i].Attack >= 70 && Team.Players[i].Attack < 80) {
             striker = Math.floor(Math.random() * 39) + 60;
             Team.Players[i].ShotTemp = striker;
-        } else if (Team.Players[i].Attack >= 50 && Team.Players[i].Attack < 60) {
+        } else if (Team.Players[i].Attack >= 60 && Team.Players[i].Attack < 70) {
             striker = Math.floor(Math.random() * 49) + 50;
             Team.Players[i].ShotTemp = striker;
+        } else if (Team.Players[i].Attack >= 50 && Team.Players[i].Attack < 60) {
+            striker = Math.floor(Math.random() * 59) + 40;
+            Team.Players[i].ShotTemp = striker;
         } else if (Team.Players[i].Attack >= 30 && Team.Players[i].Attack < 50) {
-            striker = Math.floor(Math.random() * 40) + 59;
+            striker = Math.floor(Math.random() * 30) + 69;
             Team.Players[i].ShotTemp = striker;
         } else if (Team.Players[i].Attack < 30) {
-            striker = Math.floor(Math.random() * 30) + 69;
+            striker = Math.floor(Math.random() * 20) + 79;
             Team.Players[i].ShotTemp = striker;
         }
     }
@@ -178,7 +179,7 @@ function getStrikerLive(MatchStatistics, Team, Side) {
 
         strikerValue(Team)
 
-        let TeamTmp = JSON.parse(JSON.stringify(Team));
+        var TeamTmp = JSON.parse(JSON.stringify(Team));
         TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
 
         for (var i = 0; i < 11; i++) {
@@ -187,8 +188,12 @@ function getStrikerLive(MatchStatistics, Team, Side) {
 
         homeComment(MatchStatistics, TeamTmp);
 
-        let id = TeamTmp.Players[0].PlayerId;
-        console.log('id: ', id)
+        var IndexPosition = TeamTmp.Players[0].IndexPosition;
+        var chance = TeamTmp.Players[0].ShotTemp + TeamTmp.Players[0].ShotAccuracy;
+        Team.Players[IndexPosition].Goals += 1;
+
+        console.log(chance);
+        console.log(Team.Players[IndexPosition]);
     } else {
 
         MatchStatistics.AwayShots++;

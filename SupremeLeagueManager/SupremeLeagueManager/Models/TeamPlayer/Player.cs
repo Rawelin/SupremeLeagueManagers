@@ -57,6 +57,11 @@ namespace SupremeLeagueManager.Models
         public double SkillDifference { get; set; }
 
         public double ShotTemp { get; set; }
+        public int ShotsOnTarget { get; set; }
+        public int ShotsOffTarget { get; set; }
+        public int Goals { get; set; }
+        public int Assist { get; set; }
+        public int Appearances { get; set; }
 
         public Player() : base() { }
 
@@ -73,6 +78,11 @@ namespace SupremeLeagueManager.Models
         public void SetAverageSkills()
         {
             AverageSkills = PlayerSkills.Compute(this);
+        }
+
+        public void AddGoal()
+        {
+            Goals++;
         }
 
         public enum PlayerPosition { GK = 1, CB = 2, LB = 3, RB = 4, DM = 5, CM = 6, LM = 7, RM = 8, AM = 9, LW = 10, RW = 11, SS = 12, CF = 13 };
