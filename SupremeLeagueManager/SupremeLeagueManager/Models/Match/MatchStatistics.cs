@@ -19,11 +19,16 @@ namespace SupremeLeagueManager.Models.Match
         public int MatchLength { get; set; }
         public int Counter { get; set; }
         public double ProgressBarShot { get; set; }
+        public double ProgressBarShotOnTarget { get; set; }
+        public double ProgressBarShotOffTarget { get; set; }
+
         public string IntervalId { get; set; }
 
         public MatchStatistics()
         {
             ProgressBarShot = 50;
+            ProgressBarShotOnTarget = 50;
+            ProgressBarShotOffTarget = 50;
             IntervalId = null;
         }
     }
