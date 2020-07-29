@@ -222,26 +222,114 @@ function getStriker(MatchStatistics, Team, Home) {
     var goal = 0;
 
     if (TeamTmp.Players[0].PositionShort == "CB") {
-        chance = TeamTmp.Players[0].Heading + TeamTmp.Players[0].ShotTemp + range;
+        chance = TeamTmp.Players[0].Heading + range;
         console.log('acc: ' + TeamTmp.Players[0].Heading + ' temp: ' + TeamTmp.Players[0].ShotTemp + ' range: ' + range + ' position ' + TeamTmp.Players[0].PositionShort);
     } else {
-        chance = TeamTmp.Players[0].ShotAccuracy + TeamTmp.Players[0].ShotTemp + range;
+        chance = TeamTmp.Players[0].ShotAccuracy + range;
         console.log('acc: ' + TeamTmp.Players[0].ShotAccuracy + ' temp: ' + TeamTmp.Players[0].ShotTemp + ' range: ' + range + ' position ' + TeamTmp.Players[0].PositionShort);
     }
 
-    if (chance > 260) {
-        var shotRange = Math.floor(Math.random() * 19) + 16;
-        commentary = "strzał z około " + shotRange + " metrów i ....gollll !!!";
+     if (chance >= 180) {
+         if (chance == 180) {
+             commentary = "mija obrońcę, strzał nad bramkarzem i.... gooooool."
+         } else if (chance == 181) {
+             commentary = "zakłada siatkę obrońcy, kładzie bramkarza i.... gooooool."
+         } else if (chance > 182) {
+             commentary = "mija dwóch obrońców, kładzie bramkarza i.... gooooool."
+         }
+
+         shotOnTarget++;
+         goal++;
+         Team.Players[scorrerIndexPosition].Goals += 1;
+         goal = true;
+     }
+     else if (chance >= 173 && chance < 180) {
+
+        if (chance == 173) {
+            commentary = "podcina lekko piłkę nad bramkarzem i .....gooooool";
+        } else if (chance == 174) {
+            comentary = "kładzie bramkarz na lewą stronę i .....gooooool";
+        } else if (chance == 175) {
+            comentary = "kładzie bramkarz na prawą stronę i .....gooooool";
+        } else if (chance >= 176 && chance < 180) {
+            comentary = "strzela między nogami bramkarza i ....gooooool"
+        }
+
         shotOnTarget++;
         goal++;
         Team.Players[scorrerIndexPosition].Goals += 1;
         goal = true;
-    } else {
-        commentary = "strzał niecelny"
+
+    } else if (chance >= 165 && chance < 173) {
+
+        var shotRange = Math.floor(Math.random() * 19) + 16;
+        commentary = "strzał z około " + shotRange + " metrów i ....gooooool !!!";
+        shotOnTarget++;
+        goal++;
+        Team.Players[scorrerIndexPosition].Goals += 1;
+        goal = true;
+
+    } else if (chance >= 160 && chance < 165) {
+
+        if (chance == 160) {
+            commentary = "strzał w lewy róg po ziemi i ....gooooool !!!";
+        } else if (chance == 161) {
+            commentary = "strzał w prawy róg po ziemi i ....gooooool !!!";
+        } else if (chance == 162) {
+            commentary = "strzał bramkarz odbija piłkę ale ta wpada do siatki gooooool !!!";
+        } else if (chance == 163) {
+            commentary = "strzał piłka odbija się od poprzeczki i ....gooooool !!!";
+        } else if (chance == 164) {
+            commentary = "strzał piłka odbija się od słupka i ....gooooool !!!";
+        }
+
+        shotOnTarget++;
+        goal++;
+        Team.Players[scorrerIndexPosition].Goals += 1;
+        goal = true;
+
+    } else if (chance >= 150 && chance < 160) {
+
+        var shotRange = Math.floor(Math.random() * 19) + 16;
+        if (chance >= 157 && chance < 160) {
+            commentary = "strzał z około " + shotRange + " metrów i ....spojenie !!!";
+        } else if (chance >= 154 && chance < 157) {
+            commentary = "strzał z około " + shotRange + " metrów i ....poprzeczka !!!";
+        } else if (chance >= 150 && chance < 154) {
+            commentary = "strzał z około " + shotRange + " metrów i ....słupek !!!";
+        }
         shotOffTarget++;
+
+    } else if (chance < 150) {
+
+        if (chance >= 145 && chance < 150) {
+            commentary = "strzał ...bramkarz przenosi piłkę nad poprzeczką.";
+            shotOnTarget++;
+        } else if (chance >= 140 && chance < 145) {
+            commentary = "strzał ...bramkarz wybija piłkę nad rzut rożny.";
+            shotOnTarget++;
+        } else if (chance >= 135 && chance < 140) {
+            commentary = "strzał ...zbyt słaby bramkarz chwyta piłkę.";
+            shotOnTarget++;
+        } else if (chance >= 130 && chance < 135) {
+            commentary = "strzał ...zbyt słaby bramkarz pewnie łapię piłkę.";
+            shotOnTarget++;
+        } else if (chance >= 125 && chance < 130) {
+            commentary = "strzał ...piłka przelatuje obok słupka.";
+            shotOffTarget++;
+        } else if (chance >= 120 && chance < 125) {
+            commentary = "strzał ...piłka przelatuje nad poprzeczką.";
+            shotOffTarget++;
+        } else if (chance >= 115 && chance < 120) {
+            commentary = "strzał ...komletnie nieudany.";
+            shotOffTarget++;
+        } else if (chance < 115) {
+            commentary = "strzał ...zablokowany przez obrońcę.";
+            shotOffTarget++;
+        }
     }
-  
-   
+
+
     console.log(chance);
 
     if (Home == true) {
@@ -288,7 +376,7 @@ function getStrikerTemp(MatchStatistics, Team, Side) {
             Team.Players[IndexPosition].Goals += 1;
             goal = true;
             var shotRange = Math.floor(Math.random() * 19) + 16;
-            commentary = "strzał z około " + shotRange +  " metrów i ....gollll !!!";
+            commentary = "strzał z około " + shotRange + " metrów i ....gollll !!!";
 
         } else if (chance >= 170 && chance <= 175) {
             MatchStatistics.HomeShotsOnTarget++;
@@ -329,7 +417,7 @@ function getStrikerTemp(MatchStatistics, Team, Side) {
             MatchStatistics.HomeShotsOffTarget++;
             commentary = "oddaje strzał... jednak niecelnie";
         }
-           
+
         homeComment(MatchStatistics, TeamTmp, commentary, goal);
 
         console.log('home chance: ', chance);
