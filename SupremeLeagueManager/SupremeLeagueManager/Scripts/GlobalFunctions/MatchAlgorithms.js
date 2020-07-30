@@ -85,6 +85,9 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
             break;
     }
 
+    staminaDecreaser(HomeTeam, MatchStatistics);
+    staminaDecreaser(AwayTeam, MatchStatistics);
+
     var shotSum = MatchStatistics.HomeShots + MatchStatistics.AwayShots;
     var shotOnSum = MatchStatistics.HomeShotsOnTarget + MatchStatistics.AwayShotsOnTarget
     var shotOffSum = MatchStatistics.HomeShotsOffTarget + MatchStatistics.AwayShotsOffTarget
@@ -229,21 +232,21 @@ function getStriker(MatchStatistics, Team, Home) {
         console.log('acc: ' + TeamTmp.Players[0].ShotAccuracy + ' temp: ' + TeamTmp.Players[0].ShotTemp + ' range: ' + range + ' position ' + TeamTmp.Players[0].PositionShort);
     }
 
-     if (chance >= 180) {
-         if (chance == 180) {
-             commentary = "mija obrońcę, strzał nad bramkarzem i.... gooooool."
-         } else if (chance == 181) {
-             commentary = "zakłada siatkę obrońcy, kładzie bramkarza i.... gooooool."
-         } else if (chance > 182) {
-             commentary = "mija dwóch obrońców, kładzie bramkarza i.... gooooool."
-         }
+    if (chance >= 180) {
+        if (chance == 180) {
+            commentary = "mija obrońcę, strzał nad bramkarzem i.... gooooool."
+        } else if (chance == 181) {
+            commentary = "zakłada siatkę obrońcy, kładzie bramkarza i.... gooooool."
+        } else if (chance > 182) {
+            commentary = "mija dwóch obrońców, kładzie bramkarza i.... gooooool."
+        }
 
-         shotOnTarget++;
-         goal++;
-         Team.Players[scorrerIndexPosition].Goals += 1;
-         goal = true;
-     }
-     else if (chance >= 173 && chance < 180) {
+        shotOnTarget++;
+        goal++;
+        Team.Players[scorrerIndexPosition].Goals += 1;
+        goal = true;
+    }
+    else if (chance >= 173 && chance < 180) {
 
         if (chance == 173) {
             commentary = "podcina lekko piłkę nad bramkarzem i .....gooooool";
@@ -329,7 +332,6 @@ function getStriker(MatchStatistics, Team, Home) {
         }
     }
 
-
     console.log(chance);
 
     if (Home == true) {
@@ -347,105 +349,152 @@ function getStriker(MatchStatistics, Team, Home) {
     }
 }
 
-function getStrikerTemp(MatchStatistics, Team, Side) {
+function staminaDecreaser(Team, MatchStatistics) {
 
-    if (Side == true) {
-        MatchStatistics.HomeShots++;
+    var pressing = 50;
+    var rate1 = 0;
+    var rate2 = 0;
+    var rate3 = 0;
 
-        strikerValue(Team)
+    if (pressing < 20) {
+        rate1 = 0.017;
+        rate2 = 0.029;
+        rate3 = 0.022;
+    } else if (pressing >= 20 && pressing < 40) {
+        rate1 = 0.015;
+        rate2 = 0.027;
+        rate3 = 0.018;
+    } else if (pressing >= 40 && pressing < 60) {
+        rate1 = 0.013;
+        rate2 = 0.025;
+        rate3 = 0.015;
+    } else if (pressing >= 60 && pressing < 80) {
+        rate1 = 0.011;
+        rate2 = 0.024;
+        rate3 = 0.013;
+    } else if (pressing >= 80) {
+        rate1 = 0.009;
+        rate2 = 0.022;
+        rate3 = 0.011;
+    }
 
-        var TeamTmp = JSON.parse(JSON.stringify(Team));
-        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
+    for (var i = 0; i < 11; i++) {
 
-        for (var i = 0; i < 11; i++) {
-            console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
-        }
-
-
-
-        var range = Math.floor(Math.random() * 98) + 1;
-        var IndexPosition = TeamTmp.Players[0].IndexPosition;
-        var chance = TeamTmp.Players[0].ShotAccuracy + range;
-        var commentary = null;
-        var goal = false;
-
-
-        if (chance > 175) {
-            MatchStatistics.HomeShotsOnTarget++;
-            MatchStatistics.HomeGoals++;
-            Team.Players[IndexPosition].Goals += 1;
-            goal = true;
-            var shotRange = Math.floor(Math.random() * 19) + 16;
-            commentary = "strzał z około " + shotRange + " metrów i ....gollll !!!";
-
-        } else if (chance >= 170 && chance <= 175) {
-            MatchStatistics.HomeShotsOnTarget++;
-            MatchStatistics.HomeGoals++;
-            Team.Players[IndexPosition].Goals += 1;
-            goal = true;
-
-            if (chance == 170) {
-                commentary = "strzał w lewy róg po ziemi i ....gollll !!!";
-            } else if (chance == 171) {
-                commentary = "strzał w prawy róg po ziemi i ....gollll !!!";
-            } else if (chance == 172) {
-                commentary = "strzał bramkarz odbija piłkę ale ta wpada do siatki gollll !!!";
-            } else if (chance == 173) {
-                commentary = "strzał piłka odbija się od poprzeczki i ....gollll !!!";
-            } else if (chance == 174) {
-                commentary = "strzał piłka odbija się od słupka i ....gollll !!!";
+        if (Team.Players[i].Stamina > 1) {
+            if (Team.Players[i].PositionShort == "GK") {
+                Team.Players[i].Stamina -= 1 / (Team.Players[i].Endurance * rate2);
+            } else if (Team.Players[i].PositionShort == "CB") {
+                Team.Players[i].Stamina -= 1 / (Team.Players[i].Endurance * rate3);
+            } else {
+                Team.Players[i].Stamina -= 1 / (Team.Players[i].Endurance * rate1);
             }
-        } else if (chance >= 165 && chance < 170) {
-
-            if (chance == 165) {
-                MatchStatistics.HomeShotsOnTarget++;
-                commentary = "strzeł... zbramkarz sparuję piłke na rzut rożny";
-            } else if (chance == 166) {
-                MatchStatistics.HomeShotsOnTarget++;
-                commentary = "strzela... bramkarz wybija z piłkę nad poprzeczkę";
-            } else if (chance == 167) {
-                MatchStatistics.HomeShotsOffTarget++;
-                commentary = "strzela i... słupek";
-            } else if (chance == 168) {
-                MatchStatistics.HomeShotsffTarget++;
-                commentary = "strzał i... poprzeczka";
-            } else if (chance == 169) {
-                MatchStatistics.HomeShotsOffTarget++;
-                commentary = "oddaje strzał... piłka uderza w spojenie";
-            }
-        } else if (chance < 165) {
-            MatchStatistics.HomeShotsOffTarget++;
-            commentary = "oddaje strzał... jednak niecelnie";
         }
+    }
 
-        homeComment(MatchStatistics, TeamTmp, commentary, goal);
-
-        console.log('home chance: ', chance);
-        //console.log(Team.Players[IndexPosition]);
-    } else {
-
-        MatchStatistics.AwayShots++;
-        strikerValue(Team)
-
-        let TeamTmp = JSON.parse(JSON.stringify(Team));
-        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
-
+    if (MatchStatistics.Counter == (MatchStatistics.MatchLength / 2).toFixed(0)) {
         for (var i = 0; i < 11; i++) {
-            console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
+            Team.Players[i].Stamina += Team.Players[i].Stamina * 0.1;
         }
-
-        awayComment(MatchStatistics, TeamTmp);
-
-        var range = Math.floor(Math.random() * 98) + 1;
-        var IndexPosition = TeamTmp.Players[0].IndexPosition;
-        var chance = TeamTmp.Players[0].ShotTemp + range;
-        Team.Players[IndexPosition].Goals += 1;
-
-        console.log('away chance: ', chance);
-
-
     }
 }
+
+//function getStrikerTemp(MatchStatistics, Team, Side) {
+
+//    if (Side == true) {
+//        MatchStatistics.HomeShots++;
+
+//        strikerValue(Team)
+
+//        var TeamTmp = JSON.parse(JSON.stringify(Team));
+//        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
+
+//        for (var i = 0; i < 11; i++) {
+//            console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
+//        }
+
+
+
+//        var range = Math.floor(Math.random() * 98) + 1;
+//        var IndexPosition = TeamTmp.Players[0].IndexPosition;
+//        var chance = TeamTmp.Players[0].ShotAccuracy + range;
+//        var commentary = null;
+//        var goal = false;
+
+
+//        if (chance > 175) {
+//            MatchStatistics.HomeShotsOnTarget++;
+//            MatchStatistics.HomeGoals++;
+//            Team.Players[IndexPosition].Goals += 1;
+//            goal = true;
+//            var shotRange = Math.floor(Math.random() * 19) + 16;
+//            commentary = "strzał z około " + shotRange + " metrów i ....gollll !!!";
+
+//        } else if (chance >= 170 && chance <= 175) {
+//            MatchStatistics.HomeShotsOnTarget++;
+//            MatchStatistics.HomeGoals++;
+//            Team.Players[IndexPosition].Goals += 1;
+//            goal = true;
+
+//            if (chance == 170) {
+//                commentary = "strzał w lewy róg po ziemi i ....gollll !!!";
+//            } else if (chance == 171) {
+//                commentary = "strzał w prawy róg po ziemi i ....gollll !!!";
+//            } else if (chance == 172) {
+//                commentary = "strzał bramkarz odbija piłkę ale ta wpada do siatki gollll !!!";
+//            } else if (chance == 173) {
+//                commentary = "strzał piłka odbija się od poprzeczki i ....gollll !!!";
+//            } else if (chance == 174) {
+//                commentary = "strzał piłka odbija się od słupka i ....gollll !!!";
+//            }
+//        } else if (chance >= 165 && chance < 170) {
+
+//            if (chance == 165) {
+//                MatchStatistics.HomeShotsOnTarget++;
+//                commentary = "strzeł... zbramkarz sparuję piłke na rzut rożny";
+//            } else if (chance == 166) {
+//                MatchStatistics.HomeShotsOnTarget++;
+//                commentary = "strzela... bramkarz wybija z piłkę nad poprzeczkę";
+//            } else if (chance == 167) {
+//                MatchStatistics.HomeShotsOffTarget++;
+//                commentary = "strzela i... słupek";
+//            } else if (chance == 168) {
+//                MatchStatistics.HomeShotsffTarget++;
+//                commentary = "strzał i... poprzeczka";
+//            } else if (chance == 169) {
+//                MatchStatistics.HomeShotsOffTarget++;
+//                commentary = "oddaje strzał... piłka uderza w spojenie";
+//            }
+//        } else if (chance < 165) {
+//            MatchStatistics.HomeShotsOffTarget++;
+//            commentary = "oddaje strzał... jednak niecelnie";
+//        }
+
+//        homeComment(MatchStatistics, TeamTmp, commentary, goal);
+
+//        console.log('home chance: ', chance);
+//        //console.log(Team.Players[IndexPosition]);
+//    } else {
+
+//        MatchStatistics.AwayShots++;
+//        strikerValue(Team)
+
+//        let TeamTmp = JSON.parse(JSON.stringify(Team));
+//        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
+
+//        for (var i = 0; i < 11; i++) {
+//            console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
+//        }
+
+//        awayComment(MatchStatistics, TeamTmp);
+
+//        var range = Math.floor(Math.random() * 98) + 1;
+//        var IndexPosition = TeamTmp.Players[0].IndexPosition;
+//        var chance = TeamTmp.Players[0].ShotTemp + range;
+//        Team.Players[IndexPosition].Goals += 1;
+
+//        console.log('away chance: ', chance);
+//    }
+//}
 
 
 

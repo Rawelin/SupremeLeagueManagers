@@ -189,6 +189,9 @@
                 },
 
                 ProgressText: function (stamina) {
+
+                    stamina = stamina.toFixed(0);
+
                     if (stamina < 40) {
                         return '';
                     } else {
