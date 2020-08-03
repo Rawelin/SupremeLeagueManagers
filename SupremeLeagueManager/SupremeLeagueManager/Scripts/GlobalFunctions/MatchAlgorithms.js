@@ -22,18 +22,52 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
                 getStriker(MatchStatistics, AwayTeam, false)
             break;
         case -9:
+            if (range >= 94 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 22)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
             break;
         case -8:
+            if (range >= 93 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 21)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
             break;
         case -7:
+            if (range >= 92 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 20)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
             break;
         case -6:
+            if (range >= 91 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 19)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
             break;
         case -5:
+            if (range >= 90 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 18)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
             break;
         case -4:
+            if (range >= 89 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 17)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
             break;
         case -3:
+            if (range >= 88 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 16)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
         case -2:
             if (range >= 87 && range <= 100)
@@ -60,44 +94,96 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
                 getStriker(MatchStatistics, AwayTeam, false)
             break;
         case 2:
+            if (range >= 83 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 12)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
         case 3:
+            if (range >= 82 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 11)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
         case 4:
+            if (range >= 81 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 11)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
+            if (range >= 80 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 10)
+                getStriker(MatchStatistics, AwayTeam, false)
         case 5:
+            if (range >= 79 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 9)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
         case 6:
+            if (range >= 78 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 8)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
         case 7:
+            if (range >= 77 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 7)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
         case 8:
+            if (range >= 76 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 6)
+                getStriker(MatchStatistics, AwayTeam, false)
             break;
         case 8:
-            break;
-        case 9:
-            break;
-        case 10:
             if (range >= 75 && range <= 100)
                 getStriker(MatchStatistics, HomeTeam, true)
-            if (range >= 95 && range <= 100)
+            if (range >= 0 && range <= 5)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
+        case 9:
+            if (range >= 74 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 0 && range <= 4)
+                getStriker(MatchStatistics, AwayTeam, false)
+            break;
+        case 10:
+            if (range >= 73 && range <= 100)
+                getStriker(MatchStatistics, HomeTeam, true)
+            if (range >= 95 && range <= 3)
                 getStriker(MatchStatistics, AwayTeam, false)
             break;
     }
 
+    // Skills.js
     staminaDecreaser(HomeTeam, MatchStatistics);
     staminaDecreaser(AwayTeam, MatchStatistics);
+
+    DynamicEnergyCalc(HomeTeam);
+    DynamicEnergyCalc(AwayTeam);
+
+     // Skills.js
+    TeamSkillsEnergy(HomeTeam);
+    TeamSkillsEnergy(AwayTeam);
 
     var shotSum = MatchStatistics.HomeShots + MatchStatistics.AwayShots;
     var shotOnSum = MatchStatistics.HomeShotsOnTarget + MatchStatistics.AwayShotsOnTarget
     var shotOffSum = MatchStatistics.HomeShotsOffTarget + MatchStatistics.AwayShotsOffTarget
-
 
     MatchStatistics.ProgressBarShot = ((MatchStatistics.HomeShots / shotSum) * 100).toFixed(0);
     MatchStatistics.ProgressBarShotOnTarget = ((MatchStatistics.HomeShotsOnTarget / shotOnSum) * 100).toFixed(0);
     MatchStatistics.ProgressBarShotOffTarget = ((MatchStatistics.HomeShotsOffTarget / shotOffSum) * 100).toFixed(0);
 }
 
+function DynamicEnergyCalc(Team) {
+    for (var i = 0; i < 11; i++) {
+        PlayerSkillsDynamicEnergy(Team, Team.Formation);
+    }
+}
 
 function homeComment(MatchStatistics, HomeTeam, Commentary, Goal) {
     var commentHome = $('#commentHome');
@@ -150,22 +236,6 @@ function awayComment(MatchStatistics, AwayTeam, Commentary, Goal) {
     }
 }
 
-//function strikeHome(MatchStatistics, HomeTeam) {
-//    if (MatchStatistics.LiveMatch == true) {
-//        getStrikerLive(MatchStatistics, HomeTeam, true)
-//    } else {
-//        getStriker(MatchStatistics, HomeTeam, true)
-//    }
-//}
-
-//function strikeAway(MatchStatistics, AwayTeam) {
-//    if (MatchStatistics.LiveMatch == true) {
-//        getStrikerLive(MatchStatistics, AwayTeam, false)
-//    } else {
-//        getStriker(MatchStatistics, AwayTeam, false)
-//    }
-//}
-
 function strikerValue(Team) {
 
     for (var i = 1; i < 11; i++) {
@@ -200,14 +270,15 @@ function strikerValue(Team) {
     }
 }
 
-
 function getStriker(MatchStatistics, Team, Home) {
 
-
-    strikerValue(Team);
-
     var TeamTmp = JSON.parse(JSON.stringify(Team));
+    strikerValue(TeamTmp);
     TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
+
+    for (var i = 0; i < 11; i++) {
+        console.log('ori: ', Team.Players[i].PlayerId + ' ' + Team.Players[i].Surname + ' ' + Team.Players[i].Name + ' ' + Team.Players[i].ShotTemp);
+    }
 
     for (var i = 0; i < 11; i++) {
         console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
@@ -348,153 +419,5 @@ function getStriker(MatchStatistics, Team, Home) {
         awayComment(MatchStatistics, TeamTmp, commentary, goal);
     }
 }
-
-function staminaDecreaser(Team, MatchStatistics) {
-
-    var pressing = 50;
-    var rate1 = 0;
-    var rate2 = 0;
-    var rate3 = 0;
-
-    if (pressing < 20) {
-        rate1 = 0.017;
-        rate2 = 0.029;
-        rate3 = 0.022;
-    } else if (pressing >= 20 && pressing < 40) {
-        rate1 = 0.015;
-        rate2 = 0.027;
-        rate3 = 0.018;
-    } else if (pressing >= 40 && pressing < 60) {
-        rate1 = 0.013;
-        rate2 = 0.025;
-        rate3 = 0.015;
-    } else if (pressing >= 60 && pressing < 80) {
-        rate1 = 0.011;
-        rate2 = 0.024;
-        rate3 = 0.013;
-    } else if (pressing >= 80) {
-        rate1 = 0.009;
-        rate2 = 0.022;
-        rate3 = 0.011;
-    }
-
-    for (var i = 0; i < 11; i++) {
-
-        if (Team.Players[i].Stamina > 1) {
-            if (Team.Players[i].PositionShort == "GK") {
-                Team.Players[i].Stamina -= 1 / (Team.Players[i].Endurance * rate2);
-            } else if (Team.Players[i].PositionShort == "CB") {
-                Team.Players[i].Stamina -= 1 / (Team.Players[i].Endurance * rate3);
-            } else {
-                Team.Players[i].Stamina -= 1 / (Team.Players[i].Endurance * rate1);
-            }
-        }
-    }
-
-    if (MatchStatistics.Counter == (MatchStatistics.MatchLength / 2).toFixed(0)) {
-        for (var i = 0; i < 11; i++) {
-            Team.Players[i].Stamina += Team.Players[i].Stamina * 0.1;
-        }
-    }
-}
-
-//function getStrikerTemp(MatchStatistics, Team, Side) {
-
-//    if (Side == true) {
-//        MatchStatistics.HomeShots++;
-
-//        strikerValue(Team)
-
-//        var TeamTmp = JSON.parse(JSON.stringify(Team));
-//        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
-
-//        for (var i = 0; i < 11; i++) {
-//            console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
-//        }
-
-
-
-//        var range = Math.floor(Math.random() * 98) + 1;
-//        var IndexPosition = TeamTmp.Players[0].IndexPosition;
-//        var chance = TeamTmp.Players[0].ShotAccuracy + range;
-//        var commentary = null;
-//        var goal = false;
-
-
-//        if (chance > 175) {
-//            MatchStatistics.HomeShotsOnTarget++;
-//            MatchStatistics.HomeGoals++;
-//            Team.Players[IndexPosition].Goals += 1;
-//            goal = true;
-//            var shotRange = Math.floor(Math.random() * 19) + 16;
-//            commentary = "strzał z około " + shotRange + " metrów i ....gollll !!!";
-
-//        } else if (chance >= 170 && chance <= 175) {
-//            MatchStatistics.HomeShotsOnTarget++;
-//            MatchStatistics.HomeGoals++;
-//            Team.Players[IndexPosition].Goals += 1;
-//            goal = true;
-
-//            if (chance == 170) {
-//                commentary = "strzał w lewy róg po ziemi i ....gollll !!!";
-//            } else if (chance == 171) {
-//                commentary = "strzał w prawy róg po ziemi i ....gollll !!!";
-//            } else if (chance == 172) {
-//                commentary = "strzał bramkarz odbija piłkę ale ta wpada do siatki gollll !!!";
-//            } else if (chance == 173) {
-//                commentary = "strzał piłka odbija się od poprzeczki i ....gollll !!!";
-//            } else if (chance == 174) {
-//                commentary = "strzał piłka odbija się od słupka i ....gollll !!!";
-//            }
-//        } else if (chance >= 165 && chance < 170) {
-
-//            if (chance == 165) {
-//                MatchStatistics.HomeShotsOnTarget++;
-//                commentary = "strzeł... zbramkarz sparuję piłke na rzut rożny";
-//            } else if (chance == 166) {
-//                MatchStatistics.HomeShotsOnTarget++;
-//                commentary = "strzela... bramkarz wybija z piłkę nad poprzeczkę";
-//            } else if (chance == 167) {
-//                MatchStatistics.HomeShotsOffTarget++;
-//                commentary = "strzela i... słupek";
-//            } else if (chance == 168) {
-//                MatchStatistics.HomeShotsffTarget++;
-//                commentary = "strzał i... poprzeczka";
-//            } else if (chance == 169) {
-//                MatchStatistics.HomeShotsOffTarget++;
-//                commentary = "oddaje strzał... piłka uderza w spojenie";
-//            }
-//        } else if (chance < 165) {
-//            MatchStatistics.HomeShotsOffTarget++;
-//            commentary = "oddaje strzał... jednak niecelnie";
-//        }
-
-//        homeComment(MatchStatistics, TeamTmp, commentary, goal);
-
-//        console.log('home chance: ', chance);
-//        //console.log(Team.Players[IndexPosition]);
-//    } else {
-
-//        MatchStatistics.AwayShots++;
-//        strikerValue(Team)
-
-//        let TeamTmp = JSON.parse(JSON.stringify(Team));
-//        TeamTmp.Players.sort((x, y) => x.ShotTemp > y.ShotTemp ? -1 : 1);
-
-//        for (var i = 0; i < 11; i++) {
-//            console.log(TeamTmp.Players[i].PlayerId + ' ' + TeamTmp.Players[i].Surname + ' ' + TeamTmp.Players[i].Name + ' ' + TeamTmp.Players[i].ShotTemp);
-//        }
-
-//        awayComment(MatchStatistics, TeamTmp);
-
-//        var range = Math.floor(Math.random() * 98) + 1;
-//        var IndexPosition = TeamTmp.Players[0].IndexPosition;
-//        var chance = TeamTmp.Players[0].ShotTemp + range;
-//        Team.Players[IndexPosition].Goals += 1;
-
-//        console.log('away chance: ', chance);
-//    }
-//}
-
 
 
