@@ -240,8 +240,21 @@
                     }
                 },
 
+                //SetPlayerDynamicEnergySkills: function () {
+                //    for (var i = 0; i < this.HomeTeam.Players.length; i++) {
+                //        PlayerSkillsDynamicEnergy(this.HomeTeam.Players[i], this.HomeTeam.Formation);
+                //        if (this.HomeTeam.Players[i].IndexPosition > 10) {
+                //            this.HomeTeam.Players[i].AverageDynamicSkills = 0;
+                //        }
+                //    }
+                //},
+
                 SetTeamSkills: function () {
                     TeamSkills(this.HomeTeam);
+                },
+
+                SetTeamEnergySkills: function () {
+                    TeamSkillsEnergy(this.HomeTeam);
                 },
 
                 TShirtsPng: function () {
@@ -286,7 +299,9 @@
 
                         this.SetPlayerDynamicSkills();
                         this.SetTeamSkills();
+                        this.SetTeamEnergySkills();
                         this.SetPlayersAverageSkills();
+                        //this.SetPlayerDynamicEnergySkills();
 
                         // send changes to DB
                         //this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
@@ -531,8 +546,11 @@
 
                 this.DefaultTeams();
                 this.FormationPitch(this.Formation);
+                //this.SetPlayerDynamicEnergySkills();
                 this.SetTeamSkills();
+                this.SetTeamEnergySkills();
                 this.SetPlayerDynamicSkills();
+               
             },
 
             mounted: function () {

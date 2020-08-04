@@ -260,41 +260,41 @@ function PlayerSkillsDynamicEnergy(player, formation) {
 
             case 0:
                 player.PositionShort = 'GK';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 1:
                 player.PositionShort = 'LB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 2:
             case 3:
                 player.PositionShort = 'CB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 4:
                 player.PositionShort = 'RB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 5:
                 player.PositionShort = 'LM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 6:
                 player.PositionShort = 'DM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 7:
                 player.PositionShort = 'CM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 8:
                 player.PositionShort = 'RM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 9:
             case 10:
                 player.PositionShort = 'CF';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
         }
     } else if (formation == 2) {
@@ -302,44 +302,44 @@ function PlayerSkillsDynamicEnergy(player, formation) {
 
             case 0:
                 player.PositionShort = 'GK';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 1:
                 player.PositionShort = 'LB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 2:
             case 3:
                 player.PositionShort = 'CB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 4:
                 player.PositionShort = 'RB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 5:
                 player.PositionShort = 'CM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 6:
                 player.PositionShort = 'DM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 7:
                 player.PositionShort = 'CM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 8:
                 player.PositionShort = 'LW';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 9:
                 player.PositionShort = 'CF';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 10:
                 player.PositionShort = 'RW';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
         }
     } else if (formation == 3) {
@@ -347,44 +347,44 @@ function PlayerSkillsDynamicEnergy(player, formation) {
 
             case 0:
                 player.PositionShort = 'GK';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 1:
                 player.PositionShort = 'LB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 2:
             case 3:
                 player.PositionShort = 'CB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 4:
                 player.PositionShort = 'RB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 5:
                 player.PositionShort = 'LM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 6:
                 player.PositionShort = 'CM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 7:
                 player.PositionShort = 'DM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 8:
                 player.PositionShort = 'CM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 9:
                 player.PositionShort = 'RM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 10:
                 player.PositionShort = 'CF';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
         }
     } else if (formation == 4) {
@@ -392,45 +392,45 @@ function PlayerSkillsDynamicEnergy(player, formation) {
 
             case 0:
                 player.PositionShort = 'GK';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 1:
             case 2:
             case 3:
                 player.PositionShort = 'CB';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 4:
                 player.PositionShort = 'LM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.LeftFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 5:
                 player.PositionShort = 'CM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);;
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);;
                 break;
             case 6:
                 player.PositionShort = 'DM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 7:
                 player.PositionShort = 'CM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
             case 8:
                 player.PositionShort = 'RM';
-                player.AverageDynamicSkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * player.RightFootSkills * 0.01 * rateEnergy(player)).toFixed(0);
                 break;
             case 9:
             case 10:
                 player.PositionShort = 'CF';
-                player.AverageDynamicSkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
+                player.AverageDynamicEnergySkills = (PlayerSkills(player) * rateEnergy(player)).toFixed(0);
                 break;
         }
     }
 
     player.PositionShort = originalPosition;
 
-    return dynamicAverageSkill = player.AverageDynamicSkills;
+    return AverageDynamicEnergySkills = player.AverageDynamicEnergySkills;
 }
 
 // dynamic - includes position on the field
@@ -629,16 +629,16 @@ function TeamSkillsEnergy(team) {
         technique /= 10;
     }
 
-    team.GoalKeeper = goalKeeper.toFixed(0);
-    team.Defence = defence.toFixed(0);
-    team.Midfield = midfield.toFixed(0);
-    team.Attack = attack.toFixed(0);
-    team.Speed = speed.toFixed(0);
-    team.Technique = technique.toFixed(0);
+    //team.GoalKeeper = goalKeeper.toFixed(0);
+    //team.Defence = defence.toFixed(0);
+    //team.Midfield = midfield.toFixed(0);
+    //team.Attack = attack.toFixed(0);
+    //team.Speed = speed.toFixed(0);
+    //team.Technique = technique.toFixed(0);
 
     overall = (goalKeeper + defence + midfield + attack) / 4;
 
-    team.Overall = overall.toFixed(0);
+    team.OverallEnergy = overall.toFixed(0);
 }
 
 
@@ -694,9 +694,9 @@ function staminaDecreaser(Team, MatchStatistics) {
 
 
 function rateEnergy(player) {
-    var rate = 0;
+    var rate = 1;
 
-    if (player.Stamina >= 90 && player.Stamina < 100) {
+    if (player.Stamina >= 90 && player.Stamina <= 100) {
         return rate = 1;
     } else if (player.Stamina >= 80 && player.Stamina < 90) {
         return rate = 0.99

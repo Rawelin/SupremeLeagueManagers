@@ -159,10 +159,12 @@
                         <td class="text-center" id="staminaForSkillsTable" style="color:forestgreen">{{ Player.Stamina }}</td>
                     </tr>*@
                         <tr>
-                            <td>Avg. Skills / Dyn.</td>
+                            <td>Avg. Skills / Dyn./ Ener.</td>
                             <td class="text-center">
                                 <span id="avgSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageSkills), fontWeight: 700}">{{ Player.AverageSkills }}</span> /
-                                <span id="avgDynSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageDynamicSkills), fontWeight: 700}">{{ Player.AverageDynamicSkills }}</span>&nbsp; &nbsp;<span id="avgDiffForSkillsTable"> {{ Player.SkillDifference }}</span>
+                                <span id="avgDynSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageDynamicSkills), fontWeight: 700}">{{ Player.AverageDynamicSkills }}</span>/
+                                <span id="avgDynEnerSkillsForSkillsTable" v-bind:style="{ color: SkillsColor(Player.AverageDynamicEnergySkills), fontWeight: 700}">{{ Player.AverageDynamicEnergySkills }}</span> &nbsp; &nbsp;
+                                <span id="avgDiffForSkillsTable"> {{ Player.SkillDifference }}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -203,6 +205,10 @@
                         <tr>
                             <td>Overall</td>
                             <td class="text-center text-danger"> {{ HomeTeam.Overall }}</td>
+                        </tr>
+                        <tr>
+                            <td>Overall Energy</td>
+                            <td class="text-center text-danger"> {{ HomeTeam.OverallEnergy }}</td>
                         </tr>
                     </tbody>
                 </table>

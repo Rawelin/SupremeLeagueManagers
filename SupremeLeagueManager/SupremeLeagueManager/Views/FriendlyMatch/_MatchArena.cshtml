@@ -7,7 +7,7 @@
             <div class="col pane pt-3">
                 <img v-bind:src="HomeTeamEmblemMatch()" width="128" height="128" />
                 <div class="col mt-3" style="font-size: 32px">{{ HomeTeam.Name }} {{ HomeTeam.City }}</div>
-                <div> {{ HomeTeam.Overall }} </div>
+                <div> {{ HomeTeam.OverallEnergy }} </div>
             </div>
 
             <div class="col pane">
@@ -21,7 +21,7 @@
             <div class="col pane pt-3">
                 <img v-bind:src="AwayTeamEmblemMatch()" width="128" height="128" />
                 <div class="col mt-3" style="font-size: 32px">{{ AwayTeam.Name }} {{AwayTeam.City }}</div>
-                <div> {{ AwayTeam.Overall }} </div>
+                <div> {{ AwayTeam.OverallEnergy }} </div>
             </div>
             <div class="col-3" id="awayComment"></div>
         </div>
