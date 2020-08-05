@@ -375,7 +375,18 @@ function getStriker(MatchStatistics, Team, Home) {
 
     } else if (chance >= 150 && chance < 160) {
 
-        var shotRange = Math.floor(Math.random() * 19) + 16;
+        var addRange = 0;
+
+        if (Team.Players[scorrerIndexPosition].ShotPower >= 90) {
+            addRange = 16
+        } else if (Team.Players[scorrerIndexPosition].ShotPower >= 85 && Team.Players[scorrerIndexPosition].ShotPower < 90) {
+            addRange = 11
+        } else if (Team.Players[scorrerIndexPosition].ShotPower < 85) {
+            addRange = 5
+        }
+
+        var shotRange = Math.floor(Math.random() * addRange) + 16;
+
         if (chance >= 157 && chance < 160) {
             commentary = "strzał z około " + shotRange + " metrów i ....spojenie !!!";
         } else if (chance >= 154 && chance < 157) {
@@ -416,18 +427,35 @@ function getStriker(MatchStatistics, Team, Home) {
 
     console.log(chance);
 
-    if (Home == true) {
+    if (Home) {
         MatchStatistics.HomeShots++;
         MatchStatistics.HomeShotsOnTarget += shotOnTarget;
         MatchStatistics.HomeShotsOffTarget += shotOffTarget;
-        MatchStatistics.HomeGoals += goal
+        MatchStatistics.HomeGoals += goal;
         homeComment(MatchStatistics, TeamTmp, commentary, goal);
+        if (goal) {
+
+            var Scorer = {}
+            Scorer.ScorerData = TeamTmp.Players[0].Name + ' ' + TeamTmp.Players[0].Surname + ' ' + (MatchStatistics.Counter + 1)
+            Scorer.AssistantName = TeamTmp.Players[1].Name + ' ' + TeamTmp.Players[1].Surname
+            MatchStatistics.HomeScorers.push(Scorer);
+            //MatchStatistics.HomeScorers.AssistantName.push(TeamTmp.Players[1].Name + ' ' + TeamTmp.Players[1].Surname);
+        }
     } else {
         MatchStatistics.AwayShots++;
         MatchStatistics.AwayShotsOnTarget += shotOnTarget;
-        MatchStatistics.AwayGoals += goal
+        MatchStatistics.AwayGoals += goal;
         MatchStatistics.AwayShotsOffTarget += shotOffTarget;
-        awayComment(MatchStatistics, TeamTmp, commentary, goal);
+        awayComment(MatchStatistics, TeamTmp, commentary, goal); 
+        if (goal) {
+
+            var Scorer = {}
+            Scorer.ScorerData = TeamTmp.Players[0].Name + ' ' + TeamTmp.Players[0].Surname + ' ' + (MatchStatistics.Counter + 1)
+            Scorer.AssistantName = TeamTmp.Players[1].Name + ' ' + TeamTmp.Players[1].Surname;
+            MatchStatistics.AwayScorers.push(Scorer);
+            //MatchStatistics.AwayScorers.ScorerData.push(TeamTmp.Players[0].Name + ' ' + TeamTmp.Players[0].Surname + ' ' + (MatchStatistics.Counter + 1));
+            //MatchStatistics.AwayScorers.AssistantName.push(TeamTmp.Players[1].Name + ' ' + TeamTmp.Players[1].Surname);
+        }
     }
 }
 

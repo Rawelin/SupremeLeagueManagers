@@ -153,6 +153,7 @@
     <Compile Include="Models\Global\ThisServer.cs" />
     <Compile Include="Models\League\Fixture.cs" />
     <Compile Include="Models\Match\MatchStatistics.cs" />
+    <Compile Include="Models\Match\Scorer.cs" />
     <Compile Include="Models\SignIn\CRUD.cs" />
     <Compile Include="Models\SignIn\SignInManagement.cs" />
     <Compile Include="Models\TeamManagement\CreateFixtues.cs" />
