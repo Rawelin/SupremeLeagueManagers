@@ -2,6 +2,10 @@
 
 <link href="~/Content/CSS/TeamManagement.css" rel="stylesheet" />
 
+@*Slider*@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
+
 <div id="friendlyMatchView">
     <div class="col-12 mt-0">
         <div id="friendlyMatch" class="row text-center">
@@ -58,7 +62,53 @@
                 Selected: [],
                 PlayerPhotoIndex: 0,
 
-                MatchStatistics: {}
+                MatchStatistics: {},
+
+                SliderOption: {
+                    dotSize: 12,
+                    width: 'auto',
+                    height: 4,
+                    contained: false,
+                    direction: 'ltr',
+                    data: null,
+                    min: 0,
+                    max: 100,
+                    interval: 1,
+                    disabled: false,
+                    clickable: true,
+                    duration: 0.5,
+                    adsorb: false,
+                    lazy: false,
+                    tooltip: 'active',
+                    tooltipPlacement: 'top',
+                    tooltipFormatter: void 0,
+                    useKeyboard: false,
+                    keydownHook: null,
+                    dragOnClick: false,
+                    enableCross: true,
+                    fixed: false,
+                    minRange: void 0,
+                    maxRange: void 0,
+                    order: true,
+                    marks: false,
+                    dotOptions: void 0,
+                    process: true,
+                    dotStyle: void 0,
+                    railStyle: void 0,
+                    processStyle: void 0,
+                    tooltipStyle: void 0,
+                    stepStyle: void 0,
+                    stepActiveStyle: void 0,
+                    labelStyle: void 0,
+                    labelActiveStyle: void 0,
+                },
+
+                SliderObject: {}
+
+            },
+
+            components: {
+                'vueSlider': window['vue-slider-component'],
             },
 
             methods: {
@@ -497,7 +547,7 @@
                     $('#startMatch').hide(300);
                     $('#commentHome').hide(300);
                     $('#commentAway').hide(300);
-                   
+
                 },
 
                 PauseMatch: function () {
@@ -513,7 +563,7 @@
                         $('#startMatch').hide(300);
                     } else if (this.MatchStatistics.Counter == (this.MatchStatistics.MatchLength / 2).toFixed(0)) {
                         this.PauseMatch();
-                       
+
                     }
                     this.MatchAlgorithms();
                 },
@@ -550,7 +600,7 @@
                 this.SetTeamSkills();
                 this.SetTeamEnergySkills();
                 this.SetPlayerDynamicSkills();
-               
+
             },
 
             mounted: function () {
