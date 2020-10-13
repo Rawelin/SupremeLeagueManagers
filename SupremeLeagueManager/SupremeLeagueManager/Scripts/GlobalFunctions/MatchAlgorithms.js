@@ -1,5 +1,5 @@
 ﻿
-function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
+function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics, SliderObject) {
 
     var differ = HomeTeam.OverallEnergy - AwayTeam.OverallEnergy;
     var range = Math.floor(Math.random() * 99) + 1

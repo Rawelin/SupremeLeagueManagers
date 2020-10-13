@@ -23,6 +23,9 @@ namespace SupremeLeagueManager.Models
         public double Technique { get; set; }
         public double Overall { get; set; }
         public double OverallEnergy { get; set; }
+        public int? Pressing { get; set; }
+        public int? Aggression { get; set; }
+        public int? AttackLevel { get; set; }
         public List<Player> Players { get; set; }
         public TeamSkillsModel TeamSkillsModel { get; set; }
 

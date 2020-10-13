@@ -161,10 +161,9 @@
                 },
 
                  FormationChange: function (formationId){
-                     console.log(formationId);
                     this.FormationColors(formationId);
-                     this.Formation = formationId;
-                     this.HomeTeam.Formation = formationId;
+                    this.Formation = formationId;
+                    this.HomeTeam.Formation = formationId;
                     this.SetTeamSkills();
                  },
 
@@ -437,6 +436,12 @@
                     this.Provider.HomeTeam = this.HomeTeam;
                     this.Provider.AwayTeam = this.AwayTeam;
 
+                    this.SliderObject.Pressing = this.HomeTeam.Pressing;
+                    this.SliderObject.AttackLevel = this.HomeTeam.AttackLevel;
+                    this.SliderObject.Aggression = this.HomeTeam.Aggression;
+
+                 
+                   
                     $('#teamSelection').hide(300);
                     $("#matchArena").hide(300);
                     $("#squadSelection").show(300);
@@ -573,7 +578,7 @@
                 },
 
                 MatchAlgorithms: function () {
-                    MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics, this.IntervalId)
+                    MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics, this.SliderObject)
                 },
  //-----------------------------------------------------------------------------------
                 ScrollOff: function () {
@@ -593,7 +598,6 @@
                 this.HomeTeams = @Html.Raw(Json.Encode(Model.Teams));
                 this.AwayTeams = @Html.Raw(Json.Encode(Model.Teams));
                 this.MatchStatistics = @Html.Raw(Json.Encode(Model.MatchStatistics));
-
                 this.DefaultTeams();
                 this.FormationPitch(this.Formation);
                 //this.SetPlayerDynamicEnergySkills();
