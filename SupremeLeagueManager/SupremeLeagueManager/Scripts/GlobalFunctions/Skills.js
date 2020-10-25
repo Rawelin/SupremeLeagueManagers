@@ -643,9 +643,8 @@ function TeamSkillsEnergy(team) {
 
 
 
-function staminaDecreaser(Team, MatchStatistics) {
+function staminaDecreaser(Team, MatchStatistics, pressing) {
 
-    var pressing = 50;
     var rate1 = 0;
     var rate2 = 0;
     var rate3 = 0;
@@ -666,10 +665,15 @@ function staminaDecreaser(Team, MatchStatistics) {
         rate1 = 0.011;
         rate2 = 0.024;
         rate3 = 0.013;
-    } else if (pressing >= 80) {
+    } else if (pressing >= 80 && pressing < 90) {
         rate1 = 0.009;
         rate2 = 0.022;
         rate3 = 0.011;
+    }
+    else if (pressing >= 90) {
+        rate1 = 0.007;
+        rate2 = 0.020;
+        rate3 = 0.010;
     }
 
     for (var i = 0; i < 11; i++) {
@@ -713,9 +717,9 @@ function rateEnergy(player) {
     } else if (player.Stamina >= 20 && player.Stamina < 30) {
         return rate = 0.93
     } else if (player.Stamina >= 10 && player.Stamina < 20) {
-        return rate = 0.92
+        return rate = 0.85;
     } else if (player.Stamina >= 0 && player.Stamina < 10) {
-        return rate = 0.91
+        return rate = 0.80
     } else {
         return rate = 0.90;
     }

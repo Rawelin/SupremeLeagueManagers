@@ -209,6 +209,8 @@
     <Content Include="Content\Resources\Backgrounds\black cubs.jpg" />
     <Content Include="Content\Resources\Backgrounds\black.jpg" />
     <Content Include="Content\Resources\Backgrounds\cyber snake.gif" />
+    <Content Include="Content\Resources\Chants\RealMadrid\Chant1.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\Chant2.mp3" />
     <Content Include="Content\Resources\Emblems\ACMilan.png" />
     <Content Include="Content\Resources\Emblems\ArsenalLondon.png" />
     <Content Include="Content\Resources\Emblems\AtleticoMadrid.png" />

@@ -1,5 +1,9 @@
 ﻿@model SupremeLeagueManager.Models.FriendlyMatch.FriendlyMatchVM
 
+<audio controls="controls" autoplay="autoplay" id="player" style="visibility: hidden">
+        <source src="~/Content/Resources/Chants/RealMadrid/Chant1.mp3" type="audio/mpeg" />
+</audio>
+
 <div id="matchArenaView">
     <div style="min-height: 35em;">
         <div class="row mt-1 pt-3 text-center" style="width:100%">
@@ -60,11 +64,11 @@
                 </div>
                 <div class="mt-1 mb-1">Pressing</div>
                 <div class="row text-center aligne-midle">
-                    <div style="width: 10%; font-size: 18px">50</div>
+                    <div style="width: 10%; font-size: 18px">{{ MatchStatistics.HomePressing }}</div>
                     <div class="progress mt-1" style="width: 80%; background-color: blue">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" :style="{width: MatchStatistics.ProgressBarPressing + '%'}"></div>
                     </div>
-                    <div style="width: 10%; font-size: 18px">50</div>
+                    <div style="width: 10%; font-size: 18px">{{ MatchStatistics.AwayPressing }}</div>
                 </div>
                 <div class="mt-1 mb-1">Possession</div>
                 <div class="row text-center aligne-midle">
@@ -111,77 +115,76 @@
     <div><span id="awayActionResult"></span></div>
 </div>
 
-
 @*<script type="text/javascript">
 
-    var vueMatchArena = new Vue({
+        var vueMatchArena = new Vue({
 
-        el: '#matchArenaView',
-        data: {
-            HomeTeam: {},
-            AwayTeam: {},
-            Counter: 0,
-            MatchLength: 0,
-            IntervalId: null,
-        },
-
-        methods: {
-
-            HomeTeamEmblemMatch: function () {
-                var src = '/Content/Resources/Emblems/' + this.HomeTeam.Name + this.HomeTeam.City + '.png';
-                src = src.replace(" ", "");
-                return src;
+            el: '#matchArenaView',
+            data: {
+                HomeTeam: {},
+                AwayTeam: {},
+                Counter: 0,
+                MatchLength: 0,
+                IntervalId: null,
             },
 
-            AwayTeamEmblemMatch: function () {
-                var src = '/Content/Resources/Emblems/' + this.AwayTeam.Name + this.AwayTeam.City + '.png';
-                src = src.replace(" ", "");
-                return src;
-            },
+            methods: {
 
-            StartMatch: function () {
-                this.IntervalId = setInterval(this.CounterStart, 100);
-            },
+                HomeTeamEmblemMatch: function () {
+                    var src = '/Content/Resources/Emblems/' + this.HomeTeam.Name + this.HomeTeam.City + '.png';
+                    src = src.replace(" ", "");
+                    return src;
+                },
 
-            PauseMatch: function () {
-                clearInterval(this.IntervalId);
-            },
+                AwayTeamEmblemMatch: function () {
+                    var src = '/Content/Resources/Emblems/' + this.AwayTeam.Name + this.AwayTeam.City + '.png';
+                    src = src.replace(" ", "");
+                    return src;
+                },
 
-            CounterStart: function () {
-                this.Counter++;
-                if (this.Counter == MatchLength) {
-                    this.PauseMatch();
-                } else if (this.Counter == (MatchLength / 2).toFixed(0)) {
-                    this.PauseMatch();
+                StartMatch: function () {
+                    this.IntervalId = setInterval(this.CounterStart, 100);
+                },
+
+                PauseMatch: function () {
+                    clearInterval(this.IntervalId);
+                },
+
+                CounterStart: function () {
+                    this.Counter++;
+                    if (this.Counter == MatchLength) {
+                        this.PauseMatch();
+                    } else if (this.Counter == (MatchLength / 2).toFixed(0)) {
+                        this.PauseMatch();
+                    }
+                },
+
+                RandomMatchLength: function () {
+                    MatchLength = Math.floor(Math.random() * 6) + 90
                 }
             },
 
-            RandomMatchLength: function () {
-                MatchLength = Math.floor(Math.random() * 6) + 90
+
+            created: function () {
+                this.HomeTeam = @Html.Raw(Json.Encode(Model.HomeTeam));
+                this.AwayTeam = @Html.Raw(Json.Encode(Model.AwayTeam));
+
+                this.RandomMatchLength();
+
+                //console.log('ddd',this.HomeTeam);
+                //console.log('ccc',this.AwayTeam);
+            },
+
+            beforeMount() {
+
+            },
+
+            mounted() {
+
+
             }
-        },
-
-
-        created: function () {
-            this.HomeTeam = @Html.Raw(Json.Encode(Model.HomeTeam));
-            this.AwayTeam = @Html.Raw(Json.Encode(Model.AwayTeam));
-
-            this.RandomMatchLength();
-
-            //console.log('ddd',this.HomeTeam);
-            //console.log('ccc',this.AwayTeam);
-        },
-
-        beforeMount() {
-
-        },
-
-        mounted() {
-
-
-        }
-    })
-</script>*@
+        })
+    </script>*@
 
 
 

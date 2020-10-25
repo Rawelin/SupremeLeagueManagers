@@ -432,16 +432,24 @@
                     $("#squadSelection").hide(300);
                 },
 
-                ShowSquad: function () {
-                    this.Provider.HomeTeam = this.HomeTeam;
-                    this.Provider.AwayTeam = this.AwayTeam;
-
+                InitializeSliderObject: function () {
                     this.SliderObject.Pressing = this.HomeTeam.Pressing;
                     this.SliderObject.AttackLevel = this.HomeTeam.AttackLevel;
                     this.SliderObject.Aggression = this.HomeTeam.Aggression;
+                },
 
-                 
+                SetTeamSettings: function () {
+                    this.HomeTeam.Pressing = this.SliderObject.Pressing;
+                    this.HomeTeam.AttackLevel = this.HomeTeam.AttackLevel;
+                    this.HomeTeam.Aggression = this.SliderObject.Aggression;
+                },
+
+                ShowSquad: function () {
+                    this.Provider.HomeTeam = this.HomeTeam;
+                    this.Provider.AwayTeam = this.AwayTeam;
+                    this.InitializeSliderObject();
                    
+
                     $('#teamSelection').hide(300);
                     $("#matchArena").hide(300);
                     $("#squadSelection").show(300);
@@ -479,6 +487,10 @@
                     $("#matchArena").show(300);
                     $("#selectTeamRefresh").show();
                     this.RandomMatchLength();
+
+
+                    var player = document.getElementById('player');
+                    player.play;
 
                     //this.Provider.HomeTeam = this.HomeTeam;
                     //this.Provider.AwayTeam = this.AwayTeam;
@@ -534,6 +546,7 @@
                         });
                 },
  //---------MatchArena----------------------------------------------------------------
+
                 HomeTeamEmblemMatch: function () {
                     var src = '/Content/Resources/Emblems/' + this.HomeTeam.Name + this.HomeTeam.City + '.png';
                     src = src.replace(" ", "");
@@ -578,7 +591,7 @@
                 },
 
                 MatchAlgorithms: function () {
-                    MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics, this.SliderObject)
+                    MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics)
                 },
  //-----------------------------------------------------------------------------------
                 ScrollOff: function () {
@@ -604,7 +617,7 @@
                 this.SetTeamSkills();
                 this.SetTeamEnergySkills();
                 this.SetPlayerDynamicSkills();
-
+                this.InitializeSliderObject();
             },
 
             mounted: function () {

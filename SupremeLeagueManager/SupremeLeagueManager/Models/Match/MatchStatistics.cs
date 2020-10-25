@@ -16,11 +16,17 @@ namespace SupremeLeagueManager.Models.Match
         public int AwayShotsOnTarget { get; set; }
         public int HomeShotsOffTarget { get; set; }
         public int AwayShotsOffTarget { get; set; }
+        public int HomePressing { get; set; }
+        public int AwayPressing{ get; set; }
+        public int HomePossesion { get; set; }
+        public int AwayPossesion { get; set; }
         public int MatchLength { get; set; }
         public int Counter { get; set; }
         public double ProgressBarShot { get; set; }
         public double ProgressBarShotOnTarget { get; set; }
         public double ProgressBarShotOffTarget { get; set; }
+        public double ProgressBarPressing { get; set; }
+        public double ProgressBarPossession { get; set; }
         public List<Scorer> HomeScorers { get; set; }
         public List<Scorer> AwayScorers { get; set; }
 
@@ -31,6 +37,8 @@ namespace SupremeLeagueManager.Models.Match
             ProgressBarShot = 50;
             ProgressBarShotOnTarget = 50;
             ProgressBarShotOffTarget = 50;
+            ProgressBarPressing = 50;
+            ProgressBarPossession = 50;
             IntervalId = null;
             HomeScorers = new List<Scorer>();
             AwayScorers = new List<Scorer>();

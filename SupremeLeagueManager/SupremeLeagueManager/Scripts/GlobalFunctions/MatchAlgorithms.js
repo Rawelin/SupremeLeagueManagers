@@ -1,8 +1,11 @@
 ﻿
-function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics, SliderObject) {
+function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
 
     var differ = HomeTeam.OverallEnergy - AwayTeam.OverallEnergy;
-    var range = Math.floor(Math.random() * 99) + 1
+    var range = Math.floor(Math.random() * 99) + 1;
+
+    console.log('pressing:', HomeTeam.Pressing);
+    console.log('pressing:', AwayTeam.Pressing);
 
     if (differ > 10) {
         differ = 10;
@@ -160,8 +163,8 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics, SliderObject) {
     }
 
     // Skills.js
-    staminaDecreaser(HomeTeam, MatchStatistics);
-    staminaDecreaser(AwayTeam, MatchStatistics);
+    staminaDecreaser(HomeTeam, MatchStatistics, HomeTeam.Pressing);
+    staminaDecreaser(AwayTeam, MatchStatistics, AwayTeam.Pressing);
 
     //DynamicEnergyCalc(HomeTeam);
     //DynamicEnergyCalc(AwayTeam);
@@ -177,6 +180,11 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics, SliderObject) {
     MatchStatistics.ProgressBarShot = ((MatchStatistics.HomeShots / shotSum) * 100).toFixed(0);
     MatchStatistics.ProgressBarShotOnTarget = ((MatchStatistics.HomeShotsOnTarget / shotOnSum) * 100).toFixed(0);
     MatchStatistics.ProgressBarShotOffTarget = ((MatchStatistics.HomeShotsOffTarget / shotOffSum) * 100).toFixed(0);
+    MatchStatistics.ProgressBarPressing = ((HomeTeam.Pressing / (HomeTeam.Pressing + AwayTeam.Pressing)) * 100).toFixed(0);
+    MatchStatistics.HomePressing = MatchStatistics.ProgressBarPressing;
+    MatchStatistics.AwayPressing = 100 - MatchStatistics.HomePressing;
+
+    console.log(MatchStatistics.ProgressBarPressing)
 }
 
 function DynamicEnergyCalc(Team) {
