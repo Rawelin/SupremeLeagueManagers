@@ -715,11 +715,11 @@ function rateEnergy(player) {
     } else if (player.Stamina >= 30 && player.Stamina < 40) {
         return rate = 0.94
     } else if (player.Stamina >= 20 && player.Stamina < 30) {
-        return rate = 0.93
+        return rate = 0.85
     } else if (player.Stamina >= 10 && player.Stamina < 20) {
-        return rate = 0.85;
+        return rate = 0.80;
     } else if (player.Stamina >= 0 && player.Stamina < 10) {
-        return rate = 0.80
+        return rate = 0.75
     } else {
         return rate = 0.90;
     }

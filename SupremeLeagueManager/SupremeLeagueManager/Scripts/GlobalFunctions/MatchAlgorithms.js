@@ -1,6 +1,12 @@
 ﻿
 function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
 
+    Pressing(HomeTeam);
+    Pressing(AwayTeam);
+
+
+    console.log('ho:', HomeTeam.OverallEnergy)
+
     var differ = HomeTeam.OverallEnergy - AwayTeam.OverallEnergy;
     var range = Math.floor(Math.random() * 99) + 1;
 
@@ -466,5 +472,24 @@ function getStriker(MatchStatistics, Team, Home) {
         }
     }
 }
+
+
+function Pressing(Team) {
+
+    if (Team.Pressing >= 90) {
+        Team.OverallEnergy = Math.ceil(Team.OverallEnergy * 1.08);
+    } else if (Team.Pressing >= 80 && Team.Pressing < 90) {
+        Team.OverallEnergy = Math.ceil(Team.OverallEnergy * 1.06);
+    } else if (Team.Pressing >= 60 && Team.Pressing < 80) {
+        Team.OverallEnergy = Math.ceil(Team.OverallEnergy * 1.05);
+    } else if (Team.Pressing >= 40 && Team.Pressing < 60) {
+        Team.OverallEnergy = Math.ceil(Team.OverallEnergy * 1.04);
+    } else if (Team.Pressing >= 20 && Team.Pressing < 40) {
+        Team.OverallEnergy = Math.ceil(Team.OverallEnergy * 1.02);
+    } else if (Team.Pressing < 20) {
+        Team.OverallEnergy = Math.ceil(Team.OverallEnergy * 1.01);
+    }
+}
+
 
 

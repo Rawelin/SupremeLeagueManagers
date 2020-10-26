@@ -489,8 +489,17 @@
                     this.RandomMatchLength();
 
 
+                    var songs = [
+
+                        "~/Content/Resources/Chants/RealMadrid/Chant1.mp3",
+                        "~/Content/Resources/Chants/RealMadrid/Chant2.mp3",
+                    ]
+
+                    console.log(songs[0])
+
                     var player = document.getElementById('player');
-                    player.play;
+                    //player.src = songs[0];
+                    player.play();
 
                     //this.Provider.HomeTeam = this.HomeTeam;
                     //this.Provider.AwayTeam = this.AwayTeam;
