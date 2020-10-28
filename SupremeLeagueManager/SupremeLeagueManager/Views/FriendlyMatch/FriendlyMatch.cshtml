@@ -40,6 +40,12 @@
     </div>
 </div>
 
+<div id="music_list">
+    <audio controls autoplay hidden></audio>
+</div>
+
+
+<script src="~/Scripts/GlobalFunctions/MusicPlayer.js"></script>
 <script src="~/Scripts/GlobalFunctions/MatchAlgorithms.js"></script>
 <script src="~/Scripts/GlobalFunctions/FormationColors.js"></script>
 <script src="~/Scripts/GlobalFunctions/Skills.js"></script>
@@ -61,6 +67,7 @@
                 Player: {},
                 Selected: [],
                 PlayerPhotoIndex: 0,
+                MusicPlayer: false,
 
                 MatchStatistics: {},
 
@@ -448,7 +455,7 @@
                     this.Provider.HomeTeam = this.HomeTeam;
                     this.Provider.AwayTeam = this.AwayTeam;
                     this.InitializeSliderObject();
-                   
+
 
                     $('#teamSelection').hide(300);
                     $("#matchArena").hide(300);
@@ -488,19 +495,14 @@
                     $("#selectTeamRefresh").show();
                     this.RandomMatchLength();
 
+                    var path = "/Content/Resources/Chants/RealMadrid/";
+                    var player = document.querySelector("#music_list audio");
 
-                    var songs = [
-
-                        "~/Content/Resources/Chants/RealMadrid/Chant1.mp3",
-                        "~/Content/Resources/Chants/RealMadrid/Chant2.mp3",
-                    ]
-
-                    console.log(songs[0])
-
-                    var player = document.getElementById('player');
-                    //player.src = songs[0];
-                    player.play();
-
+                    if (this.MusicPlayer === false) {
+                        songShuffle(player, path, 8);
+                        this.MusicPlayer = true;
+                    }
+                  
                     //this.Provider.HomeTeam = this.HomeTeam;
                     //this.Provider.AwayTeam = this.AwayTeam;
 

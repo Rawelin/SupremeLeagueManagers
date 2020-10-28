@@ -209,8 +209,13 @@
     <Content Include="Content\Resources\Backgrounds\black cubs.jpg" />
     <Content Include="Content\Resources\Backgrounds\black.jpg" />
     <Content Include="Content\Resources\Backgrounds\cyber snake.gif" />
-    <Content Include="Content\Resources\Chants\RealMadrid\Chant1.mp3" />
-    <Content Include="Content\Resources\Chants\RealMadrid\Chant2.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\2.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\1.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\3.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\4.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\5.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\6.mp3" />
+    <Content Include="Content\Resources\Chants\RealMadrid\7.mp3" />
     <Content Include="Content\Resources\Emblems\ACMilan.png" />
     <Content Include="Content\Resources\Emblems\ArsenalLondon.png" />
     <Content Include="Content\Resources\Emblems\AtleticoMadrid.png" />
@@ -538,6 +543,7 @@
     <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\GlobalFunctions\FormationColors.js" />
     <Content Include="Scripts\GlobalFunctions\MatchAlgorithms.js" />
+    <Content Include="Scripts\GlobalFunctions\MusicPlayer.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
