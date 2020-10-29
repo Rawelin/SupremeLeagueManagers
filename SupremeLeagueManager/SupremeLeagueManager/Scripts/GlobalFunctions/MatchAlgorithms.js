@@ -13,6 +13,8 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
     console.log('pressing:', HomeTeam.Pressing);
     console.log('pressing:', AwayTeam.Pressing);
 
+    AISetting(AwayTeam, MatchStatistics);
+
     if (differ > 10) {
         differ = 10;
     }
