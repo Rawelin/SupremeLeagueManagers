@@ -1,0 +1,42 @@
+﻿.mainPage {
+    width: 1600px;
+    margin-top: 1em;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    position: relative;
+}
+
+nav{
+    margin-top: 3em;
+}
+
+nav div{
+    margin-top: 2.8em;
+}
+
+    nav a {
+        padding: 20px 80px;
+        border: 1px solid white;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #fff;
+        background-color: rgba(0,0,0,.3);
+       
+        
+    }
+
+        nav a:hover {
+            text-decoration: none;
+            color: darkorange;
+            border-color: darkorange;
+            cursor: grab
+        }
+
+    nav a {
+        /*transition: all .5s;*/
+        transition: transform .5s, 
+                    border-color 1s ease-in .1s,
+                    color 1s ease-in .1s;
+        transform: scale(1.5);
+    }
