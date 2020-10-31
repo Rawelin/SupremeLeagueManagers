@@ -6,152 +6,43 @@
 
     <div class="mainPage">
         <h1> Supreme League Managers </h1>
-        <h4>
+        <h4 style="display:none">
             Online simulator of the football league composed of the best international teams
-            <a class="btn btn-outline-info" href="https://www.youtube.com/watch?v=nWiD9ySL65M&t=5s" style="width: 10em;"> Desktop Version &raquo; </a>
         </h4>
-        <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" class="btn btn-outline-info mr-1">
-            <img v-bind:src="EmblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
-        </button>
+      
         <nav>
             <div> <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR&nbsp;&nbsp;</a></div>
             <div><a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT&nbsp;&nbsp;&nbsp;</a></div>
 
             @if (Session["IdUser"] != null)
             {
-                <div><a>ONLINE LEAGUE&nbsp;</a></div>
-                <div><a>SINGLE PLAYER&nbsp;&nbsp;&nbsp;</a></div>
+                <div><a href="">ONLINE LEAGUE&nbsp;</a></div>
+                <div><a href="@Url.Action("SinglePlayer", "SinglePlayer")">SINGLE PLAYER&nbsp;&nbsp;&nbsp;</a></div>
                 <div><a href="@Url.Action("FriendlyMatch", "FriendlyMatch")">FRIENDLY GAME&nbsp;</a></div>
+                <div><a href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREDITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
             }
         </nav>
     </div>
 
-    <div>
-
-    </div>
-
-
-    @*<div class="container">
-                <div class="row">
-                    <div class="d-flex justify-content-center" style="margin-top: 1em;">
-                        <div class="p-2">
-                            <h1><i> Supreme League Managers </i></h1>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="p-2">
-                            <h4><i> Online simulator of the football league composed of the best international teams </i></h4>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between" style="margin-top: 1em;">
-                        <div style="margin-left:auto; margin-right: auto">
-                            <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" class="btn btn-outline-info mr-1">
-                                <img v-bind:src="EmblemName(team.Name, team.City)" width="50" height="50" alt="Emblem" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <a href="@Url.Action("FriendlyMatch", "FriendlyMatch")">Friendly match</a>
-                    </div>
-                    <div class="col-4"></div>
+    <div class="container" style="display:none">
+        <div>
+            <div class="d-flex justify-content-center" style="width: 33%; float: left">
+                <div class="p-1" style="border: solid 2px; border-radius: 5px;">
+                    <img src="~/Content/Resources/Gifs/liverpool.gif" width="240" height="320" />
                 </div>
             </div>
-
-
-
-        <div class="row" style="margin-top: 1em;">
-                <div class="col-xl-2 offset-1">
-                    @if (Session["IdUser"] != null)
-                    {
-                        <div class="d-flex justify-content-center">
-                            <div class="p-1">
-                                <h4> Menu: </h4>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="p-1">
-                                <div class="btn btn-outline-info" href="" style="width: 10em;"> Online League </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="p-1">
-                                <div class="btn btn-outline-info" href="" style="width: 10em;"> Single player </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="p-1">
-                                <div class="btn btn-outline-info" href="" style="width: 10em;"> League </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="p-1">
-                                <a class="btn btn-outline-info" href="@Url.Action("FriendlyMatch", "FriendlyMatch")">Friendly match</a>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="p-1">
-                                <div class="btn btn-outline-info" href="" style="width: 10em;"> Training </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="p-1">
-                                <div class="btn btn-outline-info" href="" style="width: 10em;"> Team </div>
-                            </div>
-                        </div>
-                    }
+            <div class="d-flex justify-content-center" style="width: 33%; float:left">
+                <div class="p-1" style="border: solid 2px; border-radius: 5px;">
+                    <img src="~/Content/Resources/Gifs/real.gif" width="240" height="320" />
                 </div>
-
-                <div>
-                    <div class="d-flex justify-content-center" style="width: 33%; float: left">
-                            <div class="p-1" style="border: solid 2px; border-radius: 5px;">
-                                <img src="~/Content/Resources/Gifs/liverpool.gif" width="240" height="320" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center" style="width: 33%; float:left">
-                            <div class="p-1" style="border: solid 2px; border-radius: 5px;">
-                                <img src="~/Content/Resources/Gifs/real.gif" width="240" height="320" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center" style="width: 33%">
-                            <div class="p-1" style="border: solid 2px; border-radius: 5px;">
-                                <img src="~/Content/Resources/Gifs/barcelona.gif" width="240" height="320" />
-                            </div>
-                        </div>
-
-
+            </div>
+            <div class="d-flex justify-content-center" style="width: 33%">
+                <div class="p-1" style="border: solid 2px; border-radius: 5px;">
+                    <img src="~/Content/Resources/Gifs/barcelona.gif" width="240" height="320" />
                 </div>
-
-
-
-                <div class="col-xl-2">
-                    <div class="d-flex justify-content-center">
-                        <div class="p-1">
-                            <h4> Help: </h4>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="p-1">
-                            <a class="btn btn-outline-info" href="https://www.youtube.com/watch?v=nWiD9ySL65M&t=5s" style="width: 10em;"> Desktop Version &raquo; </a>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="p-1">
-                            <a class="btn btn-outline-info" href="@Url.Action("TeamManagement", "TeamManagement")" style="width: 10em;">Management</a>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="p-1">
-                            <a class="btn btn-outline-info" href="@Url.Action("Admin", "Admin")" style="width: 10em;"> Admin </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>*@
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

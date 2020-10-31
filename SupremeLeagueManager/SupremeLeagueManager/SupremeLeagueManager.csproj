@@ -130,6 +130,7 @@
     <Compile Include="Controllers\FriendlyMatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
+    <Compile Include="Controllers\SinglePlayerController.cs" />
     <Compile Include="Controllers\TeamManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -190,6 +191,7 @@
     <Content Include="Content\CSS\FriendlyMatch.css" />
     <Content Include="Content\CSS\Global.css" />
     <Content Include="Content\CSS\Layout.css" />
+    <Content Include="Content\CSS\SinglePlayer.css" />
     <Content Include="Content\CSS\TeamManagement.css" />
     <Content Include="Content\FontAwesome\css\all.css" />
     <Content Include="Content\FontAwesome\js\all.js" />
@@ -697,6 +699,7 @@
     <Content Include="Views\FriendlyMatch\_SquadSelection.cshtml" />
     <Content Include="Views\FriendlyMatch\_TeamSelection.cshtml" />
     <Content Include="Views\FriendlyMatch\_MatchArena.cshtml" />
+    <Content Include="Views\SinglePlayer\SinglePlayer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

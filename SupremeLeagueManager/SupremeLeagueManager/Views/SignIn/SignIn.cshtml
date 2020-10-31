@@ -1,16 +1,11 @@
 ﻿@model SupremeLeagueManager.Models.SignIn.SignInVM
-
-@{
-    ViewBag.Title = "SignIn";
-}
-
 <div class="site-settings" id="signIn">
-    <div class="container body-container">
+    <div class="container body-container col-3 mt-5">
         <div v-if="SignReg == 0">
-            <div class="standard-frame" style="">
+            <div class="pane">
                 <div class="d-flex justify-content-center">
                     <picture>
-                        <img src="~/Content/Icons/FootballPlayer200.png" />
+                        <img src="~/Content/Icons/FootballPlayer200W.png" />
                     </picture>
                 </div>
                 <form>
@@ -72,6 +67,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     var vueSignIn = new Vue({
