@@ -1,4 +1,8 @@
-﻿
+﻿.site-settings {
+    min-height: 45em;
+}
+
+
 .single-container {
     text-align: center;
     width: 1700px;
@@ -25,9 +29,9 @@
 
 .midle-container {
     float: left;
-    width: 262px;
+    width: 290px;
     min-height: 20em;
-    margin-top: 10em;
+    margin-top: 5em;
     margin-left: 10em;
 }
 

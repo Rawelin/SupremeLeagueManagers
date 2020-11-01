@@ -1,33 +1,73 @@
 ﻿
 <link href="~/Content/CSS/SinglePlayer.css" rel="stylesheet" />
 
-<div id="singlePlayerView">
+<div id="singlePlayerView" class="site-settings">
     <div class="single-container">
         <div class="team-container">
             <div class="container-size left-container pane">
             </div>
             <div class="midle-container pane">
-                <nav>
-                    <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" v-on:mouseover="ShowStats(team.Name, team.City)" v-on:click="Selected(team.Name, team.City)">
-                        <img v-bind:src="EmblemName(team.Name, team.City)" alt="Emblem" />
-                    </button>
-                </nav>
+                <div class="pt-2">
+                    <nav>
+                        <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" v-on:mouseover="ShowStats(team.TeamId)" v-on:click="Selected(team.Name, team.City)">
+                            <img v-bind:src="EmblemName(team.Name, team.City)" alt="Emblem" />
+                        </button>
+                    </nav>
+                </div>
+                <div class="pt-4 pb-3">
+                    <div class="home mt-2"><a href="@Url.Action("Home", "Home")">HOME</a></div>
+                </div>
             </div>
             <div class="container-size right-container pane">
-                <h1>{{name}} {{city}}</h1>
-                <img v-if="name !=''" v-bind:src="EmblemName(name,city)" alt="Emblem" />
+                <h1>{{Team.Name}} {{Team.City}}</h1>
+                <img v-if="name !=''" v-bind:src="EmblemName(name, city)" alt="Emblem" />
+                <div class="row">
+                    <div class="mr-1" style="width: 18%; font-size: 16px">Goalie</div>
+                    <div class="progress progress-tr mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                        <div class="progress-bar bg-info" :style="{width: Team.GoalKeeper + '%'}"></div>
+                    </div>
+                    <div class="ml-1" style="font-size: 16px">{{Team.GoalKeeper}}</div>
+                </div>
+                <div class="row">
+                    <div class="mr-1" style="width: 18%; font-size: 16px">Defence</div>
+                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                        <div class="progress-bar bg-info" :style="{width: Team.Defence + '%'}"></div>
+                    </div>
+                    <div class="ml-1" style="font-size: 16px">{{Team.Defence}}</div>
+                </div>
+                <div class="row">
+                    <div class="mr-1" style="width: 18%; font-size: 16px">Midfield</div>
+                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                        <div class="progress-bar bg-info" :style="{width: Team.Midfield + '%'}"></div>
+                    </div>
+                    <div class="ml-1" style="font-size: 16px">{{Team.Midfield}}</div>
+                </div>
+                <div class="row">
+                    <div class="mr-1" style="width: 18%; font-size: 16px">Attack</div>
+                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1">
+                        <div class="progress-bar bg-info" :style="{width: Team.Attack + '%'}"></div>
+                    </div>
+                    <div class="ml-1" style="font-size: 16px">{{Team.Attack}}</div>
+                </div>
+                <div class="row">
+                    <div class="mr-1" style="width: 18%; font-size: 16px">Overall</div>
+                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                        <div class="progress-bar bg-info" :style="{width: Team.Overall + '%'}"></div>
+                    </div>
+                    <div class="ml-1" style="font-size: 16px">{{Team.Overall}}</div>
+                </div>
             </div>
         </div>
-        <div class="home"><a href="@Url.Action("Home", "Home")">HOME</a></div>
     </div>
 </div>
 
-
+<script src="~/Scripts/GlobalFunctions/Skills.js"></script>
 <script>
      var vueSinglePlayer = new Vue({
                 el: '#singlePlayerView',
                 data: {
                     Teams: [],
+                    Team: {},
                     name: '',
                     city: '',
                 },
@@ -43,9 +83,13 @@
                         return fulName;
                     },
 
-                    ShowStats: function (name, city) {
-                        this.name = name;
-                        this.city = city;
+                    ShowStats: function (TeamId) {
+                        this.Team = this.Teams.find(t => t.TeamId == TeamId);
+                        this.name = this.Team.Name;
+                        this.city = this.Team.City;
+
+                        TeamSkills(this.Team);
+                        console.log(this.Team);
                     },
 
                     Selected: function (name, city) {
@@ -63,6 +107,7 @@
                 },
                 mounted: function () {
                     this.ScrollOff();
+
                 },
             })
 </script>

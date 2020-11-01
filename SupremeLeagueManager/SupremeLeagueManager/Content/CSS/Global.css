@@ -1,12 +1,11 @@
 ﻿body {
-
 }
 
-.site-settings{
+.site-settings {
     min-height: 45em;
 }
 
-.standard-input{
+.standard-input {
     width: 40em;
     padding: 0.5em;
     margin-top: 0.5em;
@@ -14,7 +13,7 @@
     border-radius: 5px;
 }
 
-.standard-btn{
+.standard-btn {
     margin-top: 0.5em;
     border: 1px solid black;
     border-radius: 5px;
@@ -35,4 +34,26 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     border-radius: 5px 5px;
     background: rgba(52, 58, 64, .3);
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
+
+.subform button {
+    padding: 10px 10px;
+    margin: 3px;
+    border: 1px solid white;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: rgba(0,0,0,.3);
+    font-weight: bold;
+}
+
+    .subform button:hover {
+        color: #0695c9;
+        border-color: #0695c9;
+        cursor: pointer
+    }
+
+
+
