@@ -5,11 +5,21 @@
     <div class="single-container">
         <div class="team-container">
             <div class="container-size left-container pane">
+                <table class="ml-2" style="font-size: 12px">
+                    <tbody>
+                        <tr v-for="player in Team.Players">
+                            <td class="text-left">{{player.PositionShort}}</td>
+                            <td class="text-left">{{player.Name}}</td>
+                            <td class="text-left">{{player.Surname}}</td>
+                            <td class="text-left">{{player.AverageSkills}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="midle-container pane">
                 <div class="pt-2">
                     <nav>
-                        <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" v-on:mouseover="ShowStats(team.TeamId)" v-on:click="Selected(team.Name, team.City)">
+                        <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" v-on:mouseover="ShowStats(team.TeamId), SetPlayersAverageSkills() " v-on:click="Selected(team.Name, team.City)">
                             <img v-bind:src="EmblemName(team.Name, team.City)" alt="Emblem" />
                         </button>
                     </nav>
@@ -19,42 +29,44 @@
                 </div>
             </div>
             <div class="container-size right-container pane">
-                <h1>{{Team.Name}} {{Team.City}}</h1>
-                <img v-if="name !=''" v-bind:src="EmblemName(name, city)" alt="Emblem" />
-                <div class="row">
-                    <div class="mr-1" style="width: 18%; font-size: 16px">Goalie</div>
-                    <div class="progress progress-tr mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
-                        <div class="progress-bar bg-info" :style="{width: Team.GoalKeeper + '%'}"></div>
+                <h1 class="mt-5">{{Team.Name}} {{Team.City}}</h1>
+                <img v-bind:src="EmblemName(Team.Name, Team.City)" alt="Emblem" />
+                <div class="mt-5" v-if="">
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Goalie</div>
+                        <div class="progress progress-tr mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.GoalKeeper + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.GoalKeeper}}</div>
                     </div>
-                    <div class="ml-1" style="font-size: 16px">{{Team.GoalKeeper}}</div>
-                </div>
-                <div class="row">
-                    <div class="mr-1" style="width: 18%; font-size: 16px">Defence</div>
-                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
-                        <div class="progress-bar bg-info" :style="{width: Team.Defence + '%'}"></div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Defence</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.Defence + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Defence}}</div>
                     </div>
-                    <div class="ml-1" style="font-size: 16px">{{Team.Defence}}</div>
-                </div>
-                <div class="row">
-                    <div class="mr-1" style="width: 18%; font-size: 16px">Midfield</div>
-                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
-                        <div class="progress-bar bg-info" :style="{width: Team.Midfield + '%'}"></div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Midfield</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.Midfield + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Midfield}}</div>
                     </div>
-                    <div class="ml-1" style="font-size: 16px">{{Team.Midfield}}</div>
-                </div>
-                <div class="row">
-                    <div class="mr-1" style="width: 18%; font-size: 16px">Attack</div>
-                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1">
-                        <div class="progress-bar bg-info" :style="{width: Team.Attack + '%'}"></div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Attack</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1">
+                            <div class="progress-bar blue-color" :style="{width: Team.Attack + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Attack}}</div>
                     </div>
-                    <div class="ml-1" style="font-size: 16px">{{Team.Attack}}</div>
-                </div>
-                <div class="row">
-                    <div class="mr-1" style="width: 18%; font-size: 16px">Overall</div>
-                    <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
-                        <div class="progress-bar bg-info" :style="{width: Team.Overall + '%'}"></div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Overall</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.Overall + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Overall}}</div>
                     </div>
-                    <div class="ml-1" style="font-size: 16px">{{Team.Overall}}</div>
                 </div>
             </div>
         </div>
@@ -68,8 +80,6 @@
                 data: {
                     Teams: [],
                     Team: {},
-                    name: '',
-                    city: '',
                 },
                 methods: {
                     EmblemName: function (name, city) {
@@ -85,8 +95,6 @@
 
                     ShowStats: function (TeamId) {
                         this.Team = this.Teams.find(t => t.TeamId == TeamId);
-                        this.name = this.Team.Name;
-                        this.city = this.Team.City;
 
                         TeamSkills(this.Team);
                         console.log(this.Team);
@@ -94,6 +102,13 @@
 
                     Selected: function (name, city) {
                         alert(name + ' ' + city);
+                    },
+
+                    SetPlayersAverageSkills: function () {
+                        console.log(this.Team.Players.length);
+                        for (var i = 0; i < this.Team.Players.length; i++) {
+                            PlayerSkills(this.Team.Players[i]);
+                        }
                     },
 
                     ScrollOff: function () {
@@ -104,10 +119,11 @@
                 },
                 created: function () {
                     this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
+                    this.Team = this.Teams[0];
                 },
                 mounted: function () {
                     this.ScrollOff();
-
+                    this.SetPlayersAverageSkills();
                 },
             })
 </script>

@@ -253,8 +253,6 @@ function PlayerSkillsDynamicEnergy(player, formation) {
     var originalPosition = player.PositionShort;
     var dynamicAverageSkill = 0;
 
-    //console.log(player.IndexPosition + ' ' + player.Name + ' ' +player.PositionShort);
-
     if (formation == 1) {
         switch (currentPosition) {
 
