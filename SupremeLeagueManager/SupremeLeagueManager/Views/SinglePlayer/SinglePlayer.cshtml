@@ -5,13 +5,13 @@
     <div class="single-container">
         <div class="team-container">
             <div class="container-size left-container pane">
-                <table class="ml-2" style="font-size: 12px">
+                <table class="players">
                     <tbody>
-                        <tr v-for="player in Team.Players">
+                        <tr v-for="(player, index) in Team.Players">
+                            <td><img v-bind:src="NationalityFlag(index)" /></td>
                             <td class="text-left">{{player.PositionShort}}</td>
-                            <td class="text-left">{{player.Name}}</td>
-                            <td class="text-left">{{player.Surname}}</td>
-                            <td class="text-left">{{player.AverageSkills}}</td>
+                            <td class="text-left pr-3">{{player.Name}} {{player.Surname}}</td>
+                            <td class="text-left" v-bind:style="{ color: SkillsColor(player.AverageSkills), fontWeight: 700}">{{player.AverageSkills}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -108,6 +108,27 @@
                         console.log(this.Team.Players.length);
                         for (var i = 0; i < this.Team.Players.length; i++) {
                             PlayerSkills(this.Team.Players[i]);
+                        }
+                    },
+
+                    NationalityFlag: function (index) {
+                        var src = '/Content/Resources/Flags/' + this.Team.Players[index].CountryName + '.png';
+                        return src;
+                    },
+
+                    SkillsColor: function (value) {
+
+                        if (value >= 95) {
+                            return 'red';
+                        } else if (value >= 90 && value < 95) {
+                            return 'indianred';
+                        } else if (value >= 80 && value < 90) {
+                            return 'orange';
+                        } else if (value >= 70 && value < 80) {
+                            return 'lightgreen';
+                        }
+                        else {
+                            return 'white';
                         }
                     },
 

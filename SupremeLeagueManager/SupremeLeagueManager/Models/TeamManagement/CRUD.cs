@@ -37,7 +37,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       Technique = 0,
                                       Overall = 0,
                                       Players = slmCtx.dictTeamsPlayers
-                                                       .Where(p => p.IdDictTeams == id)
+                                                       .Where(p => p.IdDictTeams == id && p.Active == 1)
                                                        .Select(p => new Player
                                                        {
                                                            PlayerId = p.IdDictTeamsPlayers,
@@ -124,7 +124,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       Technique = 0,
                                       Overall = 0,
                                       Players = slmCtx.dictTeamsPlayers
-                                                       .Where(p => p.IdDictTeams == t.IdDictTeams)
+                                                       .Where(p => p.IdDictTeams == t.IdDictTeams && p.Active == 1)
                                                        .Select(p => new Player
                                                        {
                                                            PlayerId = p.IdDictTeamsPlayers,
