@@ -4,16 +4,15 @@
 
 <div id="homeView" class="site-settings">
 
-    <div class="mainPage">
-        <h1> Supreme League Managers </h1>
+    <div id="home" class="mainPage">
+        <h1 style="display: none"> Supreme League Managers </h1>
         <h4 style="display:none">
             Online simulator of the football league composed of the best international teams
         </h4>
-      
+
         <nav>
             <div> <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR&nbsp;&nbsp;</a></div>
             <div><a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT&nbsp;&nbsp;&nbsp;</a></div>
-
             @if (Session["IdUser"] != null)
             {
                 <div><a href="">ONLINE LEAGUE&nbsp;</a></div>
@@ -45,6 +44,11 @@
     </div>
 </div>
 
+<div id="music_list">
+    <audio controls autoplay hidden></audio>
+</div>
+
+<script src="~/Scripts/GlobalFunctions/MusicPlayer.js"></script>
 <script type="text/javascript">
 
             var vueHome = new Vue({
@@ -64,6 +68,12 @@
                         return fulName;
                     },
 
+                    Music: function () {
+                        var path = "/Content/Resources/Music/";
+                        var player = document.querySelector("#music_list audio");
+                        songShuffle(player, path, 10);  
+                    },
+
                     ScrollOff: function () {
                         $("body").css("overflow", "hidden");
                         $("body").css("overflow-x", "hidden");
@@ -74,11 +84,10 @@
                     this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
                 },
                 mounted: function () {
+                    this.Music();
                     this.ScrollOff();
                 },
             })
-
-
 </script>
 
 

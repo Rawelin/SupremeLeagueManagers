@@ -1,6 +1,4 @@
-﻿body {
-}
-
+﻿
 .site-settings {
     min-height: 45em;
 }
@@ -56,4 +54,28 @@
     }
 
 
+.logo {
+    background-image: url('/Content/Resources/Pictures/bernabeu.jpg');
+    width: auto;
+    height: 1080px;
+}
 
+    .logo a {
+        position: absolute;
+        top: 800px;
+        left: 100px;
+        padding: 20px 80px;
+        margin: 3px;
+        border: 1px solid white;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #fff;
+        background-color: rgba(0,0,0,.3);
+        font-weight: bold;
+    }
+
+        .logo a:hover {
+            color: #0695c9;
+            border-color: #0695c9;
+            cursor: pointer
+        }
