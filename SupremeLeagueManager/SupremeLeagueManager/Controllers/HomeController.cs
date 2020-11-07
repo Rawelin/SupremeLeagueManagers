@@ -13,5 +13,10 @@ namespace SupremeLeagueManager.Controllers
         {
             return View(new CreateTeams().GetTeams());
         }
+
+        public ActionResult _SinglePlayer()
+        {
+            return View(new CreateTeams().GetTeams());
+        }
     }
 }

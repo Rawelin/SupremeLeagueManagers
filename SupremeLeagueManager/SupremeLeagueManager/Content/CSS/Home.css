@@ -38,3 +38,105 @@ nav {
         }
 
 
+.single-container {
+    text-align: center;
+    width: 1700px;
+    margin: 0 auto;
+}
+
+.pane {
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 5px 5px;
+    background: rgba(52, 58, 64, .3);
+}
+
+
+.team-container {
+    display: inline-block;
+    width: 100%
+}
+
+.container-size {
+    margin-top: 5em;
+    width: 33%;
+    min-height: 40em;
+}
+
+.midle-container {
+    float: left;
+    width: 290px;
+    min-height: 20em;
+    margin-top: 5em;
+    margin-left: 9em;
+    margin-right: 9em;
+    padding-top: 0em;
+}
+
+
+.left-container {
+    float: left;
+}
+
+    .left-container .players {
+        font-size: 14px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%
+    }
+
+        .left-container .players img {
+            padding-bottom: 4px;
+            width: 18px;
+            height: 18px;
+        }
+
+.right-container {
+    float: right;
+}
+
+.midle-container nav button {
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    background-color: rgba(255,255,255, 0);
+    padding: 5px 5px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    transition: transform .1s, border-color .1s, color .1s;
+}
+
+    .midle-container nav button:hover {
+        color: #0695c9;
+        border-color: #0695c9;
+        cursor: pointer
+    }
+
+    .midle-container nav button img {
+        width: 70px;
+        height: 70px;
+    }
+
+.home a {
+    padding: 20px 100px;
+    border: 1px solid white;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: rgba(0,0,0,.3);
+    font-weight: bold;
+}
+
+    .home a:hover {
+        text-decoration: none;
+        color: #0695c9;
+        border-color: #0695c9;
+        cursor: pointer
+    }
+
+.blue-color {
+    color: #0695c9;
+}
+
+
+
+

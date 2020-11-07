@@ -1,0 +1,182 @@
+﻿@model SupremeLeagueManager.Models.TeamTest.TeamManagementVM
+
+<div id="singlePlayerView" class="site-settings">
+    <div class="single-container">
+        <div class="team-container">
+            <div class="container-size left-container pane">
+                <table class="players">
+                    <tbody>
+                        <tr v-for="(player, index) in Team.Players">
+                            <td><img v-bind:src="NationalityFlag(index)" /></td>
+                            <td class="text-left">{{player.PositionShort}}</td>
+                            <td class="text-left pr-3">{{player.Name}} {{player.Surname}}</td>
+                            <td class="text-left" v-bind:style="{ color: SkillsColor(player.AverageSkills), fontWeight: 700}">{{player.AverageSkills}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="midle-container pane">
+                <div>
+                    <nav>
+                        <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" v-on:mouseover="ShowStats(team.TeamId), SetPlayersAverageSkills() " v-on:click="Selected(team.TeamId)">
+                            <img v-bind:src="EmblemName(team.Name, team.City)" alt="Emblem" />
+                        </button>
+                    </nav>
+                </div>
+                <div class="pt-3 pb-3">
+                    <div class="home mt-2"><a v-on:click="Home()">HOME</a></div>
+                </div>
+            </div>
+            <div class="container-size right-container pane">
+                <h1 class="mt-5">{{Team.Name}} {{Team.City}}</h1>
+                <img v-bind:src="EmblemName(Team.Name, Team.City)" alt="Emblem" />
+                <div class="mt-5" v-if="">
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Goalie</div>
+                        <div class="progress progress-tr mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.GoalKeeper + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.GoalKeeper}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Defence</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.Defence + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Defence}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Midfield</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.Midfield + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Midfield}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Attack</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1">
+                            <div class="progress-bar blue-color" :style="{width: Team.Attack + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Attack}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="mr-1" style="width: 18%; font-size: 16px">Overall</div>
+                        <div class="progress  mt-1" style="width: 70%; background-color: rgba(255, 255, 255, 0.1)">
+                            <div class="progress-bar blue-color" :style="{width: Team.Overall + '%'}"></div>
+                        </div>
+                        <div class="ml-1" style="font-size: 16px">{{Team.Overall}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/GlobalFunctions/Skills.js"></script>
+<script>
+     var vueSinglePlayer = new Vue({
+                el: '#singlePlayerView',
+                data: {
+                    Teams: [],
+                    Team: {},
+                },
+                methods: {
+                    EmblemName: function (name, city) {
+                        var fulName = name + city;
+                        fulName = fulName.replace(" ", "");
+                        return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
+                    },
+
+                    FullName: function (name, city) {
+                        var fulName = name + ' ' + city;
+                        return fulName;
+                    },
+
+                    ShowStats: function (TeamId) {
+                        this.Team = this.Teams.find(t => t.TeamId == TeamId);
+
+                        TeamSkills(this.Team);
+                        console.log(this.Team);
+                    },
+
+                    SetPlayersAverageSkills: function () {
+                        console.log(this.Team.Players.length);
+                        for (var i = 0; i < this.Team.Players.length; i++) {
+                            PlayerSkills(this.Team.Players[i]);
+                        }
+                    },
+
+                    NationalityFlag: function (index) {
+                        var src = '/Content/Resources/Flags/' + this.Team.Players[index].CountryName + '.png';
+                        return src;
+                    },
+
+                    SkillsColor: function (value) {
+
+                        if (value >= 95) {
+                            return 'red';
+                        } else if (value >= 90 && value < 95) {
+                            return 'indianred';
+                        } else if (value >= 80 && value < 90) {
+                            return 'orange';
+                        } else if (value >= 70 && value < 80) {
+                            return 'lightgreen';
+                        }
+                        else {
+                            return 'white';
+                        }
+                    },
+
+                    ScrollOff: function () {
+                        $("body").css("overflow", "hidden");
+                        $("body").css("overflow-x", "hidden");
+                        $("body").css("overflow-y", "hidden");
+                    },
+
+                    Selected: function () {
+
+                        $.ajax({
+                            url: '/SinglePlayer/SinglePlayer',
+                            //data: { 'selectedDate': date.format() },
+                            type: "get",
+                            cache: false,
+                            success: function (result) {
+                                window.location.href = "/SinglePlayer/SinglePlayer" 
+                            },
+                            error: function (error) {
+                                console.log(error.message);
+                            }
+                        });
+                    },
+
+                    Home: function () {
+                        $.ajax(
+                            {
+                                url: "Home/Home",
+                                type: "POST",
+                                contentType: "application/json",
+                                success: function () {
+
+                                },
+                                error: function () {
+                                    alert('Nieoczekiwany błąd');
+                                }
+                            })
+                            .done(function () {
+                                $("#singlePlayer").hide();
+                                $('#homeView').show();
+                            });
+                    },
+                },
+                created: function () {
+                    this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
+                    this.Team = this.Teams[0];
+                },
+                mounted: function () {
+                    this.ScrollOff();
+                    this.SetPlayersAverageSkills();
+                },
+            })
+</script>
+
+

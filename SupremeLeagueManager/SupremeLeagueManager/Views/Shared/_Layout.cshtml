@@ -24,6 +24,18 @@
 </head>
 
 <body>
+
+    @*Modal gif*@
+    <div class="modal" id="loadingSpinerModal" tabindex="-1" role="dialog" aria-labelledby="myModal-label" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-fluid text-center">
+                <div>
+                    <img src="~/Content/Resources/Gif/loading2.gif" width="200" height="200" />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div>
         <div class="row navbar-main">
             <div class="d-flex d-flex justify-content-between" style="width: 100%; align-self: center;">
@@ -63,5 +75,7 @@
 </html>
 
 <script>
-
+    $('.loadingModal').click(function () {
+        $('#loadingSpinerModal').modal('show');
+    });
 </script>

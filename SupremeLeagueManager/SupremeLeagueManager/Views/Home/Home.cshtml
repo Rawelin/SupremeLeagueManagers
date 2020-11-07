@@ -16,7 +16,8 @@
             @if (Session["IdUser"] != null)
             {
                 <div><a href="">ONLINE LEAGUE&nbsp;</a></div>
-                <div><a href="@Url.Action("SinglePlayer", "SinglePlayer")">SINGLE PLAYER&nbsp;&nbsp;&nbsp;</a></div>
+                @*<div><a href="@Url.Action("SinglePlayer", "SinglePlayer")">SINGLE PLAYER&nbsp;&nbsp;&nbsp;</a></div>*@
+                <div><a v-on:click="SinglePlayer()">SINGLE PLAYER&nbsp;&nbsp;&nbsp;</a></div>
                 <div><a href="@Url.Action("FriendlyMatch", "FriendlyMatch")">FRIENDLY GAME&nbsp;</a></div>
                 <div><a href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREDITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
             }
@@ -44,8 +45,24 @@
     </div>
 </div>
 
+<div id="singlePlayer">
+    @Html.Partial("_SinglePlayer")
+</div>
+
+
 <div id="music_list">
     <audio controls autoplay hidden></audio>
+</div>
+
+
+<div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModal-label" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-fluid text-center">
+            <div>
+                <img src="~/Content/Resources/Gif/loading2.gif" width="200" height="200" />
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="~/Scripts/GlobalFunctions/MusicPlayer.js"></script>
@@ -71,17 +88,37 @@
                     Music: function () {
                         var path = "/Content/Resources/Music/";
                         var player = document.querySelector("#music_list audio");
-                        songShuffle(player, path, 10);  
+                        songShuffle(player, path, 10);
                     },
 
                     ScrollOff: function () {
                         $("body").css("overflow", "hidden");
                         $("body").css("overflow-x", "hidden");
                         $("body").css("overflow-y", "hidden");
-                    }
+                    },
+
+                    SinglePlayer: function () {
+                        $.ajax(
+                            {
+                                url: "_SinglePlayer/Home",
+                                type: "POST",
+                                contentType: "application/json",
+                                success: function () {
+
+                                },
+                                error: function () {
+                                    alert('Nieoczekiwany błąd');
+                                }
+                            })
+                            .done(function () {
+                                $('#homeView').hide();
+                                $("#singlePlayer").show();
+                            });
+                    },
                 },
                 created: function () {
                     this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
+                    $('#singlePlayer').hide();
                 },
                 mounted: function () {
                     this.Music();
