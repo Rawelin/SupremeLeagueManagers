@@ -1,1 +1,52 @@
 ﻿
+
+.site-settings {
+    min-height: 56em;
+}
+
+
+.wrapper {
+    margin: 1em 1em 0 1em;
+}
+
+.aside {
+    float: left;
+    width: 10%;
+    /*background-color: blue;*/
+    min-height: 55em;
+    /*border-right: 1px solid white;*/
+}
+
+.content {
+    float: left;
+    width: 90%;
+    /*background-color: rebeccapurple;*/
+    min-height: 55em;
+}
+
+nav a {
+    padding: 20%;
+    text-align: center;
+    display: block;
+    width: 100%;
+    color: #fff;
+    border: 1px solid white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+    border-top: 1px solid rgba(255, 255, 255, 0);
+    /*border-radius: 5px;*/
+    text-decoration: none;
+    color: #fff;
+    background-color: rgba(0,0,0,.3);
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: none;
+    color: #0695c9;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-color: #0695c9;
+    cursor: pointer;
+    border-right: none;
+    /*border-radius: 5px 0 0 5px;*/
+}

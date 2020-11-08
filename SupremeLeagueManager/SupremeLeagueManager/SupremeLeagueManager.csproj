@@ -502,6 +502,7 @@
     <Content Include="Content\Resources\Gifs\liverpool.gif" />
     <Content Include="Content\Resources\Gifs\loading1.gif" />
     <Content Include="Content\Resources\Gifs\loading2.gif" />
+    <Content Include="Content\Resources\Gifs\loading3.gif" />
     <Content Include="Content\Resources\Gifs\real.gif" />
     <Content Include="Content\Resources\Music\1.mp3" />
     <Content Include="Content\Resources\Music\2.mp3" />

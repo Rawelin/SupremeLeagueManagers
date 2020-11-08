@@ -9,17 +9,15 @@
         <h4 style="display:none">
             Online simulator of the football league composed of the best international teams
         </h4>
-
         <nav>
-            <div> <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR&nbsp;&nbsp;</a></div>
-            <div><a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT&nbsp;&nbsp;&nbsp;</a></div>
+            <a class="loadingModal" href="">ONLINE LEAGUE</a>
+            <a href="#" v-on:click="SinglePlayer()">SINGLE PLAYER</a>
+            <a class="loadingModal" href="@Url.Action("FriendlyMatch", "FriendlyMatch")">FRIENDLY GAME</a>
+            <a href="#">CREDITS</a>
             @if (Session["IdUser"] != null)
             {
-                <div><a href="">ONLINE LEAGUE&nbsp;</a></div>
-                @*<div><a href="@Url.Action("SinglePlayer", "SinglePlayer")">SINGLE PLAYER&nbsp;&nbsp;&nbsp;</a></div>*@
-                <div><a v-on:click="SinglePlayer()">SINGLE PLAYER&nbsp;&nbsp;&nbsp;</a></div>
-                <div><a href="@Url.Action("FriendlyMatch", "FriendlyMatch")">FRIENDLY GAME&nbsp;</a></div>
-                <div><a href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREDITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+                <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR&nbsp;&nbsp;</a>
+                <a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT&nbsp;&nbsp;&nbsp;</a>
             }
         </nav>
     </div>

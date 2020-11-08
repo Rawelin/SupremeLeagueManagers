@@ -1,6 +1,6 @@
 ﻿@model SupremeLeagueManager.Models.TeamTest.TeamManagementVM
 
-<div id="singlePlayerView" class="site-settings">
+<div id="singlePlayerView">
     <div class="single-container">
         <div class="team-container">
             <div class="container-size left-container pane">
@@ -15,17 +15,18 @@
                     </tbody>
                 </table>
             </div>
-            <div class="midle-container pane">
-                <div>
+            <div class="midle-container">
+                <div class="frame pane">
                     <nav>
-                        <button v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" v-on:mouseover="ShowStats(team.TeamId), SetPlayersAverageSkills() " v-on:click="Selected(team.TeamId)">
+                        <button class="loadingModal" v-for="team in Teams" v-bind:title="FullName(team.Name, team.City)" v-on:mouseover="ShowStats(team.TeamId), SetPlayersAverageSkills() " v-on:click="Selected(team.TeamId)">
                             <img v-bind:src="EmblemName(team.Name, team.City)" alt="Emblem" />
                         </button>
                     </nav>
                 </div>
-                <div class="pt-3 pb-3">
-                    <div class="home mt-2"><a v-on:click="Home()">HOME</a></div>
+                <div class="pt-3">
+                    <nav class="mt-2"><a href="#" v-on:click="Home()"><<</a></nav>
                 </div>
+
             </div>
             <div class="container-size right-container pane">
                 <h1 class="mt-5">{{Team.Name}} {{Team.City}}</h1>
@@ -79,6 +80,7 @@
                 data: {
                     Teams: [],
                     Team: {},
+                    Provider: {}
                 },
                 methods: {
                     EmblemName: function (name, city) {
@@ -94,13 +96,10 @@
 
                     ShowStats: function (TeamId) {
                         this.Team = this.Teams.find(t => t.TeamId == TeamId);
-
                         TeamSkills(this.Team);
-                        console.log(this.Team);
                     },
 
                     SetPlayersAverageSkills: function () {
-                        console.log(this.Team.Players.length);
                         for (var i = 0; i < this.Team.Players.length; i++) {
                             PlayerSkills(this.Team.Players[i]);
                         }
@@ -133,20 +132,23 @@
                         $("body").css("overflow-y", "hidden");
                     },
 
-                    Selected: function () {
+                    Selected: function (id) {
+                          
+                        window.location = '/SinglePlayer/SinglePlayer?id=' + id;
 
-                        $.ajax({
-                            url: '/SinglePlayer/SinglePlayer',
-                            //data: { 'selectedDate': date.format() },
-                            type: "get",
-                            cache: false,
-                            success: function (result) {
-                                window.location.href = "/SinglePlayer/SinglePlayer" 
-                            },
-                            error: function (error) {
-                                console.log(error.message);
-                            }
-                        });
+                        //$.ajax({
+                        //    url: '/SinglePlayer/SinglePlayer',
+                        //    type: "POST",
+                        //    //data: JSON.stringify({ provider: this.Provider }),
+
+                        //    cache: false,
+                        //    success: function (result) {
+                        //        window.location.href = "/SinglePlayer/SinglePlayer?json=" + JSON.stringify(this.Provider);
+                        //    },
+                        //    error: function (error) {
+                        //        console.log(error.message);
+                        //    }
+                        //});
                     },
 
                     Home: function () {

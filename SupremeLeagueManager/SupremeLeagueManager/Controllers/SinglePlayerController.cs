@@ -1,4 +1,5 @@
-﻿using SupremeLeagueManager.Models.TeamTest;
+﻿using SupremeLeagueManager.Models;
+using SupremeLeagueManager.Models.TeamTest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SupremeLeagueManager.Controllers
     public class SinglePlayerController : Controller
     {
         // GET: SinglePlayer
-        public ActionResult SinglePlayer()
+        public ActionResult SinglePlayer(int id)
         {
             return View(new CreateTeams().GetTeams());
         }
