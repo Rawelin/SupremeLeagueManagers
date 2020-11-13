@@ -1,17 +1,15 @@
 ﻿
-
 .site-settings {
     min-height: 56em;
 }
 
-
 .wrapper {
-    margin: 1em 1em 0 1em;
+    margin: 0 1% 1% 1%;
 }
 
 .aside {
     float: left;
-    width: 10%;
+    width: 7%;
     /*background-color: blue;*/
     min-height: 55em;
     /*border-right: 1px solid white;*/
@@ -19,13 +17,13 @@
 
 .content {
     float: left;
-    width: 90%;
+    width: 93%;
     /*background-color: rebeccapurple;*/
     min-height: 55em;
 }
 
 nav a {
-    padding: 20%;
+    padding: 30% 0 30% 0;
     text-align: center;
     display: block;
     width: 100%;
@@ -35,18 +33,22 @@ nav a {
     border-top: 1px solid rgba(255, 255, 255, 0);
     /*border-radius: 5px;*/
     text-decoration: none;
-    color: #fff;
     background-color: rgba(0,0,0,.3);
     font-weight: bold;
 }
 
 nav a:hover {
     text-decoration: none;
-    color: #0695c9;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    border-color: #0695c9;
+    color: #0695c9 !important;
+    /*border-top: 1px solid white;
+    border-bottom: 1px solid white;*/
     cursor: pointer;
-    border-right: none;
+    /*border-right: none;*/
     /*border-radius: 5px 0 0 5px;*/
+}
+
+.clicked {
+    border-color: #0695c9;
+    border-right: none;
+    
 }

@@ -3,95 +3,99 @@
 <div id="singlePlayerView" class="site-settings">
     <div class="wrapper">
         <div class="aside">
-            <nav class="mt-4">
-                <a href="#">Team</a>
-                <a href="#">Training</a>
-                <a href="#">Finance</a>
-                <a href="#">Next Day</a>
-                <a href="#">Table</a>
-                <a href="#">Statistic</a>
-                <a href="#">Fixture</a>
-                <a class="loadingModal" href="@Url.Action("Home", "Home")">Main Menu</a>
+            <nav class="mt-1">
+                <a id="1" v-on:click="Menu(1)">Squad</a>
+                <a id="2" v-on:click="Menu(2)">Training</a>
+                <a id="3" v-on:click="Menu(3)">Finance</a>
+                <a id="4" v-on:click="Menu(4)">Calendar</a>
+                <a id="5" v-on:click="Menu(5)">Table</a>
+                <a id="6" v-on:click="Menu(6)">Statistic</a>
+                <a id="7" v-on:click="Menu(7)">Fixture</a>
+                <a class="loadingModal" href="@Url.Action("Home", "Home")">Exit</a>
             </nav>
         </div>
-        <div class="content"></div>
+        <div class="content" id="content"></div>
     </div>
-   
 </div>
 
 <script src="~/Scripts/GlobalFunctions/Skills.js"></script>
-<script>
-     var vueSinglePlayer = new Vue({
-                el: '#singlePlayerView',
-                data: {
-                    Teams: [],
-                    Team: {},
-                },
-                methods: {
-                    EmblemName: function (name, city) {
-                        var fulName = name + city;
-                        fulName = fulName.replace(" ", "");
-                        return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
-                    },
+<script type="text/javascript">
+    var vueSinglePlayer = new Vue({
+        el: '#singlePlayerView',
+        data: {
+            Teams: [],
+            Team: {},
+        },
 
-                    FullName: function (name, city) {
-                        var fulName = name + ' ' + city;
-                        return fulName;
-                    },
+        methods: {
 
-                    ShowStats: function (TeamId) {
-                        this.Team = this.Teams.find(t => t.TeamId == TeamId);
+            Menu: function (id) {
+                var str;
+                switch (id) {
+                    case 1:
+                        str = "_Squad/SinglePlayer";
+                        this.ClassSwitcher('#1');
+                        break;
+                    case 2:
+                        str = "_Training/SinglePlayer";
+                        this.ClassSwitcher('#2');
+                        break;
+                    case 3:
+                        str = "_Finance/SinglePlayer";
+                        this.ClassSwitcher('#3');
+                        break;
+                    case 4:
+                        str = "_Calendar/SinglePlayer";
+                        this.ClassSwitcher('#4');
+                        break;
+                    case 5:
+                        str = "_Table/SinglePlayer";
+                        this.ClassSwitcher('#5');
+                        break;
+                    case 6:
+                        str = "_Statistic/SinglePlayer";
+                        this.ClassSwitcher('#6');
+                        break;
+                    case 7:
+                        str = "_Fixture/SinglePlayer";
+                        this.ClassSwitcher('#7');
+                        break;
+                }
+                this.Partial(str);
+            },
 
-                        TeamSkills(this.Team);
-                        console.log(this.Team);
-                    },
+            ClassSwitcher: function (id) {
+                for (var i = 1; i < 8; i++) {
+                    $('#'+i).removeClass('clicked')
+                }
+                $(id).addClass('clicked');
+            },
 
-                    Selected: function (name, city) {
-                        alert(name + ' ' + city);
-                    },
+            Partial: function (str) {
+                $.ajax({
+                    url: str,
+                    type: "GET",
+                    contentType: "application/json",
+               }).done(function (partialViewResult) {
+                    $("#content").html(partialViewResult);
+               })
+            },
 
-                    SetPlayersAverageSkills: function () {
-                        console.log(this.Team.Players.length);
-                        for (var i = 0; i < this.Team.Players.length; i++) {
-                            PlayerSkills(this.Team.Players[i]);
-                        }
-                    },
+            ScrollOff: function () {
+                 $("body").css("overflow", "hidden");
+                 $("body").css("overflow-x", "hidden");
+                 $("body").css("overflow-y", "hidden");
+             }
+       },
+       created: function () {
+           this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
+           this.Team = this.Teams[0];
+       },
 
-                    NationalityFlag: function (index) {
-                        var src = '/Content/Resources/Flags/' + this.Team.Players[index].CountryName + '.png';
-                        return src;
-                    },
+       mounted: function () {
+          this.ScrollOff();
+       },
+    });
 
-                    SkillsColor: function (value) {
-
-                        if (value >= 95) {
-                            return 'red';
-                        } else if (value >= 90 && value < 95) {
-                            return 'indianred';
-                        } else if (value >= 80 && value < 90) {
-                            return 'orange';
-                        } else if (value >= 70 && value < 80) {
-                            return 'lightgreen';
-                        }
-                        else {
-                            return 'white';
-                        }
-                    },
-
-                    ScrollOff: function () {
-                        $("body").css("overflow", "hidden");
-                        $("body").css("overflow-x", "hidden");
-                        $("body").css("overflow-y", "hidden");
-                    }
-                },
-                created: function () {
-                    this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
-                    this.Team = this.Teams[0];
-                },
-                mounted: function () {
-                    this.ScrollOff();
-                    this.SetPlayersAverageSkills();
-                },
-            })
 </script>
 
