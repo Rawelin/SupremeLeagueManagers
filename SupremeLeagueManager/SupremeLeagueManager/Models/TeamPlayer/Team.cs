@@ -10,6 +10,7 @@ namespace SupremeLeagueManager.Models
     public class Team
     {
         public int TeamId { get; set; }
+        public int CountryId { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
         public string Emblems { get; set; }
@@ -23,9 +24,9 @@ namespace SupremeLeagueManager.Models
         public double Technique { get; set; }
         public double Overall { get; set; }
         public double OverallEnergy { get; set; }
-        public int? Pressing { get; set; }
-        public int? Aggression { get; set; }
-        public int? AttackLevel { get; set; }
+        public int Pressing { get; set; }
+        public int Aggression { get; set; }
+        public int AttackLevel { get; set; }
         public List<Player> Players { get; set; }
         public TeamSkillsModel TeamSkillsModel { get; set; }
 

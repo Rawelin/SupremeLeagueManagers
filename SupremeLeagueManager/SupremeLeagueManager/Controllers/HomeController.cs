@@ -1,4 +1,5 @@
-﻿using SupremeLeagueManager.Models.TeamTest;
+﻿using SupremeLeagueManager.Models.Home;
+using SupremeLeagueManager.Models.TeamTest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,14 @@ namespace SupremeLeagueManager.Controllers
             return View(new CreateTeams().GetTeams());
         }
 
+        public ActionResult StartSinglePlayer(Provider provider)
+        {
+            return Json(new SinglePlayerGame(provider).GetProvider(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult _SinglePlayer()
         {
-            return View(new CreateTeams().GetTeams());
+            return PartialView(new CreateTeams().GetTeams());
         }
     }
 }

@@ -116,6 +116,7 @@ namespace SupremeLeagueManager.Models.SignIn
                 httpContext.Session["LastName"] = users.LastName;
                 httpContext.Session["AccountActivated"] = users.AccountActivated;
                 httpContext.Session["Active"] = users.Active;
+                httpContext.Session["User"] = users;
 
                 correct = true;
             }

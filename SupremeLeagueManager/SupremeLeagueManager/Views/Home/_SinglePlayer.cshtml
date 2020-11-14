@@ -133,22 +133,24 @@
                     },
 
                     Selected: function (id) {
-                          
-                        window.location = '/SinglePlayer/SinglePlayer?id=' + id;
 
-                        //$.ajax({
-                        //    url: '/SinglePlayer/SinglePlayer',
-                        //    type: "POST",
-                        //    //data: JSON.stringify({ provider: this.Provider }),
+                        this.Provider.TeamId = id;
+                        this.Provider.Status = 2;
 
-                        //    cache: false,
-                        //    success: function (result) {
-                        //        window.location.href = "/SinglePlayer/SinglePlayer?json=" + JSON.stringify(this.Provider);
-                        //    },
-                        //    error: function (error) {
-                        //        console.log(error.message);
-                        //    }
-                        //});
+                        $.ajax({
+                            url: "StartSinglePlayer/Home",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify({ provider: this.Provider }),
+                            cache: false,
+                            success: function () {
+                                window.location = '/SinglePlayer/SinglePlayer'
+                                //window.location = '/SinglePlayer/SinglePlayer?id=' + id;
+                            },
+                            error: function (error) {
+                                console.log(error.message);
+                            }
+                        });
                     },
 
                     Home: function () {

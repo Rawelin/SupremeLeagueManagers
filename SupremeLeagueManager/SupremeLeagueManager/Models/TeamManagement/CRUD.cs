@@ -112,9 +112,9 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       Name = t.Name,
                                       City = t.City,
                                       Formation = t.IdDictFormations,
-                                      Pressing = t.Pressing,
-                                      Aggression = t.Aggression,
-                                      AttackLevel = t.AttackLevel,
+                                      Pressing = (int)t.Pressing,
+                                      Aggression = (int)t.Aggression,
+                                      AttackLevel = (int)t.AttackLevel,
                                       GoalKeeper = 0,
                                       Defence = 0,
                                       Midfield = 0,
@@ -201,7 +201,11 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       TeamId = t.IdDictTeams,
                                       Name = t.Name,
                                       City = t.City,
-                                      Formation = t.IdDictFormations
+                                      Formation = t.IdDictFormations,
+                                      CountryId = t.IdCountries,
+                                      Pressing = (int)t.Pressing,
+                                      AttackLevel = (int)t.AttackLevel,
+                                      Aggression = (int)(t.Aggression)
                                   })
                                   .ToList();
                 }

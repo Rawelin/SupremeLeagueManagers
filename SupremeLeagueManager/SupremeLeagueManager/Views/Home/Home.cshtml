@@ -10,12 +10,14 @@
             Online simulator of the football league composed of the best international teams
         </h4>
         <nav>
-            <a class="loadingModal" href="">ONLINE LEAGUE</a>
-            <a href="#" v-on:click="SinglePlayer()">SINGLE PLAYER</a>
-            <a class="loadingModal" href="@Url.Action("FriendlyMatch", "FriendlyMatch")">FRIENDLY GAME</a>
             <a href="#">CREDITS</a>
+            <a class="loadingModal" href="@Url.Action("FriendlyMatch", "FriendlyMatch")">FRIENDLY GAME</a>
+            <a href="#">OPTIONS</a>
+
             @if (Session["IdUser"] != null)
             {
+                <a class="loadingModal" href="">ONLINE LEAGUE</a>
+                <a href="#" v-on:click="SinglePlayer()">SINGLE PLAYER</a>
                 <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR&nbsp;&nbsp;</a>
                 <a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT&nbsp;&nbsp;&nbsp;</a>
             }
@@ -70,6 +72,7 @@
                 el: '#homeView',
                 data: {
                     Teams: [],
+                    Provider: {}
                 },
                 methods: {
                     EmblemName: function (name, city) {
@@ -96,22 +99,27 @@
                     },
 
                     SinglePlayer: function () {
-                        $.ajax(
-                            {
-                                url: "_SinglePlayer/Home",
-                                type: "POST",
-                                contentType: "application/json",
-                                success: function () {
 
-                                },
-                                error: function () {
-                                    alert('Nieoczekiwany błąd');
+                        this.Provider.Status = 1;
+
+                        $.ajax({
+                            url: "StartSinglePlayer/Home",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify({ provider: this.Provider }),
+                            cache: false,
+                            success: function (data) {
+                                if (data.Exsist == 0) {
+                                    $('#homeView').hide();
+                                    $("#singlePlayer").show();
+                                } else {
+                                    window.location = '/SinglePlayer/SinglePlayer'
                                 }
-                            })
-                            .done(function () {
-                                $('#homeView').hide();
-                                $("#singlePlayer").show();
-                            });
+                            },
+                            error: function (error) {
+                                console.log(error.message);
+                            }
+                        });
                     },
                 },
                 created: function () {
