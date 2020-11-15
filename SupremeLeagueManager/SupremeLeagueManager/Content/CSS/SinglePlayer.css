@@ -7,6 +7,11 @@
     margin: 0 1% 1% 1%;
 }
 
+.center {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
 .aside {
     float: left;
     width: 7%;
@@ -51,4 +56,14 @@ nav a:hover {
     border-color: #0695c9;
     border-right: none;
     
+}
+
+.table-standing {
+    background: rgba(0,0,0,.3);
+    cursor: pointer;
+}
+
+.table-standing img {
+    width: 25px;
+    height: 25px;
 }

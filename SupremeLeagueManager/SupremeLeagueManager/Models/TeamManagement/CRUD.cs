@@ -73,7 +73,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                                            AverageSkills = (double)p.AverageSkills,
                                                            AverageDynamicSkills = (double)p.AverageDynamicSkills,
                                                            SkillDifference = 0
-  
+
                                                        })
                                                        .OrderBy(p => p.IndexPosition)
                                                        .ToList()
@@ -217,6 +217,45 @@ namespace SupremeLeagueManager.Models.TeamManagement
             }
 
             return teams;
+        }
+
+        public static List<TeamSinglePlayerM> GetTeamsSinglePlayer(int id)
+        {
+            List<TeamSinglePlayerM> table = new List<TeamSinglePlayerM>();
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    table = slmCtx.Teams.Where(t => t.IdUser == id &&
+                                                    t.Active == 1)
+                                         .Select(t => new TeamSinglePlayerM
+                                         {
+                                             IdDictTeams = t.IdDictTeams,
+                                             IdCountries = t.IdCountries,
+                                             IdDictFormations = t.IdDictFormations,
+                                             Name = t.Name,
+                                             City = t.City,
+                                             Pressing = t.Pressing,
+                                             AttackLevel = t.AttackLevel,
+                                             Aggression = t.Aggression,
+                                             Played= t.Played,
+                                             Won = t.Won,
+                                             Drawn = t.Drawn,
+                                             Lost = t.Lost,
+                                             GoalsFor = t.GoalsFor,
+                                             GoalsAgainst = t.GoalsAgainst,
+                                             Points = t.Points
+                                         })
+                                         .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "GetTeamsSinglePlayer", ex);
+            }
+
+            return table;
         }
 
         public static void SwaPlayers(Player playerOne, Player playerTwo)

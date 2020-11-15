@@ -159,7 +159,10 @@
     <Compile Include="Models\Match\Scorer.cs" />
     <Compile Include="Models\SignIn\CRUD.cs" />
     <Compile Include="Models\SignIn\SignInManagement.cs" />
+    <Compile Include="Models\SinglePlayer\Models\TebleVM.cs" />
+    <Compile Include="Models\SinglePlayer\Table.cs" />
     <Compile Include="Models\TeamManagement\CreateFixtues.cs" />
+    <Compile Include="Models\TeamManagement\TeamSinglePlayerM.cs" />
     <Compile Include="Models\TeamPlayer\Person.cs" />
     <Compile Include="Models\TeamPlayer\Player.cs" />
     <Compile Include="Models\TeamPlayer\PlayerDynamicSkills.cs" />

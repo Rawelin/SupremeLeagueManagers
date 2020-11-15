@@ -1,4 +1,5 @@
 ﻿using SupremeLeagueManager.Models;
+using SupremeLeagueManager.Models.SinglePlayer;
 using SupremeLeagueManager.Models.TeamTest;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _Table()
         {
-            return PartialView();
+            return PartialView(new Table().GetTable());
         }
 
         public ActionResult _Statistic()

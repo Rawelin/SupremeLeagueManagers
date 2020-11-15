@@ -1,6 +1,40 @@
-﻿<div id="tableView">
-    <div class="wrapper">
-        <h1 class="text-center">Table</h1>
+﻿@model SupremeLeagueManager.Models.SinglePlayer.Models.TebleVM
+
+<div id="tableView" style="display: none">
+    <div class="text-center center">
+        <h1 >Table</h1>
+        <table class="table table-dark table-striped table-sm table-standing ">
+            <thead>
+                <tr>
+                    <th>Pos.</th>
+                    <th></th>
+                    <th class="text-left">Club</th>
+                    <th>Played</th>
+                    <th>Won</th>
+                    <th>Draw</th>
+                    <th>Lost</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(value, index) in Table">
+                    <td> {{ index + 1 }} </td>
+                    <td><img v-bind:src="EmblemName(value.Name, value.City)" alt="Emblem" /></td>
+                    <td class="text-left"> {{ value.Name }} {{ value.City }} </td>
+                    <td> {{ value.Played }} </td>
+                    <td> {{ value.Won }} </td>
+                    <td> {{ value.Drawn }} </td>
+                    <td> {{ value.Lost }} </td>
+                    <td> {{ value.GoalsFor }} </td>
+                    <td> {{ value.GoalsAgainst }} </td>
+                    <td> {{ value.GoalsFor - value.GoalsAgainst }} </td>
+                    <td> {{ value.Points }} </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -9,17 +43,21 @@
     var vueTable = new Vue({
         el: '#tableView',
         data: {
-            Teams: [],
-            Team: {},
+            Table: []
+
         },
         methods: {
-          
+            EmblemName: function (name, city) {
+                var fulName = name + city;
+                fulName = fulName.replace(" ", "");
+                return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
+            },
         },
         created: function () {
-
+            this.Table = @Html.Raw(Json.Encode(Model.Table));
         },
         mounted: function () {
-
+            $('#tableView').show()
         },
     });
 

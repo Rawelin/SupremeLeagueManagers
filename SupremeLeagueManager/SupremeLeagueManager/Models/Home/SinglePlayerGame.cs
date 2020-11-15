@@ -30,7 +30,7 @@ namespace SupremeLeagueManager.Models.Home
 
         private void CheckGame()
         {
-            SinglePlayer singlePlayer = new SinglePlayer();
+            SLMContextDB.SinglePlayer singlePlayer = new SLMContextDB.SinglePlayer();
 
             try
             {
@@ -59,7 +59,7 @@ namespace SupremeLeagueManager.Models.Home
                 using (Entities slmCtx = new Entities())
                 {
                     Teams teams = new Teams();
-                    SinglePlayer singlePlayer = new SinglePlayer();
+                    SLMContextDB.SinglePlayer singlePlayer = new SLMContextDB.SinglePlayer();
 
                     singlePlayer.IdUser = user.IdUser;
                     singlePlayer.IdTeam = (int)provider.TeamId;
@@ -83,8 +83,8 @@ namespace SupremeLeagueManager.Models.Home
                         teams.Aggression = dictTeams[i].Aggression;
                         teams.AttackLevel = dictTeams[i].AttackLevel;
                         teams.Played = 0;
-                        teams.Win = 0;
-                        teams.Draw = 0;
+                        teams.Won = 0;
+                        teams.Drawn = 0;
                         teams.Lost = 0;
                         teams.GoalsFor = 0;
                         teams.GoalsAgainst = 0;
