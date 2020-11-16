@@ -726,6 +726,7 @@
     <Content Include="Views\SinglePlayer\_Calendar.cshtml" />
     <Content Include="Views\SinglePlayer\_Statistic.cshtml" />
     <Content Include="Views\SinglePlayer\_Fixture.cshtml" />
+    <Content Include="Views\Home\_Options.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

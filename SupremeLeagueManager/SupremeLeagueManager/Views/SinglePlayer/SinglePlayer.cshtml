@@ -34,33 +34,27 @@
                 switch (id) {
                     case 1:
                         str = "_Squad/SinglePlayer";
-                        this.ClassSwitcher('#1');
                         break;
                     case 2:
                         str = "_Training/SinglePlayer";
-                        this.ClassSwitcher('#2');
                         break;
                     case 3:
                         str = "_Finance/SinglePlayer";
-                        this.ClassSwitcher('#3');
                         break;
                     case 4:
                         str = "_Calendar/SinglePlayer";
-                        this.ClassSwitcher('#4');
                         break;
                     case 5:
                         str = "_Table/SinglePlayer";
-                        this.ClassSwitcher('#5');
                         break;
                     case 6:
                         str = "_Statistic/SinglePlayer";
-                        this.ClassSwitcher('#6');
                         break;
                     case 7:
                         str = "_Fixture/SinglePlayer";
-                        this.ClassSwitcher('#7');
                         break;
                 }
+                this.ClassSwitcher(id);
                 this.Partial(str);
             },
 
@@ -68,7 +62,7 @@
                 for (var i = 1; i < 8; i++) {
                     $('#'+i).removeClass('clicked')
                 }
-                $(id).addClass('clicked');
+                $('#' + id).addClass('clicked');
             },
 
             Partial: function (str) {

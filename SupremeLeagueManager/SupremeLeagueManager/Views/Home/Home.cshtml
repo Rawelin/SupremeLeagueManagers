@@ -10,16 +10,17 @@
             Online simulator of the football league composed of the best international teams
         </h4>
         <nav>
-            <a href="#">CREDITS</a>
+            <a href="">CREDITS</a>
             <a class="loadingModal" href="@Url.Action("FriendlyMatch", "FriendlyMatch")">FRIENDLY GAME</a>
-            <a href="#">OPTIONS</a>
+
 
             @if (Session["IdUser"] != null)
             {
                 <a class="loadingModal" href="">ONLINE LEAGUE</a>
+                <a href="#" v-on:click="Options()">OPTIONS</a>
                 <a href="#" v-on:click="SinglePlayer()">SINGLE PLAYER</a>
-                <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR&nbsp;&nbsp;</a>
-                <a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT&nbsp;&nbsp;&nbsp;</a>
+                <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR</a>
+                <a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT</a>
             }
         </nav>
     </div>
@@ -47,6 +48,10 @@
 
 <div id="singlePlayer">
     @Html.Partial("_SinglePlayer")
+</div>
+
+<div id="options">
+    @Html.Partial("_Options")
 </div>
 
 
@@ -98,12 +103,17 @@
                         $("body").css("overflow-y", "hidden");
                     },
 
+                    Options: function () {
+                        $('#homeView').hide();
+                        $("#options").show();
+                    },
+
                     SinglePlayer: function () {
 
                         this.Provider.Status = 1;
 
                         $.ajax({
-                            url: "StartSinglePlayer/Home",
+                            url: "SetSinglePlayer/Home",
                             type: "POST",
                             contentType: "application/json",
                             data: JSON.stringify({ provider: this.Provider }),

@@ -23,7 +23,7 @@ namespace SupremeLeagueManager.Models.Home
             Menu();
         }
 
-        public Provider GetProvider()
+        public Provider GetStatus()
         {
             return provider;
         }
@@ -108,11 +108,34 @@ namespace SupremeLeagueManager.Models.Home
         {
             try
             {
+                using (Entities slmCtx = new Entities())
+                {
+                    SLMContextDB.SinglePlayer remove = slmCtx.SinglePlayer
+                                                             .Where(s => s.IdUser == user.IdUser)
+                                                             .FirstOrDefault();
 
+                    if (!(remove is null))
+                    {
+                        slmCtx.SinglePlayer.Remove(remove);
+
+                        List<Teams> teams = slmCtx.Teams
+                                             .Where(t => t.IdUser == user.IdUser)
+                                             .ToList();
+
+                        slmCtx.Teams.RemoveRange(teams);
+                        slmCtx.SaveChanges();
+                        provider.ErrorMessage = "0";
+                    }
+                    else
+                    {
+                        provider.ErrorMessage = "1";
+                    }
+                }
             }
             catch (Exception ex)
             {
                 ErrorHandling.InsertError("Home", "SinglePlayerGame", "RemoveGame", ex);
+                provider.ErrorMessage = "2";
             }
         }
 

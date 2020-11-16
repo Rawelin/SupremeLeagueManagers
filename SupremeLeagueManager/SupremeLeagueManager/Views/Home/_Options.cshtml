@@ -1,0 +1,52 @@
+﻿<div id="optionsView" class="site-settings">
+    <div class="mainPage">
+        <nav>
+            <a href="#" v-on:click="Home()">MAIN MENU</a>
+            <a href="#" v-on:click="Reset()">RESET SINGLE PLAYER MODE</a>
+        </nav>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var vueOptions = new Vue({
+        el: '#optionsView',
+        data: {
+            Provider: {}
+        },
+        methods: {
+            Reset: function () {
+                this.Provider.Status = 3;
+                $.ajax({
+                    url: "SetSinglePlayer/Home",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ provider: this.Provider }),
+                    cache: false,
+                    success: function (data) {
+                        if (data.ErrorMessage == '0') {
+                            alert('Single player mode has been removed');
+                        } else if (data.ErrorMessage == '1') {
+                            alert('Single player mode does not exist');
+                        } else {
+                            alert('error');
+                        }
+                    },
+                    error: function () {
+                        console.log('Error');
+                    }
+                });
+            },
+            Home: function () {
+                $('#options').hide();
+                $('#homeView').show();
+            },
+        },
+        created: function () {
+
+        },
+        mounted: function () {
+
+        },
+    });
+</script>

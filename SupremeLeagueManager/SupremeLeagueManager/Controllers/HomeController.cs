@@ -15,14 +15,19 @@ namespace SupremeLeagueManager.Controllers
             return View(new CreateTeams().GetTeams());
         }
 
-        public ActionResult StartSinglePlayer(Provider provider)
+        public ActionResult SetSinglePlayer(Provider provider)
         {
-            return Json(new SinglePlayerGame(provider).GetProvider(), JsonRequestBehavior.AllowGet);
+            return Json(new SinglePlayerGame(provider).GetStatus(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _SinglePlayer()
         {
             return PartialView(new CreateTeams().GetTeams());
+        }
+
+        public ActionResult _Options()
+        {
+            return PartialView();
         }
     }
 }
