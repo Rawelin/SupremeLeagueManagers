@@ -12,9 +12,11 @@ namespace SupremeLeagueManager.Models.Home
 {
     public class SinglePlayerGame
     {
-        private Provider provider;
+        private Provider provider; 
         private HttpContext context;
         private UsersM user;
+        private int status;
+        private bool mode;
 
         public SinglePlayerGame(Provider provider)
         {
@@ -23,9 +25,25 @@ namespace SupremeLeagueManager.Models.Home
             Menu();
         }
 
+        public SinglePlayerGame(bool mode)
+        {
+            this.mode = mode;
+            SetUser();
+
+            if(!(user is null))
+            {
+                CheckGame();
+            }
+        }
+
         public Provider GetStatus()
         {
             return provider;
+        }
+
+        public int GetGameStatus()
+        {
+            return status;
         }
 
         private void CheckGame()
@@ -40,7 +58,14 @@ namespace SupremeLeagueManager.Models.Home
                                          .Where(s => s.IdUser == user.IdUser)
                                          .FirstOrDefault();
 
-                    provider.Exsist = singlePlayer is null ? 0 : 1;
+                    if (mode)
+                    {
+                        status = singlePlayer is null ? 0 : 1;
+                    }
+                    else
+                    {
+                        provider.Exsist = singlePlayer is null ? 0 : 1;
+                    }
                 }
             }
             catch (Exception ex)

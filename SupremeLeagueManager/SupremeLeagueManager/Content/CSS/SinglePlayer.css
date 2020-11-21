@@ -8,22 +8,18 @@
 }
 
 .center {
-    margin-left: 25%;
-    margin-right: 25%;
+    margin: 0 25% 0 25%;
 }
 
 .aside {
     float: left;
     width: 7%;
-    /*background-color: blue;*/
     min-height: 55em;
-    /*border-right: 1px solid white;*/
 }
 
 .content {
     float: left;
     width: 93%;
-    /*background-color: rebeccapurple;*/
     min-height: 55em;
 }
 
@@ -36,7 +32,6 @@ nav a {
     border: 1px solid white;
     border-bottom: 1px solid rgba(255, 255, 255, 0);
     border-top: 1px solid rgba(255, 255, 255, 0);
-    /*border-radius: 5px;*/
     text-decoration: none;
     background-color: rgba(0,0,0,.3);
     font-weight: bold;
@@ -45,11 +40,7 @@ nav a {
 nav a:hover {
     text-decoration: none;
     color: #0695c9 !important;
-    /*border-top: 1px solid white;
-    border-bottom: 1px solid white;*/
     cursor: pointer;
-    /*border-right: none;*/
-    /*border-radius: 5px 0 0 5px;*/
 }
 
 .clicked {
@@ -67,3 +58,24 @@ nav a:hover {
     width: 25px;
     height: 25px;
 }
+
+.font-24{
+    font-size: 24px
+}
+
+
+.fixture-nav a {
+    font-size: 60px;
+}
+
+    .fixture-nav a:hover {
+        cursor: pointer;
+        text-decoration: none;
+        color: #0695c9 !important;
+    }
+
+.table-fixture img {
+    width: 32px;
+    height: 32px;
+}
+

@@ -12,7 +12,7 @@ namespace SupremeLeagueManager.Controllers
     {
         public ActionResult Home()
         {
-            return View(new CreateTeams().GetTeams());
+            return View(new Data().GetData());
         }
 
         public ActionResult SetSinglePlayer(Provider provider)
@@ -27,7 +27,7 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _Options()
         {
-            return PartialView();
+            return PartialView(new Data().GetData());
         }
     }
 }

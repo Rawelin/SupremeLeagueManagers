@@ -1,4 +1,5 @@
 ﻿using SLMContextDB;
+using SupremeLeagueManager.Models.Global;
 using SupremeLeagueManager.Models.Global_Models;
 using SupremeLeagueManager.Models.TeamManagement;
 using System;
@@ -29,6 +30,7 @@ namespace SupremeLeagueManager.Models.TeamTest
             }
             catch (Exception ex)
             {
+                ErrorHandling.InsertError("TeamManagement", "CreateTeams", "SetTeams", ex);
                 TeamManagementVM.ErrorMessage = ex.ToString();
             }
         }

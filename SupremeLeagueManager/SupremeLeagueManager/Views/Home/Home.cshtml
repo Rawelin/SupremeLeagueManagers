@@ -1,8 +1,7 @@
-﻿@model SupremeLeagueManager.Models.TeamTest.TeamManagementVM
-
+﻿
 <link href="~/Content/CSS/Home.css" rel="stylesheet" />
 
-<div id="homeView" class="site-settings">
+<div id="homeView" class="site-settings" style="display: none">
 
     <div id="home" class="mainPage">
         <h1 style="display: none"> Supreme League Managers </h1>
@@ -18,7 +17,7 @@
             {
                 <a class="loadingModal" href="">ONLINE LEAGUE</a>
                 <a href="#" v-on:click="Options()">OPTIONS</a>
-                <a href="#" v-on:click="SinglePlayer()">SINGLE PLAYER</a>
+                <a href="#" v-on:click="SinglePlayer()">{{ SingleStatus() }}</a>
                 <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR</a>
                 <a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT</a>
             }
@@ -46,29 +45,18 @@
     </div>
 </div>
 
-<div id="singlePlayer">
+<div id="singlePlayer" style="display: none">
     @Html.Partial("_SinglePlayer")
 </div>
 
-<div id="options">
+<div id="options" style="display: none">
     @Html.Partial("_Options")
 </div>
-
 
 <div id="music_list">
     <audio controls autoplay hidden></audio>
 </div>
 
-
-<div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModal-label" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-fluid text-center">
-            <div>
-                <img src="~/Content/Resources/Gif/loading2.gif" width="200" height="200" />
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="~/Scripts/GlobalFunctions/MusicPlayer.js"></script>
 <script type="text/javascript">
@@ -77,9 +65,20 @@
                 el: '#homeView',
                 data: {
                     Teams: [],
-                    Provider: {}
+                    Provider: {},
+                    GameStatus: '',
+                    Status: -1,
+
                 },
                 methods: {
+                    SingleStatus() {
+                        if (this.Status == 0) {
+                            return this.GameStatus = 'SINGLE PLAYER';
+                        } else {
+                            return this.GameStatus = 'CONTINUE SINGLE PLAYER';
+                        }
+                    },
+
                     EmblemName: function (name, city) {
                         var fulName = name + city;
                         fulName = fulName.replace(" ", "");
@@ -134,11 +133,14 @@
                 },
                 created: function () {
                     this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
-                    $('#singlePlayer').hide();
+                    this.Status =  @Html.Raw(Json.Encode(Model.Status));
+                   
                 },
                 mounted: function () {
                     this.Music();
                     this.ScrollOff();
+                   
+                    $('#homeView').show();
                 },
             })
 </script>

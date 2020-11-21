@@ -49,7 +49,7 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _Fixture()
         {
-            return PartialView();
+            return PartialView(new Fixture().GetFixtures());
         }
     }
 }

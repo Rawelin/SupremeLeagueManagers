@@ -2,7 +2,7 @@
     <div class="mainPage">
         <nav>
             <a href="#" v-on:click="Home()">MAIN MENU</a>
-            <a href="#" v-on:click="Reset()">RESET SINGLE PLAYER MODE</a>
+            <a href="#" v-on:click="Reset()" :style="{display: Display() }">RESET SINGLE PLAYER MODE</a>
         </nav>
     </div>
 </div>
@@ -12,9 +12,19 @@
     var vueOptions = new Vue({
         el: '#optionsView',
         data: {
-            Provider: {}
+            Provider: {},
+            Status: -1,
         },
         methods: {
+
+            Display: function () {
+                if (this.Status == 0) {
+                    return 'none';
+                } else {
+                    return 'inline-block';
+                }
+            },
+
             Reset: function () {
                 this.Provider.Status = 3;
                 $.ajax({
@@ -26,6 +36,8 @@
                     success: function (data) {
                         if (data.ErrorMessage == '0') {
                             alert('Single player mode has been removed');
+                            vueOptions.Status = 0;
+                            vueHome.Status = 0;
                         } else if (data.ErrorMessage == '1') {
                             alert('Single player mode does not exist');
                         } else {
@@ -40,10 +52,11 @@
             Home: function () {
                 $('#options').hide();
                 $('#homeView').show();
+                
             },
         },
         created: function () {
-
+            this.Status =  @Html.Raw(Json.Encode(Model.Status));
         },
         mounted: function () {
 
