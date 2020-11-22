@@ -1,4 +1,5 @@
 ﻿using SupremeLeagueManager.Models.Global;
+using SupremeLeagueManager.Models.Home;
 using SupremeLeagueManager.Models.SinglePlayer.Models;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace SupremeLeagueManager.Models.SinglePlayer
             try
             {
                 FixtureVM.AllFixtures = new League.Fixture().GetAllFixtures();
+                FixtureVM.SinglePlayer = new SinglePlayerGame().GetSinglePlayer();
             }
             catch (Exception ex)
             {

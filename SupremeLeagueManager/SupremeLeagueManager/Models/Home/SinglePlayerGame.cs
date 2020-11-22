@@ -1,6 +1,7 @@
 ﻿using SLMContextDB;
 using SupremeLeagueManager.Models.Global;
 using SupremeLeagueManager.Models.SignIn;
+using SupremeLeagueManager.Models.SinglePlayer.Models;
 using SupremeLeagueManager.Models.TeamTest;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,25 @@ namespace SupremeLeagueManager.Models.Home
 {
     public class SinglePlayerGame
     {
-        private Provider provider; 
+        SLMContextDB.SinglePlayer singlePlayer;
+        SinglePlayerM singlePlayerM;
+        private Provider provider;
         private HttpContext context;
         private UsersM user;
         private int status;
         private bool mode;
 
+        public SinglePlayerGame()
+        {
+            SetUser();
+            SetSinglePlayer();
+        }
+
         public SinglePlayerGame(Provider provider)
         {
             this.provider = provider;
             SetUser();
+            SetSinglePlayer();
             Menu();
         }
 
@@ -29,8 +39,9 @@ namespace SupremeLeagueManager.Models.Home
         {
             this.mode = mode;
             SetUser();
-
-            if(!(user is null))
+            SetSinglePlayer();
+          
+            if (!(user is null))
             {
                 CheckGame();
             }
@@ -46,10 +57,13 @@ namespace SupremeLeagueManager.Models.Home
             return status;
         }
 
-        private void CheckGame()
+        public SinglePlayerM GetSinglePlayer()
         {
-            SLMContextDB.SinglePlayer singlePlayer = new SLMContextDB.SinglePlayer();
+            return singlePlayerM;
+        }
 
+        private void SetSinglePlayer()
+        {
             try
             {
                 using (Entities slmCtx = new Entities())
@@ -58,15 +72,40 @@ namespace SupremeLeagueManager.Models.Home
                                          .Where(s => s.IdUser == user.IdUser)
                                          .FirstOrDefault();
 
-                    if (mode)
-                    {
-                        status = singlePlayer is null ? 0 : 1;
-                    }
-                    else
-                    {
-                        provider.Exsist = singlePlayer is null ? 0 : 1;
-                    }
+                    singlePlayerM = slmCtx.SinglePlayer
+                                          .Where(s => s.IdUser == user.IdUser)
+                                          .Select(s => new SinglePlayerM
+                                          {
+                                              IdSinglePlayer = s.IdSinglePlayer,
+                                              IdUser = s.IdUser,
+                                              IdTeam = s.IdTeam,
+                                              Season = s.Season,
+                                              Week = s.Week,
+                                              Day = s.Day,
+                                              StartDate = s.StartDate
+                                          })
+                                          .FirstOrDefault();
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("Home", "SinglePlayerGame", "SetSinglePlayer", ex);
+            }
+        }
+
+        private void CheckGame()
+        {
+            try
+            {
+                if (mode)
+                {
+                    status = singlePlayer is null ? 0 : 1;
+                }
+                else
+                {
+                    provider.Exsist = singlePlayer is null ? 0 : 1;
+                }
+
             }
             catch (Exception ex)
             {
@@ -84,11 +123,13 @@ namespace SupremeLeagueManager.Models.Home
                 using (Entities slmCtx = new Entities())
                 {
                     Teams teams = new Teams();
-                    SLMContextDB.SinglePlayer singlePlayer = new SLMContextDB.SinglePlayer();
+                    singlePlayer = new SLMContextDB.SinglePlayer();
 
                     singlePlayer.IdUser = user.IdUser;
                     singlePlayer.IdTeam = (int)provider.TeamId;
                     singlePlayer.Season = 1;
+                    singlePlayer.Week = 1;
+                    singlePlayer.Day = 1;
                     singlePlayer.StartDate = DateTime.Now;
                     singlePlayer.Active = 1;
 
@@ -139,7 +180,7 @@ namespace SupremeLeagueManager.Models.Home
                                                              .Where(s => s.IdUser == user.IdUser)
                                                              .FirstOrDefault();
 
-                    if (!(remove is null))
+                    if (!(singlePlayer is null))
                     {
                         slmCtx.SinglePlayer.Remove(remove);
 
@@ -165,9 +206,8 @@ namespace SupremeLeagueManager.Models.Home
         }
 
         private void SetUser()
-        {
-            context = HttpContext.Current;
-            user = (UsersM)context.Session["User"];
+        { 
+            user = UserContext.GetUser();
         }
 
         private void Menu()

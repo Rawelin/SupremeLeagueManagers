@@ -1,6 +1,6 @@
 ﻿<link href="~/Content/CSS/SinglePlayer.css" rel="stylesheet" />
 
-<div id="singlePlayerView" class="site-settings">
+<div id="singlePlayerView" class="site-settings" style="display: none">
     <div class="wrapper">
         <div class="aside">
             <nav class="mt-1">
@@ -14,7 +14,55 @@
                 <a class="loadingModal" href="@Url.Action("Home", "Home")">Exit</a>
             </nav>
         </div>
-        <div class="content" id="content"></div>
+        <div class="content" id="content">
+            <div class="text-center wrapper-small">
+                <div><img v-bind:src="EmblemName(Team.Name, Team.City)" alt="Emblem" /></div>
+                <div>
+                    <table class="table table-dark table-striped table-sm table-standing mt-5">
+                        <tbody>
+                            <tr>
+                                <td>Team</td>
+                                <td> {{ Team.Name }} {{ Team.City }} </td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td> {{ User.FirstName }} </td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td>{{ User.LastName }} </td>
+                            </tr>
+                            <tr>
+                                <td>Season</td>
+                                <td> {{ SinglePlayer.Season }}</td>
+                            </tr>
+                            <tr>
+                                <td>Weak</td>
+                                <td> {{ SinglePlayer.Week }}</td>
+                            </tr>
+                            <tr>
+                                <td>Day</td>
+                                <td> {{ SinglePlayer.Day }}</td>
+                            </tr>
+                            <tr>
+                                <td>Position</td>
+                                <td> {{ Position }}</td>
+                            </tr>
+                            <tr>
+                                <td>Won/Drawn/Lost</td>
+                                <td> {{ Team.Won }} / {{ Team.Drawn }} / {{ Team.Lost }} </td>
+                            </tr>
+                            <tr>
+                                <td>Points</td>
+                                <td> {{ Team.Points }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+           
+            </div>
+          
+        </div>
     </div>
 </div>
 
@@ -24,10 +72,20 @@
         el: '#singlePlayerView',
         data: {
             Teams: [],
+            Table: [],
+            SinglePlayer: {},
+            User: {},
             Team: {},
+            Position: 0
         },
 
         methods: {
+
+            EmblemName: function (name, city) {
+                var fulName = name + city;
+                fulName = fulName.replace(" ", "");
+                return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
+            },
 
             Menu: function (id) {
                 var str;
@@ -76,18 +134,25 @@
             },
 
             ScrollOff: function () {
-                 $("body").css("overflow", "hidden");
-                 $("body").css("overflow-x", "hidden");
-                 $("body").css("overflow-y", "hidden");
+                $("body").css("overflow", "hidden");
+                $("body").css("overflow-x", "hidden");
+                $("body").css("overflow-y", "hidden");
              }
        },
        created: function () {
-           this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
-           this.Team = this.Teams[0];
+           @*this.Teams =  @Html.Raw(Json.Encode(Model.Teams));*@
+           this.SinglePlayer =  @Html.Raw(Json.Encode(Model.SinglePlayer));
+           this.User =  @Html.Raw(Json.Encode(Model.User));
+           this.Table =  @Html.Raw(Json.Encode(Model.Table));
+
+           this.Team = this.Table.find(t => t.IdDictTeams == this.SinglePlayer.IdTeam);
+           this.Position = this.Table.findIndex(t => t.IdDictTeams == this.SinglePlayer.IdTeam) + 1;
+
        },
 
        mounted: function () {
-          this.ScrollOff();
+           this.ScrollOff();
+           $('#singlePlayerView').show()
        },
     });
 

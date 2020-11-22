@@ -161,9 +161,13 @@
     <Compile Include="Models\Match\Scorer.cs" />
     <Compile Include="Models\SignIn\CRUD.cs" />
     <Compile Include="Models\SignIn\SignInManagement.cs" />
+    <Compile Include="Models\SignIn\UserContext.cs" />
     <Compile Include="Models\SinglePlayer\Fixture.cs" />
     <Compile Include="Models\SinglePlayer\Models\FixtureVM.cs" />
+    <Compile Include="Models\SinglePlayer\Models\SinglePlayerM.cs" />
+    <Compile Include="Models\SinglePlayer\Models\SinglePlayerVM.cs" />
     <Compile Include="Models\SinglePlayer\Models\TebleVM.cs" />
+    <Compile Include="Models\SinglePlayer\SinglePlayerData.cs" />
     <Compile Include="Models\SinglePlayer\Table.cs" />
     <Compile Include="Models\TeamManagement\CreateFixtues.cs" />
     <Compile Include="Models\TeamManagement\TeamSinglePlayerM.cs" />

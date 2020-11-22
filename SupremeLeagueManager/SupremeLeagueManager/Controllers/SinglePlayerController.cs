@@ -14,7 +14,7 @@ namespace SupremeLeagueManager.Controllers
         // GET: SinglePlayer
         public ActionResult SinglePlayer()
         {
-            return View(new CreateTeams().GetTeams());
+            return View(new SinglePlayerData().GetData());
         }
 
         public ActionResult _Squad()

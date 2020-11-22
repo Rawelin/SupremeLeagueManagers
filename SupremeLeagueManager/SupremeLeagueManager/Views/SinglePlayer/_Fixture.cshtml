@@ -1,5 +1,4 @@
 ﻿
-
 <div id="fixtureView" style="display: none">
     <div class="center text-center mt-5">
         <table class="table table-dark table-striped table-sm table-standing table-fixture font-24">
@@ -34,6 +33,7 @@
         el: '#fixtureView',
         data: {
             Fixtures: [],
+            SinglePlayer: {},
             Week: 0
         },
         methods: {
@@ -61,6 +61,8 @@
         },
         created: function () {
             this.Fixtures = @Html.Raw(Json.Encode(Model.AllFixtures));
+            this.SinglePlayer =  @Html.Raw(Json.Encode(Model.SinglePlayer));
+            this.Week = this.SinglePlayer.Week - 1;
         },
         mounted: function () {
             $('#fixtureView').show();

@@ -52,7 +52,8 @@
             },
         },
         created: function () {
-            this.Table = @Html.Raw(Json.Encode(Model.Table));
+            @*this.Table = @Html.Raw(Json.Encode(Model.Table));*@
+            this.Table = vueSinglePlayer.Table;
         },
         mounted: function () {
             $('#tableView').show()
