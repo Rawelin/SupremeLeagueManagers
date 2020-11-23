@@ -73,6 +73,7 @@
         data: {
             Teams: [],
             Table: [],
+            Fixtures: [],
             SinglePlayer: {},
             User: {},
             Team: {},
@@ -139,14 +140,15 @@
                 $("body").css("overflow-y", "hidden");
              }
        },
-       created: function () {
-           @*this.Teams =  @Html.Raw(Json.Encode(Model.Teams));*@
+        created: function () {
+           this.Teams =  @Html.Raw(Json.Encode(Model.Teams));
            this.SinglePlayer =  @Html.Raw(Json.Encode(Model.SinglePlayer));
            this.User =  @Html.Raw(Json.Encode(Model.User));
            this.Table =  @Html.Raw(Json.Encode(Model.Table));
 
            this.Team = this.Table.find(t => t.IdDictTeams == this.SinglePlayer.IdTeam);
            this.Position = this.Table.findIndex(t => t.IdDictTeams == this.SinglePlayer.IdTeam) + 1;
+
 
        },
 

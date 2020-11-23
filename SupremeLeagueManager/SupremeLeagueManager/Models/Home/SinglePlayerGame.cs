@@ -1,4 +1,5 @@
 ﻿using SLMContextDB;
+using SupremeLeagueManager.Models.Admin;
 using SupremeLeagueManager.Models.Global;
 using SupremeLeagueManager.Models.SignIn;
 using SupremeLeagueManager.Models.SinglePlayer.Models;
@@ -120,9 +121,13 @@ namespace SupremeLeagueManager.Models.Home
                 List<Team> dictTeams = new List<Team>();
                 dictTeams = CRUD.GetTeams();
 
+                List<dictTeamsPlayersM> dictTeamsPlayers = new List<dictTeamsPlayersM>();
+                dictTeamsPlayers = GlobalCRUD.GetAllTeamPlayers();
+
                 using (Entities slmCtx = new Entities())
                 {
                     Teams teams = new Teams();
+                    TeamsPlayer teamsPlayer = new TeamsPlayer();
                     singlePlayer = new SLMContextDB.SinglePlayer();
 
                     singlePlayer.IdUser = user.IdUser;
@@ -160,6 +165,48 @@ namespace SupremeLeagueManager.Models.Home
                         slmCtx.Teams.Add(teams);
                         slmCtx.SaveChanges();
                     }
+
+                    for(int i = 0; i < dictTeamsPlayers.Count; i++ )
+                    {
+                        teamsPlayer.IdUser = user.IdUser;
+                        teamsPlayer.IdDictTeamsPlayers = dictTeamsPlayers[i].IdDictTeamsPlayers;
+                        teamsPlayer.IdDictTeams = dictTeamsPlayers[i].IdDictTeams;
+                        teamsPlayer.IdDictCountries = dictTeamsPlayers[i].IdDictCountries;
+                        teamsPlayer.IdDictPositions = dictTeamsPlayers[i].IdDictPositions;
+                        teamsPlayer.Lp = dictTeamsPlayers[i].Lp;
+                        teamsPlayer.IdDictPersons = dictTeamsPlayers[i].IdDictPersons;
+                        teamsPlayer.BirthDate = dictTeamsPlayers[i].BirthDate;
+                        teamsPlayer.FirstName = dictTeamsPlayers[i].FirstName;
+                        teamsPlayer.LastName = dictTeamsPlayers[i].LastName;
+                        teamsPlayer.LeftFootSkills = dictTeamsPlayers[i].LeftFootSkills;
+                        teamsPlayer.RightFootSkills = dictTeamsPlayers[i].RightFootSkills;
+                        teamsPlayer.GoalKeeper = dictTeamsPlayers[i].GoalKeeper;
+                        teamsPlayer.Defence = dictTeamsPlayers[i].Defence;
+                        teamsPlayer.Midfield = dictTeamsPlayers[i].Midfield;
+                        teamsPlayer.Attack = dictTeamsPlayers[i].Attack;
+                        teamsPlayer.Diving = dictTeamsPlayers[i].Diving;
+                        teamsPlayer.Handling = dictTeamsPlayers[i].Handling;
+                        teamsPlayer.Tackling = dictTeamsPlayers[i].Tackling;
+                        teamsPlayer.Covering = dictTeamsPlayers[i].Covering;
+                        teamsPlayer.LongPassAccuracy = dictTeamsPlayers[i].LongPassAccuracy;
+                        teamsPlayer.ShortPassAccuracy = dictTeamsPlayers[i].ShortPassAccuracy;
+                        teamsPlayer.ShotAccuracy = dictTeamsPlayers[i].ShotAccuracy;
+                        teamsPlayer.Speed = dictTeamsPlayers[i].Speed;
+                        teamsPlayer.Acceleration = dictTeamsPlayers[i].Acceleration;
+                        teamsPlayer.Reflex = dictTeamsPlayers[i].Reflex;
+                        teamsPlayer.Heading = dictTeamsPlayers[i].Heading;
+                        teamsPlayer.ShotPower = dictTeamsPlayers[i].ShotPower;
+                        teamsPlayer.Technique = dictTeamsPlayers[i].Technique;
+                        teamsPlayer.Endurance = dictTeamsPlayers[i].Endurance;
+                        teamsPlayer.Stamina = dictTeamsPlayers[i].Stamina;
+                        teamsPlayer.AverageSkills = dictTeamsPlayers[i].AverageSkills;
+                        teamsPlayer.AverageDynamicSkills = dictTeamsPlayers[i].AverageDynamicSkills;
+                        teamsPlayer.Active = dictTeamsPlayers[i].Active;
+
+                        slmCtx.TeamsPlayer.Add(teamsPlayer);
+                        slmCtx.SaveChanges();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -185,10 +232,15 @@ namespace SupremeLeagueManager.Models.Home
                         slmCtx.SinglePlayer.Remove(remove);
 
                         List<Teams> teams = slmCtx.Teams
-                                             .Where(t => t.IdUser == user.IdUser)
-                                             .ToList();
+                                                  .Where(t => t.IdUser == user.IdUser)
+                                                  .ToList();
+
+                        List<TeamsPlayer> players = slmCtx.TeamsPlayer
+                                                          .Where(p => p.IdUser == user.IdUser)
+                                                          .ToList();
 
                         slmCtx.Teams.RemoveRange(teams);
+                        slmCtx.TeamsPlayer.RemoveRange(players);
                         slmCtx.SaveChanges();
                         provider.ErrorMessage = "0";
                     }

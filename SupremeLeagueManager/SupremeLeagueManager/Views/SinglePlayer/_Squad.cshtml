@@ -1,8 +1,11 @@
 ﻿
 
-<div id="squadView">
-    <div class="wrapper">
+<div id="squadView" style="display: none">
+    <div class="text-center center">
         <h1 class="text-center">Team Squad</h1>
+        <div v-for="(value, index) in Team.Players">
+          {{index + 1}}  {{value.Name}} {{value.Surname}}
+        </div>
     </div>
 </div>
 
@@ -10,17 +13,19 @@
     var vueSquad = new Vue({
         el: '#squadView',
         data: {
-            Teams: [],
-            Team: {},
+            SinglePlayer: {},
+            Team: {}
         },
         methods: {
           
         },
         created: function () {
-
+            this.SinglePlayer = vueSinglePlayer.SinglePlayer;
+            this.Team = vueSinglePlayer.Teams.find(t => t.TeamId == this.SinglePlayer.IdTeam);
+            console.log(this.Team);
         },
         mounted: function () {
-      
+            $('#squadView').show();
         },
     });
 

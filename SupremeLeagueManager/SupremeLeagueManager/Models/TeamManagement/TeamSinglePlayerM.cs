@@ -8,5 +8,6 @@ namespace SupremeLeagueManager.Models.TeamManagement
 {
     public class TeamSinglePlayerM : Teams
     {
+        List<Player> Players { get; set; }
     }
 }

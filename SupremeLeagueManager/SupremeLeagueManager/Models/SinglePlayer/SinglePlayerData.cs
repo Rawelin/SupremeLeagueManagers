@@ -28,7 +28,7 @@ namespace SupremeLeagueManager.Models.SinglePlayer
         {
             try
             {
-                SinglePlayerVM.Teams = CRUD.GetTeamsPlayers();
+                SinglePlayerVM.Teams = CRUD.GetAllTeamsSinglePlayer();
                 SinglePlayerVM.SinglePlayer = new SinglePlayerGame().GetSinglePlayer();
                 SinglePlayerVM.Table = CRUD.GetTeamsSinglePlayer(UserContext.GetUser().IdUser)
                                            .OrderByDescending(t => t.Points)

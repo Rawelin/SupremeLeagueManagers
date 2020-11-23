@@ -258,6 +258,98 @@ namespace SupremeLeagueManager.Models.TeamManagement
             return table;
         }
 
+
+        public static List<Team> GetAllTeamsSinglePlayer()
+        {
+            List<Team> teams = new List<Team>();
+
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    teams = slmCtx.Teams
+                                  .Where(t => t.Active == 1)
+                                  .Select(t => new Team
+                                  {
+                                      TeamId = t.IdDictTeams,
+                                      Name = t.Name,
+                                      City = t.City,
+                                      Formation = t.IdDictFormations,
+                                      Pressing = (int)t.Pressing,
+                                      Aggression = (int)t.Aggression,
+                                      AttackLevel = (int)t.AttackLevel,
+                                      GoalKeeper = 0,
+                                      Defence = 0,
+                                      Midfield = 0,
+                                      Attack = 0,
+                                      Header = 0,
+                                      Speed = 0,
+                                      Technique = 0,
+                                      Overall = 0,
+                                      Players = slmCtx.TeamsPlayer
+                                                       .Where(p => p.IdDictTeams == t.IdDictTeams && p.Active == 1)
+                                                       .Select(p => new Player
+                                                       {
+                                                           PlayerId = p.IdDictTeamsPlayers,
+                                                           Name = p.FirstName,
+                                                           Surname = p.LastName,
+                                                           CountryName = p.dictCountries.CountryName,
+                                                           DOB = p.BirthDate,
+                                                           Age = 0,
+                                                           TeamId = p.IdDictTeams,
+                                                           IndexPosition = p.Lp,
+                                                           PositionShort = p.dictPositions.ShortName,
+                                                           LeftFootSkills = p.LeftFootSkills,
+                                                           RightFootSkills = p.RightFootSkills,
+                                                           GoalKeeper = (double)p.GoalKeeper,
+                                                           Defence = (double)p.Defence,
+                                                           Midfield = (double)p.Midfield,
+                                                           Attack = (double)p.Attack,
+                                                           Diving = (double)p.Diving,
+                                                           Handling = (double)p.Handling,
+                                                           Tackling = (double)p.Tackling,
+                                                           Covering = (double)p.Covering,
+                                                           LongPassAccuracy = (double)p.LongPassAccuracy,
+                                                           ShortPassAccuracy = (double)p.ShortPassAccuracy,
+                                                           ShotAccuracy = (double)p.ShotAccuracy,
+                                                           Speed = (double)p.Speed,
+                                                           Acceleration = (double)p.Acceleration,
+                                                           Reflex = (double)p.Reflex,
+                                                           Heading = (double)p.Heading,
+                                                           ShotPower = (double)p.ShotPower,
+                                                           Technique = (double)p.Technique,
+                                                           Endurance = (double)p.Endurance,
+                                                           Stamina = (double)p.Stamina,
+                                                           AverageSkills = (double)p.AverageSkills,
+                                                           AverageDynamicSkills = (double)p.AverageDynamicSkills,
+                                                           SkillDifference = 0
+
+                                                       })
+                                                       .OrderBy(p => p.IndexPosition)
+                                                       .ToList()
+                                  }).
+                                  ToList();
+
+                    for (int i = 0; i < teams.Count; i++)
+                    {
+                        for (int j = 0; j < teams[i].Players.Count; j++)
+                        {
+                            teams[i].Players[j].Age = Helpers.GetAge(teams[i].Players[j].DOB);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "GetTeamsPlayers", ex);
+            }
+
+            return teams;
+        }
+
+
+
         public static void SwaPlayers(Player playerOne, Player playerTwo)
         {
             try
