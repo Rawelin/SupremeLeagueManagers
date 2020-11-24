@@ -1,31 +1,245 @@
 ﻿
 
 <div id="squadView" style="display: none">
-    <div class="text-center center">
-        <h1 class="text-center">Team Squad</h1>
-        <div v-for="(value, index) in Team.Players">
-          {{index + 1}}  {{value.Name}} {{value.Surname}}
-        </div>
+    <div class="container-squad">
+        <table class="table table-dark table-striped table-sm ml-3 mt-1 scroll squadTable">
+            <thead>
+                <tr>
+                    <th colspan="10" class="text-center">
+                        <div class="header-left"><img v-bind:src="TeamEmblem()" /></div>
+                        <div class="header-center">{{ TeamFullName() }}</div>
+                        <div class="header-right"><img v-bind:src="TeamEmblem()" /></div>
+                    </th>
+                </tr>
+                <tr class="text-center">
+                    <th class="w-2"></th>
+                    <th class="w-30">Name</th>
+                    <th class="w-8">Flag</th>
+                    <th class="w-8">Pos</th>
+                    <th class="w-8">Age</th>
+                    <th class="w-8">App</th>
+                    <th class="w-8">Gls</th>
+                    <th class="w-8">Skl</th>
+                    <th class="w-8">Dyn</th>
+                    <th class="w-13">Stamina</th>
+                </tr>
+            </thead>
+            <tbody id="squadBody">
+                <tr class="text-center align-middle" v-on:mouseover="ShowPlayerSkills(index)" v-for="(player, index) in Team.Players" v-on:click="ChangePlayer(index)">
+                    <td class="w-2">
+                        <label class="container">
+                            <input type="checkbox" v-model="player.Selected" />
+                            <span class="checkmark"></span>
+                        </label>
+                    </td>
+                    <td class="text-left w-30"> {{ player.Name}} {{player.Surname}} </td>
+                    <td class="w-8"><img v-bind:src="NationalityFlag(index)" /></td>
+                    <td class="w-8"> {{ player.PositionShort}}</td>
+                    <td class="w-8"> {{ player.Age }} </td>
+                    <td class="w-8"> {{ player.Appearances }}</td>
+                    <td class="w-8"> {{player.Goals}} </td>
+                    <td class="w-8"> {{ player.AverageSkills }} </td>
+                    <td class="w-8"> {{ player.AverageDynamicSkills }} </td>
+                    <td class="text-center align-midle w-13">
+                        <div class="progress progress-transparent mt-1">
+                            <div v-bind:class="ProgressBarColor(player.Stamina)" :style="{width: player.Stamina + '%'}" v-html="ProgressText(player.Stamina)"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
+<script src="~/Scripts/GlobalFunctions/FormationColors.js"></script>
+<script src="~/Scripts/GlobalFunctions/Skills.js"></script>
 <script type="text/javascript">
     var vueSquad = new Vue({
         el: '#squadView',
         data: {
+            Selected: [],
             SinglePlayer: {},
-            Team: {}
+            Team: {},
+            Formation: '',
         },
         methods: {
-          
+
+            TeamEmblem: function () {
+                var fulname = this.Team.Name + this.Team.City;
+                fulname = fulname.replace(" ", "");
+                return fulname = '/Content/Resources/Emblems/' + fulname + '.png';
+            },
+
+            TeamFullName: function () {
+                var fulname = this.Team.Name + this.Team.City;
+                fulname = fulname.replace(" ", "");
+                return fulname;
+            },
+
+            ShowPlayerSkills: function (index) {
+                this.Player = this.Team.Players[index];
+                this.PlayerPhotoIndex = index;
+
+            },
+
+            NationalityFlag: function (index) {
+                var src = '/Content/Resources/Flags/' + this.Team.Players[index].CountryName + '.png';
+                return src;
+            },
+
+            ProgressBarColor: function (stamina) {
+
+                if (stamina >= 80) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-success';
+                } else if (stamina < 80 && stamina >= 40) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-warning';
+                } else if (stamina < 40) {
+                    return 'progress-bar progress-bar-striped progress-bar-animated bg-danger';
+                }
+            },
+
+            ProgressText: function (stamina) {
+                if (stamina < 40) {
+                    return '';
+                } else {
+                    return stamina + '%';
+                }
+            },
+
+            FormationPitch: function (formation) {
+
+                this.F442 = this.F433 = this.F451 = this.F352 = true;
+
+                switch (formation) {
+                    case 1:
+                        this.F442 = false;
+                        break;
+                    case 2:
+                        this.F433 = false;
+                        break;
+                    case 3:
+                        this.F451 = false;
+                        break;
+                    case 4:
+                        this.F352 = false;
+                        break;
+                }
+            },
+
+            FormationColors: function (formationId) {
+
+                switch (formationId) {
+                    case 1:
+                        formation442();
+                        this.FormationPitch(formationId);
+                        break;
+                    case 2:
+                        formation433();
+                        this.FormationPitch(formationId);
+                        break;
+                    case 3:
+                        formation451();
+                        this.FormationPitch(formationId);
+                        break;
+                    case 4:
+                        formation352();
+                        this.FormationPitch(formationId);
+                        break;
+                }
+            },
+
+            HoverRow: function () {
+                $('#squadBody tr').hover(
+                    function () {
+                        this.beforeHover = $(this).css('background-color');
+                        $(this).css('background', 'rgba(200, 187, 201, 0.3)');
+                    },
+                    function () {
+                        $(this).css('background', this.beforeHover)
+
+                    });
+            },
+
+            SetTeamSkills: function () {
+                TeamSkills(this.Team);
+            },
+
+            SetPlayerDynamicSkills: function () {
+
+                for (var i = 0; i < this.Team.Players.length; i++) {
+                    PlayerSkillsDynamic(this.Team.Players[i], this.Team.Formation);
+                    if (this.Team.Players[i].IndexPosition > 10) {
+                        this.Team.Players[i].AverageDynamicSkills = 0;
+                    }
+                }
+            },
+
+            SetPlayersAverageSkills: function () {
+
+                for (var i = 0; i < this.Team.Players.length; i++) {
+                    PlayerSkills(this.Team.Players[i]);
+                }
+            },
+
+            ChangePlayer: function (index) {
+
+                // if clicked the same player again remove from array
+                if (this.Selected.includes(index)) {
+                    const arrayIndex = this.Selected.indexOf(index);
+                    if (arrayIndex > -1) {
+                        this.Selected.splice(arrayIndex, 1);
+                        this.Team.Players[index].Selected = false
+                    }
+                } else { // else add second player to swap
+                    this.Selected.push(index);
+                    this.Team.Players[index].Selected = true;
+                }
+                // if array contains 2 player swap them
+                if (this.Selected.length == 2) {
+
+                    // players position in table squadTable of _TeamSqad.cshtml (the same value like field L.P of [SLM].[dbo].[dictTeamsPlayers] )
+                    var playerOne = this.Selected.shift();
+                    var playerTwo = this.Selected.shift();
+
+                    // swap indexPosition L.P.
+                    var indexPositionPlayerTmp = this.Team.Players[playerOne].IndexPosition
+                    this.Team.Players[playerOne].IndexPosition = this.Team.Players[playerTwo].IndexPosition;
+                    this.Team.Players[playerTwo].IndexPosition = indexPositionPlayerTmp;
+
+                    // swap players position
+                    var PlayerTmp = this.Team.Players[playerOne];
+                    this.Team.Players[playerOne] = this.Team.Players[playerTwo];
+                    this.Team.Players[playerTwo] = PlayerTmp;
+
+                    // restore inputs checbox to unchecked
+                    this.Team.Players[playerOne].Selected = false;
+                    this.Team.Players[playerTwo].Selected = false;
+
+                    this.SetPlayerDynamicSkills();
+                    this.SetTeamSkills();
+                    this.SetPlayersAverageSkills();
+
+                    // send changes to DB
+                    //this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
+                }
+            },
+
         },
         created: function () {
             this.SinglePlayer = vueSinglePlayer.SinglePlayer;
             this.Team = vueSinglePlayer.Teams.find(t => t.TeamId == this.SinglePlayer.IdTeam);
-            console.log(this.Team);
+            this.Formation = this.Team.Formation;
+            this.FormationPitch(this.Formation);
+            this.SetTeamSkills();
+            this.SetPlayerDynamicSkills();
+         
         },
         mounted: function () {
             $('#squadView').show();
+            this.SetPlayersAverageSkills();
+            this.FormationColors(this.Formation);
+            this.HoverRow();
+           
         },
     });
 

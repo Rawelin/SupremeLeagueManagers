@@ -1,0 +1,231 @@
+﻿
+.container-squad {
+    width: 28%;
+    float: left;
+}
+
+#dashboard {
+    position: absolute;
+    right: -80px;
+    padding: 20px;
+    border: 1px solid #5bc0de;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.pane {
+    position: relative;
+    z-index: 1;
+    background: rgba(52, 58, 64, .3);
+    float: left;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 5px 5px;
+}
+
+.header-left {
+    display: inline-block;
+    float: left;
+}
+
+.header-center {
+    display: inline-block;
+    align-items: center;
+    margin-top: .2em;
+    font-size: 24px;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+}
+
+.teamSkill {
+    display: inline-block;
+    width: 100%;
+    margin-top: 0.5em;
+}
+
+.teamSkillLeft {
+    width: 80%;
+    float: left;
+    text-align: left;
+    padding-left: 1em;
+    font-size: 16px;
+}
+
+.teamSkillRight {
+    width: 20%;
+    float: right;
+    text-align: left;
+    font-size: 16px
+}
+
+    .teamSkillRight span {
+        background-color: lightblue;
+        background: rgba(184, 50, 68, .5);
+        padding: 0.3em;
+        border: solid 1px black;
+        border-radius: 3px;
+        font-weight: 600;
+    }
+
+.progress-transparent {
+    background: rgba(0,0,0,.3);
+}
+
+/* The container */
+.container {
+    display: block;
+    position: relative;
+    padding: 0px;
+    cursor: pointer;
+    font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    /* Hide the browser's default checkbox */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 7px;
+    width: 7px;
+    background-color: rgba(0,0,0,0);
+}
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid red;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Style squad table*/
+.available {
+    display: inline-block;
+}
+
+.unavilable {
+    display: none;
+}
+
+.squadTable {
+    background: rgba(0,0,0,.3);
+    cursor: pointer;
+    font-size: 13px
+}
+    .squadTable thead th {
+        border-top-color: #0695c9;
+        /*border-bottom-color: rgba(0,0,0,0);*/
+        /*border-bottom-color: #0695c9;*/
+    }
+
+    .squadTable thead img {
+        width: 50px;
+        height: 50px;
+    }
+
+.squadTable tbody img {
+    width: 24px;
+    height: 24px;
+}
+
+    .squadTable td{
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+
+    .squadTable.scroll {
+        border-spacing: 0;
+    }
+
+    .squadTable.scroll tbody,
+    .squadTable.scroll thead {
+        display: block;
+    }
+
+.squadTable th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+
+.squadTable.scroll tbody {
+    height: 50em;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.squadTable ::-webkit-scrollbar {
+    width: 5px;
+    height: 15px;
+}
+
+.squadTable ::-webkit-scrollbar-track-piece {
+    background-color: rgba(0,0,0,0);
+}
+
+.squadTable ::-webkit-scrollbar-thumb:vertical {
+    height: 5px;
+    background-color: rgba(255,58,64, .5);
+}
+
+.comment {
+    background: rgba(52, 58, 64, .5);
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 5px 5px;
+    border: 1px solid white;
+    width: 20em;
+    height: 10em;
+    position: absolute;
+    color: white;
+}
+
+.w-2{
+    width: 2%;
+}
+
+.w-8 {
+    width: 8%;
+}
+
+.w-13 {
+    width: 13%;
+}
+
+.w-30 {
+    width: 30%;
+}
