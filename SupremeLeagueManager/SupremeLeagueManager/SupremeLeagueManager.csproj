@@ -736,6 +736,9 @@
     <Content Include="Views\SinglePlayer\_Statistic.cshtml" />
     <Content Include="Views\SinglePlayer\_Fixture.cshtml" />
     <Content Include="Views\Home\_Options.cshtml" />
+    <Content Include="Views\SinglePlayer\_Squad_SquadTable.cshtml" />
+    <Content Include="Views\SinglePlayer\_Squad_PlayerSkills.cshtml" />
+    <Content Include="Views\SinglePlayer\_Squad_TeamSkills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

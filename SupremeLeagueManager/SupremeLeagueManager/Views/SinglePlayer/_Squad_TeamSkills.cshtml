@@ -1,0 +1,41 @@
+﻿
+<table class="table table-dark table-striped table-sm mt-1 squadTable">
+    <thead>
+        <tr>
+            <th colspan="2"><img style="visibility:hidden" v-bind:src="TeamEmblem()" width="50" height="50" /></th>
+        </tr>
+    </thead>
+    <tbody style="font-size:13px">
+        <tr>
+            <td>Goalkeeper</td>
+            <td class="text-center">{{ Team.GoalKeeper }}</td>
+        </tr>
+        <tr>
+            <td>Defence</td>
+            <td class="text-center">{{ Team.Defence }}</td>
+        </tr>
+        <tr>
+            <td>Midfield</td>
+            <td class="text-center">{{ Team.Midfield }}</td>
+        </tr>
+        <tr>
+            <td>Attack</td>
+            <td class="text-center">{{ Team.Attack}}</td>
+        </tr>
+        <tr>
+            <td>Speed</td>
+            <td class="text-center">{{ Team.Speed }}</td>
+        </tr>
+        <tr>
+            <td>Technique</td>
+            <td class="text-center">{{ Team.Technique }}</td>
+        </tr>
+        <tr>
+            <td>Overall</td>
+            <td class="text-center text-danger"> {{ Team.Overall }}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="player-photo ml-2 w-13" v-if="Team.Players.length">
+    <img v-bind:src="GetPlayerPhoto()" alt="no photo avilable" />
+</div>

@@ -4,6 +4,16 @@
     float: left;
 }
 
+.container-playerSkills {
+    width: 13%;
+    float: left;
+}
+
+.container-teamSkill {
+    width: 14%;
+    float: left;
+}
+
 #dashboard {
     position: absolute;
     right: -80px;
@@ -17,11 +27,13 @@
     position: relative;
     z-index: 1;
     background: rgba(52, 58, 64, .3);
-    float: left;
+    /*float: left;*/
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     border-radius: 5px 5px;
+    /*border: 1px solid #0695c9;*/
 }
+
 
 .header-left {
     display: inline-block;
@@ -183,7 +195,7 @@
 
 
 .squadTable.scroll tbody {
-    height: 50em;
+    height: 40em;
     overflow-y: auto;
     overflow-x: auto;
 }
@@ -197,10 +209,23 @@
     background-color: rgba(0,0,0,0);
 }
 
-.squadTable ::-webkit-scrollbar-thumb:vertical {
-    height: 5px;
-    background-color: rgba(255,58,64, .5);
+    .squadTable ::-webkit-scrollbar-thumb:vertical {
+        height: 5px;
+        background-color: rgba(6,149,201, .5);
+    }
+
+
+.player-photo img {
+    width: 250px; 
+    height: 295px;
 }
+
+.playerSkillsTable img{
+    width: 16px;
+    height: 16px;
+}
+
+
 
 .comment {
     background: rgba(52, 58, 64, .5);

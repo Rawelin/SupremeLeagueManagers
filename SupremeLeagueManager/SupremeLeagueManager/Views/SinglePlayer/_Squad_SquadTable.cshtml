@@ -1,0 +1,47 @@
+﻿
+<table class="table table-dark table-striped table-sm mt-1 scroll squadTable">
+    <thead>
+        <tr>
+            <th colspan="10" class="text-center">
+                <div class="header-left"><img v-bind:src="TeamEmblem()" /></div>
+                <div class="header-center">{{ TeamFullName() }}</div>
+                <div class="header-right"><img v-bind:src="TeamEmblem()" /></div>
+            </th>
+        </tr>
+        <tr class="text-center">
+            <th class="w-2"></th>
+            <th class="w-30">Name</th>
+            <th class="w-8">Flag</th>
+            <th class="w-8">Pos</th>
+            <th class="w-8">Age</th>
+            <th class="w-8">App</th>
+            <th class="w-8">Gls</th>
+            <th class="w-8">Skl</th>
+            <th class="w-8">Dyn</th>
+            <th class="w-13">Stamina</th>
+        </tr>
+    </thead>
+    <tbody id="squadBody">
+        <tr class="text-center align-middle" v-on:mouseover="ShowPlayerSkills(index)" v-for="(player, index) in Team.Players" v-on:click="ChangePlayer(index)">
+            <td class="w-2">
+                <label class="container">
+                    <input type="checkbox" v-model="player.Selected" />
+                    <span class="checkmark"></span>
+                </label>
+            </td>
+            <td class="text-left w-30"> {{ player.Name}} {{player.Surname}} </td>
+            <td class="w-8"><img v-bind:src="NationalityFlag(index)" /></td>
+            <td class="w-8"> {{ player.PositionShort}}</td>
+            <td class="w-8"> {{ player.Age }} </td>
+            <td class="w-8"> {{ player.Appearances }}</td>
+            <td class="w-8"> {{player.Goals}} </td>
+            <td class="w-8"> {{ player.AverageSkills }} </td>
+            <td class="w-8"> {{ player.AverageDynamicSkills }} </td>
+            <td class="text-center align-midle w-13">
+                <div class="progress progress-transparent mt-1">
+                    <div v-bind:class="ProgressBarColor(player.Stamina)" :style="{width: player.Stamina + '%'}" v-html="ProgressText(player.Stamina)"></div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
