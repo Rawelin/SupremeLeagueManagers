@@ -494,9 +494,9 @@
     <Content Include="Content\Resources\Flags\Uganda.png" />
     <Content Include="Content\Resources\Flags\Ukraine.png" />
     <Content Include="Content\Resources\Flags\United-Arab-Emirates.png" />
-    <Content Include="Content\Resources\Flags\United-Kingdom.png" />
+    <Content Include="Content\Resources\Flags\UnitedKingdom.png" />
     <Content Include="Content\Resources\Flags\United-Nations.png" />
-    <Content Include="Content\Resources\Flags\United-States.png" />
+    <Content Include="Content\Resources\Flags\UnitedStates.png" />
     <Content Include="Content\Resources\Flags\Unknown.png" />
     <Content Include="Content\Resources\Flags\Uruguay.png" />
     <Content Include="Content\Resources\Flags\US-Virgin-Islands.png" />
@@ -543,6 +543,7 @@
     <Content Include="Content\Resources\Players\ThibautCourtois.png" />
     <Content Include="Content\Resources\Players\ToniKroos.png" />
     <Content Include="Content\Resources\Stadiums\bernabeu.jpg" />
+    <Content Include="Content\Resources\TShirts\AcMilan.png" />
     <Content Include="Content\Resources\TShirts\ArsenalLondon.png" />
     <Content Include="Content\Resources\TShirts\AtleticoMadrid.png" />
     <Content Include="Content\Resources\TShirts\FCBarcelona.png" />
@@ -550,6 +551,7 @@
     <Content Include="Content\Resources\TShirts\BenficaLisabona.png" />
     <Content Include="Content\Resources\TShirts\BorussiaDortmund.png" />
     <Content Include="Content\Resources\TShirts\ChelseaLondon.png" />
+    <Content Include="Content\Resources\TShirts\FCLiverpool.png" />
     <Content Include="Content\Resources\TShirts\JuventusTorino.png" />
     <Content Include="Content\Resources\TShirts\ManchesterCity.png" />
     <Content Include="Content\Resources\TShirts\ManchesterUnited.png" />
@@ -739,6 +741,8 @@
     <Content Include="Views\SinglePlayer\_Squad_SquadTable.cshtml" />
     <Content Include="Views\SinglePlayer\_Squad_PlayerSkills.cshtml" />
     <Content Include="Views\SinglePlayer\_Squad_TeamSkills.cshtml" />
+    <Content Include="Views\SinglePlayer\_Squad_FormationPitch.cshtml" />
+    <Content Include="Views\SinglePlayer\_Squad_Sliders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

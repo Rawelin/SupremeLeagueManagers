@@ -1,0 +1,28 @@
+﻿<div class="container-slider">
+    <div class="pane ml-2 mt-2">
+        <div class="d-flex justify-content-start">
+            <div class="p-1 slider-label">
+                <b>Pressing</b>
+            </div>
+            <div class="p-1 slider-thumb">
+                <vue-slider ref="slider" v-model="SliderObject.Pressing" v-bind="SliderOption" v-on:change="SetTeamSettings()" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start">
+            <div class="p-1 slider-label">
+                <b>Attack</b>
+            </div>
+            <div class="p-1 slider-thumb">
+                <vue-slider ref="slider" v-model="SliderObject.AttackLevel" v-bind="SliderOption" v-on:change="SetTeamSettings()" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start">
+            <div class="p-1 slider-label">
+                <b>Aggression</b>
+            </div>
+            <div class="p-1 slider-thumb">
+                <vue-slider ref="slider" v-model="SliderObject.Aggression" v-bind="SliderOption" v-on:change="SetTeamSettings()" style="padding-top: 0.6em; width: 95%;"></vue-slider>
+            </div>
+        </div>
+    </div>
+</div>

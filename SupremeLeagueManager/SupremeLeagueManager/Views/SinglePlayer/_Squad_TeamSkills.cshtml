@@ -19,7 +19,7 @@
             <td class="text-center">{{ Team.Midfield }}</td>
         </tr>
         <tr>
-            <td>Attack</td>
+            <td style="line-height: 24px;">Attack</td>
             <td class="text-center">{{ Team.Attack}}</td>
         </tr>
         <tr>
@@ -34,8 +34,12 @@
             <td>Overall</td>
             <td class="text-center text-danger"> {{ Team.Overall }}</td>
         </tr>
+        <tr><td><div class="invisible">.</div></td><td></td></tr>
+        <tr><td><div class="invisible">.</div></td><td></td></tr>
     </tbody>
 </table>
-<div class="player-photo ml-2 w-13" v-if="Team.Players.length">
-    <img v-bind:src="GetPlayerPhoto()" alt="no photo avilable" />
+<div class="pane ml-2 mt-2">
+    <div class="player-photo">
+        <img v-bind:src="GetPlayerPhoto()" alt="no photo avilable" />
+    </div>
 </div>

@@ -1,19 +1,32 @@
 ﻿
 <div id="squadView" style="display: none">
-    <div class="container-squad">
-        @Html.Partial("_Squad_SquadTable")
-    </div>
-    <div class="container-playerSkills">
-        @Html.Partial("_Squad_PlayerSkills")
-    </div>
-    <div class="container-teamSkill">
-        @Html.Partial("_Squad_TeamSkills")
+    <div class="row ml-0">
+        <div class="container-squad">
+            @Html.Partial("_Squad_SquadTable")
+        </div>
+        <div class="container-playerSkills">
+            @Html.Partial("_Squad_PlayerSkills")
+        </div>
+        <div class="container-teamSkill">
+            @Html.Partial("_Squad_TeamSkills")
+        </div>
+        <div class="container-formationPitch">
+            @Html.Partial("_Squad_FormationPitch")
+            @Html.Partial("_Squad_Sliders")
+        </div>
+        <div id="dashboard">
+            <div><button class="btn btn-info" id="442" v-on:click="FormationChange(1)">4-4-2</button></div>
+            <div><button class="btn btn-info mt-1" id="433" v-on:click="FormationChange(2)">4-3-3</button></div>
+            <div><button class="btn btn-info mt-1" id="451" v-on:click="FormationChange(3)">4-5-1</button></div>
+            <div><button class="btn btn-info mt-1" id="352" v-on:click="FormationChange(4)">3-5-2</button></div>
+        </div>
     </div>
 </div>
 
 <script src="~/Scripts/GlobalFunctions/FormationColors.js"></script>
 <script src="~/Scripts/GlobalFunctions/Skills.js"></script>
 <script type="text/javascript">
+
     var vueSquad = new Vue({
         el: '#squadView',
         data: {
@@ -22,8 +35,52 @@
             SinglePlayer: {},
             Team: {},
             Formation: '',
-            PlayerPhotoIndex: 0
+            PlayerPhotoIndex: 0,
+            SliderOption: {
+                dotSize: 12,
+                width: 'auto',
+                height: 4,
+                contained: false,
+                direction: 'ltr',
+                data: null,
+                min: 0,
+                max: 100,
+                interval: 1,
+                disabled: false,
+                clickable: true,
+                duration: 0.5,
+                adsorb: false,
+                lazy: false,
+                tooltip: 'active',
+                tooltipPlacement: 'top',
+                tooltipFormatter: void 0,
+                useKeyboard: false,
+                keydownHook: null,
+                dragOnClick: false,
+                enableCross: true,
+                fixed: false,
+                minRange: void 0,
+                maxRange: void 0,
+                order: true,
+                marks: false,
+                dotOptions: void 0,
+                process: true,
+                dotStyle: void 0,
+                railStyle: void 0,
+                processStyle: void 0,
+                tooltipStyle: void 0,
+                stepStyle: void 0,
+                stepActiveStyle: void 0,
+                labelStyle: void 0,
+                labelActiveStyle: void 0,
+            },
+            SliderObject: {},
         },
+
+        components: {
+            'vueSlider': window['vue-slider-component'],
+        },
+
         methods: {
 
             GetPlayerPhoto: function () {
@@ -50,6 +107,16 @@
 
             },
 
+            GetPlayerName: function (index) {
+                var playerName = this.Team.Players[index].Name + ' ' + this.Team.Players[index].Surname;
+                return playerName;
+            },
+
+            GetPlayerDynamicSkills: function (index) {
+                var skills = this.Team.Players[index].AverageDynamicSkills
+                return skills;
+            },
+
             NationalityFlag: function (index) {
                 var src = '/Content/Resources/Flags/' + this.Team.Players[index].CountryName + '.png';
                 return src;
@@ -59,6 +126,18 @@
                 this.Player.CountryName = countryName;
                 var src = '/Content/Resources/Flags/' + this.Player.CountryName + '.png';
                 return src;
+            },
+
+            TShirtsPng: function () {
+                var fulname = this.Team.Name + this.Team.City;
+                fulname = fulname.replace(" ", "");
+                return fulname = '/Content/Resources/TShirts/' + fulname + '.png';
+            },
+
+            HighlightPlayer: function (number) {
+                if (number == this.PlayerPhotoIndex) {
+                    return 'grey';
+                }
             },
 
             ProgressBarColor: function (stamina) {
@@ -171,6 +250,38 @@
                 }
             },
 
+              FormationChange: function (formationId){
+
+                var Provider = {}
+
+                Provider.TeamId = this.Team.TeamId;
+                Provider.FormationId = formationId;
+                Provider.Status = 2;
+
+                this.FormationColors(formationId);
+                this.Formation = formationId;
+                this.Team.Formation = formationId;
+                this.SetTeamSkills();
+
+                @*$.ajax(
+                    {
+                        url: "@Url.Action("UpdateDB", "TeamManagement")",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: Provider }),
+                        success: function (data) {
+                            if (data != null) {
+
+                            } else {
+                                alert(data.ErrorMessage)
+                            }
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })*@
+            },
+
             ChangePlayer: function (index) {
 
                 // if clicked the same player again remove from array
@@ -214,6 +325,41 @@
                 }
             },
 
+            FormationMenu: function () {
+                $('#dashboard').hover(
+
+                    function () {
+                        $(this).stop().animate(
+                            {
+                                right: '5',
+                            },
+                            500,
+                            'easeInSine'
+                        );
+                    },
+                    function () {
+                        $(this).stop().animate(
+                            {
+                                right: '-80',
+                            },
+                            1500,
+                            'easeOutBounce'
+                        );
+                    });
+            },
+
+            InitializeSliderObject: function () {
+                this.SliderObject.Pressing = this.Team.Pressing;
+                this.SliderObject.AttackLevel = this.Team.AttackLevel;
+                this.SliderObject.Aggression = this.Team.Aggression;
+            },
+
+            SetTeamSettings: function () {
+                this.Team.Pressing = this.SliderObject.Pressing;
+                this.Team.AttackLevel = this.SliderObject.AttackLevel;
+                this.Team.Aggression = this.SliderObject.Aggression;
+            },
+
         },
         created: function () {
             this.SinglePlayer = vueSinglePlayer.SinglePlayer;
@@ -222,14 +368,16 @@
             this.FormationPitch(this.Formation);
             this.SetTeamSkills();
             this.SetPlayerDynamicSkills();
-         
+            this.InitializeSliderObject();
+
+
         },
         mounted: function () {
             $('#squadView').show();
             this.SetPlayersAverageSkills();
             this.FormationColors(this.Formation);
             this.HoverRow();
-           
+            this.FormationMenu();
         },
     });
 

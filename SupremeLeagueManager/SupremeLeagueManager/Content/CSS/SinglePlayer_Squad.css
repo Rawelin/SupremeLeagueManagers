@@ -1,17 +1,36 @@
 ﻿
 .container-squad {
-    width: 28%;
+    width: 500px;
     float: left;
 }
 
 .container-playerSkills {
-    width: 13%;
+    width: 250px;
     float: left;
 }
 
 .container-teamSkill {
-    width: 14%;
+    width: 250px;
     float: left;
+}
+
+.container-formationPitch {
+   width: 550px;
+   height: 550px;
+   float:left;
+}
+
+.container-slider {
+    width: 550px;
+    float: right
+}
+
+.slider-label{
+    width: 30%
+}
+
+.slider-thumb {
+    width: 70%
 }
 
 #dashboard {
@@ -36,7 +55,6 @@
 
 
 .header-left {
-    display: inline-block;
     float: left;
 }
 
@@ -48,7 +66,6 @@
 }
 
 .header-right {
-    display: inline-block;
     float: right;
 }
 
@@ -154,7 +171,8 @@
 .squadTable {
     background: rgba(0,0,0,.3);
     cursor: pointer;
-    font-size: 13px
+    font-size: 13px;
+    margin-bottom: 0px;
 }
     .squadTable thead th {
         border-top-color: #0695c9;
@@ -194,11 +212,12 @@
 }
 
 
-.squadTable.scroll tbody {
-    height: 40em;
-    overflow-y: auto;
-    overflow-x: auto;
-}
+    .squadTable.scroll tbody {
+        height: 50em;
+        overflow-y: auto;
+        overflow-x: auto;
+        padding-left: .5em;
+    }
 
 .squadTable ::-webkit-scrollbar {
     width: 5px;
@@ -216,8 +235,8 @@
 
 
 .player-photo img {
-    width: 250px; 
-    height: 295px;
+    width: 240px; 
+    height: 310px;
 }
 
 .playerSkillsTable img{
@@ -225,7 +244,11 @@
     height: 16px;
 }
 
-
+.pitch {
+    width: 550px;
+    height: 515px;
+    font-size: 12px;
+}
 
 .comment {
     background: rgba(52, 58, 64, .5);

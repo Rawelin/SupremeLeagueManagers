@@ -5,7 +5,7 @@
 
     <div id="home" class="mainPage">
         <h1 style="display: none"> Supreme League Managers </h1>
-        <h4 style="display:none">
+        <h4 style="display: none">
             Online simulator of the football league composed of the best international teams
         </h4>
         <nav>
@@ -15,9 +15,9 @@
 
             @if (Session["IdUser"] != null)
             {
-                <a class="loadingModal" href="">ONLINE LEAGUE</a>
+                <a href="">ONLINE LEAGUE</a>
                 <a href="#" v-on:click="Options()">OPTIONS</a>
-                <a class="loadingModal" href="#" v-on:click="SinglePlayer()">{{ SingleStatus() }}</a>
+                <a  href="#" v-on:click="SinglePlayer()">{{ SingleStatus() }}</a>
                 <a href="@Url.Action("Admin", "Admin")">ADMINISTATOR</a>
                 <a href="@Url.Action("TeamManagement", "TeamManagement")">MENAGEMENT</a>
             }
