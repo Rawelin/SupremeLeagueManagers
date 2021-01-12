@@ -1,8 +1,32 @@
 ﻿
-
 <div id="calendarView">
-    <div class="wrapper">
-        <h1 class="text-center">Calendar</h1>
+    <h1 class="text-center">Calendar</h1>
+    <div class="calendar">
+        <div class="month">
+            <ul>
+                <li class="prev">&#10094;</li>
+                <li class="next">&#10095;</li>
+                <li>
+                    <b>August</b>  <br>
+                    <span style="font-size:18px;"><b>2017</b></span>
+                </li>
+            </ul>
+        </div>
+        <ul class="weekdays">
+            <li>Mo</li>
+            <li>Tu</li>
+            <li>We</li>
+            <li>Th</li>
+            <li>Fr</li>
+            <li>Sa</li>
+            <li>Su</li>
+        </ul>
+        <ul class="days">
+            <li v-for="day in Days"><span>{{ day }}</span></li>
+        </ul>
+        <div class="text-center">
+            <div class="nextday">Next Day</div>
+        </div>
     </div>
 </div>
 
@@ -10,17 +34,34 @@
     var vueCalendar = new Vue({
         el: '#calendarView',
         data: {
-            Teams: [],
-            Team: {},
+            Days: []
         },
         methods: {
-           
+            DaysInMonth: function (month, year) {
+                return new Date(year, month, 0).getDate();
+            },
+
+            GetDays: function () {
+                var daysNumber = this.DaysInMonth(10, 2020);
+
+                for (var i = 1; i <= daysNumber; i++) {
+                    this.Days.push(i);
+                }
+
+                const date = new Date(2009, 10, 10);  // 2009-11-10
+                const month = date.toLocaleString('eng', { month: 'long' });
+                console.log(month);
+
+                const year = new Date(2020, 0);
+                year.setDate(year.getDate()+222);
+                console.log(year);
+            }
         },
         created: function () {
 
         },
         mounted: function () {
-            
+            this.GetDays();
         },
     });
 

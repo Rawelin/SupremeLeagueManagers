@@ -202,6 +202,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CSS\Admin\Admin.css" />
+    <Content Include="Content\CSS\SinglePlayer_Calendar.css" />
     <Content Include="Content\CSS\Home.css" />
     <Content Include="Content\CSS\FriendlyMatch.css" />
     <Content Include="Content\CSS\Global.css" />

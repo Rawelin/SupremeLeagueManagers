@@ -1,0 +1,93 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.calendar{
+    margin: 0 20% 0 20%;
+}
+
+.month {
+    padding: 70px 25px;
+    width: 100%;
+    background: rgba(91, 192, 245, 0.4);
+    text-align: center;
+}
+
+    .month ul {
+        margin: 0;
+        padding: 0;
+    }
+
+        .month ul li {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+    .month .prev {
+        float: left;
+        padding-top: 10px;
+        font-size: 36px
+    }
+
+    .month .next {
+        float: right;
+        padding-top: 10px;
+        font-size: 36px
+    }
+
+.weekdays {
+    margin: 0;
+    /*padding: 10px 0;*/
+    background-color: rgba(221, 221, 221, 0.3);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+    .weekdays li {
+        display: inline-block;
+        width: 13.6%;
+        color: white;
+        text-align: center;
+        padding-right: 70px;
+    }
+
+.days {
+    padding: 10px 0;
+    background: rgba(238, 238, 238, 0.1);
+    margin: 0;
+}
+
+    .days li {
+        list-style-type: none;
+        display: inline-block;
+        width: 13.6%;
+        text-align: center;
+        margin-bottom: 5px;
+        font-size: 36px;
+        color: white;
+    }
+
+        .days li .active {
+            padding: 8px 15px 8px 15px;
+            background: rgba(91, 192, 245, 0.3);
+            color: white !important
+        }
+
+.nextday {
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid white;
+    /*margin: 0 20% 0 20%;*/
+}
+
+    .nextday:hover {
+        color: rgb(91, 192, 245);
+        border: 1px solid rgb(91, 192, 245);
+        cursor: pointer;
+    }
