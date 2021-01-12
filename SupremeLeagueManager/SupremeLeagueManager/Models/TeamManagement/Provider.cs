@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupremeLeagueManager.Models.SinglePlayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,7 @@ namespace SupremeLeagueManager.Models.TeamTest
         public int Status { get; set; }
         public Player PlayerOne { get; set;}
         public Player PlayerTwo { get; set;}
+        public SliderObject SliderObject { get; set; } 
         public string ErrorMessage { get; set; }
     }
 }

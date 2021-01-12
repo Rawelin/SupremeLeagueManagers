@@ -9,6 +9,7 @@ namespace SupremeLeagueManager.Models
 {
     public class Team
     {
+        public int SPTeamId { get; set; }
         public int TeamId { get; set; }
         public int CountryId { get; set; }
         public string Name { get; set; }

@@ -250,11 +250,12 @@
                 }
             },
 
-              FormationChange: function (formationId){
+            FormationChange: function (formationId){
 
                 var Provider = {}
+                console.log(formationId);
 
-                Provider.TeamId = this.Team.TeamId;
+                Provider.TeamId = this.Team.SPTeamId;
                 Provider.FormationId = formationId;
                 Provider.Status = 2;
 
@@ -263,9 +264,9 @@
                 this.Team.Formation = formationId;
                 this.SetTeamSkills();
 
-                @*$.ajax(
+                $.ajax(
                     {
-                        url: "@Url.Action("UpdateDB", "TeamManagement")",
+                        url: "@Url.Action("UpdateDB", "SinglePlayer")",
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify({ provider: Provider }),
@@ -279,7 +280,62 @@
                         error: function () {
                             alert('Nieoczekiwany błąd');
                         }
-                    })*@
+                    })
+            },
+
+            SwapPlayer: function (playerOne, playerTwo) {
+
+                var Provider = {};
+
+                Provider.PlayerOne = playerOne;
+                Provider.PlayerTwo = playerTwo;
+                Provider.Status = 1;
+
+                $.ajax(
+                    {
+                        url: "UpdateDB/SinglePlayer",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: Provider }),
+                        success: function (data) {
+                            if (data != null) {
+
+                            } else {
+                                alert(data.ErrorMessage)
+                            }
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
+            },
+
+            TeamSettingsChange: function () {
+                var Provider = {};
+
+                console.log(vueSquad.SliderObject);
+
+                Provider.SliderObject = vueSquad.SliderObject;
+                Provider.TeamId = this.Team.SPTeamId;
+                Provider.Status = 3;
+
+                $.ajax(
+                    {
+                        url: "UpdateDB/SinglePlayer",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: Provider }),
+                        success: function (data) {
+                            if (data != null) {
+
+                            } else {
+                                alert(data.ErrorMessage)
+                            }
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
             },
 
             ChangePlayer: function (index) {
@@ -321,8 +377,24 @@
                     this.SetPlayersAverageSkills();
 
                     // send changes to DB
-                    //this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
+                    this.SwapPlayer(this.Team.Players[playerOne], this.Team.Players[playerTwo]);
                 }
+            },
+
+            SetTeamSettings: function () {
+                this.Team.Pressing = this.SliderObject.Pressing;
+                this.Team.AttackLevel = this.SliderObject.AttackLevel;
+                this.Team.Aggression = this.SliderObject.Aggression;
+                //console.log(this.Team.Pressing);
+                //this.TeamSettingsChange();
+            },
+
+            InitializeSliderObject: function () {
+                this.SliderObject.Pressing = this.Team.Pressing;
+                this.SliderObject.AttackLevel = this.Team.AttackLevel;
+                this.SliderObject.Aggression = this.Team.Aggression;
+
+              
             },
 
             FormationMenu: function () {
@@ -347,20 +419,8 @@
                         );
                     });
             },
-
-            InitializeSliderObject: function () {
-                this.SliderObject.Pressing = this.Team.Pressing;
-                this.SliderObject.AttackLevel = this.Team.AttackLevel;
-                this.SliderObject.Aggression = this.Team.Aggression;
-            },
-
-            SetTeamSettings: function () {
-                this.Team.Pressing = this.SliderObject.Pressing;
-                this.Team.AttackLevel = this.SliderObject.AttackLevel;
-                this.Team.Aggression = this.SliderObject.Aggression;
-            },
-
         },
+
         created: function () {
             this.SinglePlayer = vueSinglePlayer.SinglePlayer;
             this.Team = vueSinglePlayer.Teams.find(t => t.TeamId == this.SinglePlayer.IdTeam);
@@ -369,8 +429,6 @@
             this.SetTeamSkills();
             this.SetPlayerDynamicSkills();
             this.InitializeSliderObject();
-
-
         },
         mounted: function () {
             $('#squadView').show();
@@ -378,6 +436,7 @@
             this.FormationColors(this.Formation);
             this.HoverRow();
             this.FormationMenu();
+            this.Player = this.Team.Players[0];
         },
     });
 

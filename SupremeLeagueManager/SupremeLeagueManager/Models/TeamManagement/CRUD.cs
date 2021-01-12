@@ -258,7 +258,6 @@ namespace SupremeLeagueManager.Models.TeamManagement
             return table;
         }
 
-
         public static List<Team> GetAllTeamsSinglePlayer()
         {
             List<Team> teams = new List<Team>();
@@ -271,6 +270,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                   .Where(t => t.Active == 1)
                                   .Select(t => new Team
                                   {
+                                      SPTeamId = t.IdTeam,
                                       TeamId = t.IdDictTeams,
                                       Name = t.Name,
                                       City = t.City,
@@ -290,6 +290,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                                        .Where(p => p.IdDictTeams == t.IdDictTeams && p.Active == 1)
                                                        .Select(p => new Player
                                                        {
+                                                           IdTeamsPlayer = p.IdTeamsPlayers,
                                                            PlayerId = p.IdDictTeamsPlayers,
                                                            Name = p.FirstName,
                                                            Surname = p.LastName,
@@ -348,8 +349,6 @@ namespace SupremeLeagueManager.Models.TeamManagement
             return teams;
         }
 
-
-
         public static void SwaPlayers(Player playerOne, Player playerTwo)
         {
             try
@@ -372,6 +371,27 @@ namespace SupremeLeagueManager.Models.TeamManagement
 
         }
 
+        public static void SwaPlayersSP(Player playerOne, Player playerTwo)
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities()) 
+                {
+                    TeamsPlayer firstPlayer = slmCtx.TeamsPlayer.Find(playerOne.IdTeamsPlayer);
+                    firstPlayer.Lp = playerOne.IndexPosition;
+
+                    TeamsPlayer secondPlayer = slmCtx.TeamsPlayer.Find(playerTwo.IdTeamsPlayer);
+                    secondPlayer.Lp = playerTwo.IndexPosition;
+
+                    slmCtx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "SwaPlayersSP", ex);
+            }
+        }
+
         public static void ChangeFormation(Provider provider)
         {
             try
@@ -388,7 +408,45 @@ namespace SupremeLeagueManager.Models.TeamManagement
             {
                 ErrorHandling.InsertError("TeamManagement", "CRUD", "ChangeFormation", ex);
             }
+        }
 
+        public static void ChangeFormationSP(Provider provider)
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    Teams team = slmCtx.Teams.Find(provider.TeamId);
+                    team.IdDictFormations = (int)provider.FormationId;
+
+                    slmCtx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "ChangeFormationSP", ex);
+            }
+        }
+
+        public static void ChangeTeamSettingsSP(Provider provider)
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    Teams team = slmCtx.Teams.Find(provider.TeamId);
+
+                    team.Pressing = provider.SliderObject.Pressing;
+                    team.AttackLevel = provider.SliderObject.AttackLevel;
+                    team.Aggression = provider.SliderObject.Aggression;
+
+                    slmCtx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "ChangeTeamSettingsSP", ex);
+            }
         }
     }
 }

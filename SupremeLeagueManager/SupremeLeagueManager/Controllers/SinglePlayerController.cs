@@ -17,6 +17,11 @@ namespace SupremeLeagueManager.Controllers
             return View(new SinglePlayerData().GetData());
         }
 
+        public ActionResult UpdateDB(Provider provider)
+        {
+            return Json(new UpdateDB(provider).GetData(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult _Squad()
         {
             return PartialView();

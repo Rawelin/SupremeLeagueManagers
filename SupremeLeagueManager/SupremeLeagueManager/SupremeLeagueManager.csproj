@@ -166,9 +166,11 @@
     <Compile Include="Models\SinglePlayer\Models\FixtureVM.cs" />
     <Compile Include="Models\SinglePlayer\Models\SinglePlayerM.cs" />
     <Compile Include="Models\SinglePlayer\Models\SinglePlayerVM.cs" />
+    <Compile Include="Models\SinglePlayer\Models\SliderObject.cs" />
     <Compile Include="Models\SinglePlayer\Models\TebleVM.cs" />
     <Compile Include="Models\SinglePlayer\SinglePlayerData.cs" />
     <Compile Include="Models\SinglePlayer\Table.cs" />
+    <Compile Include="Models\SinglePlayer\UpdateDB.cs" />
     <Compile Include="Models\TeamManagement\CreateFixtues.cs" />
     <Compile Include="Models\TeamManagement\TeamSinglePlayerM.cs" />
     <Compile Include="Models\TeamPlayer\Person.cs" />
