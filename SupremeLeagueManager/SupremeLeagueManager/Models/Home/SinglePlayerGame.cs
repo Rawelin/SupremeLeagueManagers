@@ -81,6 +81,8 @@ namespace SupremeLeagueManager.Models.Home
                                               IdUser = s.IdUser,
                                               IdTeam = s.IdTeam,
                                               Season = s.Season,
+                                              Year = s.Year,
+                                              Month = s.Month,
                                               Week = s.Week,
                                               Day = s.Day,
                                               StartDate = s.StartDate
@@ -133,8 +135,10 @@ namespace SupremeLeagueManager.Models.Home
                     singlePlayer.IdUser = user.IdUser;
                     singlePlayer.IdTeam = (int)provider.TeamId;
                     singlePlayer.Season = 1;
+                    singlePlayer.Year = 2020;
+                    singlePlayer.Month = 9;
                     singlePlayer.Week = 1;
-                    singlePlayer.Day = 1;
+                    singlePlayer.Day = 249;
                     singlePlayer.StartDate = DateTime.Now;
                     singlePlayer.Active = 1;
 

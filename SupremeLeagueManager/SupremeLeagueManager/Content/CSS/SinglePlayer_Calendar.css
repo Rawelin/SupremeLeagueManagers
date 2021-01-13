@@ -35,19 +35,29 @@ ul {
         font-size: 36px
     }
 
+        .month .prev:hover {
+            color: rgba(221, 221, 221, 0.8);
+            cursor: pointer;
+        }
+
     .month .next {
         float: right;
         padding-top: 10px;
         font-size: 36px
     }
 
-.weekdays {
-    margin: 0;
-    /*padding: 10px 0;*/
-    background-color: rgba(221, 221, 221, 0.3);
-    font-size: 18px;
-    font-weight: bold;
-}
+        .month .next:hover {
+            color: rgba(221, 221, 221, 0.8);
+            cursor: pointer;
+        }
+
+        .weekdays {
+            margin: 0;
+            /*padding: 10px 0;*/
+            background-color: rgba(221, 221, 221, 0.3);
+            font-size: 18px;
+            font-weight: bold;
+        }
 
     .weekdays li {
         display: inline-block;

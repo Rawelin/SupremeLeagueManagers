@@ -4,11 +4,11 @@
     <div class="calendar">
         <div class="month">
             <ul>
-                <li class="prev">&#10094;</li>
-                <li class="next">&#10095;</li>
+                <li class="prev" v-on:click="Prev()" title="Previous month">&#10094;</li>
+                <li class="next" v-on:click="Next()" title="Next month" >&#10095;</li>
                 <li>
-                    <b>August</b>  <br>
-                    <span style="font-size:18px;"><b>2017</b></span>
+                    <b>{{Season.monthName}}</b>  <br>
+                    <span style="font-size:18px;"><b>{{Season.year}}</b></span>
                 </li>
             </ul>
         </div>
@@ -22,10 +22,10 @@
             <li>Su</li>
         </ul>
         <ul class="days">
-            <li v-for="day in Days"><span>{{ day }}</span></li>
+            <li v-for="(value, index) in Days"><span :id="'sp' + value">{{value}}</span></li>
         </ul>
         <div class="text-center">
-            <div class="nextday">Next Day</div>
+            <div class="nextday" v-on:click="NextDay()" >Next Day</div>
         </div>
     </div>
 </div>
@@ -34,34 +34,128 @@
     var vueCalendar = new Vue({
         el: '#calendarView',
         data: {
-            Days: []
+            Days: [],
+            SinglePlayer: {},
+            Season: { year: 0, month: 0, day: 0, monthName: '' },
+            DaysNumber: 0
         },
         methods: {
-            DaysInMonth: function (month, year) {
-                return new Date(year, month, 0).getDate();
-            },
 
-            GetDays: function () {
-                var daysNumber = this.DaysInMonth(10, 2020);
+            Prev: function () {
+                this.Days = [];
+                this.Season.month--;
 
-                for (var i = 1; i <= daysNumber; i++) {
-                    this.Days.push(i);
+                if (this.Season.month == 0) {
+                    this.Season.year--;
+                    this.Season.month = 12;
+                }
+                this.SetCalendarMonth(this.Season.year, this.Season.month);
+
+
+                //------
+                const dateOfDay = new Date(this.Season.year, 0, this.Season.day);
+                var theDay = $('#sp' + (dateOfDay.getDay() - 1).toString());
+
+                console.log('d:', (dateOfDay.getDay() - 1).toString());
+
+                if (this.Season.month != 9) {
+                    theDay.css('color', 'white');
+                } else {
+                    theDay.css('color', 'red');
                 }
 
-                const date = new Date(2009, 10, 10);  // 2009-11-10
-                const month = date.toLocaleString('eng', { month: 'long' });
-                console.log(month);
+                console.log(this.Season.month);
+                console.log(this.SinglePlayer.Month);
+            },
 
-                const year = new Date(2020, 0);
-                year.setDate(year.getDate()+222);
-                console.log(year);
+            Next: function () {
+                this.Days = [];
+                this.Season.month++;
+
+                if (this.Season.month > 12) {
+                    this.Season.year++;
+                    this.Season.month = 1;
+                }
+                this.SetCalendarMonth(this.Season.year, this.Season.month);
+
+                //------
+                const dateOfDay = new Date(this.Season.year, 0, this.Season.day);
+                var theDay = $('#sp' + (dateOfDay.getDay() - 1).toString());
+
+                console.log('d:', (dateOfDay.getDay() - 1).toString());
+
+                if (this.Season.month != 9) {
+                    theDay.css('color', 'white');
+                } else {
+                    theDay.css('color', 'red');
+                }
+
+                console.log(this.Season.month);
+                console.log(this.SinglePlayer.Month);
+            },
+
+            NextDay: function () {
+               
+                var numberOfDay = new Date(this.Season.year, 0, this.Season.day).getUTCDate() + 1;
+                var theDay = $('#sp' + numberOfDay.toString());
+                theDay.css('color', 'white');
+
+              
+
+                numberOfDay++;
+
+                theDay = $('#sp' + numberOfDay.toString());
+                theDay.css('color', 'red');
+
+                this.Season.day++;
+                console.log(this.Season.day);
+
+                if (numberOfDay == this.DaysNumber + 1) {
+                  
+                    this.Next();
+                }
+            },
+
+            SetCalendarMonth: function (year, month) {
+                // number of the first day of month
+                const date = new Date(year, month - 1, 1);
+                var daysBefore = date.getDay() - 1;
+
+                for (var i = 0; i < daysBefore; i++) {
+                    this.Days.push('')
+                }
+                // number of days in month
+                this.DaysNumber = new Date(year, month, 0).getDate();
+                for (var i = 1; i <= this.DaysNumber; i++) {
+                    this.Days.push(i);
+                }
+                // name of the month
+                const monthDate = new Date(year, month - 1, 1); 
+                const monthName = monthDate.toLocaleString('eng', { month: 'long' });
+                this.Season.monthName = monthName;
+            },
+
+            SeasonInit: function () {
+                this.Season.year = this.SinglePlayer.Year;
+                this.Season.month = this.SinglePlayer.Month;
+                this.Season.day = this.SinglePlayer.Day;
+                this.SetCalendarMonth(this.Season.year, this.Season.month);
+
+            },
+
+            FirstDay: function () {
+                const dateOfDay = new Date(this.Season.year, 0, this.Season.day);
+
+                var theDay = $('#sp' + (dateOfDay.getDay() -1).toString());
+                theDay.css('color', 'red');
             }
         },
         created: function () {
-
+            this.SinglePlayer = vueSinglePlayer.SinglePlayer;
+            this.SeasonInit(); 
         },
         mounted: function () {
-            this.GetDays();
+            this.FirstDay();
         },
     });
 
