@@ -22,7 +22,7 @@
             <li>Su</li>
         </ul>
         <ul class="days">
-            <li v-for="(value, index) in Days"><span :id="'sp' + value">{{value}}</span></li>
+            <li v-for="(value, index) in Days"><span :id="'sp' + index">{{value}}</span></li>
         </ul>
         <div class="text-center">
             <div class="nextday" v-on:click="NextDay()" >Next Day</div>
@@ -37,7 +37,10 @@
             Days: [],
             SinglePlayer: {},
             Season: { year: 0, month: 0, day: 0, monthName: '' },
-            DaysNumber: 0
+            MonthDays: 0,
+            CurrentDay: 0,
+            Index: 0,
+            Flag: false
         },
         methods: {
 
@@ -49,23 +52,8 @@
                     this.Season.year--;
                     this.Season.month = 12;
                 }
+
                 this.SetCalendarMonth(this.Season.year, this.Season.month);
-
-
-                //------
-                const dateOfDay = new Date(this.Season.year, 0, this.Season.day);
-                var theDay = $('#sp' + (dateOfDay.getDay() - 1).toString());
-
-                console.log('d:', (dateOfDay.getDay() - 1).toString());
-
-                if (this.Season.month != 9) {
-                    theDay.css('color', 'white');
-                } else {
-                    theDay.css('color', 'red');
-                }
-
-                console.log(this.Season.month);
-                console.log(this.SinglePlayer.Month);
             },
 
             Next: function () {
@@ -76,63 +64,118 @@
                     this.Season.year++;
                     this.Season.month = 1;
                 }
+
                 this.SetCalendarMonth(this.Season.year, this.Season.month);
-
-                //------
-                const dateOfDay = new Date(this.Season.year, 0, this.Season.day);
-                var theDay = $('#sp' + (dateOfDay.getDay() - 1).toString());
-
-                console.log('d:', (dateOfDay.getDay() - 1).toString());
-
-                if (this.Season.month != 9) {
-                    theDay.css('color', 'white');
-                } else {
-                    theDay.css('color', 'red');
-                }
-
-                console.log(this.Season.month);
-                console.log(this.SinglePlayer.Month);
             },
 
             NextDay: function () {
-               
-                var numberOfDay = new Date(this.Season.year, 0, this.Season.day).getUTCDate() + 1;
-                var theDay = $('#sp' + numberOfDay.toString());
-                theDay.css('color', 'white');
+                
+                if (this.Season.month == this.SinglePlayer.Month) {
 
-              
+                    this.Season.day++;
 
-                numberOfDay++;
+                    if (this.CurrentDay == this.MonthDays) {
+                       
+                        //console.log('month')
+                        this.Flag = true;
+                       
 
-                theDay = $('#sp' + numberOfDay.toString());
-                theDay.css('color', 'red');
+                        if (this.Season.month == 12) {
+                            this.SinglePlayer.Year++;
+                            this.SinglePlayer.Month = 1;
+                        } else {
+                            this.SinglePlayer.Month++; 
+                        }
 
-                this.Season.day++;
-                console.log(this.Season.day);
+                        var theDay = $('#sp' +this.Index.toString());
+                        theDay.css('color', 'white');
+                     
+                        this.Next();
+                        this.CurrentDay = 1;
+                      
+                    } else {
+                        var theDay = $('#sp' + this.Index.toString());
+                        theDay.css('color', 'white');
 
-                if (numberOfDay == this.DaysNumber + 1) {
-                  
-                    this.Next();
+                        this.CurrentDay++;
+                        this.Index++;
+
+                        theDay = $('#sp' + this.Index.toString());
+                        theDay.css('color', 'red');
+                       
+                    }
                 }
+               
+                //console.log(this.Season.day);
+                //console.log('d:', this.CurrentDay);
+                console.log('index:', this.Index);
+                //console.log('value:', this.Days[this.Index]);
+                console.log('length:', this.Days.length);
+
+                //console.log('md:', this.MonthDays);
+                console.log('season:', this.Season.month);
+                console.log('single:', this.SinglePlayer.Month);
+
             },
 
             SetCalendarMonth: function (year, month) {
+
                 // number of the first day of month
                 const date = new Date(year, month - 1, 1);
                 var daysBefore = date.getDay() - 1;
 
                 for (var i = 0; i < daysBefore; i++) {
-                    this.Days.push('')
+                    this.Days.push(' ');
                 }
+
+                //var addDay = 0;
+                //if (daysBefore > 0) {
+                //    addDay = daysBefore;
+                //} else {
+                //    addDay = 0;
+                //}
+
+                //console.log('addDays: ', addDay);
+
                 // number of days in month
-                this.DaysNumber = new Date(year, month, 0).getDate();
-                for (var i = 1; i <= this.DaysNumber; i++) {
+                this.MonthDays = new Date(year, month, 0).getDate();
+                console.log('monthDay:', this.MonthDays);
+                console.log('year:', year);
+                for (var i = 1; i <= this.MonthDays; i++) {
                     this.Days.push(i);
                 }
+                //for (var i = 0; i < this.MonthDays + addDay ; i++)
+                //console.log(this.Days[i]);
                 // name of the month
                 const monthDate = new Date(year, month - 1, 1); 
                 const monthName = monthDate.toLocaleString('eng', { month: 'long' });
                 this.Season.monthName = monthName;
+
+                if (this.Flag) {
+                    //console.log('dbefore:', daysBefore)
+                    if (daysBefore > 0) {
+                        this.Index = daysBefore;
+                    } else {
+                        this.Index = 0;
+                        //console.log('hey')
+                    }
+                   
+                    this.Flag = false;
+                }
+
+                //console.log('season:', this.Season.month);
+                //console.log('single:', this.SinglePlayer.Month);
+
+                var theDay = $('#sp' + this.Index.toString());
+                //console.log('dd:', this.CurrentDay);
+
+                if (this.Season.month == this.SinglePlayer.Month) {
+                    theDay.css('color', 'red');
+                } else {
+                    theDay.css('color', 'white');
+                }
+
+              
             },
 
             SeasonInit: function () {
@@ -144,9 +187,9 @@
             },
 
             FirstDay: function () {
-                const dateOfDay = new Date(this.Season.year, 0, this.Season.day);
-
-                var theDay = $('#sp' + (dateOfDay.getDay() -1).toString());
+                this.CurrentDay = new Date(this.Season.year, 0, this.Season.day).getUTCDate() + 1;
+                this.Index = this.CurrentDay;
+                var theDay = $('#sp' + this.CurrentDay.toString());
                 theDay.css('color', 'red');
             }
         },
