@@ -72,6 +72,22 @@ namespace SupremeLeagueManager.Models.SinglePlayer
             }
         }
 
+        private void DayIncrementation()
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    CRUD.DayIncrementation(provider);
+                }
+            }
+            catch (Exception ex)
+            {
+                provider.ErrorMessage = ex.ToString();
+                ErrorHandling.InsertError("SinglePlayer", "UpdateDB", "DayIncrementation", ex);
+            }
+        }
+
         private void Menu()
         {
             switch (provider.Status)
@@ -84,6 +100,9 @@ namespace SupremeLeagueManager.Models.SinglePlayer
                     break;
                 case 3:
                     ChangeTeamSettings();
+                    break;
+                case 4:
+                    DayIncrementation();
                     break;
             }
         }

@@ -448,5 +448,28 @@ namespace SupremeLeagueManager.Models.TeamManagement
                 ErrorHandling.InsertError("TeamManagement", "CRUD", "ChangeTeamSettingsSP", ex);
             }
         }
+
+        public static void DayIncrementation(Provider provider)
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    SLMContextDB.SinglePlayer singlePlayer = slmCtx.SinglePlayer.Find(provider.SinglePlayer.IdSinglePlayer);
+
+                    singlePlayer.Season = provider.SinglePlayer.Season;
+                    singlePlayer.Year = provider.SinglePlayer.Year;
+                    singlePlayer.Month = provider.SinglePlayer.Month;
+                    singlePlayer.Week = provider.SinglePlayer.Week;
+                    singlePlayer.Day = provider.SinglePlayer.Day;
+
+                    slmCtx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("TeamManagement", "CRUD", "DayIncrementation", ex);
+            }
+        }
     }
 }

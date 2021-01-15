@@ -136,16 +136,16 @@ namespace SupremeLeagueManager.Models.Home
                     singlePlayer.IdTeam = (int)provider.TeamId;
                     singlePlayer.Season = 1;
                     singlePlayer.Year = 2020;
-                    singlePlayer.Month = 9;
+                    singlePlayer.Month = 8;
                     singlePlayer.Week = 1;
-                    singlePlayer.Day = 249;
+                    singlePlayer.Day = 214;
                     singlePlayer.StartDate = DateTime.Now;
                     singlePlayer.Active = 1;
 
                     slmCtx.SinglePlayer.Add(singlePlayer);
                     slmCtx.SaveChanges();
 
-
+                    // TO DO  slmCtx.Teams.AddRange(teams)
                     for (int i = 0; i < dictTeams.Count(); i++)
                     {
                         teams.IdDictTeams = dictTeams[i].TeamId;

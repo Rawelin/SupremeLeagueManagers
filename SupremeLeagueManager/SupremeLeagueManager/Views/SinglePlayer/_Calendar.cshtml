@@ -5,7 +5,7 @@
         <div class="month">
             <ul>
                 <li class="prev" v-on:click="Prev()" title="Previous month">&#10094;</li>
-                <li class="next" v-on:click="Next()" title="Next month" >&#10095;</li>
+                <li class="next" v-on:click="Next()" title="Next month">&#10095;</li>
                 <li>
                     <b>{{Season.monthName}}</b>  <br>
                     <span style="font-size:18px;"><b>{{Season.year}}</b></span>
@@ -25,7 +25,7 @@
             <li v-for="(value, index) in Days"><span :id="'sp' + index">{{value}}</span></li>
         </ul>
         <div class="text-center">
-            <div class="nextday" v-on:click="NextDay()" >Next Day</div>
+            <div class="nextday" v-on:click="NextDay()">Next Day</div>
         </div>
     </div>
 </div>
@@ -69,30 +69,30 @@
             },
 
             NextDay: function () {
-                
+
                 if (this.Season.month == this.SinglePlayer.Month) {
 
                     this.Season.day++;
+                    this.SinglePlayer.Day++;
 
                     if (this.CurrentDay == this.MonthDays) {
-                       
-                        //console.log('month')
+
                         this.Flag = true;
-                       
 
                         if (this.Season.month == 12) {
                             this.SinglePlayer.Year++;
                             this.SinglePlayer.Month = 1;
+                            this.SinglePlayer.Day = 1;
                         } else {
-                            this.SinglePlayer.Month++; 
+                            this.SinglePlayer.Month++;
                         }
 
                         var theDay = $('#sp' +this.Index.toString());
                         theDay.css('color', 'white');
-                     
+
                         this.Next();
                         this.CurrentDay = 1;
-                      
+
                     } else {
                         var theDay = $('#sp' + this.Index.toString());
                         theDay.css('color', 'white');
@@ -102,40 +102,21 @@
 
                         theDay = $('#sp' + this.Index.toString());
                         theDay.css('color', 'red');
-                       
                     }
                 }
-               
-                //console.log(this.Season.day);
-                //console.log('d:', this.CurrentDay);
-                console.log('index:', this.Index);
-                //console.log('value:', this.Days[this.Index]);
-                console.log('length:', this.Days.length);
-
-                //console.log('md:', this.MonthDays);
-                console.log('season:', this.Season.month);
-                console.log('single:', this.SinglePlayer.Month);
-
+                //this.DayIncrementation();
             },
 
             SetCalendarMonth: function (year, month) {
 
                 // number of the first day of month
                 const date = new Date(year, month - 1, 1);
-                var daysBefore = date.getDay() - 1;
+                //var daysBefore = date.getDay() - 1;
+                var daysBefore = date.getDay() - 1 < 0 ? 0 : date.getDay() - 1;
 
                 for (var i = 0; i < daysBefore; i++) {
                     this.Days.push(' ');
                 }
-
-                //var addDay = 0;
-                //if (daysBefore > 0) {
-                //    addDay = daysBefore;
-                //} else {
-                //    addDay = 0;
-                //}
-
-                //console.log('addDays: ', addDay);
 
                 // number of days in month
                 this.MonthDays = new Date(year, month, 0).getDate();
@@ -144,38 +125,43 @@
                 for (var i = 1; i <= this.MonthDays; i++) {
                     this.Days.push(i);
                 }
-                //for (var i = 0; i < this.MonthDays + addDay ; i++)
-                //console.log(this.Days[i]);
-                // name of the month
-                const monthDate = new Date(year, month - 1, 1); 
+
+                const monthDate = new Date(year, month - 1, 1);
                 const monthName = monthDate.toLocaleString('eng', { month: 'long' });
                 this.Season.monthName = monthName;
 
                 if (this.Flag) {
-                    //console.log('dbefore:', daysBefore)
-                    if (daysBefore > 0) {
-                        this.Index = daysBefore;
-                    } else {
-                        this.Index = 0;
-                        //console.log('hey')
-                    }
-                   
+
+                    //if (daysBefore > 0) {
+                    //    this.Index = daysBefore;
+                    //} else {
+                    //    this.Index = 0;
+                    //}
+                    this.Index = daysBefore;
                     this.Flag = false;
                 }
 
-                //console.log('season:', this.Season.month);
-                //console.log('single:', this.SinglePlayer.Month);
-
                 var theDay = $('#sp' + this.Index.toString());
-                //console.log('dd:', this.CurrentDay);
 
                 if (this.Season.month == this.SinglePlayer.Month) {
                     theDay.css('color', 'red');
                 } else {
                     theDay.css('color', 'white');
                 }
+            },
 
-              
+            FirstDay: function () {
+                this.CurrentDay = new Date(this.Season.year, 0, this.Season.day + 1).getUTCDate()-1;
+
+                const date = new Date(this.Season.year, this.Season.month - 1, 1);
+                var daysBefore = date.getDay() - 1 < 0 ? 0 : date.getDay() - 1;
+
+                this.Index = this.CurrentDay + daysBefore;
+                this.CurrentDay++;
+
+                var theDay = $('#sp' + this.Index.toString());
+                theDay.css('color', 'red');
+
             },
 
             SeasonInit: function () {
@@ -183,19 +169,38 @@
                 this.Season.month = this.SinglePlayer.Month;
                 this.Season.day = this.SinglePlayer.Day;
                 this.SetCalendarMonth(this.Season.year, this.Season.month);
-
             },
 
-            FirstDay: function () {
-                this.CurrentDay = new Date(this.Season.year, 0, this.Season.day).getUTCDate() + 1;
-                this.Index = this.CurrentDay;
-                var theDay = $('#sp' + this.CurrentDay.toString());
-                theDay.css('color', 'red');
+
+            DayIncrementation: function () {
+
+                var Provider = {}
+
+                Provider.SinglePlayer = vueCalendar.SinglePlayer;
+                Provider.Status = 4;
+
+                   $.ajax(
+                    {
+                        url: "@Url.Action("UpdateDB", "SinglePlayer")",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ provider: Provider }),
+                        success: function (data) {
+                            if (data != null) {
+
+                            } else {
+                                alert(data.ErrorMessage)
+                            }
+                        },
+                        error: function () {
+                            alert('Nieoczekiwany błąd');
+                        }
+                    })
             }
         },
         created: function () {
             this.SinglePlayer = vueSinglePlayer.SinglePlayer;
-            this.SeasonInit(); 
+            this.SeasonInit();
         },
         mounted: function () {
             this.FirstDay();

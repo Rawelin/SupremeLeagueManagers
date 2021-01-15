@@ -41,6 +41,14 @@
                                 <td> {{ SinglePlayer.Season }}</td>
                             </tr>
                             <tr>
+                                <td>Year</td>
+                                <td> {{ SinglePlayer.Year }}</td>
+                            </tr>
+                            <tr>
+                                <td>Month</td>
+                                <td> {{ SinglePlayer.Month }}</td>
+                            </tr>
+                            <tr>
                                 <td>Weak</td>
                                 <td> {{ SinglePlayer.Week }}</td>
                             </tr>
@@ -152,8 +160,6 @@
 
            this.Team = this.Table.find(t => t.IdDictTeams == this.SinglePlayer.IdTeam);
            this.Position = this.Table.findIndex(t => t.IdDictTeams == this.SinglePlayer.IdTeam) + 1;
-
-
        },
 
        mounted: function () {
