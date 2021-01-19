@@ -101,7 +101,7 @@
                         this.Index++;
 
                         theDay = $('#sp' + this.Index.toString());
-                        theDay.css('color', 'red');
+                        theDay.css('color', 'rgb(91, 192, 245)');
                     }
                 }
                 //this.DayIncrementation();
@@ -144,7 +144,7 @@
                 var theDay = $('#sp' + this.Index.toString());
 
                 if (this.Season.month == this.SinglePlayer.Month) {
-                    theDay.css('color', 'red');
+                    theDay.css('color', 'rgb(91, 192, 245)');
                 } else {
                     theDay.css('color', 'white');
                 }
@@ -160,7 +160,7 @@
                 this.CurrentDay++;
 
                 var theDay = $('#sp' + this.Index.toString());
-                theDay.css('color', 'red');
+                theDay.css('color', 'rgb(91, 192, 245)');
 
             },
 
@@ -170,7 +170,6 @@
                 this.Season.day = this.SinglePlayer.Day;
                 this.SetCalendarMonth(this.Season.year, this.Season.month);
             },
-
 
             DayIncrementation: function () {
 
