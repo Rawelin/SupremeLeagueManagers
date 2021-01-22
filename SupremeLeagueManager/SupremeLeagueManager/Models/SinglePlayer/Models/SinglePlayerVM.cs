@@ -12,6 +12,7 @@ namespace SupremeLeagueManager.Models.SinglePlayer.Models
         public string ErrorMessage { get; set; }
         public List<Team> Teams { get; set; }
         public List<TeamSinglePlayerM> Table { get; set; }
+        public List<List<Tuple<Team, Team>>> AllFixtures { get; set; }
         public SinglePlayerM SinglePlayer { get; set; }
         public UsersM User { get; set; }
     }

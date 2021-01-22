@@ -12,7 +12,7 @@ namespace SupremeLeagueManager.Models.SinglePlayer
 {
     public class Table
     {
-        private TebleVM tableVM = new TebleVM();
+        private List<TeamSinglePlayerM> RankingTable;
         private HttpContext context;
         private UsersM user;
 
@@ -23,9 +23,9 @@ namespace SupremeLeagueManager.Models.SinglePlayer
             SetTable();
         }
 
-        public TebleVM GetTable()
+        public List<TeamSinglePlayerM> GetTable()
         {
-            return tableVM;
+            return RankingTable;
         }
 
         public void SetTable()
@@ -34,18 +34,17 @@ namespace SupremeLeagueManager.Models.SinglePlayer
             {
                 using (Entities slmCtx = new Entities())
                 {
-                    tableVM.Table = TeamManagement.CRUD.GetTeamsSinglePlayer(user.IdUser)
-                                                       .OrderByDescending(t => t.Points)
-                                                       .ThenByDescending(t => t.GoalsFor - t.GoalsAgainst)
-                                                       .ThenByDescending(t => t.GoalsFor)
-                                                       .ThenByDescending(t => t.Won)
-                                                       .ToList();
+                    RankingTable = TeamManagement.CRUD.GetTeamsSinglePlayer(user.IdUser)
+                                                      .OrderByDescending(t => t.Points)
+                                                      .ThenByDescending(t => t.GoalsFor - t.GoalsAgainst)
+                                                      .ThenByDescending(t => t.GoalsFor)
+                                                      .ThenByDescending(t => t.Won)
+                                                      .ToList();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandling.InsertError("SinglePlayer", "Table", "SetTable", ex);
-                tableVM.ErrorMessage = ex.ToString();
             }
         }
     }

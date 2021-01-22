@@ -28,14 +28,11 @@ namespace SupremeLeagueManager.Models.SinglePlayer
         {
             try
             {
+
+                SinglePlayerVM.AllFixtures = new League.Fixture().GetAllFixtures();
                 SinglePlayerVM.Teams = CRUD.GetAllTeamsSinglePlayer();
                 SinglePlayerVM.SinglePlayer = new SinglePlayerGame().GetSinglePlayer();
-                SinglePlayerVM.Table = CRUD.GetTeamsSinglePlayer(UserContext.GetUser().IdUser)
-                                           .OrderByDescending(t => t.Points)
-                                           .ThenByDescending(t => t.GoalsFor - t.GoalsAgainst)
-                                           .ThenByDescending(t => t.GoalsFor)
-                                           .ThenByDescending(t => t.Won)
-                                           .ToList();
+                SinglePlayerVM.Table = new Table().GetTable();
                 SinglePlayerVM.User = UserContext.GetUser();
             }
             catch (Exception ex)

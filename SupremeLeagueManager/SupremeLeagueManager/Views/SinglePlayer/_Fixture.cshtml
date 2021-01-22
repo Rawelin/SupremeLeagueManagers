@@ -60,7 +60,7 @@
             }
         },
         created: function () {
-            this.Fixtures = @Html.Raw(Json.Encode(Model.AllFixtures));
+            this.Fixtures = vueSinglePlayer.Fixtures;
             this.SinglePlayer = vueSinglePlayer.SinglePlayer
             this.Week = this.SinglePlayer.Week - 1;
         },

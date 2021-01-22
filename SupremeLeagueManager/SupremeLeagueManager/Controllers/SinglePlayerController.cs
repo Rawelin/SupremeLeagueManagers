@@ -44,7 +44,7 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _Table()
         {
-            return PartialView(new Table().GetTable());
+            return PartialView();
         }
 
         public ActionResult _Statistic()
@@ -54,7 +54,7 @@ namespace SupremeLeagueManager.Controllers
 
         public ActionResult _Fixture()
         {
-            return PartialView(new Fixture().GetFixtures());
+            return PartialView();
         }
     }
 }

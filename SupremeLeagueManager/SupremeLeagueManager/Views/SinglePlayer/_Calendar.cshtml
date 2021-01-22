@@ -1,5 +1,5 @@
 ﻿
-<div id="calendarView">
+<div id="calendarView" style="display: none">
     <h1 class="text-center">Calendar</h1>
     <div class="calendar">
         <div class="month">
@@ -34,6 +34,7 @@
     var vueCalendar = new Vue({
         el: '#calendarView',
         data: {
+            Fixtures: [],
             Days: [],
             SinglePlayer: {},
             Season: { year: 0, month: 0, day: 0, monthName: '' },
@@ -87,7 +88,7 @@
                             this.SinglePlayer.Month++;
                         }
 
-                        var theDay = $('#sp' +this.Index.toString());
+                        var theDay = $('#sp' + this.Index.toString());
                         theDay.css('color', 'white');
 
                         this.Next();
@@ -104,6 +105,12 @@
                         theDay.css('color', 'rgb(91, 192, 245)');
                     }
                 }
+                else {
+                    this.Days = [];
+                    this.Season.year = this.SinglePlayer.Year;
+                    this.Season.month = this.SinglePlayer.Month;
+                    this.SetCalendarMonth(this.Season.year, this.Season.month); 
+                }
                 //this.DayIncrementation();
             },
 
@@ -112,16 +119,15 @@
                 // number of the first day of month
                 const date = new Date(year, month - 1, 1);
                 //var daysBefore = date.getDay() - 1;
-                var daysBefore = date.getDay() - 1 < 0 ? 0 : date.getDay() - 1;
-
+                var daysBefore = date.getDay()-1  < 0 ? 6 : date.getDay()-1;
+             
                 for (var i = 0; i < daysBefore; i++) {
                     this.Days.push(' ');
                 }
 
                 // number of days in month
                 this.MonthDays = new Date(year, month, 0).getDate();
-                console.log('monthDay:', this.MonthDays);
-                console.log('year:', year);
+             
                 for (var i = 1; i <= this.MonthDays; i++) {
                     this.Days.push(i);
                 }
@@ -131,12 +137,6 @@
                 this.Season.monthName = monthName;
 
                 if (this.Flag) {
-
-                    //if (daysBefore > 0) {
-                    //    this.Index = daysBefore;
-                    //} else {
-                    //    this.Index = 0;
-                    //}
                     this.Index = daysBefore;
                     this.Flag = false;
                 }
@@ -161,14 +161,16 @@
 
                 var theDay = $('#sp' + this.Index.toString());
                 theDay.css('color', 'rgb(91, 192, 245)');
-
             },
 
             SeasonInit: function () {
+                this.Fixtures = vueSinglePlayer.Fixtures;
                 this.Season.year = this.SinglePlayer.Year;
                 this.Season.month = this.SinglePlayer.Month;
                 this.Season.day = this.SinglePlayer.Day;
                 this.SetCalendarMonth(this.Season.year, this.Season.month);
+
+                console.log(this.Fixture);
             },
 
             DayIncrementation: function () {
@@ -202,6 +204,7 @@
             this.SeasonInit();
         },
         mounted: function () {
+            $('#calendarView').show()
             this.FirstDay();
         },
     });
