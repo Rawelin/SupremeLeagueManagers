@@ -36,8 +36,9 @@
         data: {
             Fixtures: [],
             Days: [],
+            MatchDays: [],
             SinglePlayer: {},
-            Season: { year: 0, month: 0, day: 0, monthName: '' },
+            Season: { year: 0, month: 0, day: 0, firstMatchDay: 0,  monthName: '' },
             MonthDays: 0,
             CurrentDay: 0,
             Index: 0,
@@ -163,14 +164,72 @@
                 theDay.css('color', 'rgb(91, 192, 245)');
             },
 
+            SeasonStart: function () {
+
+                var startDay = this.Season.firstMatchDay;
+
+                this.SeasonStartDay = new Date(this.Season.year, 0, startDay).getUTCDate();
+                var month = new Date(this.Season.year, 0, startDay).getUTCMonth() + 1;
+
+                this.MatchDays = [startDay];
+                var numberOfdaysInYear = daysOfaYear(this.Season.year)
+
+                for (var i = 0; i < this.Fixtures.length - 1; i++) {
+                    startDay += 4;
+                    this.MatchDays.push(startDay);
+                    if (startDay >= numberOfdaysInYear) {
+                        startDay = 1;
+                    }
+                }
+
+                var playingDayofMonth = [];
+                var matchDay;
+
+                for (var i = 0; i < this.MatchDays.length; i++) {
+
+                    matchDay = new Date(this.Season.year, 0, this.MatchDays[i]).getUTCDate();
+
+                    playingDayofMonth.push(matchDay);
+                }
+
+                var playingDaysDividedByMonths = []
+                var plaingDaysIncurrentMonth = [];
+
+                for (var i = 0; i < playingDayofMonth.length; i++) {
+
+                    
+                    if (playingDayofMonth[i] < playingDayofMonth[i - 1]) {
+                        playingDaysDividedByMonths.push(plaingDaysIncurrentMonth);
+                        plaingDaysIncurrentMonth = [];
+                    }
+
+                    plaingDaysIncurrentMonth.push(playingDayofMonth[i]);
+                    console.log(i);
+
+                }
+                plaingDaysIncurrentMonth = [];
+                plaingDaysIncurrentMonth.push(playingDayofMonth[31])
+                plaingDaysIncurrentMonth.push(playingDayofMonth[32])
+                plaingDaysIncurrentMonth.push(playingDayofMonth[33])
+                playingDaysDividedByMonths.push(plaingDaysIncurrentMonth);
+
+
+                //console.log(this.SeasonStartDay);
+                //console.log(month);
+                //console.log(this.MatchDays);
+                //console.log(numberOfdaysInYear);
+                console.log(playingDayofMonth);
+                console.log(playingDaysDividedByMonths);
+            },
+
+
             SeasonInit: function () {
                 this.Fixtures = vueSinglePlayer.Fixtures;
                 this.Season.year = this.SinglePlayer.Year;
                 this.Season.month = this.SinglePlayer.Month;
                 this.Season.day = this.SinglePlayer.Day;
+                this.Season.firstMatchDay = this.SinglePlayer.FirstMatchDay;
                 this.SetCalendarMonth(this.Season.year, this.Season.month);
-
-                console.log(this.Fixture);
             },
 
             DayIncrementation: function () {
@@ -206,6 +265,7 @@
         mounted: function () {
             $('#calendarView').show()
             this.FirstDay();
+            this.SeasonStart();
         },
     });
 

@@ -576,6 +576,7 @@
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\GlobalFunctions\ComputerAI.js" />
+    <Content Include="Scripts\GlobalFunctions\DaysOfaYear.js" />
     <Content Include="Scripts\GlobalFunctions\FormationColors.js" />
     <Content Include="Scripts\GlobalFunctions\MatchAlgorithms.js" />
     <Content Include="Scripts\GlobalFunctions\MusicPlayer.js" />

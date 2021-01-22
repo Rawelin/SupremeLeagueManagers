@@ -85,6 +85,7 @@ namespace SupremeLeagueManager.Models.Home
                                               Month = s.Month,
                                               Week = s.Week,
                                               Day = s.Day,
+                                              FirstMatchDay = s.FirstMatchDay,
                                               StartDate = s.StartDate
                                           })
                                           .FirstOrDefault();
@@ -139,6 +140,7 @@ namespace SupremeLeagueManager.Models.Home
                     singlePlayer.Month = 8;
                     singlePlayer.Week = 1;
                     singlePlayer.Day = 214;
+                    singlePlayer.FirstMatchDay = 246;
                     singlePlayer.StartDate = DateTime.Now;
                     singlePlayer.Active = 1;
 
