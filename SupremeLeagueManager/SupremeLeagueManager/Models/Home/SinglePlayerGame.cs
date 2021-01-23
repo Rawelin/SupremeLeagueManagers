@@ -14,10 +14,11 @@ namespace SupremeLeagueManager.Models.Home
 {
     public class SinglePlayerGame
     {
-        SLMContextDB.SinglePlayer singlePlayer;
-        SinglePlayerM singlePlayerM;
+        private SLMContextDB.SinglePlayer singlePlayer;
+        private SinglePlayerM singlePlayerM;
+        private StartParameters startParameters;
         private Provider provider;
-        private HttpContext context;
+        //private HttpContext context;
         private UsersM user;
         private int status;
         private bool mode;
@@ -25,6 +26,7 @@ namespace SupremeLeagueManager.Models.Home
         public SinglePlayerGame()
         {
             SetUser();
+            SetStartParameters();
             SetSinglePlayer();
         }
 
@@ -32,6 +34,7 @@ namespace SupremeLeagueManager.Models.Home
         {
             this.provider = provider;
             SetUser();
+            SetStartParameters();
             SetSinglePlayer();
             Menu();
         }
@@ -63,6 +66,21 @@ namespace SupremeLeagueManager.Models.Home
             return singlePlayerM;
         }
 
+        private void SetStartParameters()
+        {
+            try
+            {
+                using (Entities slmCtx = new Entities())
+                {
+                    startParameters = slmCtx.StartParameters.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.InsertError("Home", "SinglePlayerGame", "SetStartParameters", ex);
+            }
+        }
+
         private void SetSinglePlayer()
         {
             try
@@ -85,6 +103,7 @@ namespace SupremeLeagueManager.Models.Home
                                               Month = s.Month,
                                               Week = s.Week,
                                               Day = s.Day,
+                                              NumberOfRestDays = s.NumberOfRestDays,
                                               FirstMatchDay = s.FirstMatchDay,
                                               StartDate = s.StartDate
                                           })
@@ -135,19 +154,19 @@ namespace SupremeLeagueManager.Models.Home
 
                     singlePlayer.IdUser = user.IdUser;
                     singlePlayer.IdTeam = (int)provider.TeamId;
-                    singlePlayer.Season = 1;
-                    singlePlayer.Year = 2020;
-                    singlePlayer.Month = 8;
-                    singlePlayer.Week = 1;
-                    singlePlayer.Day = 214;
-                    singlePlayer.FirstMatchDay = 246;
+                    singlePlayer.Season = startParameters.SeasonNumber;
+                    singlePlayer.Year = startParameters.YearStart;
+                    singlePlayer.Month = startParameters.MonthStart;
+                    singlePlayer.Week = startParameters.WeekStart;
+                    singlePlayer.Day = startParameters.DayStart;
+                    singlePlayer.FirstMatchDay = startParameters.FirstMatchDayStart;
+                    singlePlayer.NumberOfRestDays = startParameters.NumberOfRestDays;
                     singlePlayer.StartDate = DateTime.Now;
                     singlePlayer.Active = 1;
 
                     slmCtx.SinglePlayer.Add(singlePlayer);
                     slmCtx.SaveChanges();
 
-                    // TO DO  slmCtx.Teams.AddRange(teams)
                     for (int i = 0; i < dictTeams.Count(); i++)
                     {
                         teams.IdDictTeams = dictTeams[i].TeamId;
@@ -212,7 +231,6 @@ namespace SupremeLeagueManager.Models.Home
                         slmCtx.TeamsPlayer.Add(teamsPlayer);
                         slmCtx.SaveChanges();
                     }
-
                 }
             }
             catch (Exception ex)

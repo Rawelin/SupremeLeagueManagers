@@ -26,6 +26,9 @@
             },
 
             Reset: function () {
+
+                $('#loadingSpinerModal').show();
+
                 this.Provider.Status = 3;
                 $.ajax({
                     url: "SetSinglePlayer/Home",
@@ -43,6 +46,8 @@
                         } else {
                             alert('error');
                         }
+
+                        $('#loadingSpinerModal').hide();
                     },
                     error: function () {
                         console.log('Error');
