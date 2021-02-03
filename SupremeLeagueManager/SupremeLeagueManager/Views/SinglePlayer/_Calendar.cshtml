@@ -1,7 +1,7 @@
 ﻿
 <div id="calendarView" style="display: none">
     <h1 class="text-center">Calendar</h1>
-    <div class="calendar">
+    <div id="calendar" class="calendar" >
         <div class="month">
             <ul>
                 <li class="prev" v-on:click="PreviousMonth()" title="Previous month">&#10094;</li>
@@ -22,12 +22,39 @@
             <li>Su</li>
         </ul>
         <ul class="days">
-            <li v-for="(value, index) in Days"><span :id="'sp' + index">{{value}}</span></li>
+            <li v-for="(value, index) in Days" v-on:mouseover="Fixture(value)" v-on:mouseleave="HideFixture()"><span :id="'sp' + index">{{value}}</span></li>
         </ul>
         <div class="text-center">
             <div class="nextday" v-on:click="NextDay()">Next Day</div>
         </div>
     </div>
+
+    @*Dialog Fixture-------------------------------------------------------------------------------------------------------*@
+    <div id="fixtureDialog" class="pane">
+        <div>
+            <table class="table table-dark table-striped table-sm table-standing table-fixture font-12">
+                <thead>
+                    <tr>
+                        <th colspan="3">Week {{Week + 1}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(value, index) in MatchWeek()">
+                        <td class="text-right" style="width:45%">
+                            {{value.Item1.Name}} {{value.Item1.City}}
+                            <img v-bind:src="EmblemName(value.Item1.Name, value.Item1.City)" alt="Emblem" />
+                        </td>
+                        <td>vs</td>
+                        <td class="text-left" style="width:45%">
+                            <img v-bind:src="EmblemName(value.Item2.Name, value.Item2.City)" alt="Emblem" />
+                            {{value.Item2.Name}}  {{value.Item2.City}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript">
@@ -37,16 +64,48 @@
             Fixtures: [],
             Days: [],
             MatchDays: [],
-            PlayingDaysDividedByMonths: [],
+            MatchDaysDividedByMonths: [],
             SinglePlayer: {},
             Season: { year: 0, month: 0, day: 0, firstMatchDay: 0, numberOfRestDays: 0,  monthName: '' },
             NumberOfDaysInMonth: 0,
             CurrentDay: 0,
             DaysBefore: 0,
             Index: 0,
-            Flag: false
+            Week: 0,
+            Flag: false,
         },
         methods: {
+
+            EmblemName: function (name, city) {
+                var fulName = name + city;
+                fulName = fulName.replace(" ", "");
+                return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
+            },
+
+            MatchWeek: function () {
+                return this.Fixtures[this.Week];
+            },
+
+            Fixture: function (value, index) {              
+                if (this.PlaingMonthChecker()) {
+                    var month = this.ArrayMonthMaker()
+                    for (let i = 0; i < this.MatchDaysDividedByMonths[month].length; i++) {
+                        if (value == this.MatchDaysDividedByMonths[month][i].day) {
+                            this.Week = this.MatchDaysDividedByMonths[month][i].week;
+                            $('#fixtureDialog').show();
+                            //$('#fixtureDialog').position({
+                            //    of: $('#calendar')
+                            //});
+                        } 
+                    }
+                }
+              
+            },
+
+            HideFixture: function(){
+                //$('#fixtureDialog').hide();
+            },
+
             PreviousMonth: function () {
                 this.Days = [];
                 this.Season.month--;
@@ -54,7 +113,8 @@
                     this.Season.year--;
                     this.Season.month = 12;
                 }
-                this.SetCalendarMonth(this.Season.year, this.Season.month);
+                this.SetCalendarMonth(this.Season.year, this.Season.month);      
+                this.MatchDaysSelector();
             },
 
             NextMonth: function () {
@@ -65,9 +125,11 @@
                     this.Season.month = 1;
                 }
                 this.SetCalendarMonth(this.Season.year, this.Season.month);
+                this.MatchDaysSelector();
             },
 
             NextDay: function () {
+               
                 if (this.Season.month == this.SinglePlayer.Month) {
                     this.Season.day++;
                     this.SinglePlayer.Day++;
@@ -82,6 +144,7 @@
                         }
                         var theDay = $('#sp' + this.Index.toString());
                         theDay.css('color', 'white');
+                       
                         this.NextMonth();
                         this.CurrentDay = 1;
                     } else {
@@ -98,7 +161,10 @@
                     this.Season.year = this.SinglePlayer.Year;
                     this.Season.month = this.SinglePlayer.Month;
                     this.SetCalendarMonth(this.Season.year, this.Season.month); 
+                    theDay = $('#sp' + this.Index.toString());
+                    theDay.css('color', 'rgb(91, 192, 245)');
                 }
+                this.MatchDaysSelector();
                 //this.DayIncrementation();
             },
 
@@ -160,7 +226,6 @@
             SetMatchDays: function () {
                 var startDay = this.Season.firstMatchDay;
                 this.SeasonStartDay = new Date(this.Season.year, 0, startDay).getUTCDate();
-                //var month = new Date(this.Season.year, 0, startDay).getUTCMonth() + 1;
                 var matchDays = [startDay];
                 var numberOfdaysInYear = daysOfaYear(this.Season.year)
 
@@ -185,17 +250,70 @@
 
             SetPlayingDaysDividedByMonths: function (playingDaysOfMonth) {
                 var playingDaysInCurrentMonth = [];
+                var counter = 0;
                 for (var i = 0; i < playingDaysOfMonth.length; i++) {
                     if (playingDaysOfMonth[i] < playingDaysOfMonth[i - 1]) {
-                        this.PlayingDaysDividedByMonths.push(playingDaysInCurrentMonth);
+                        this.MatchDaysDividedByMonths.push(playingDaysInCurrentMonth);
                         playingDaysInCurrentMonth = [];
                     }
-                    playingDaysInCurrentMonth.push(playingDaysOfMonth[i]);
+
+                    var pair = { day: playingDaysOfMonth[i], week: counter };
+                    playingDaysInCurrentMonth.push(pair);
+                    counter++;
                 }
-                this.PlayingDaysDividedByMonths.push(playingDaysInCurrentMonth);
-                console.log(this.PlayingDaysDividedByMonths);
+                this.MatchDaysDividedByMonths.push(playingDaysInCurrentMonth);
+                console.log(this.MatchDaysDividedByMonths);
             },
 
+            MatchDaysSelector: function () {
+                this.ClearColoredDays();
+                this.PlayingMathMaker(this.ArrayMonthMaker());
+                this.CurrentDayMaker();
+            },
+
+            ClearColoredDays: function () {
+                for (let i = 0; i < this.Days.length; i++) {
+                    var theDay = $('#sp' + i);
+                    theDay.css('color', 'rgb(255, 255, 255)');
+                }
+            },
+
+            PlayingMathMaker: function (month) {
+                if (this.PlaingMonthChecker()) {
+                    for (let i = 0; i < this.MatchDaysDividedByMonths[month].length; i++) {
+                        var theDay = $('#sp' + ((this.DaysBefore - 1) + this.MatchDaysDividedByMonths[month][i].day));
+                        theDay.css('color', 'rgb(255, 0, 0)');
+                    }
+                }
+            },
+
+            ArrayMonthMaker: function () {
+                var startMonth = new Date(this.Season.year, 0, this.Season.firstMatchDay).getUTCMonth() + 1;
+                var month;
+                if (this.Season.month >= startMonth && this.Season.month <= 12) {
+                    month = this.Season.month - startMonth;
+                } else if (this.Season.month == 1) {
+                    month = 4;
+                }
+
+                return month;
+            },
+
+            PlaingMonthChecker: function () {
+                var startMonth = new Date(this.Season.year, 0, this.Season.firstMatchDay).getUTCMonth() + 1;
+                if ((this.Season.month >= startMonth && this.Season.month <= 12) || this.Season.month == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
+            CurrentDayMaker: function() {
+                var currentDay = $('#sp' + this.Index.toString());
+                if (this.Season.month == this.SinglePlayer.Month) {
+                    currentDay.css('color', 'rgb(91, 192, 245)');
+                }
+            },
 
             SeasonInit: function () {
                 this.Fixtures = vueSinglePlayer.Fixtures;
@@ -229,6 +347,11 @@
                             alert('Nieoczekiwany błąd');
                         }
                     })
+            },
+
+            JQuery: function () {
+                //$('#fixtureDialog').hide();
+                $('#calendarView').show()
             }
         },
         created: function () {
@@ -236,7 +359,7 @@
             this.SeasonInit();
         },
         mounted: function () {
-            $('#calendarView').show()
+            this.JQuery();
             this.FirstDay();
             this.SeasonStart();
         },
