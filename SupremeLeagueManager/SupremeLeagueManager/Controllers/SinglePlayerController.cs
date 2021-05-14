@@ -56,5 +56,10 @@ namespace SupremeLeagueManager.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult _MatchBoard()
+        {
+            return PartialView();
+        }
     }
 }

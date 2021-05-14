@@ -208,6 +208,7 @@
     <Content Include="Content\CSS\Global.css" />
     <Content Include="Content\CSS\Layout.css" />
     <Content Include="Content\CSS\SinglePlayer.css" />
+    <Content Include="Content\CSS\SinglePlayer_MatchBoard.css" />
     <Content Include="Content\CSS\SinglePlayer_Squad.css" />
     <Content Include="Content\CSS\TeamManagement.css" />
     <Content Include="Content\FontAwesome\css\all.css" />
@@ -747,6 +748,7 @@
     <Content Include="Views\SinglePlayer\_Squad_TeamSkills.cshtml" />
     <Content Include="Views\SinglePlayer\_Squad_FormationPitch.cshtml" />
     <Content Include="Views\SinglePlayer\_Squad_Sliders.cshtml" />
+    <Content Include="Views\SinglePlayer\_MatchBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

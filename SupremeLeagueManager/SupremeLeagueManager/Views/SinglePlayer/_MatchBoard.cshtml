@@ -1,0 +1,87 @@
+﻿
+<div id="matchBoardView">
+    <div class="text-center">
+        <h1>Week {{Season.week + 1}}</h1>
+        <div class="container-board">
+            <div class="row col-12 mt-1">
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0">
+                        {{Fixtures[0][0].Item1.Name }}  {{Fixtures[0][0].Item1.City }}
+                        <img v-bind:src="EmblemName(Fixtures[0][0].Item1.Name , Fixtures[0][0].Item1.City )" alt="Emblem" width="16" height="16" />
+                        vs
+                        <img v-bind:src="EmblemName(Fixtures[0][1].Item1.Name , Fixtures[0][1].Item1.City )" alt="Emblem" width="16" height="16" />
+                        {{Fixtures[0][1].Item1.Name }}  {{Fixtures[0][1].Item1.City }}
+                        
+                    </div>
+                </div>
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-3 p-0">
+                    <div class="pane pane-height p-0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var vueMatchBoard = new Vue({
+        el: '#matchBoardView',
+
+        data: {
+            Fixtures: [],
+            Season: { year: 0, week: 0, month: 0, day: 0, firstMatchDay: 0, numberOfRestDays: 0, monthName: '' },
+        },
+
+        methods: {
+            MatchWeek: function () {
+                return this.Fixtures[this.Season.week];
+            },
+
+            EmblemName: function (name, city) {
+                var fulName = name + city;
+                fulName = fulName.replace(" ", "");
+                return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
+            },
+        },
+
+        created: function () {
+
+        },
+
+
+        mounted: function () {
+            this.Fixtures = vueCalendar.Fixtures;
+            this.Season = vueCalendar.Season;
+          
+            console.log(this.Fixtures);
+            console.log(this.Fixtures[0][0].Item1.Name );
+        }
+    });
+
+</script>
