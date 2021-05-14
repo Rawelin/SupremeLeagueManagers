@@ -1,8 +1,22 @@
 ﻿.container-board {
-    margin: auto 5%;
+    margin: auto 3%;
+    font-size: 16px;
+}
+
+.container-board img {
+   width: 20px;
+   height: 20px;
 }
 
 .pane-height {
     height: 15em;
     margin: 1px;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-40 {
+    width: 45%;
 }

@@ -1,46 +1,23 @@
 ﻿
-<div id="matchBoardView">
+<div id="matchBoardView" style="display: none">
     <div class="text-center">
         <h1>Week {{Season.week + 1}}</h1>
         <div class="container-board">
-            <div class="row col-12 mt-1">
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0">
-                        {{Fixtures[0][0].Item1.Name }}  {{Fixtures[0][0].Item1.City }}
-                        <img v-bind:src="EmblemName(Fixtures[0][0].Item1.Name , Fixtures[0][0].Item1.City )" alt="Emblem" width="16" height="16" />
-                        vs
-                        <img v-bind:src="EmblemName(Fixtures[0][1].Item1.Name , Fixtures[0][1].Item1.City )" alt="Emblem" width="16" height="16" />
-                        {{Fixtures[0][1].Item1.Name }}  {{Fixtures[0][1].Item1.City }}
-                        
+            <div class="row col-12">
+                <div class="col-4 p-0" v-for="(value, index) in MatchWeek()">
+                    <div class="pane pane-height p-0 pt-3">
+                        <div class="row col-12">
+                            <div class="text-right w-50">
+                                {{ value.Item1.Name }} {{ value.Item1.City }}
+                                <img v-bind:src="EmblemName(value.Item1.Name, value.Item1.City)" alt="Emblem" />
+                            </div>
+                            <div class="text-center w-10">vs</div>
+                            <div class="text-left w-45">
+                                <img v-bind:src="EmblemName(value.Item2.Name, value.Item2.City)" alt="Emblem" />
+                                {{ value.Item2.Name }}  {{ value.Item2.City }}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
-                </div>
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
-                </div>
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
-                </div>
-            </div>
-            <div class="row col-12">
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
-                </div>
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
-                </div>
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
-                </div>
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
-                </div>
-            </div>
-            <div class="row col-12">
-                <div class="col-3 p-0">
-                    <div class="pane pane-height p-0"></div>
                 </div>
             </div>
         </div>
@@ -71,16 +48,12 @@
         },
 
         created: function () {
-
-        },
-
-
-        mounted: function () {
             this.Fixtures = vueCalendar.Fixtures;
             this.Season = vueCalendar.Season;
-          
-            console.log(this.Fixtures);
-            console.log(this.Fixtures[0][0].Item1.Name );
+        },
+
+        mounted: function () {
+            $('#matchBoardView').show();
         }
     });
 
