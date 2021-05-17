@@ -1,4 +1,5 @@
 ﻿using SupremeLeagueManager.Models.Global_Models;
+using SupremeLeagueManager.Models.Match;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,6 +31,7 @@ namespace SupremeLeagueManager.Models
         public int AttackLevel { get; set; }
         public List<Player> Players { get; set; }
         public TeamSkillsModel TeamSkillsModel { get; set; }
+        public MatchStatistics MatchStatistics { get; set; } = new MatchStatistics();
 
         public Team()
         {

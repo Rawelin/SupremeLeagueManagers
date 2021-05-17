@@ -13,6 +13,28 @@
     margin: 1px;
 }
 
+.simulate {
+    margin-top:1px;
+    font-size: 18px;
+    font-weight: bold;
+}
+    .simulate:hover {
+        color: rgb(91, 192, 245);
+        border: 1px solid rgb(91, 192, 245);
+        cursor: pointer;
+    }
+
+.scorers {
+    margin-top: 0.2em;
+    font-size: 12px;
+    line-height: 120%
+}
+
+.assistants {
+    font-size: 11px;
+}
+
+
 .w-10 {
     width: 10%;
 }

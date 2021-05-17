@@ -205,7 +205,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                       CountryId = t.IdCountries,
                                       Pressing = (int)t.Pressing,
                                       AttackLevel = (int)t.AttackLevel,
-                                      Aggression = (int)(t.Aggression)
+                                      Aggression = (int)(t.Aggression),
                                   })
                                   .ToList();
                 }
@@ -231,6 +231,7 @@ namespace SupremeLeagueManager.Models.TeamManagement
                                                     t.Active == 1)
                                          .Select(t => new TeamSinglePlayerM
                                          {
+                                             IdTeam = t.IdTeam,
                                              IdDictTeams = t.IdDictTeams,
                                              IdCountries = t.IdCountries,
                                              IdDictFormations = t.IdDictFormations,
