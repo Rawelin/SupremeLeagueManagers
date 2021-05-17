@@ -1,6 +1,6 @@
 ﻿
 <div id="calendarView" style="display: none">
-    <h1 class="text-center">Calendar</h1>
+    @*<h1 class="text-center">Calendar</h1>*@
     <div id="calendar" class="calendar">
         <div class="month">
             <ul>
@@ -25,7 +25,7 @@
             <li v-for="(value, index) in Days" v-on:mouseover="Fixture(value)" v-on:mouseleave="HideFixture()"><span :id="'sp' + index">{{value}}</span></li>
         </ul>
         <div class="text-center">
-            <div id="nextDayBtn" class="nextday" v-on:click="NextDay()">Next Day</div>
+            <div id="nextDayBtn" class="nextday pane" v-on:click="NextDay()">Next Day</div>
         </div>
     </div>
 

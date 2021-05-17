@@ -1,5 +1,6 @@
 ﻿using SupremeLeagueManager.Models.Global;
 using SupremeLeagueManager.Models.Home;
+using SupremeLeagueManager.Models.Match;
 using SupremeLeagueManager.Models.SignIn;
 using SupremeLeagueManager.Models.SinglePlayer.Models;
 using System;
@@ -28,12 +29,12 @@ namespace SupremeLeagueManager.Models.SinglePlayer
         {
             try
             {
-
                 SinglePlayerVM.AllFixtures = new League.Fixture().GetAllFixtures();
                 SinglePlayerVM.Teams = CRUD.GetAllTeamsSinglePlayer();
                 SinglePlayerVM.SinglePlayer = new SinglePlayerGame().GetSinglePlayer();
                 SinglePlayerVM.Table = new Table().GetTable();
                 SinglePlayerVM.User = UserContext.GetUser();
+                SinglePlayerVM.MatchStatistics = new MatchStatistics();
             }
             catch (Exception ex)
             {

@@ -192,7 +192,7 @@ function MatchAlhorithms(HomeTeam, AwayTeam, MatchStatistics) {
     MatchStatistics.HomePressing = MatchStatistics.ProgressBarPressing;
     MatchStatistics.AwayPressing = 100 - MatchStatistics.HomePressing;
 
-    console.log(MatchStatistics.ProgressBarPressing)
+ /*   console.log(MatchStatistics.ProgressBarPressing)*/
 }
 
 function DynamicEnergyCalc(Team) {
@@ -448,7 +448,7 @@ function getStriker(MatchStatistics, Team, Home) {
         MatchStatistics.HomeShotsOnTarget += shotOnTarget;
         MatchStatistics.HomeShotsOffTarget += shotOffTarget;
         MatchStatistics.HomeGoals += goal;
-        homeComment(MatchStatistics, TeamTmp, commentary, goal);
+       /* homeComment(MatchStatistics, TeamTmp, commentary, goal);*/
         if (goal) {
 
             var Scorer = {}
@@ -462,7 +462,7 @@ function getStriker(MatchStatistics, Team, Home) {
         MatchStatistics.AwayShotsOnTarget += shotOnTarget;
         MatchStatistics.AwayGoals += goal;
         MatchStatistics.AwayShotsOffTarget += shotOffTarget;
-        awayComment(MatchStatistics, TeamTmp, commentary, goal); 
+       /* awayComment(MatchStatistics, TeamTmp, commentary, goal); */
         if (goal) {
 
             var Scorer = {}

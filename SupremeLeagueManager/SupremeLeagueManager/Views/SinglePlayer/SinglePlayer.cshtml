@@ -89,6 +89,7 @@
             SinglePlayer: {},
             User: {},
             Team: {},
+            MatchStatistics: {},
             Position: 0
         },
 
@@ -158,6 +159,7 @@
            this.User =  @Html.Raw(Json.Encode(Model.User));
            this.Table =  @Html.Raw(Json.Encode(Model.Table));
            this.Fixtures = @Html.Raw(Json.Encode(Model.AllFixtures));
+           this.MatchStatistics = @Html.Raw(Json.Encode(Model.MatchStatistics));
            this.Team = this.Table.find(t => t.IdDictTeams == this.SinglePlayer.IdTeam);
            this.Position = this.Table.findIndex(t => t.IdDictTeams == this.SinglePlayer.IdTeam) + 1;
        },

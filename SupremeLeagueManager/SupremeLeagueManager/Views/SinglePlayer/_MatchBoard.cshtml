@@ -10,29 +10,52 @@
                             <div class="text-right w-50">
                                 {{ value.Item1.Name }} {{ value.Item1.City }}
                                 <img v-bind:src="EmblemName(value.Item1.Name, value.Item1.City)" alt="Emblem" />
+                                {{ value.Item1.MatchStatistics.HomeGoals }}
+                                <div v-for="scorer in  value.Item1.MatchStatistics.HomeScorers" class="scorers">
+                                    {{ scorer.ScorerData }}
+                                    <div class="assistants"><em>({{ scorer.AssistantName }})</em></div>
+                                </div>
                             </div>
                             <div class="text-center w-10">vs</div>
                             <div class="text-left w-45">
+                                {{ value.Item2.MatchStatistics.AwayGoals }}
                                 <img v-bind:src="EmblemName(value.Item2.Name, value.Item2.City)" alt="Emblem" />
                                 {{ value.Item2.Name }}  {{ value.Item2.City }}
+                                <div v-for="scorer in  value.Item2.MatchStatistics.AwayScorers" class="scorers">
+                                    {{ scorer.ScorerData }}
+                                    <div class="assistants"><em>({{ scorer.AssistantName }})</em></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-4 p-0"></div>
+                <div class="text-center col-4 p-0">
+                    <div class="simulate pane" v-on:click="Simulate()">Simulate</div>
+                </div>
+                <div class="col-4 p-0"></div>
             </div>
         </div>
     </div>
 </div>
 
-
+<script src="~/Scripts/GlobalFunctions/ComputerAI.js"></script>
+<script src="~/Scripts/GlobalFunctions/MatchAlgorithms.js"></script>
 <script type="text/javascript">
 
     var vueMatchBoard = new Vue({
         el: '#matchBoardView',
 
         data: {
+            Teams: [],
             Fixtures: [],
+            HomeTeam: {},
+            AwayTeam: {},
+            UserTeam: {},
+            SinglePlayer: {},
+            MatchStatistics: {},
             Season: { year: 0, week: 0, month: 0, day: 0, firstMatchDay: 0, numberOfRestDays: 0, monthName: '' },
+            Index: 0
         },
 
         methods: {
@@ -45,15 +68,86 @@
                 fulName = fulName.replace(" ", "");
                 return fulName = '/Content/Resources/Emblems/' + fulName + '.png';
             },
+
+            Simulate: function () {
+
+                var numberOfMatches = this.Fixtures[this.Season.week].length;
+
+                /*   alert(this.Index);*/
+
+                /*    for (var i = this.Index; i < 1; i++) {*/
+
+                this.IfUserTeam();
+                this.SetTeams();
+
+
+                this.MatchStatistics.MatchLength = Math.floor(Math.random() * 6) + 90
+                this.MatchStatistics.IntervalId = setInterval(this.CounterStart, 0);
+
+                /* }*/
+
+                /* console.log('ms', this.MatchStatistics);*/
+                /*console.log(this.MatchStatistics);*/
+
+            },
+
+            IfUserTeam: function () {
+                if (this.Fixtures[this.Season.week][this.Index].Item1.TeamId == this.UserTeam.TeamId) {
+                    return true;
+                }
+                if (this.Fixtures[this.Season.week][this.Index].Item2.TeamId == this.UserTeam.TeamId) {
+                    return true;
+                }
+            },
+
+            SetTeams: function () {
+                var homeTeamId = this.Fixtures[this.Season.week][this.Index].Item1.TeamId
+                var awayTeamId = this.Fixtures[this.Season.week][this.Index].Item2.TeamId
+
+                this.HomeTeam = this.Teams.find(t => t.TeamId == homeTeamId)
+                this.AwayTeam = this.Teams.find(t => t.TeamId == awayTeamId)
+
+                console.log(this.HomeTeam);
+                console.log(this.AwayTeam);
+            },
+
+            CounterStart: function () {
+                this.MatchStatistics.Counter++;
+                if (this.MatchStatistics.Counter == this.MatchStatistics.MatchLength) {
+                    clearInterval(this.MatchStatistics.IntervalId);
+                /*    setInterval(NextMatch, 0);*/
+                 this.NextMatch();
+
+                    
+                }
+                //else if (this.MatchStatistics.Counter == (this.MatchStatistics.MatchLength / 2).toFixed(0)) {
+                //    this.PauseMatch();
+
+                //}
+                MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics);
+
+            },
+
+            NextMatch: function () {
+                this.Fixtures[this.Season.week][this.Index].Item1.MatchStatistics = this.MatchStatistics;
+                this.Fixtures[this.Season.week][this.Index].Item2.MatchStatistics = this.MatchStatistics;
+                this.Index++;
+            }
         },
 
         created: function () {
             this.Fixtures = vueCalendar.Fixtures;
             this.Season = vueCalendar.Season;
+            this.Teams = vueSinglePlayer.Teams;
+            this.SinglePlayer = vueCalendar.SinglePlayer;
+            this.UserTeam = vueSinglePlayer.Teams.find(t => t.TeamId == this.SinglePlayer.IdTeam);
+            this.MatchStatistics = vueSinglePlayer.MatchStatistics;
         },
 
         mounted: function () {
             $('#matchBoardView').show();
+            console.log(this.Teams);
+            console.log(this.Fixtures);
         }
     });
 

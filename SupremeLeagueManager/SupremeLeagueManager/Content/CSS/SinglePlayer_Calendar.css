@@ -92,8 +92,6 @@ ul {
 .nextday {
     font-size: 18px;
     font-weight: bold;
-    border: 1px solid white;
-    /*margin: 0 20% 0 20%;*/
 }
 
     .nextday:hover {
