@@ -226,6 +226,9 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\LoadingModal\css\jquery.loadingModal.css" />
+    <Content Include="Content\LoadingModal\js\jquery.loadingModal.js" />
+    <Content Include="Content\LoadingModal\ReadMe.txt" />
     <Content Include="Content\Resources\Backgrounds\back2.jpg" />
     <Content Include="Content\Resources\Backgrounds\black cubs.jpg" />
     <Content Include="Content\Resources\Backgrounds\black.jpg" />

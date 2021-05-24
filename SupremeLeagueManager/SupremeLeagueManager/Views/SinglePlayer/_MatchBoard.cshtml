@@ -54,6 +54,7 @@
             UserTeam: {},
             SinglePlayer: {},
             MatchStatistics: {},
+            Template: {},
             Season: { year: 0, week: 0, month: 0, day: 0, firstMatchDay: 0, numberOfRestDays: 0, monthName: '' },
             Index: 0
         },
@@ -70,20 +71,32 @@
             },
 
             Simulate: function () {
-
+              
                 var numberOfMatches = this.Fixtures[this.Season.week].length;
 
                 /*   alert(this.Index);*/
 
-                /*    for (var i = this.Index; i < 1; i++) {*/
+                /*    for (let i = this.Index; i < 1; i++) {*/
 
                 this.IfUserTeam();
                 this.SetTeams();
 
+              /*  for (let i = 0; i < numberOfMatches; i++) {*/
+                    this.MatchStatistics.MatchLength = Math.floor(Math.random() * 6) + 90
+                    this.MatchStatistics.IntervalId = setInterval(this.CounterStart, 0);
+                /*}*/
 
-                this.MatchStatistics.MatchLength = Math.floor(Math.random() * 6) + 90
-                this.MatchStatistics.IntervalId = setInterval(this.CounterStart, 0);
-
+                //for (let i = 0; i < this.MatchStatistics.MatchLength; i++) {
+                //    this.MatchStatistics.Counter++;
+                //    MatchAlhorithms(this.HomeTeam, this.AwayTeam, this.MatchStatistics);
+                //    if (this.MatchStatistics.Counter == this.MatchStatistics.MatchLength) {
+                //        this.NextMatch();
+                //        this.index++;
+                //        this.MatchStatistics.Counter = 0;
+                //        break;
+                //    }
+                //}
+               /* console.log(this.Index);*/
                 /* }*/
 
                 /* console.log('ms', this.MatchStatistics);*/
@@ -112,9 +125,14 @@
             },
 
             CounterStart: function () {
+              
                 this.MatchStatistics.Counter++;
                 if (this.MatchStatistics.Counter == this.MatchStatistics.MatchLength) {
+                   /* this.Index++;*/
                     clearInterval(this.MatchStatistics.IntervalId);
+                    //console.log('end match', this.Index++);
+                    this.MatchStatistics.Counter = 0;
+
                 /*    setInterval(NextMatch, 0);*/
                  this.NextMatch();
 
@@ -129,19 +147,25 @@
             },
 
             NextMatch: function () {
-                this.Fixtures[this.Season.week][this.Index].Item1.MatchStatistics = this.MatchStatistics;
-                this.Fixtures[this.Season.week][this.Index].Item2.MatchStatistics = this.MatchStatistics;
+
+                let mathchStats = JSON.parse(JSON.stringify(this.MatchStatistics));
+                this.Fixtures[this.Season.week][this.Index].Item1.MatchStatistics = mathchStats;
+                this.Fixtures[this.Season.week][this.Index].Item2.MatchStatistics = mathchStats;
                 this.Index++;
+                this.MatchStatistics = JSON.parse(JSON.stringify(this.Template));  
+              
             }
         },
 
         created: function () {
+            this.MatchStatistics = vueSinglePlayer.MatchStatistics;
+            this.Template = JSON.parse(JSON.stringify(this.MatchStatistics));
             this.Fixtures = vueCalendar.Fixtures;
             this.Season = vueCalendar.Season;
             this.Teams = vueSinglePlayer.Teams;
             this.SinglePlayer = vueCalendar.SinglePlayer;
             this.UserTeam = vueSinglePlayer.Teams.find(t => t.TeamId == this.SinglePlayer.IdTeam);
-            this.MatchStatistics = vueSinglePlayer.MatchStatistics;
+          
         },
 
         mounted: function () {

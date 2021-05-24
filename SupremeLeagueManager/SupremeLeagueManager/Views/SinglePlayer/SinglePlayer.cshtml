@@ -138,13 +138,26 @@
             },
 
             Partial: function (str) {
+               /* this.ShowLoadingModal('content');*/
                 $.ajax({
                     url: str,
                     type: "GET",
                     contentType: "application/json",
                }).done(function (partialViewResult) {
-                    $("#content").html(partialViewResult);
+                   $("#content").html(partialViewResult);
+                   /*$('#content').loadingModal('destroy');*/
                })
+            },
+
+            ShowLoadingModal: function (canvasName) {
+                $("#" + canvasName.toString()).loadingModal({
+                    position: 'auto',
+                    text: 'Proszę czekać...',
+                    color: '#fff',
+                    opacity: '0.7',
+                    backgroundColor: 'rgb(0, 0, 0)',
+                    animation: 'circle'
+                })
             },
 
             ScrollOff: function () {
