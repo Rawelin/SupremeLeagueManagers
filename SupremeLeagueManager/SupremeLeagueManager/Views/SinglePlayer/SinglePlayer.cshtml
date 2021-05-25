@@ -138,14 +138,14 @@
             },
 
             Partial: function (str) {
-               /* this.ShowLoadingModal('content');*/
+             /*   vueSinglePlayer.ShowLoadingModal('content');*/
                 $.ajax({
                     url: str,
                     type: "GET",
                     contentType: "application/json",
                }).done(function (partialViewResult) {
                    $("#content").html(partialViewResult);
-                   /*$('#content').loadingModal('destroy');*/
+                 /*  $('#content').loadingModal('destroy');*/
                })
             },
 
